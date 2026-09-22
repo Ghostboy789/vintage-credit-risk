@@ -1,0 +1,36 @@
+# Raw data, Parquet and manifest -- real loan-level data, never committed (licence rule).
+# Anchored to the repo root so it does NOT match powerbi/data/ (that one stays tracked).
+/data/
+
+# dbt and model outputs -- regenerated from Parquet / dbt, gitignored, read by absolute path.
+marts_out/
+models_out/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# dbt
+/dbt/target/
+logs/
+
+# Never in the repo (standing rule 3 / 5).
+.claude/
+.env
+
+# Service-account / API key files should never be saved in the repo at all -- the real
+# credentials live outside it. Belt-and-braces only.
+*-key.json
+*_key.json
+*key*.json
+service-account*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
