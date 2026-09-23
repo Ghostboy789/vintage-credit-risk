@@ -3,8 +3,8 @@
 /data/
 
 # dbt and model outputs -- regenerated from Parquet / dbt, gitignored, read by absolute path.
-marts_out/
-models_out/
+/marts_out/
+/models_out/
 
 # Python
 .venv/
