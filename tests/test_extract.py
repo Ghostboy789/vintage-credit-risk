@@ -134,7 +134,7 @@ PERF_ROWS = [
 
 def test_detect_source_file():
     assert build_parquet.detect_source_file(Path("sample_orig_2001.txt")) == ("orig", 2001)
-    assert build_parquet.detect_source_file(Path("sample_svcg_2001.txt")) == ("perf", 2001)
+    assert build_parquet.detect_source_file(Path("sample_perf_2001.txt")) == ("perf", 2001)
     assert build_parquet.detect_source_file(Path("sample_2001.zip")) is None
     assert build_parquet.detect_source_file(Path("origination_sample_file.txt")) is None
 
@@ -151,7 +151,7 @@ def test_build_parquet_from_synthetic_rows(tmp_path):
     raw_dir.mkdir()
 
     (raw_dir / "sample_orig_2001.txt").write_text("\n".join(ORIG_ROWS) + "\n")
-    (raw_dir / "sample_svcg_2001.txt").write_text("\n".join(PERF_ROWS) + "\n")
+    (raw_dir / "sample_perf_2001.txt").write_text("\n".join(PERF_ROWS) + "\n")
     # A still-zipped file must be ignored, not processed -- A-data unzips, this script doesn't.
     (raw_dir / "sample_2001.zip").write_bytes(b"not a real zip, just checking it's skipped")
 
