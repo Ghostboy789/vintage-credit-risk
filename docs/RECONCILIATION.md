@@ -65,7 +65,7 @@ might need an explicit `bq mk` first) rather than anything wrong with the dbt pr
   tried against BigQuery, since the real build itself is blocked.
 - Bytes scanned per model and the size of each real mart Parquet (`fct_loan_month` included)
   **cannot be reported** -- they don't exist without the real build. Reporting a number here
-  would be fabricating it, which this project's rules forbid outright.
+  would be fabricating it, which this project never does.
 - `scripts/export_marts.py --target bq` and its per-model bytes-scanned report are written and
   are exactly what should be run once the build itself is unblocked; only the run is missing.
 

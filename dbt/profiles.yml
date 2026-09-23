@@ -1,0 +1,27 @@
+# Committed dbt profile: no secrets and no machine paths, every value comes from an
+# environment variable. Point DBT_PROFILES_DIR at this file's directory to use it.
+vintage:
+  target: ci
+  outputs:
+    ci:
+      # DuckDB over the synthetic fixtures (tests/test_dbt.py sets these env vars itself).
+      type: duckdb
+      path: "{{ env_var('VINTAGE_CI_DB') }}"
+      threads: 4
+    local:
+      # DuckDB over the real Parquet under VINTAGE_DATA_ROOT/data/parquet, for a local build
+      # while the real BigQuery build waits for approval (docs/RECONCILIATION.md).
+      type: duckdb
+      path: "{{ env_var('VINTAGE_LOCAL_DB') }}"
+      threads: 4
+      settings:
+        memory_limit: "{{ env_var('VINTAGE_LOCAL_DUCKDB_MEMORY', '8GB') }}"
+        temp_directory: "{{ env_var('VINTAGE_DUCKDB_TEMP') }}"
+    bq:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('VINTAGE_GCP_PROJECT') }}"
+      dataset: dbt_c
+      location: US
+      threads: 4
+      priority: interactive

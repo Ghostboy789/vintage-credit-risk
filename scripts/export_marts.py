@@ -1,10 +1,11 @@
 """Exports every dbt mart to marts_out/<name>.parquet under VINTAGE_DATA_ROOT and checks each
-one against CONTRACTS.md (tests/contracts.py). Works against either dbt target:
+one against CONTRACTS.md (tests/contracts.py). Works against any dbt target:
 
     python scripts/export_marts.py --target bq   # BigQuery dataset written by `dbt build`
-    python scripts/export_marts.py --target ci --duckdb-path <path>   # a DuckDB build
+    python scripts/export_marts.py --target ci --duckdb-path <path>      # a DuckDB ci build
+    python scripts/export_marts.py --target local --duckdb-path <path>  # a DuckDB local build
 
-Reports the bytes scanned for the BigQuery export (VALIDATION_PLAN / plan Part 4 ask).
+Reports the bytes scanned for the BigQuery export (the validation plan's reconciliation ask).
 """
 
 import argparse
@@ -69,8 +70,8 @@ def export_from_bigquery(project: str, dataset: str, out_dir: Path, marts: list[
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--target", choices=["bq", "ci"], required=True)
-    parser.add_argument("--duckdb-path", help="Required for --target ci")
+    parser.add_argument("--target", choices=["bq", "ci", "local"], required=True)
+    parser.add_argument("--duckdb-path", help="Required for --target ci/local")
     parser.add_argument("--project", help="GCP project; defaults to VINTAGE_GCP_PROJECT")
     parser.add_argument(
         "--dataset", default="dbt_c", help="dbt output dataset (matches profiles.yml)"
@@ -81,9 +82,9 @@ def main() -> None:
     out_dir = VINTAGE_DATA_ROOT / "marts_out"
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    if args.target == "ci":
+    if args.target in ("ci", "local"):
         if not args.duckdb_path:
-            parser.error("--duckdb-path is required for --target ci")
+            parser.error(f"--duckdb-path is required for --target {args.target}")
         export_from_duckdb(args.duckdb_path, out_dir, args.marts)
     else:
         import os

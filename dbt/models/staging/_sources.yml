@@ -1,81 +1,175 @@
 version: 2
 
 # Raw Freddie Mac tables. "bq" resolves these against the real BigQuery `raw`
-# dataset (loaded by scripts/load_bigquery.py). dbt-bigquery ignores unknown meta
-# keys, so the external_location on the four fixture years below is harmless there;
-# dbt-duckdb reads it to build the "ci" source straight off the Parquet the
-# extractor makes from the synthetic fixture raw files, with no separate load step.
+# dataset (loaded by scripts/load_bigquery.py) and ignores external_location, an
+# unknown meta key to that adapter. "ci" and "local" are dbt-duckdb targets with no
+# separate load step: external_location points each table straight at a Parquet
+# file -- the synthetic fixture on "ci" (VINTAGE_CI_PARQUET_ROOT), the real
+# extractor output under VINTAGE_DATA_ROOT/data/parquet on "local". Empty (and
+# harmless) on any other target.
 sources:
   - name: raw
     schema: raw
     tables:
       - name: orig_1999
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_1999.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_1999.parquet{% else %}{% endif %}"
       - name: perf_1999
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_1999.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_1999.parquet{% else %}{% endif %}"
       - name: orig_2000
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2000.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2000.parquet{% else %}{% endif %}"
       - name: perf_2000
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2000.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2000.parquet{% else %}{% endif %}"
       - name: orig_2001
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2001.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2001.parquet{% else %}{% endif %}"
       - name: perf_2001
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2001.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2001.parquet{% else %}{% endif %}"
       - name: orig_2002
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2002.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2002.parquet{% else %}{% endif %}"
       - name: perf_2002
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2002.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2002.parquet{% else %}{% endif %}"
       - name: orig_2003
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2003.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2003.parquet{% else %}{% endif %}"
       - name: perf_2003
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2003.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2003.parquet{% else %}{% endif %}"
       - name: orig_2004
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2004.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2004.parquet{% else %}{% endif %}"
       - name: perf_2004
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2004.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2004.parquet{% else %}{% endif %}"
       - name: orig_2005
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2005.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2005.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2005.parquet{% else %}{% endif %}"
       - name: perf_2005
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2005.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2005.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2005.parquet{% else %}{% endif %}"
       - name: orig_2006
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2006.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2006.parquet{% else %}{% endif %}"
       - name: perf_2006
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2006.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2006.parquet{% else %}{% endif %}"
       - name: orig_2007
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2007.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2007.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2007.parquet{% else %}{% endif %}"
       - name: perf_2007
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2007.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2007.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2007.parquet{% else %}{% endif %}"
       - name: orig_2008
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2008.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2008.parquet{% else %}{% endif %}"
       - name: perf_2008
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2008.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2008.parquet{% else %}{% endif %}"
       - name: orig_2009
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2009.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2009.parquet{% else %}{% endif %}"
       - name: perf_2009
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2009.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2009.parquet{% else %}{% endif %}"
       - name: orig_2010
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2010.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2010.parquet{% else %}{% endif %}"
       - name: perf_2010
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2010.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2010.parquet{% else %}{% endif %}"
       - name: orig_2011
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2011.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2011.parquet{% else %}{% endif %}"
       - name: perf_2011
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2011.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2011.parquet{% else %}{% endif %}"
       - name: orig_2012
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2012.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2012.parquet{% else %}{% endif %}"
       - name: perf_2012
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2012.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2012.parquet{% else %}{% endif %}"
       - name: orig_2013
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2013.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2013.parquet{% else %}{% endif %}"
       - name: perf_2013
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2013.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2013.parquet{% else %}{% endif %}"
       - name: orig_2014
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2014.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2014.parquet{% else %}{% endif %}"
       - name: perf_2014
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2014.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2014.parquet{% else %}{% endif %}"
       - name: orig_2015
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2015.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2015.parquet{% else %}{% endif %}"
       - name: perf_2015
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2015.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2015.parquet{% else %}{% endif %}"
       - name: orig_2016
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2016.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2016.parquet{% else %}{% endif %}"
       - name: perf_2016
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2016.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2016.parquet{% else %}{% endif %}"
       - name: orig_2017
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2017.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2017.parquet{% else %}{% endif %}"
       - name: perf_2017
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2017.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2017.parquet{% else %}{% endif %}"
       - name: orig_2018
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2018.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2018.parquet{% else %}{% endif %}"
       - name: perf_2018
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2018.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2018.parquet{% else %}{% endif %}"
       - name: orig_2019
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2019.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2019.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2019.parquet{% else %}{% endif %}"
       - name: perf_2019
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2019.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2019.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2019.parquet{% else %}{% endif %}"
       - name: orig_2020
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2020.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2020.parquet{% else %}{% endif %}"
       - name: perf_2020
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2020.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2020.parquet{% else %}{% endif %}"
       - name: orig_2021
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2021.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2021.parquet{% else %}{% endif %}"
       - name: perf_2021
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2021.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2021.parquet{% else %}{% endif %}"
       - name: orig_2022
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2022.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2022.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2022.parquet{% else %}{% endif %}"
       - name: perf_2022
         meta:
-          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2022.parquet"
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2022.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2022.parquet{% else %}{% endif %}"
       - name: orig_2023
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2023.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2023.parquet{% else %}{% endif %}"
       - name: perf_2023
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2023.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2023.parquet{% else %}{% endif %}"
       - name: orig_2024
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2024.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2024.parquet{% else %}{% endif %}"
       - name: perf_2024
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2024.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2024.parquet{% else %}{% endif %}"
       - name: orig_2025
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2025.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/orig_2025.parquet{% else %}{% endif %}"
       - name: perf_2025
+        meta:
+          external_location: "{% if target.name == 'ci' %}{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2025.parquet{% elif target.name == 'local' %}{{ env_var('VINTAGE_DATA_ROOT') }}/data/parquet/perf_2025.parquet{% else %}{% endif %}"
