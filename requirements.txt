@@ -10,3 +10,6 @@ ruff==0.16.8
 
 # docs/scripts (reading the Freddie Mac file layout spreadsheet)
 openpyxl==3.1.5
+
+# fixtures (scripts/make_fixtures.py)
+numpy==2.4.6
