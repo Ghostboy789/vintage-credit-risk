@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/.dbt
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write a CI-only dbt profile (DuckDB, no BigQuery, no credentials)
+        run: |
+          mkdir -p "$DBT_PROFILES_DIR"
+          cat > "$DBT_PROFILES_DIR/profiles.yml" <<'EOF'
+          vintage:
+            target: ci
+            outputs:
+              ci:
+                type: duckdb
+                path: "${VINTAGE_CI_DB}"
+                threads: 4
+          EOF
+
+      - name: ruff
+        run: ruff check .
+
+      - name: pytest (builds and tests the dbt project on the ci target, DuckDB + synthetic fixtures)
+        run: pytest -q
+
+      # This project never touches BigQuery or real Freddie Mac data in CI (standing rule 6/12):
+      # no gcloud auth, no VINTAGE_GCP_PROJECT, no service-account key anywhere in this file.

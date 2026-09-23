@@ -1,0 +1,118 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "One row per calendar month, 1999-01 to the data cutoff, with the economic period label and the L1 market note rate (median rate of long-term loans first paid that month, carried forward when a month has none)."
+    columns:
+      - name: month
+        description: "First day of the month. Key."
+        tests: [unique, not_null]
+      - name: economic_period
+        description: "pre_crisis / crisis / recovery / covid / recent, fixed date bands."
+      - name: market_rate_pct
+        description: "L1's market rate for the hazard model's rate-incentive covariate."
+      - name: market_rate_carried_forward
+        description: "True when this month had no long-term originations and the rate was carried forward from an earlier month."
+
+  - name: dim_loan
+    description: "One row per loan (origination file), with candidate scorecard features, sentinel-coded missing values nulled, and the loan's terminal outcome (D5/D8)."
+    columns:
+      - name: loan_id
+        description: "Freddie Mac loan identifier. Key."
+        tests: [unique, not_null]
+      - name: rate_spread_pct
+        description: "note_rate_pct minus the median note rate of loans with the same first-payment month and term group (<=180 or >180 months). The scorecard feature; the raw note rate itself is not a candidate (section 3)."
+      - name: exit_type
+        description: "D5 exit classification off the terminal Zero Balance Code; null while active."
+        tests:
+          - accepted_values:
+              values: ['prepaid', 'matured', 'credit_event', 'other_exit']
+              config:
+                where: "exit_type is not null"
+
+  - name: fct_loan_month
+    description: "The loan-month panel (analysis #1). One row per loan per reporting month, with the D9 delinquency bucket/SMA mapping, the D1(+D3) primary default trigger and D4 cure, and the running in_default episode state."
+    columns:
+      - name: loan_id
+        tests:
+          - relationships:
+              to: ref('dim_loan')
+              field: loan_id
+      - name: dpd_bucket
+        description: "D9 bucket off the reported delinquency status."
+        tests:
+          - accepted_values:
+              values: ['current', 'dpd_30', 'dpd_60', 'dpd_90p', 'reo', 'unknown']
+      - name: sma_class
+        description: "D9's RBI SMA-0/1/2/NPA mapping of dpd_bucket (SMA-0 not separable from current, see CONTRACTS.md)."
+        tests:
+          - accepted_values:
+              values: ['standard_or_sma_0', 'sma_1', 'sma_2', 'npa', 'unknown']
+      - name: current_upb
+        tests: [not_null]
+      - name: in_default
+        description: "D1 default episode open (from the trigger month to the cure month exclusive); re-defaults open a new episode. See the model's header comment for how this is computed without recursion."
+      - name: at_risk_at_start
+        description: "At risk of a first default at the start of the month (default_rate's denominator, R7's metric definition)."
+    # (loan_id, period) composite-key uniqueness and "balances >= 0" are checked in
+    # tests/test_dbt.py, which is easier to read than a dbt_utils.unique_combination_of_columns
+    # test this project doesn't otherwise depend on.
+
+  - name: fct_default_events
+    description: "One row per loan per default definition (D1 primary, D2 naive), first occurrence only, with EAD (D7) and the D8 resolution classification."
+    columns:
+      - name: definition
+        tests:
+          - accepted_values:
+              values: ['primary', 'naive']
+      - name: resolution
+        description: "D8's first-that-applies terminal classification, same for both definitions (it's a property of the loan's actual disposition, not of how the default was found)."
+        tests:
+          - accepted_values:
+              values: ['defect_settlement', 'credit_event_loss', 'paid_off', 'other_exit', 'cured_active', 'open']
+      - name: loan_id
+        tests:
+          - relationships:
+              to: ref('dim_loan')
+              field: loan_id
+
+  - name: fct_loss_events
+    description: "D8's LGD sample frame -- one row per resolved primary default (resolution in credit_event_loss, paid_off) -- with the three LGD measures (economic, undiscounted, gross-of-MI)."
+    columns:
+      - name: loan_id
+        tests:
+          - unique
+          - relationships:
+              to: ref('dim_loan')
+              field: loan_id
+      - name: disposition_type
+        tests:
+          - accepted_values:
+              values: ['third_party_sale', 'short_sale_chargeoff', 'reo_disposition', 'whole_loan_sale', 'paid_off']
+      - name: lgd_economic
+        description: "Primary LGD measure (D8): discounted net recovery at the loan's note rate, 0 by definition for paid_off resolutions."
+
+  - name: fct_vintage_curve
+    description: "Analysis #2 -- cumulative default and loss rate by months on book, per origination quarter, with the fixed n_loans denominator and a fully_observed flag so vintages are only compared where every one of them has reached that months on book."
+
+  - name: fct_roll_rates
+    description: "Analysis #3 -- the month-to-month delinquency-bucket transition matrix. Rates over to_state sum to 1 per (period, vintage_year, from_bucket, from_forbearance) cell."
+
+  - name: fct_scorecard_base
+    description: "P1/P2/D6 -- one row per loan at origination with its 12-month primary and naive outcome and its scorecard sample label, assigned in the fixed order (excluded, dev_train/dev_test, gap, covid, oot)."
+    columns:
+      - name: loan_id
+        tests: [unique, not_null]
+      - name: sample
+        tests:
+          - accepted_values:
+              values: ['dev_train', 'dev_test', 'gap', 'covid', 'oot', 'excluded']
+
+  - name: fct_stage_inputs
+    description: "E1/L2 -- one row per loan per quarter-end for loans on book that month, with the dbt-computed stage floor (the Python PD-deterioration rule in E1 is applied on top, downstream of this project) and the L2 behavioural-PD target columns."
+
+  - name: metrics_monthly
+    description: "R7's reference totals -- one row per reporting month, matching the MetricFlow metrics in models/semantic/_semantic.yml column for column."
+
+  - name: fct_ecl
+    description: "ECL by reporting date, scenario, grade and stage, built from the loss engine's ecl_results model output (a dbt source, not owned by this project). Excluded from the real bq build until that source table exists; builds on ci against the synthetic fixture."

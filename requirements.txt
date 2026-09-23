@@ -20,3 +20,11 @@ statsmodels==0.15.0
 scikit-learn==1.9.1
 lightgbm==4.7.0
 scipy==1.17.1
+
+# dbt on BigQuery (dbt/), CI runs the "ci" target on dbt-duckdb over synthetic fixtures
+dbt-core==1.12.5
+dbt-bigquery==1.12.1
+dbt-duckdb==1.11.0
+dbt-metricflow==0.15.0
+metricflow==0.213.0
+google-cloud-bigquery==3.45.2  # scripts/export_marts.py's --target bq path only

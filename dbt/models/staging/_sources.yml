@@ -1,0 +1,81 @@
+version: 2
+
+# Raw Freddie Mac tables. "bq" resolves these against the real BigQuery `raw`
+# dataset (loaded by scripts/load_bigquery.py). dbt-bigquery ignores unknown meta
+# keys, so the external_location on the four fixture years below is harmless there;
+# dbt-duckdb reads it to build the "ci" source straight off the Parquet the
+# extractor makes from the synthetic fixture raw files, with no separate load step.
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: orig_1999
+      - name: perf_1999
+      - name: orig_2000
+      - name: perf_2000
+      - name: orig_2001
+      - name: perf_2001
+      - name: orig_2002
+      - name: perf_2002
+      - name: orig_2003
+      - name: perf_2003
+      - name: orig_2004
+      - name: perf_2004
+      - name: orig_2005
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2005.parquet"
+      - name: perf_2005
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2005.parquet"
+      - name: orig_2006
+      - name: perf_2006
+      - name: orig_2007
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2007.parquet"
+      - name: perf_2007
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2007.parquet"
+      - name: orig_2008
+      - name: perf_2008
+      - name: orig_2009
+      - name: perf_2009
+      - name: orig_2010
+      - name: perf_2010
+      - name: orig_2011
+      - name: perf_2011
+      - name: orig_2012
+      - name: perf_2012
+      - name: orig_2013
+      - name: perf_2013
+      - name: orig_2014
+      - name: perf_2014
+      - name: orig_2015
+      - name: perf_2015
+      - name: orig_2016
+      - name: perf_2016
+      - name: orig_2017
+      - name: perf_2017
+      - name: orig_2018
+      - name: perf_2018
+      - name: orig_2019
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2019.parquet"
+      - name: perf_2019
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2019.parquet"
+      - name: orig_2020
+      - name: perf_2020
+      - name: orig_2021
+      - name: perf_2021
+      - name: orig_2022
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/orig_2022.parquet"
+      - name: perf_2022
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_PARQUET_ROOT', '') }}/perf_2022.parquet"
+      - name: orig_2023
+      - name: perf_2023
+      - name: orig_2024
+      - name: perf_2024
+      - name: orig_2025
+      - name: perf_2025
