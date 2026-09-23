@@ -14,7 +14,6 @@ from models.loss.macro import Macro
 from tests import contracts as C
 
 FIX = Path(__file__).resolve().parent / "fixtures"
-HAS_SCORES = (FIX / "models_out" / "loan_scores.parquet").exists()
 
 
 # --- E4a: ECL = PD x LGD x EAD x discount on hand-worked loans --------------------------------
@@ -217,8 +216,6 @@ def test_macro_scenarios():
 # --- end to end on the synthetic fixtures ------------------------------------------------------
 @pytest.fixture(scope="module")
 def fixture_ctx():
-    if not HAS_SCORES:
-        pytest.skip("tests/fixtures/models_out is not committed: run scripts/make_fixtures.py")
     return R.prepare(FIX / "marts", FIX / "models_out", n_draws=3)
 
 
