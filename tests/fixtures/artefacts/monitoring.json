@@ -5,6 +5,7 @@
  "generated_at": "2026-09-23T00:00:00Z",
  "data_cutoff": "2026-03-01",
  "code_version": "fixture",
+ "suppressed_cells": 0,
  "model_id": "fixture-scorecard",
  "thresholds": {
   "stable_below": 0.1,
@@ -13,6 +14,7 @@
  "score_psi": [
   {
    "comparison": "dev_train_vs_oot",
+   "n_bins": 10,
    "psi": {
     "value": 0.14,
     "ci_low": 0.11000000000000001,
@@ -24,6 +26,7 @@
   },
   {
    "comparison": "dev_train_vs_2016",
+   "n_bins": 10,
    "psi": {
     "value": 0.05,
     "ci_low": 0.030000000000000002,
@@ -35,6 +38,7 @@
   },
   {
    "comparison": "dev_train_vs_2017",
+   "n_bins": 10,
    "psi": {
     "value": 0.060000000000000005,
     "ci_low": 0.04000000000000001,
@@ -46,6 +50,7 @@
   },
   {
    "comparison": "dev_train_vs_2018",
+   "n_bins": 10,
    "psi": {
     "value": 0.07,
     "ci_low": 0.05,
@@ -57,6 +62,7 @@
   },
   {
    "comparison": "dev_train_vs_2019",
+   "n_bins": 10,
    "psi": {
     "value": 0.08,
     "ci_low": 0.06,
@@ -68,6 +74,7 @@
   },
   {
    "comparison": "dev_train_vs_2020",
+   "n_bins": 10,
    "psi": {
     "value": 0.09,
     "ci_low": 0.06999999999999999,
@@ -79,6 +86,7 @@
   },
   {
    "comparison": "dev_train_vs_2021",
+   "n_bins": 10,
    "psi": {
     "value": 0.1,
     "ci_low": 0.08,
@@ -90,6 +98,7 @@
   },
   {
    "comparison": "dev_train_vs_2022",
+   "n_bins": 10,
    "psi": {
     "value": 0.11,
     "ci_low": 0.09,
@@ -101,6 +110,7 @@
   },
   {
    "comparison": "dev_train_vs_2023",
+   "n_bins": 10,
    "psi": {
     "value": 0.12000000000000001,
     "ci_low": 0.1,
@@ -112,6 +122,7 @@
   },
   {
    "comparison": "dev_train_vs_2024",
+   "n_bins": 10,
    "psi": {
     "value": 0.13,
     "ci_low": 0.11,

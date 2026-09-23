@@ -35,7 +35,14 @@ ECONOMIC_PERIODS = ["pre_crisis", "crisis", "recovery", "covid", "recent"]
 SAMPLES = ["dev_train", "dev_test", "gap", "oot", "covid", "excluded"]
 EXCLUSION_REASONS = ["harp", "indeterminate_exit", "window_incomplete"]
 DEFAULT_TRIGGERS = ["dpd90", "reo", "credit_event_zbc"]
-RESOLUTIONS = ["credit_event_loss", "paid_off", "other_exit", "cured_active", "open"]
+RESOLUTIONS = [
+    "defect_settlement",
+    "credit_event_loss",
+    "paid_off",
+    "other_exit",
+    "cured_active",
+    "open",
+]
 DISPOSITION_TYPES = [
     "third_party_sale",
     "short_sale_chargeoff",
@@ -84,6 +91,7 @@ MARTS: dict[str, dict] = {
             "is_quarter_end": ("bool", False),
             "economic_period": ("string", False, ECONOMIC_PERIODS),
             "market_rate_pct": ("float", True),
+            "market_rate_carried_forward": ("bool", False),
         },
     },
     "dim_loan": {
@@ -119,6 +127,7 @@ MARTS: dict[str, dict] = {
             "last_period": ("date", False),
             "terminal_zero_balance_code": ("int", True, [1, 2, 3, 9, 15, 16, 96]),
             "exit_type": ("string", True, EXIT_TYPES),
+            "defect_settlement_date": ("date", True),
         },
     },
     "fct_loan_month": {
@@ -147,7 +156,7 @@ MARTS: dict[str, dict] = {
             "is_first_default_month": ("bool", False),
             "in_default": ("bool", False),
             "is_cure_month": ("bool", False),
-            "performing_at_start": ("bool", False),
+            "at_risk_at_start": ("bool", False),
             "recent_dpd30_12m": ("bool", False),
             "zero_balance_code": ("int", True, [1, 2, 3, 9, 15, 16, 96]),
             "exit_type": ("string", True, EXIT_TYPES),
@@ -168,6 +177,7 @@ MARTS: dict[str, dict] = {
             "cure_period": ("date", True),
             "resolution": ("string", False, RESOLUTIONS),
             "resolution_period": ("date", True),
+            "defect_settlement_date": ("date", True),
         },
     },
     "fct_loss_events": {
@@ -248,6 +258,7 @@ MARTS: dict[str, dict] = {
             "sample": ("string", False, SAMPLES),
             "exclusion_reason": ("string", True, EXCLUSION_REASONS),
             "default_12m": ("int", True, [0, 1]),
+            "default_12m_naive": ("int", True, [0, 1]),
             "default_months_on_book": ("int", True),
             "prepaid_12m": ("bool", False),
             "fico": ("int", True),
@@ -299,6 +310,7 @@ MARTS: dict[str, dict] = {
             "ltv_band": ("string", False, LTV_BANDS),
             "eltv_pct": ("int", True),
             "property_state": ("string", False),
+            "defaulted_before": ("bool", False),
             "default_next_12m": ("bool", True),
             "prepaid_next_12m": ("bool", True),
         },
@@ -313,7 +325,7 @@ MARTS: dict[str, dict] = {
             "upb_dpd30p": ("float", False),
             "n_dpd90p": ("int", False),
             "upb_dpd90p": ("float", False),
-            "n_performing_start": ("int", False),
+            "n_at_risk_start": ("int", False),
             "n_new_defaults": ("int", False),
             "n_prepaid": ("int", False),
             "upb_prepaid": ("float", False),
@@ -369,6 +381,9 @@ RAG = "enum:green|amber|red"
 RULE_RESULT = "enum:PASS|FAIL|AMBER|INSUFFICIENT|NOT_RUN|pending"
 PASS_RULES = [{"rule_id": "str", "result": RULE_RESULT, "evidence": "str"}]
 GRADE = "enum:" + "|".join(GRADES)
+DEFINITION = "enum:primary|naive"
+CALIB_SAMPLE = "enum:dev_test|oot|covid|oot_and_covid"
+STAGE2_REASONS = [r for r in STAGE_FLOOR_REASONS if r != "default"] + ["pd_deterioration"]
 
 ENVELOPE = {
     "schema_version": "str",
@@ -377,6 +392,7 @@ ENVELOPE = {
     "generated_at": "str",
     "data_cutoff": "date",
     "code_version": "str",
+    "suppressed_cells": "int",
 }
 
 ARTEFACTS: dict[str, dict] = {
@@ -409,12 +425,15 @@ ARTEFACTS: dict[str, dict] = {
                 "rate": "metric",
             }
         ],
-        "cure_rates": [
+        "roll_cure_rates": [
             {
                 "period_group": "enum:all|" + "|".join(ECONOMIC_PERIODS),
                 "from_bucket": "enum:dpd_30|dpd_60|dpd_90p",
                 "rate": "metric",
             }
+        ],
+        "default_cure_rates": [
+            {"default_year": "int", "cure_12m": "metric", "cure_ever": "metric"}
         ],
         "sma": [
             {
@@ -440,6 +459,15 @@ ARTEFACTS: dict[str, dict] = {
                 "defaults_12m_naive": "metric",
             }
         ],
+        "reconciliation": [
+            {
+                "rule_id": "enum:R1|R2|R3|R4|R7|R8",
+                "n_checked": "int",
+                "n_outside_tolerance": "int",
+                "max_abs_difference": "float",
+            }
+        ],
+        "pass_rules": PASS_RULES,
     },
     "pd_models": {
         **ENVELOPE,
@@ -452,7 +480,22 @@ ARTEFACTS: dict[str, dict] = {
                 "default_rate": "metric",
             }
         ],
-        "exclusions": [{"reason": "enum:" + "|".join(EXCLUSION_REASONS), "n_loans": "metric"}],
+        "exclusions": [
+            {
+                "reason": "enum:" + "|".join(EXCLUSION_REASONS),
+                "sample_before_exclusion": "enum:dev_train|dev_test|gap|oot|covid|out_of_scope",
+                "zero_balance_code": "int?",
+                "n_loans": "metric",
+            }
+        ],
+        "d1a": [
+            {
+                "sample": "enum:all|" + "|".join(SAMPLES),
+                "modified_before_default": "metric",
+                "primary_defaults": "metric",
+                "ratio": "metric",
+            }
+        ],
         "scaling": {
             "base_score": "int",
             "base_odds": "float",
@@ -460,6 +503,7 @@ ARTEFACTS: dict[str, dict] = {
             "factor": "float",
             "offset": "float",
             "intercept": "float",
+            "pd_label": "str",
         },
         "features": [
             {
@@ -490,11 +534,13 @@ ARTEFACTS: dict[str, dict] = {
                 "pd_high": "float",
                 "score_min": "int?",
                 "score_max": "int?",
+                "merged_into": GRADE + "?",
             }
         ],
         "discrimination": [
             {
-                "sample": "enum:dev_train|dev_test|oot|covid",
+                "sample": "enum:dev_train|dev_test|oot|covid|oot_and_covid",
+                "definition": DEFINITION,
                 "model": "enum:champion|challenger",
                 "auc": "metric",
                 "gini": "metric",
@@ -503,7 +549,8 @@ ARTEFACTS: dict[str, dict] = {
         ],
         "calibration": [
             {
-                "sample": "enum:dev_test|oot|covid",
+                "sample": CALIB_SAMPLE,
+                "definition": DEFINITION,
                 "grade": GRADE,
                 "n": "int",
                 "mean_pd": "float",
@@ -511,9 +558,30 @@ ARTEFACTS: dict[str, dict] = {
                 "result": "enum:PASS|FAIL|INSUFFICIENT",
             }
         ],
-        "gini_drop": {"relative": "metric", "absolute": "metric", "rag": RAG},
+        "calibration_in_the_large": [
+            {
+                "sample": CALIB_SAMPLE,
+                "definition": DEFINITION,
+                "mean_pd": "float",
+                "realised_rate": "metric",
+                "ratio": "metric",
+            }
+        ],
+        "gini_drop": [
+            {"definition": DEFINITION, "relative": "metric", "absolute": "metric", "rag": RAG}
+        ],
+        "fairness_sensitivity": [
+            {
+                "feature": "enum:number_of_borrowers|first_time_homebuyer",
+                "in_model": "bool",
+                "iv": "metric",
+                "gini_dev_test_with": "metric",
+                "gini_dev_test_without": "metric",
+            }
+        ],
         "challenger": {
             "status": "enum:not_run|run",
+            "confirm_passed": "bool?",
             "delta_gini_oot": "metric?",
             "promotion_recommended": "bool?",
             "criteria": [{"criterion": "str", "met": "bool"}],
@@ -526,7 +594,7 @@ ARTEFACTS: dict[str, dict] = {
         **ENVELOPE,
         "model_id": "str",
         "thresholds": {"stable_below": "float", "red_above": "float"},
-        "score_psi": [{"comparison": "str", "psi": "metric", "rag": RAG}],
+        "score_psi": [{"comparison": "str", "n_bins": "int", "psi": "metric", "rag": RAG}],
         "csi": [{"feature": "str", "comparison": "str", "csi": "metric", "rag": RAG}],
     },
     "lgd_ead": {
@@ -542,7 +610,22 @@ ARTEFACTS: dict[str, dict] = {
             }
         ],
         "downturn_lgd": [{"ltv_band": "str", "lgd_gross_of_mi": "metric"}],
-        "open_workouts": [{"default_year": "int", "share_open": "metric"}],
+        "resolution_mix": [
+            {
+                "default_year": "int",
+                "resolution": "enum:" + "|".join(RESOLUTIONS),
+                "n_defaults": "int",
+                "share": "metric",
+            }
+        ],
+        "sensitivities": [
+            {
+                "name": "enum:zero_loss_exclusions|open_workouts_p90",
+                "status": "enum:run|not_needed",
+                "lgd_economic": "metric?",
+                "delta_vs_primary": "float?",
+            }
+        ],
         "lgd_distribution": {"share_above_1": "metric", "share_below_0": "metric"},
         "reconciliation": {
             "computed_vs_actual_within_1usd": "metric",
@@ -611,6 +694,35 @@ ARTEFACTS: dict[str, dict] = {
                 "covid_affected": "bool",
             }
         ],
+        "prepayment_backtest": [
+            {
+                "reporting_date": "date",
+                "grade": GRADE,
+                "n": "int",
+                "predicted_rate": "float",
+                "realised_rate": "metric",
+            }
+        ],
+        "stage2_drivers": [
+            {
+                "reporting_date": "date",
+                "reason": "enum:" + "|".join(STAGE2_REASONS),
+                "n_loans": "int",
+                "share_of_stage2": "metric",
+            }
+        ],
+        "cured_population": [
+            {
+                "reporting_date": "date",
+                "n_loans": "int",
+                "ead": "metric",
+                "ecl": "metric",
+            }
+        ],
+        "hazard_inputs": {
+            "market_rate_carried_forward_months": "int",
+            "loan_months_without_market_rate": "int",
+        },
         "pass_rules": PASS_RULES,
     },
     "capital": {
@@ -643,6 +755,11 @@ ARTEFACTS: dict[str, dict] = {
 }
 
 METRIC_KEYS = {"value", "ci_low", "ci_high", "n", "ci_method"}
+
+# Publication rule (VALIDATION_PLAN section 12): no published cell may describe 1 to 9 loans.
+MIN_CELL = 10
+CELL_COUNT_KEYS = ("n", "n_loans", "n_defaults")
+SUPPRESSED = "none: suppressed, fewer than 10 loans"
 
 
 # ---------------------------------------------------------------------------------------------
@@ -737,6 +854,10 @@ def parquet_is_synthetic(path) -> bool:
 # ---------------------------------------------------------------------------------------------
 # JSON checks
 # ---------------------------------------------------------------------------------------------
+def _small_cell(n) -> bool:
+    return isinstance(n, int) and not isinstance(n, bool) and 0 < n < MIN_CELL
+
+
 def _is_number(v) -> bool:
     return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
 
@@ -750,6 +871,8 @@ def _check_metric(v, where: str) -> list[str]:
     value, lo, hi, n, method = v["value"], v["ci_low"], v["ci_high"], v["n"], v["ci_method"]
     if not (isinstance(n, int) and not isinstance(n, bool) and n >= 0):
         out.append(f"{where}.n: must be a non-negative integer")
+    elif _small_cell(n):
+        out.append(f"{where}.n: {n} describes fewer than {MIN_CELL} loans (suppress or merge)")
     if not isinstance(method, str) or not method:
         out.append(f"{where}.ci_method: must be a non-empty string")
         return out
@@ -777,6 +900,11 @@ def _check(spec, v, where: str) -> list[str]:
         if not isinstance(v, dict):
             return [f"{where}: expected an object"]
         out = [f"{where}: missing key {k}" for k in spec if k not in v]
+        out += [
+            f"{where}.{k}: {v[k]} describes fewer than {MIN_CELL} loans (suppress or merge)"
+            for k in CELL_COUNT_KEYS
+            if spec.get(k) == "int" and _small_cell(v.get(k))
+        ]
         out += [f"{where}: unexpected key {k}" for k in v if k not in spec]
         for k in spec:
             if k in v:
@@ -834,3 +962,30 @@ def metric(value, ci_low=None, ci_high=None, n=0, ci_method=None) -> dict:
     if ci_method is None:
         ci_method = "none: population count, not an estimate" if ci_low is None else "unspecified"
     return {"value": value, "ci_low": ci_low, "ci_high": ci_high, "n": n, "ci_method": ci_method}
+
+
+def suppress_small_cells(obj) -> int:
+    """Apply the small-cell rule to an artefact in place; return the number of cells suppressed.
+
+    A metric with 1 to 9 loans becomes a null value with the reason in ci_method, and a list row
+    whose n, n_loans or n_defaults is 1 to 9 is removed. Store the result in suppressed_cells.
+    """
+    count = 0
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, dict) and set(v) == METRIC_KEYS and _small_cell(v["n"]):
+                obj[k] = metric(None, n=0, ci_method=SUPPRESSED)
+                count += 1
+            else:
+                count += suppress_small_cells(v)
+    elif isinstance(obj, list):
+        keep = [
+            x
+            for x in obj
+            if not (isinstance(x, dict) and any(_small_cell(x.get(k)) for k in CELL_COUNT_KEYS))
+        ]
+        count += len(obj) - len(keep)
+        obj[:] = keep
+        for x in obj:
+            count += suppress_small_cells(x)
+    return count

@@ -5,6 +5,7 @@
  "generated_at": "2026-09-23T00:00:00Z",
  "data_cutoff": "2026-03-01",
  "code_version": "fixture",
+ "suppressed_cells": 228,
  "scenarios": {
   "used": true,
   "source": "synthetic fixture path",
@@ -28,62 +29,6 @@
   "absolute_threshold": 0.002
  },
  "by_date": [
-  {
-   "reporting_date": "1999-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 3,
-   "ead": {
-    "value": 546376.67,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 459.65555775454527,
-    "ci_low": 413.69000197909077,
-    "ci_high": 505.6211135299998,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008412796208054513,
-    "ci_low": 0.0007571516587249062,
-    "ci_high": 0.0009254075828859965,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "1999-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "D",
-   "n_loans": 3,
-   "ead": {
-    "value": 715324.76,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1083.9371947914308,
-    "ci_low": 975.5434753122877,
-    "ci_high": 1192.3309142705739,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0015153078089893473,
-    "ci_low": 0.0013637770280904126,
-    "ci_high": 0.001666838589888282,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
   {
    "reporting_date": "1999-12-01",
    "in_sample": true,
@@ -143,34 +88,6 @@
   {
    "reporting_date": "1999-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 458409.33999999997,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 16118.139444663115,
-    "ci_low": 14506.325500196803,
-    "ci_high": 17729.953389129427,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03516101884979725,
-    "ci_low": 0.03164491696481753,
-    "ci_high": 0.03867712073477697,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "1999-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "G",
    "n_loans": 75,
@@ -193,118 +110,6 @@
     "ci_low": 0.023463583087846913,
     "ci_high": 0.02867771266292401,
     "n": 75,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "1999-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "G",
-   "n_loans": 9,
-   "ead": {
-    "value": 1947709.14,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 9,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 330874.3997590436,
-    "ci_low": 297786.95978313923,
-    "ci_high": 363961.83973494795,
-    "n": 9,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.1698787529225455,
-    "ci_low": 0.15289087763029097,
-    "ci_high": 0.18686662821480005,
-    "n": 9,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "1999-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 2,
-   "ead": {
-    "value": 400437.19999999995,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 112122.416,
-    "ci_low": 100910.17439999999,
-    "ci_high": 123334.6576,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2000-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 4,
-   "ead": {
-    "value": 693423.12,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 616.3383602502118,
-    "ci_low": 554.7045242251907,
-    "ci_high": 677.972196275233,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008888344539913983,
-    "ci_low": 0.0007999510085922584,
-    "ci_high": 0.000977717899390538,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2000-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "D",
-   "n_loans": 8,
-   "ead": {
-    "value": 1859248.97,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2632.0935526539574,
-    "ci_low": 2368.884197388562,
-    "ci_high": 2895.302907919353,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.001415675681484421,
-    "ci_low": 0.0012741081133359788,
-    "ci_high": 0.001557243249632863,
-    "n": 8,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -367,62 +172,6 @@
   {
    "reporting_date": "2000-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 107000.0,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 3599.869478438362,
-    "ci_low": 3239.8825305945256,
-    "ci_high": 3959.8564262821983,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03364363998540525,
-    "ci_low": 0.030279275986864727,
-    "ci_high": 0.03700800398394578,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2000-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 393489.31,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 110177.0068,
-    "ci_low": 99159.30612,
-    "ci_high": 121194.70748000001,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2000-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "G",
    "n_loans": 162,
@@ -473,62 +222,6 @@
     "ci_low": 0.1536682356752779,
     "ci_high": 0.18781673249200634,
     "n": 11,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2000-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 4,
-   "ead": {
-    "value": 836378.28,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 234185.91840000002,
-    "ci_low": 210767.32656000002,
-    "ci_high": 257604.51024000003,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2001-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 1427696.47,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1286.2205131858975,
-    "ci_low": 1157.5984618673078,
-    "ci_high": 1414.8425645044872,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009009061381134448,
-    "ci_low": 0.0008108155243021003,
-    "ci_high": 0.0009909967519247892,
-    "n": 6,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -591,34 +284,6 @@
   {
    "reporting_date": "2001-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 177594.89,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 3467.1662927047487,
-    "ci_low": 3120.449663434274,
-    "ci_high": 3813.8829219752233,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.01952289445211373,
-    "ci_low": 0.017570605006902357,
-    "ci_high": 0.021475183897325105,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2001-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 61,
@@ -641,62 +306,6 @@
     "ci_low": 0.006020912492203908,
     "ci_high": 0.007358893046026998,
     "n": 61,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2001-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 198658.12,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 6461.2039978824805,
-    "ci_low": 5815.083598094232,
-    "ci_high": 7107.324397670729,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03252423811260512,
-    "ci_low": 0.029271814301344606,
-    "ci_high": 0.03577666192386563,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2001-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 525379.16,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 147106.16480000003,
-    "ci_low": 132395.54832000003,
-    "ci_high": 161816.78128000002,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -788,62 +397,6 @@
    "reporting_date": "2002-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 963815.39,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 885.6251814300036,
-    "ci_low": 797.0626632870033,
-    "ci_high": 974.187699573004,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009188742892246238,
-    "ci_low": 0.0008269868603021615,
-    "ci_high": 0.0010107617181470863,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 446413.92,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 124995.89760000001,
-    "ci_low": 112496.30784000001,
-    "ci_high": 137495.48736000003,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 16,
    "ead": {
@@ -899,62 +452,6 @@
   {
    "reporting_date": "2002-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 3,
-   "ead": {
-    "value": 694321.98,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 12187.725755239471,
-    "ci_low": 10968.953179715525,
-    "ci_high": 13406.498330763417,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.017553420612205696,
-    "ci_low": 0.015798078550985126,
-    "ci_high": 0.019308762673426266,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 4,
-   "ead": {
-    "value": 846251.01,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 236950.28280000002,
-    "ci_low": 213255.25452000002,
-    "ci_high": 260645.31108,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 86,
@@ -977,62 +474,6 @@
     "ci_low": 0.005944338108801701,
     "ci_high": 0.007265302132979856,
     "n": 86,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 678889.49,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 20633.258430805272,
-    "ci_low": 18569.932587724747,
-    "ci_high": 22696.584273885797,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.030392661448927823,
-    "ci_low": 0.027353395304035043,
-    "ci_high": 0.033431927593820604,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2002-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 307337.43,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 86054.4804,
-    "ci_low": 77449.03236,
-    "ci_high": 94659.92844,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -1124,62 +565,6 @@
    "reporting_date": "2003-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 213975.76,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 92.06059666873396,
-    "ci_low": 82.85453700186056,
-    "ci_high": 101.26665633560737,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.00043023843760963375,
-    "ci_low": 0.00038721459384867036,
-    "ci_high": 0.00047326228137059713,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2003-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 8,
-   "ead": {
-    "value": 1342215.79,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1208.2765558015494,
-    "ci_low": 1087.4489002213945,
-    "ci_high": 1329.1042113817043,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009002103572343978,
-    "ci_low": 0.000810189321510958,
-    "ci_high": 0.0009902313929578375,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2003-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 17,
    "ead": {
@@ -1257,62 +642,6 @@
     "ci_low": 0.0059427856932533635,
     "ci_high": 0.007263404736198556,
     "n": 82,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2003-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 7,
-   "ead": {
-    "value": 1584787.91,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 52691.90333958412,
-    "ci_low": 47422.71300562571,
-    "ci_high": 57961.09367354253,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.033248552066240916,
-    "ci_low": 0.029923696859616825,
-    "ci_high": 0.03657340727286501,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2003-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 292073.72,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 81780.6416,
-    "ci_low": 73602.57744000001,
-    "ci_high": 89958.70576,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -1404,90 +733,6 @@
    "reporting_date": "2004-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 2,
-   "ead": {
-    "value": 336323.02,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 150.60642267884285,
-    "ci_low": 135.54578041095857,
-    "ci_high": 165.66706494672712,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0004478028969852936,
-    "ci_low": 0.00040302260728676423,
-    "ci_high": 0.000492583186683823,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 7,
-   "ead": {
-    "value": 1099702.59,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 907.6940255762262,
-    "ci_low": 816.9246230186036,
-    "ci_high": 998.4634281338488,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008253995524155546,
-    "ci_low": 0.0007428595971739991,
-    "ci_high": 0.0009079395076571101,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 126203.01,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 35336.8428,
-    "ci_low": 31803.158519999997,
-    "ci_high": 38870.52708,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 16,
    "ead": {
@@ -1509,34 +754,6 @@
     "ci_low": 0.0014519923911504309,
     "ci_high": 0.0017746573669616377,
     "n": 16,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 170810.6,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1861.608046473043,
-    "ci_low": 1675.4472418257387,
-    "ci_high": 2047.7688511203473,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.010898668153340852,
-    "ci_low": 0.009808801338006767,
-    "ci_high": 0.011988534968674937,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -1571,62 +788,6 @@
   {
    "reporting_date": "2004-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 372237.31,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 7314.161158617218,
-    "ci_low": 6582.745042755496,
-    "ci_high": 8045.577274478939,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.01964918873558703,
-    "ci_low": 0.017684269862028326,
-    "ci_high": 0.021614107609145734,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 103842.24,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 29075.827200000003,
-    "ci_low": 26168.24448,
-    "ci_high": 31983.409920000006,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 74,
@@ -1649,62 +810,6 @@
     "ci_low": 0.0059520534763754795,
     "ci_high": 0.0072747320266811424,
     "n": 74,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 6,
-   "ead": {
-    "value": 942429.42,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 29040.866224529665,
-    "ci_low": 26136.7796020767,
-    "ci_high": 31944.952846982633,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.030814897761287697,
-    "ci_low": 0.027733407985158928,
-    "ci_high": 0.033896387537416466,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2004-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 293216.58,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 82100.64240000001,
-    "ci_low": 73890.57816,
-    "ci_high": 90310.70664000002,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -1796,90 +901,6 @@
    "reporting_date": "2005-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 2,
-   "ead": {
-    "value": 327136.14,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 146.37890646156723,
-    "ci_low": 131.7410158154105,
-    "ci_high": 161.01679710772396,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000447455626460492,
-    "ci_low": 0.0004027100638144428,
-    "ci_high": 0.0004922011891065412,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 5,
-   "ead": {
-    "value": 805965.44,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 713.0782062531464,
-    "ci_low": 641.7703856278317,
-    "ci_high": 784.386026878461,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008847503513961423,
-    "ci_low": 0.0007962753162565281,
-    "ci_high": 0.0009732253865357566,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 126203.01,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 35336.8428,
-    "ci_low": 31803.158519999997,
-    "ci_high": 38870.52708,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 13,
    "ead": {
@@ -1935,34 +956,6 @@
   {
    "reporting_date": "2005-12-01",
    "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 133185.06,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 37291.8168,
-    "ci_low": 33562.63512,
-    "ci_high": 41020.99848,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 71,
@@ -1985,62 +978,6 @@
     "ci_low": 0.005774954066631531,
     "ci_high": 0.00705827719254965,
     "n": 71,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 290253.07,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 11317.858148327985,
-    "ci_low": 10186.072333495187,
-    "ci_high": 12449.643963160783,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03899306955936068,
-    "ci_low": 0.035093762603424616,
-    "ci_high": 0.042892376515296746,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2005-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 152960.34,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 42828.895200000006,
-    "ci_low": 38546.00568,
-    "ci_high": 47111.78472000001,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2132,118 +1069,6 @@
    "reporting_date": "2006-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 113545.47,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 54.19514810469471,
-    "ci_low": 48.77563329422524,
-    "ci_high": 59.61466291516418,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0004772990776707755,
-    "ci_low": 0.00042956916990369797,
-    "ci_high": 0.000525028985437853,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2006-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 4,
-   "ead": {
-    "value": 639851.99,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 598.4600259489328,
-    "ci_low": 538.6140233540394,
-    "ci_high": 658.3060285438261,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009353100956190396,
-    "ci_low": 0.0008417790860571356,
-    "ci_high": 0.0010288411051809436,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2006-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "D",
-   "n_loans": 7,
-   "ead": {
-    "value": 1232488.22,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2221.030802017068,
-    "ci_low": 1998.927721815361,
-    "ci_high": 2443.1338822187745,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0018020706129078198,
-    "ci_low": 0.0016218635516170377,
-    "ci_high": 0.0019822776741986016,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2006-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 238418.93,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1497.378630785259,
-    "ci_low": 1347.6407677067332,
-    "ci_high": 1647.1164938637849,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.006280451937206744,
-    "ci_low": 0.005652406743486069,
-    "ci_high": 0.006908497130927419,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2006-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "E",
    "n_loans": 35,
    "ead": {
@@ -2293,34 +1118,6 @@
     "ci_low": 0.005825604209022001,
     "ci_high": 0.007120182922138001,
     "n": 75,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2006-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 741034.46,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 21678.788791130475,
-    "ci_low": 19510.90991201743,
-    "ci_high": 23846.66767024352,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.029254764739456887,
-    "ci_low": 0.0263292882655112,
-    "ci_high": 0.03218024121340258,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2412,90 +1209,6 @@
    "reporting_date": "2007-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 107098.09,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 51.1178195773017,
-    "ci_low": 46.00603761957153,
-    "ci_high": 56.229601535031875,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0004772990776707755,
-    "ci_low": 0.00042956916990369797,
-    "ci_high": 0.000525028985437853,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2007-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 4,
-   "ead": {
-    "value": 629496.57,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 588.7507331462652,
-    "ci_low": 529.8756598316387,
-    "ci_high": 647.6258064608918,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000935272344925192,
-    "ci_low": 0.0008417451104326729,
-    "ci_high": 0.0010287995794177112,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2007-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "D",
-   "n_loans": 7,
-   "ead": {
-    "value": 1150513.73,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1919.0802609402526,
-    "ci_low": 1727.1722348462274,
-    "ci_high": 2110.988287034278,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0016680203033650478,
-    "ci_low": 0.001501218273028543,
-    "ci_high": 0.0018348223337015526,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2007-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "E",
    "n_loans": 29,
    "ead": {
@@ -2517,34 +1230,6 @@
     "ci_low": 0.002936464832032189,
     "ci_high": 0.0035890125724837864,
     "n": 29,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2007-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 187659.73,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 52544.72440000001,
-    "ci_low": 47290.25196000001,
-    "ci_high": 57799.196840000004,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2573,34 +1258,6 @@
     "ci_low": 0.005666583883888509,
     "ci_high": 0.006925824746974844,
     "n": 63,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2007-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 804296.6,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 23344.27415925935,
-    "ci_low": 21009.846743333415,
-    "ci_high": 25678.70157518528,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.029024459582770026,
-    "ci_low": 0.026122013624493023,
-    "ci_high": 0.03192690554104703,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2692,62 +1349,6 @@
    "reporting_date": "2008-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 3,
-   "ead": {
-    "value": 512063.55,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 480.4520615861741,
-    "ci_low": 432.4068554275567,
-    "ci_high": 528.4972677447915,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009382664741244991,
-    "ci_low": 0.0008444398267120492,
-    "ci_high": 0.001032093121536949,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2008-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "D",
-   "n_loans": 4,
-   "ead": {
-    "value": 668744.22,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1063.4992445298517,
-    "ci_low": 957.1493200768665,
-    "ci_high": 1169.8491689828368,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0015902929890442294,
-    "ci_low": 0.0014312636901398065,
-    "ci_high": 0.0017493222879486523,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2008-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "E",
    "n_loans": 27,
    "ead": {
@@ -2769,34 +1370,6 @@
     "ci_low": 0.003013255947210179,
     "ci_high": 0.003682868379923552,
     "n": 27,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2008-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 216325.88,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2897.411221712049,
-    "ci_low": 2607.670099540844,
-    "ci_high": 3187.152343883254,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.013393733665671667,
-    "ci_low": 0.0120543602991045,
-    "ci_high": 0.014733107032238834,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2825,34 +1398,6 @@
     "ci_low": 0.005786888699620608,
     "ci_high": 0.007072863966202965,
     "n": 63,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2008-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 6,
-   "ead": {
-    "value": 1053992.3,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 35814.94227683138,
-    "ci_low": 32233.448049148243,
-    "ci_high": 39396.43650451452,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.033980269378468306,
-    "ci_low": 0.030582242440621476,
-    "ci_high": 0.03737829631631514,
-    "n": 6,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -2944,34 +1489,6 @@
    "reporting_date": "2009-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 3,
-   "ead": {
-    "value": 553208.0,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 509.39726854323203,
-    "ci_low": 458.4575416889088,
-    "ci_high": 560.3369953975553,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009208060413862996,
-    "ci_low": 0.0008287254372476696,
-    "ci_high": 0.0010128866455249295,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2009-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 10,
    "ead": {
@@ -3027,62 +1544,6 @@
   {
    "reporting_date": "2009-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 451123.94,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 9278.487982791368,
-    "ci_low": 8350.63918451223,
-    "ci_high": 10206.336781070506,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.020567491902095395,
-    "ci_low": 0.018510742711885856,
-    "ci_high": 0.022624241092304934,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2009-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 478744.30000000005,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 134048.40400000004,
-    "ci_low": 120643.56360000004,
-    "ci_high": 147453.24440000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2009-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 72,
@@ -3105,62 +1566,6 @@
     "ci_low": 0.006083521460946973,
     "ci_high": 0.007435415118935189,
     "n": 72,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2009-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 352431.36000000004,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 10749.797855850986,
-    "ci_low": 9674.818070265886,
-    "ci_high": 11824.777641436085,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.030501819860329637,
-    "ci_low": 0.027451637874296674,
-    "ci_high": 0.0335520018463626,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2009-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 135036.97,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 37810.3516,
-    "ci_low": 34029.31644,
-    "ci_high": 41591.38676,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -3252,62 +1657,6 @@
    "reporting_date": "2010-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 8,
-   "ead": {
-    "value": 1623955.49,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1443.065068174535,
-    "ci_low": 1298.7585613570816,
-    "ci_high": 1587.3715749919886,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008886112193718654,
-    "ci_low": 0.0007997500974346788,
-    "ci_high": 0.0009774723413090518,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 172910.16,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 717.5576621557545,
-    "ci_low": 645.8018959401791,
-    "ci_high": 789.31342837133,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.004149887214006132,
-    "ci_low": 0.003734898492605519,
-    "ci_high": 0.0045648759354067455,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 13,
    "ead": {
@@ -3329,34 +1678,6 @@
     "ci_low": 0.0014435395501988058,
     "ci_high": 0.0017643261169096515,
     "n": 13,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 38814.74,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 394.90585928184083,
-    "ci_low": 355.41527335365674,
-    "ci_high": 434.3964452100249,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.010174120946883603,
-    "ci_low": 0.009156708852195243,
-    "ci_high": 0.011191533041571963,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -3391,62 +1712,6 @@
   {
    "reporting_date": "2010-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 3,
-   "ead": {
-    "value": 488631.12,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 8743.248662884476,
-    "ci_low": 7868.923796596028,
-    "ci_high": 9617.573529172923,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.01789335207074915,
-    "ci_low": 0.016104016863674235,
-    "ci_high": 0.019682687277824067,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 240732.07,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 67404.9796,
-    "ci_low": 60664.481640000005,
-    "ci_high": 74145.47756,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 81,
@@ -3469,34 +1734,6 @@
     "ci_low": 0.006138703437002201,
     "ci_high": 0.007502859756336024,
     "n": 81,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2010-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 4,
-   "ead": {
-    "value": 1233898.62,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 37600.171154173775,
-    "ci_low": 33840.154038756395,
-    "ci_high": 41360.188269591155,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.030472658405415652,
-    "ci_low": 0.027425392564874085,
-    "ci_high": 0.03351992424595722,
-    "n": 4,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -3588,90 +1825,6 @@
    "reporting_date": "2011-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 291015.49,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 148.8526493792127,
-    "ci_low": 133.96738444129141,
-    "ci_high": 163.73791431713397,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0005114939049437289,
-    "ci_low": 0.000460344514449356,
-    "ci_high": 0.0005626432954381018,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 1278890.08,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1167.6924416513093,
-    "ci_low": 1050.9231974861784,
-    "ci_high": 1284.4616858164402,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009130514497784745,
-    "ci_low": 0.000821746304800627,
-    "ci_high": 0.001004356594756322,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 296912.23,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1366.7146500345486,
-    "ci_low": 1230.0431850310938,
-    "ci_high": 1503.3861150380035,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.004603093143164054,
-    "ci_low": 0.004142783828847649,
-    "ci_high": 0.00506340245748046,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 14,
    "ead": {
@@ -3727,62 +1880,6 @@
   {
    "reporting_date": "2011-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 150609.39,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2564.336047354601,
-    "ci_low": 2307.902442619141,
-    "ci_high": 2820.769652090061,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.017026402187503717,
-    "ci_low": 0.015323761968753345,
-    "ci_high": 0.018729042406254087,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 203129.19,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 56876.173200000005,
-    "ci_low": 51188.55588,
-    "ci_high": 62563.79052000001,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 82,
@@ -3805,62 +1902,6 @@
     "ci_low": 0.005869660783258945,
     "ci_high": 0.007174029846205378,
     "n": 82,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 327501.23,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 12154.89849183182,
-    "ci_low": 10939.408642648637,
-    "ci_high": 13370.388341015003,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.037114054477999425,
-    "ci_low": 0.03340264903019948,
-    "ci_high": 0.04082545992579937,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2011-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 637869.77,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 178603.53560000003,
-    "ci_low": 160743.18204000004,
-    "ci_high": 196463.88916000002,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -3952,62 +1993,6 @@
    "reporting_date": "2012-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 285733.79,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 146.1510920214714,
-    "ci_low": 131.53598281932426,
-    "ci_high": 160.76620122361857,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000511493904943729,
-    "ci_low": 0.0004603445144493561,
-    "ci_high": 0.000562643295438102,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2012-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 1244114.39,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1091.2437846872306,
-    "ci_low": 982.1194062185075,
-    "ci_high": 1200.3681631559537,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008771249600989107,
-    "ci_low": 0.0007894124640890196,
-    "ci_high": 0.0009648374561088018,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2012-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 12,
    "ead": {
@@ -4029,34 +2014,6 @@
     "ci_low": 0.001575935738105773,
     "ci_high": 0.0019261436799070557,
     "n": 12,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2012-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 157040.46,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 889.2838151696367,
-    "ci_low": 800.355433652673,
-    "ci_high": 978.2121966866004,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.005662768786907761,
-    "ci_low": 0.005096491908216984,
-    "ci_high": 0.006229045665598537,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -4091,34 +2048,6 @@
   {
    "reporting_date": "2012-12-01",
    "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 307443.08999999997,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 86084.0652,
-    "ci_low": 77475.65868,
-    "ci_high": 94692.47172,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2012-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 83,
@@ -4141,34 +2070,6 @@
     "ci_low": 0.005886731448113727,
     "ci_high": 0.007194893992138999,
     "n": 83,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2012-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 277406.82,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 11269.410801591594,
-    "ci_low": 10142.469721432433,
-    "ci_high": 12396.351881750754,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.040624130299289664,
-    "ci_low": 0.036561717269360694,
-    "ci_high": 0.044686543329218634,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -4260,62 +2161,6 @@
    "reporting_date": "2013-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 280235.8,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 143.33890364702984,
-    "ci_low": 129.00501328232684,
-    "ci_high": 157.67279401173283,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000511493904943729,
-    "ci_low": 0.0004603445144493561,
-    "ci_high": 0.000562643295438102,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2013-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 8,
-   "ead": {
-    "value": 1588692.06,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1427.7625369340867,
-    "ci_low": 1284.986283240678,
-    "ci_high": 1570.5387906274955,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008987031362982243,
-    "ci_low": 0.0008088328226684018,
-    "ci_high": 0.0009885734499280466,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2013-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 11,
    "ead": {
@@ -4393,62 +2238,6 @@
     "ci_low": 0.005969731909019127,
     "ci_high": 0.007296338999912266,
     "n": 75,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2013-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 438122.07999999996,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 14216.948631305151,
-    "ci_low": 12795.253768174636,
-    "ci_high": 15638.643494435666,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.032449742389849774,
-    "ci_low": 0.029204768150864795,
-    "ci_high": 0.03569471662883475,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2013-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 569957.43,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 159588.08040000004,
-    "ci_low": 143629.27236000003,
-    "ci_high": 175546.88844000004,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -4540,34 +2329,6 @@
    "reporting_date": "2014-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 274512.68,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 140.41156264976829,
-    "ci_low": 126.37040638479145,
-    "ci_high": 154.4527189147451,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000511493904943729,
-    "ci_low": 0.0004603445144493561,
-    "ci_high": 0.000562643295438102,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "C",
    "n_loans": 10,
    "ead": {
@@ -4623,34 +2384,6 @@
   {
    "reporting_date": "2014-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 151818.76,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 859.7145353950405,
-    "ci_low": 773.7430818555364,
-    "ci_high": 945.6859889345445,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.005662768786907761,
-    "ci_low": 0.005096491908216984,
-    "ci_high": 0.006229045665598537,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "E",
    "n_loans": 54,
@@ -4679,62 +2412,6 @@
   {
    "reporting_date": "2014-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 362833.87,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 6377.937781495651,
-    "ci_low": 5740.144003346086,
-    "ci_high": 7015.731559645215,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.017578121307957415,
-    "ci_low": 0.015820309177161672,
-    "ci_high": 0.01933593343875316,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 142383.07,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 39867.259600000005,
-    "ci_low": 35880.53364,
-    "ci_high": 43853.98556000001,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 86,
@@ -4757,62 +2434,6 @@
     "ci_low": 0.00592489175017024,
     "ci_high": 0.007241534361319182,
     "n": 86,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 136175.9,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 3153.244099123099,
-    "ci_low": 2837.9196892107893,
-    "ci_high": 3468.568509035409,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.023155669241937078,
-    "ci_low": 0.02084010231774337,
-    "ci_high": 0.025471236166130787,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2014-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 100344.49,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 28096.457200000004,
-    "ci_low": 25286.811480000004,
-    "ci_high": 30906.102920000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -4904,62 +2525,6 @@
    "reporting_date": "2015-12-01",
    "in_sample": true,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 268555.2,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 137.36434794094413,
-    "ci_low": 123.62791314684972,
-    "ci_high": 151.10078273503854,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000511493904943729,
-    "ci_low": 0.0004603445144493561,
-    "ci_high": 0.000562643295438102,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 7,
-   "ead": {
-    "value": 1204891.48,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1059.9936193207384,
-    "ci_low": 953.9942573886646,
-    "ci_high": 1165.9929812528121,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008797419825067885,
-    "ci_low": 0.0007917677842561096,
-    "ci_high": 0.0009677161807574673,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
-   "stage": "1",
    "grade": "D",
    "n_loans": 18,
    "ead": {
@@ -5015,62 +2580,6 @@
   {
    "reporting_date": "2015-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 180785.09,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2505.9319405940564,
-    "ci_low": 2255.338746534651,
-    "ci_high": 2756.525134653462,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.013861386138613846,
-    "ci_low": 0.012475247524752462,
-    "ci_high": 0.01524752475247523,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 407797.91000000003,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 114183.41480000001,
-    "ci_low": 102765.07332000001,
-    "ci_high": 125601.75628000002,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 100,
@@ -5093,62 +2602,6 @@
     "ci_low": 0.00591693459979608,
     "ci_high": 0.00723180895530632,
     "n": 100,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 526694.03,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 16977.97243070152,
-    "ci_low": 15280.175187631368,
-    "ci_high": 18675.769673771672,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03223498172307273,
-    "ci_low": 0.029011483550765455,
-    "ci_high": 0.03545847989538,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2015-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 845339.9199999999,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 236695.1776,
-    "ci_low": 213025.65983999998,
-    "ci_high": 260364.69536,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -5239,62 +2692,6 @@
   {
    "reporting_date": "2016-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 262353.77,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 670.9617714700447,
-    "ci_low": 603.8655943230402,
-    "ci_high": 738.0579486170492,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.002557469524718645,
-    "ci_low": 0.0023017225722467803,
-    "ci_high": 0.0028132164771905097,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 1045375.3099999999,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 851.343574267307,
-    "ci_low": 766.2092168405762,
-    "ci_high": 936.4779316940377,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008143903592550956,
-    "ci_low": 0.0007329513233295861,
-    "ci_high": 0.0008958293951806051,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "D",
    "n_loans": 16,
@@ -5351,62 +2748,6 @@
   {
    "reporting_date": "2016-12-01",
    "in_sample": true,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 3,
-   "ead": {
-    "value": 349401.5,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 5956.8499209452775,
-    "ci_low": 5361.16492885075,
-    "ci_high": 6552.534913039805,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.017048724521632783,
-    "ci_low": 0.015343852069469505,
-    "ci_high": 0.018753596973796062,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 172575.39,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 48321.109200000006,
-    "ci_low": 43488.99828000001,
-    "ci_high": 53153.220120000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
    "stage": "1",
    "grade": "F",
    "n_loans": 95,
@@ -5429,62 +2770,6 @@
     "ci_low": 0.005937470500986225,
     "ci_high": 0.007256908390094276,
     "n": 95,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 274530.14,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 11332.087860039066,
-    "ci_low": 10198.87907403516,
-    "ci_high": 12465.296646042972,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.041278119262384325,
-    "ci_low": 0.03715030733614589,
-    "ci_high": 0.04540593118862276,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2016-12-01",
-   "in_sample": true,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 172785.5,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 48379.94,
-    "ci_low": 43541.946,
-    "ci_high": 53217.934,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -5576,62 +2861,6 @@
    "reporting_date": "2017-12-01",
    "in_sample": false,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 255898.4,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 130.89047188485233,
-    "ci_low": 117.80142469636709,
-    "ci_high": 143.97951907333757,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.000511493904943729,
-    "ci_low": 0.0004603445144493561,
-    "ci_high": 0.000562643295438102,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 1151068.91,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 952.3253333063059,
-    "ci_low": 857.0927999756752,
-    "ci_high": 1047.5578666369365,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008273399837602302,
-    "ci_low": 0.0007446059853842072,
-    "ci_high": 0.0009100739821362533,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
-   "stage": "1",
    "grade": "D",
    "n_loans": 12,
    "ead": {
@@ -5653,34 +2882,6 @@
     "ci_low": 0.001394241143767143,
     "ci_high": 0.0017040725090487305,
     "n": 12,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 108966.71,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1187.5920120513283,
-    "ci_low": 1068.8328108461956,
-    "ci_high": 1306.351213256461,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.010898668153340852,
-    "ci_low": 0.009808801338006767,
-    "ci_high": 0.011988534968674937,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -5715,34 +2916,6 @@
   {
    "reporting_date": "2017-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 196724.43,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2700.3743374880914,
-    "ci_low": 2430.336903739282,
-    "ci_high": 2970.4117712369007,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.013726685279952732,
-    "ci_low": 0.012354016751957459,
-    "ci_high": 0.015099353807948005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 79,
@@ -5765,62 +2938,6 @@
     "ci_low": 0.00589967007141222,
     "ci_high": 0.007210707865059379,
     "n": 79,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 270726.73,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 7179.532683520614,
-    "ci_low": 6461.579415168553,
-    "ci_high": 7897.485951872675,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.02651948214910517,
-    "ci_low": 0.023867533934194652,
-    "ci_high": 0.029171430364015687,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2017-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 656934.98,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 183941.7944,
-    "ci_low": 165547.61496,
-    "ci_high": 202335.97384000002,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -5912,62 +3029,6 @@
    "reporting_date": "2018-12-01",
    "in_sample": false,
    "stage": "1",
-   "grade": "B",
-   "n_loans": 1,
-   "ead": {
-    "value": 243650.69,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 133.55316055590944,
-    "ci_low": 120.1978445003185,
-    "ci_high": 146.9084766115004,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0005481337260153437,
-    "ci_low": 0.0004933203534138093,
-    "ci_high": 0.0006029470986168781,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 7,
-   "ead": {
-    "value": 1162269.22,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1090.354760271168,
-    "ci_low": 981.3192842440512,
-    "ci_high": 1199.390236298285,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009381258158683476,
-    "ci_low": 0.0008443132342815129,
-    "ci_high": 0.0010319383974551825,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
-   "stage": "1",
    "grade": "D",
    "n_loans": 16,
    "ead": {
@@ -5989,34 +3050,6 @@
     "ci_low": 0.0014170130710261044,
     "ci_high": 0.0017319048645874611,
     "n": 16,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 192449.62,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 53885.8936,
-    "ci_low": 48497.304240000005,
-    "ci_high": 59274.48296,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -6051,62 +3084,6 @@
   {
    "reporting_date": "2018-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 136863.15,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1597.7924713994469,
-    "ci_low": 1438.0132242595023,
-    "ci_high": 1757.5717185393914,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.011674380367538281,
-    "ci_low": 0.010506942330784454,
-    "ci_high": 0.012841818404292108,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 70392.72,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 19709.961600000002,
-    "ci_low": 17738.965440000004,
-    "ci_high": 21680.95776,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 77,
@@ -6129,34 +3106,6 @@
     "ci_low": 0.005793803088659184,
     "ci_high": 0.0070813148861390025,
     "n": 77,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2018-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 464818.32,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 12183.378853971568,
-    "ci_low": 10965.04096857441,
-    "ci_high": 13401.716739368725,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.026211055652822737,
-    "ci_low": 0.023589950087540463,
-    "ci_high": 0.02883216121810501,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -6248,34 +3197,6 @@
    "reporting_date": "2019-12-01",
    "in_sample": false,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 8,
-   "ead": {
-    "value": 1192397.1600000001,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1083.218037974242,
-    "ci_low": 974.8962341768178,
-    "ci_high": 1191.539841771666,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009084372844147346,
-    "ci_low": 0.0008175935559732612,
-    "ci_high": 0.0009992810128562082,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2019-12-01",
-   "in_sample": false,
-   "stage": "1",
    "grade": "D",
    "n_loans": 13,
    "ead": {
@@ -6331,34 +3252,6 @@
   {
    "reporting_date": "2019-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 176984.68,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2995.8384110135175,
-    "ci_low": 2696.2545699121656,
-    "ci_high": 3295.4222521148695,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.016927105843361795,
-    "ci_low": 0.015234395259025615,
-    "ci_high": 0.018619816427697975,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2019-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 77,
@@ -6381,34 +3274,6 @@
     "ci_low": 0.005911336150235426,
     "ci_high": 0.007224966405843299,
     "n": 77,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2019-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 341233.22,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 11167.451651852618,
-    "ci_low": 10050.706486667355,
-    "ci_high": 12284.19681703788,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0327267422903685,
-    "ci_low": 0.02945406806133165,
-    "ci_high": 0.03599941651940535,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -6469,90 +3334,6 @@
    }
   },
   {
-   "reporting_date": "2019-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 9,
-   "ead": {
-    "value": 1800287.4200000002,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 9,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 504080.4776000001,
-    "ci_low": 453672.4298400001,
-    "ci_high": 554488.5253600001,
-    "n": 9,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 9,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2020-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 6,
-   "ead": {
-    "value": 807498.85,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 667.0921976462521,
-    "ci_low": 600.3829778816269,
-    "ci_high": 733.8014174108773,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008261215451220174,
-    "ci_low": 0.0007435093906098156,
-    "ci_high": 0.0009087336996342192,
-    "n": 6,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2020-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "C",
-   "n_loans": 1,
-   "ead": {
-    "value": 312284.15,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1487.9928761357344,
-    "ci_low": 1339.193588522161,
-    "ci_high": 1636.7921637493077,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.00476486839353113,
-    "ci_low": 0.004288381554178017,
-    "ci_high": 0.005241355232884243,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
    "reporting_date": "2020-12-01",
    "in_sample": false,
    "stage": "1",
@@ -6577,34 +3358,6 @@
     "ci_low": 0.0015208805548089829,
     "ci_high": 0.0018588540114332015,
     "n": 13,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2020-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 2,
-   "ead": {
-    "value": 283284.14,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 2108.006459453991,
-    "ci_low": 1897.2058135085917,
-    "ci_high": 2318.80710539939,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0074413147854094155,
-    "ci_low": 0.006697183306868474,
-    "ci_high": 0.008185446263950357,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -6777,62 +3530,6 @@
    }
   },
   {
-   "reporting_date": "2020-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 3,
-   "ead": {
-    "value": 442182.97,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 123811.2316,
-    "ci_low": 111430.10844,
-    "ci_high": 136192.35476,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 5,
-   "ead": {
-    "value": 805594.42,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 712.0068275135744,
-    "ci_low": 640.806144762217,
-    "ci_high": 783.2075102649319,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008838279037652401,
-    "ci_low": 0.000795445113388716,
-    "ci_high": 0.0009722106941417641,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
    "reporting_date": "2021-12-01",
    "in_sample": false,
    "stage": "1",
@@ -6857,34 +3554,6 @@
     "ci_low": 0.0015131867831143207,
     "ci_high": 0.0018494505126952809,
     "n": 15,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 159469.82,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 44651.549600000006,
-    "ci_low": 40186.394640000006,
-    "ci_high": 49116.704560000006,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -6919,34 +3588,6 @@
   {
    "reporting_date": "2021-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 308002.03,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 6041.374507965799,
-    "ci_low": 5437.237057169219,
-    "ci_high": 6645.511958762379,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.01961472301973399,
-    "ci_low": 0.01765325071776059,
-    "ci_high": 0.02157619532170739,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 75,
@@ -6975,62 +3616,6 @@
   {
    "reporting_date": "2021-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 148189.48,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 5517.37903124105,
-    "ci_low": 4965.641128116945,
-    "ci_high": 6069.116934365155,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.037231921127201806,
-    "ci_low": 0.033508729014481625,
-    "ci_high": 0.040955113239921986,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 2,
-   "ead": {
-    "value": 299647.58999999997,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 83901.32519999999,
-    "ci_low": 75511.19268,
-    "ci_high": 92291.45771999999,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "G",
    "n_loans": 145,
@@ -7053,90 +3638,6 @@
     "ci_low": 0.022322432970114218,
     "ci_high": 0.0272829736301396,
     "n": 145,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "G",
-   "n_loans": 3,
-   "ead": {
-    "value": 470009.30000000005,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 77097.60353194657,
-    "ci_low": 69387.84317875192,
-    "ci_high": 84807.36388514123,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.1640342085400152,
-    "ci_low": 0.14763078768601368,
-    "ci_high": 0.1804376293940167,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2021-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 7,
-   "ead": {
-    "value": 1069947.75,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 299585.37000000005,
-    "ci_low": 269626.83300000004,
-    "ci_high": 329543.90700000006,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 7,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2022-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 5,
-   "ead": {
-    "value": 898074.33,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 810.5539845842019,
-    "ci_low": 729.4985861257817,
-    "ci_high": 891.6093830426221,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009025466573398239,
-    "ci_low": 0.0008122919916058415,
-    "ci_high": 0.0009928013230738064,
-    "n": 5,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -7199,34 +3700,6 @@
   {
    "reporting_date": "2022-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "E",
-   "n_loans": 2,
-   "ead": {
-    "value": 460867.31,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 9968.080604090208,
-    "ci_low": 8971.272543681187,
-    "ci_high": 10964.888664499229,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0216289599800216,
-    "ci_low": 0.019466063982019437,
-    "ci_high": 0.02379185597802376,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2022-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 71,
@@ -7249,62 +3722,6 @@
     "ci_low": 0.006020833511833275,
     "ci_high": 0.0073587965144628915,
     "n": 71,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2022-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 182457.35,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 7026.211186839797,
-    "ci_low": 6323.590068155817,
-    "ci_high": 7728.832305523777,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03850878677586733,
-    "ci_low": 0.0346579080982806,
-    "ci_high": 0.042359665453454064,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2022-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 68291.53,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 19121.6284,
-    "ci_low": 17209.46556,
-    "ci_high": 21033.791240000002,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -7365,62 +3782,6 @@
    }
   },
   {
-   "reporting_date": "2022-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 8,
-   "ead": {
-    "value": 1316727.54,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 368683.7112,
-    "ci_low": 331815.34008,
-    "ci_high": 405552.08232000005,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2023-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 5,
-   "ead": {
-    "value": 908476.45,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 816.2124778213714,
-    "ci_low": 734.5912300392342,
-    "ci_high": 897.8337256035086,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008984409863583932,
-    "ci_low": 0.0008085968877225539,
-    "ci_high": 0.0009882850849942326,
-    "n": 5,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
    "reporting_date": "2023-12-01",
    "in_sample": false,
    "stage": "1",
@@ -7445,34 +3806,6 @@
     "ci_low": 0.0015853847940012658,
     "ci_high": 0.001937692526001547,
     "n": 15,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2023-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 1,
-   "ead": {
-    "value": 111674.49,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 1175.956041578654,
-    "ci_low": 1058.3604374207887,
-    "ci_high": 1293.5516457365195,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.010530211882576352,
-    "ci_low": 0.009477190694318717,
-    "ci_high": 0.011583233070833986,
-    "n": 1,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -7507,34 +3840,6 @@
   {
    "reporting_date": "2023-12-01",
    "in_sample": false,
-   "stage": "3",
-   "grade": "E",
-   "n_loans": 1,
-   "ead": {
-    "value": 208746.7,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 58449.07600000001,
-    "ci_low": 52604.16840000001,
-    "ci_high": 64293.98360000001,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2023-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "F",
    "n_loans": 72,
@@ -7557,62 +3862,6 @@
     "ci_low": 0.006037857278017073,
     "ci_high": 0.007379603339798645,
     "n": 72,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2023-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 183517.64,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 6386.521848284654,
-    "ci_low": 5747.869663456188,
-    "ci_high": 7025.17403311312,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.03480058837005889,
-    "ci_low": 0.031320529533053,
-    "ci_high": 0.038280647207064776,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2023-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 3,
-   "ead": {
-    "value": 522975.86,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 146433.2408,
-    "ci_low": 131789.91672,
-    "ci_high": 161076.56488,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 3,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -7697,34 +3946,6 @@
     "ci_low": 0.252,
     "ci_high": 0.30800000000000005,
     "n": 11,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2024-12-01",
-   "in_sample": false,
-   "stage": "1",
-   "grade": "C",
-   "n_loans": 4,
-   "ead": {
-    "value": 883067.4,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 877.0127257295727,
-    "ci_low": 789.3114531566155,
-    "ci_high": 964.71399830253,
-    "n": 4,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0009931435876010966,
-    "ci_low": 0.0008938292288409869,
-    "ci_high": 0.0010924579463612062,
-    "n": 4,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -7900,34 +4121,6 @@
    "reporting_date": "2025-12-01",
    "in_sample": false,
    "stage": "1",
-   "grade": "C",
-   "n_loans": 3,
-   "ead": {
-    "value": 445778.11,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 395.14900254245094,
-    "ci_low": 355.63410228820584,
-    "ci_high": 434.66390279669605,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.0008864253171660918,
-    "ci_low": 0.0007977827854494826,
-    "ci_high": 0.000975067848882701,
-    "n": 3,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2025-12-01",
-   "in_sample": false,
-   "stage": "1",
    "grade": "D",
    "n_loans": 18,
    "ead": {
@@ -7949,34 +4142,6 @@
     "ci_low": 0.0015588198037367654,
     "ci_high": 0.0019052242045671576,
     "n": 18,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2025-12-01",
-   "in_sample": false,
-   "stage": "2",
-   "grade": "D",
-   "n_loans": 2,
-   "ead": {
-    "value": 493277.08999999997,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 3923.783870216394,
-    "ci_low": 3531.4054831947547,
-    "ci_high": 4316.162257238034,
-    "n": 2,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.007954522822489879,
-    "ci_low": 0.00715907054024089,
-    "ci_high": 0.008749975104738867,
-    "n": 2,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8039,62 +4204,6 @@
   {
    "reporting_date": "2025-12-01",
    "in_sample": false,
-   "stage": "2",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 135384.18,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 5576.66051070628,
-    "ci_low": 5018.994459635652,
-    "ci_high": 6134.3265617769075,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.04119137487634286,
-    "ci_low": 0.03707223738870857,
-    "ci_high": 0.04531051236397715,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2025-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "F",
-   "n_loans": 1,
-   "ead": {
-    "value": 63538.66,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 17790.824800000002,
-    "ci_low": 16011.742320000001,
-    "ci_high": 19569.907280000003,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 1,
-    "ci_method": "synthetic fixture interval"
-   }
-  },
-  {
-   "reporting_date": "2025-12-01",
-   "in_sample": false,
    "stage": "1",
    "grade": "G",
    "n_loans": 140,
@@ -8147,34 +4256,6 @@
     "n": 18,
     "ci_method": "synthetic fixture interval"
    }
-  },
-  {
-   "reporting_date": "2025-12-01",
-   "in_sample": false,
-   "stage": "3",
-   "grade": "G",
-   "n_loans": 8,
-   "ead": {
-    "value": 1539863.1800000002,
-    "ci_low": null,
-    "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
-   },
-   "ecl": {
-    "value": 431161.6904000001,
-    "ci_low": 388045.5213600001,
-    "ci_high": 474277.8594400001,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   },
-   "coverage": {
-    "value": 0.28,
-    "ci_low": 0.252,
-    "ci_high": 0.30800000000000005,
-    "n": 8,
-    "ci_method": "synthetic fixture interval"
-   }
   }
  ],
  "scenario_totals": [
@@ -8185,7 +4266,7 @@
     "value": 1277265.8171559437,
     "ci_low": 1149539.2354403494,
     "ci_high": 1404992.398871538,
-    "n": 1,
+    "n": 135,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8196,7 +4277,7 @@
     "value": 798291.1357224649,
     "ci_low": 718462.0221502184,
     "ci_high": 878120.2492947114,
-    "n": 1,
+    "n": 135,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8207,7 +4288,7 @@
     "value": 894086.0720091606,
     "ci_low": 804677.4648082446,
     "ci_high": 983494.6792100767,
-    "n": 1,
+    "n": 135,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8218,7 +4299,7 @@
     "value": 638632.9085779719,
     "ci_low": 574769.6177201747,
     "ci_high": 702496.199435769,
-    "n": 1,
+    "n": 135,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8229,7 +4310,7 @@
     "value": 2560558.00771377,
     "ci_low": 2304502.206942393,
     "ci_high": 2816613.808485147,
-    "n": 1,
+    "n": 277,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8240,7 +4321,7 @@
     "value": 1600348.7548211063,
     "ci_low": 1440313.8793389956,
     "ci_high": 1760383.630303217,
-    "n": 1,
+    "n": 277,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8251,7 +4332,7 @@
     "value": 1792390.605399639,
     "ci_low": 1613151.5448596752,
     "ci_high": 1971629.665939603,
-    "n": 1,
+    "n": 277,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8262,7 +4343,7 @@
     "value": 1280279.003856885,
     "ci_low": 1152251.1034711965,
     "ci_high": 1408306.9042425735,
-    "n": 1,
+    "n": 277,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8273,7 +4354,7 @@
     "value": 4027723.240032168,
     "ci_low": 3624950.9160289513,
     "ci_high": 4430495.564035385,
-    "n": 1,
+    "n": 344,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8284,7 +4365,7 @@
     "value": 2517327.025020105,
     "ci_low": 2265594.3225180944,
     "ci_high": 2769059.727522115,
-    "n": 1,
+    "n": 344,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8295,7 +4376,7 @@
     "value": 2819406.2680225177,
     "ci_low": 2537465.641220266,
     "ci_high": 3101346.8948247693,
-    "n": 1,
+    "n": 344,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8306,7 +4387,7 @@
     "value": 2013861.620016084,
     "ci_low": 1812475.4580144756,
     "ci_high": 2215247.7820176925,
-    "n": 1,
+    "n": 344,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8317,7 +4398,7 @@
     "value": 4598707.83900867,
     "ci_low": 4138837.055107803,
     "ci_high": 5058578.6229095375,
-    "n": 1,
+    "n": 387,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8328,7 +4409,7 @@
     "value": 2874192.399380419,
     "ci_low": 2586773.1594423773,
     "ci_high": 3161611.6393184606,
-    "n": 1,
+    "n": 387,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8339,7 +4420,7 @@
     "value": 3219095.4873060696,
     "ci_low": 2897185.9385754624,
     "ci_high": 3541005.0360366767,
-    "n": 1,
+    "n": 387,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8350,7 +4431,7 @@
     "value": 2299353.919504335,
     "ci_low": 2069418.5275539015,
     "ci_high": 2529289.3114547688,
-    "n": 1,
+    "n": 387,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8361,7 +4442,7 @@
     "value": 3970033.3597727325,
     "ci_low": 3573030.0237954594,
     "ci_high": 4367036.695750006,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8372,7 +4453,7 @@
     "value": 2481270.849857958,
     "ci_low": 2233143.764872162,
     "ci_high": 2729397.934843754,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8383,7 +4464,7 @@
     "value": 2779023.351840913,
     "ci_low": 2501121.0166568216,
     "ci_high": 3056925.687025004,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8394,7 +4475,7 @@
     "value": 1985016.6798863662,
     "ci_low": 1786515.0118977297,
     "ci_high": 2183518.347875003,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8405,7 +4486,7 @@
     "value": 4011026.244755478,
     "ci_low": 3609923.6202799305,
     "ci_high": 4412128.869231026,
-    "n": 1,
+    "n": 419,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8416,7 +4497,7 @@
     "value": 2506891.402972174,
     "ci_low": 2256202.2626749566,
     "ci_high": 2757580.543269391,
-    "n": 1,
+    "n": 419,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8427,7 +4508,7 @@
     "value": 2807718.371328835,
     "ci_low": 2526946.534195951,
     "ci_high": 3088490.2084617186,
-    "n": 1,
+    "n": 419,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8438,7 +4519,7 @@
     "value": 2005513.122377739,
     "ci_low": 1804961.8101399653,
     "ci_high": 2206064.434615513,
-    "n": 1,
+    "n": 419,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8449,7 +4530,7 @@
     "value": 5746463.369509751,
     "ci_low": 5171817.0325587755,
     "ci_high": 6321109.706460726,
-    "n": 1,
+    "n": 456,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8460,7 +4541,7 @@
     "value": 3591539.605943594,
     "ci_low": 3232385.645349235,
     "ci_high": 3950693.5665379534,
-    "n": 1,
+    "n": 456,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8471,7 +4552,7 @@
     "value": 4022524.3586568255,
     "ci_low": 3620271.922791143,
     "ci_high": 4424776.794522508,
-    "n": 1,
+    "n": 456,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8482,7 +4563,7 @@
     "value": 2873231.6847548755,
     "ci_low": 2585908.5162793878,
     "ci_high": 3160554.853230363,
-    "n": 1,
+    "n": 456,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8493,7 +4574,7 @@
     "value": 8715702.909214124,
     "ci_low": 7844132.618292712,
     "ci_high": 9587273.200135536,
-    "n": 1,
+    "n": 513,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8504,7 +4585,7 @@
     "value": 5447314.318258828,
     "ci_low": 4902582.886432945,
     "ci_high": 5992045.75008471,
-    "n": 1,
+    "n": 513,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8515,7 +4596,7 @@
     "value": 6100992.036449888,
     "ci_low": 5490892.832804899,
     "ci_high": 6711091.240094877,
-    "n": 1,
+    "n": 513,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8526,7 +4607,7 @@
     "value": 4357851.454607062,
     "ci_low": 3922066.309146356,
     "ci_high": 4793636.600067768,
-    "n": 1,
+    "n": 513,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8537,7 +4618,7 @@
     "value": 9637301.623657808,
     "ci_low": 8673571.461292027,
     "ci_high": 10601031.786023589,
-    "n": 1,
+    "n": 535,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8548,7 +4629,7 @@
     "value": 6023313.51478613,
     "ci_low": 5420982.163307517,
     "ci_high": 6625644.866264743,
-    "n": 1,
+    "n": 535,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8559,7 +4640,7 @@
     "value": 6746111.136560466,
     "ci_low": 6071500.022904419,
     "ci_high": 7420722.250216513,
-    "n": 1,
+    "n": 535,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8570,7 +4651,7 @@
     "value": 4818650.811828904,
     "ci_low": 4336785.730646013,
     "ci_high": 5300515.893011794,
-    "n": 1,
+    "n": 535,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8581,7 +4662,7 @@
     "value": 9271664.072916033,
     "ci_low": 8344497.6656244295,
     "ci_high": 10198830.480207637,
-    "n": 1,
+    "n": 532,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8592,7 +4673,7 @@
     "value": 5794790.045572519,
     "ci_low": 5215311.041015267,
     "ci_high": 6374269.050129771,
-    "n": 1,
+    "n": 532,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8603,7 +4684,7 @@
     "value": 6490164.851041222,
     "ci_low": 5841148.3659371,
     "ci_high": 7139181.336145344,
-    "n": 1,
+    "n": 532,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8614,7 +4695,7 @@
     "value": 4635832.036458016,
     "ci_low": 4172248.8328122147,
     "ci_high": 5099415.2401038185,
-    "n": 1,
+    "n": 532,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8625,7 +4706,7 @@
     "value": 7585031.595751543,
     "ci_low": 6826528.4361763885,
     "ci_high": 8343534.755326697,
-    "n": 1,
+    "n": 485,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8636,7 +4717,7 @@
     "value": 4740644.747344714,
     "ci_low": 4266580.2726102425,
     "ci_high": 5214709.222079185,
-    "n": 1,
+    "n": 485,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8647,7 +4728,7 @@
     "value": 5309522.11702608,
     "ci_low": 4778569.905323472,
     "ci_high": 5840474.328728689,
-    "n": 1,
+    "n": 485,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8658,7 +4739,7 @@
     "value": 3792515.7978757713,
     "ci_low": 3413264.2180881943,
     "ci_high": 4171767.3776633483,
-    "n": 1,
+    "n": 485,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8669,7 +4750,7 @@
     "value": 5779579.256471951,
     "ci_low": 5201621.330824755,
     "ci_high": 6357537.182119146,
-    "n": 1,
+    "n": 461,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8680,7 +4761,7 @@
     "value": 3612237.0352949686,
     "ci_low": 3251013.331765472,
     "ci_high": 3973460.7388244653,
-    "n": 1,
+    "n": 461,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8691,7 +4772,7 @@
     "value": 4045705.479530365,
     "ci_low": 3641134.9315773286,
     "ci_high": 4450276.027483402,
-    "n": 1,
+    "n": 461,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8702,7 +4783,7 @@
     "value": 2889789.6282359753,
     "ci_low": 2600810.6654123776,
     "ci_high": 3178768.591059573,
-    "n": 1,
+    "n": 461,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8713,7 +4794,7 @@
     "value": 4270146.729418296,
     "ci_low": 3843132.056476467,
     "ci_high": 4697161.402360126,
-    "n": 1,
+    "n": 447,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8724,7 +4805,7 @@
     "value": 2668841.7058864357,
     "ci_low": 2401957.535297792,
     "ci_high": 2935725.8764750795,
-    "n": 1,
+    "n": 447,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8735,7 +4816,7 @@
     "value": 2989102.710592808,
     "ci_low": 2690192.4395335275,
     "ci_high": 3288012.981652089,
-    "n": 1,
+    "n": 447,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8746,7 +4827,7 @@
     "value": 2135073.364709148,
     "ci_low": 1921566.0282382334,
     "ci_high": 2348580.701180063,
-    "n": 1,
+    "n": 447,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8757,7 +4838,7 @@
     "value": 3506310.011659971,
     "ci_low": 3155679.0104939737,
     "ci_high": 3856941.012825968,
-    "n": 1,
+    "n": 383,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8768,7 +4849,7 @@
     "value": 2191443.757287482,
     "ci_low": 1972299.3815587335,
     "ci_high": 2410588.13301623,
-    "n": 1,
+    "n": 383,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8779,7 +4860,7 @@
     "value": 2454417.0081619797,
     "ci_low": 2208975.307345782,
     "ci_high": 2699858.7089781775,
-    "n": 1,
+    "n": 383,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8790,7 +4871,7 @@
     "value": 1753155.0058299855,
     "ci_low": 1577839.5052469869,
     "ci_high": 1928470.506412984,
-    "n": 1,
+    "n": 383,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8801,7 +4882,7 @@
     "value": 3629272.285143084,
     "ci_low": 3266345.0566287753,
     "ci_high": 3992199.5136573925,
-    "n": 1,
+    "n": 378,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8812,7 +4893,7 @@
     "value": 2268295.178214427,
     "ci_low": 2041465.6603929843,
     "ci_high": 2495124.69603587,
-    "n": 1,
+    "n": 378,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8823,7 +4904,7 @@
     "value": 2540490.5996001586,
     "ci_low": 2286441.5396401426,
     "ci_high": 2794539.6595601747,
-    "n": 1,
+    "n": 378,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8834,7 +4915,7 @@
     "value": 1814636.142571542,
     "ci_low": 1633172.5283143877,
     "ci_high": 1996099.7568286962,
-    "n": 1,
+    "n": 378,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8845,7 +4926,7 @@
     "value": 4225324.943055793,
     "ci_low": 3802792.4487502133,
     "ci_high": 4647857.437361372,
-    "n": 1,
+    "n": 426,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8856,7 +4937,7 @@
     "value": 2640828.08940987,
     "ci_low": 2376745.280468883,
     "ci_high": 2904910.898350857,
-    "n": 1,
+    "n": 426,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8867,7 +4948,7 @@
     "value": 2957727.460139055,
     "ci_low": 2661954.7141251494,
     "ci_high": 3253500.20615296,
-    "n": 1,
+    "n": 426,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8878,7 +4959,7 @@
     "value": 2112662.4715278964,
     "ci_low": 1901396.2243751066,
     "ci_high": 2323928.718680686,
-    "n": 1,
+    "n": 426,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8889,7 +4970,7 @@
     "value": 5045138.000693707,
     "ci_low": 4540624.2006243365,
     "ci_high": 5549651.800763077,
-    "n": 1,
+    "n": 457,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8900,7 +4981,7 @@
     "value": 3153211.250433566,
     "ci_low": 2837890.1253902093,
     "ci_high": 3468532.375476923,
-    "n": 1,
+    "n": 457,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8911,7 +4992,7 @@
     "value": 3531596.600485595,
     "ci_low": 3178436.9404370356,
     "ci_high": 3884756.2605341543,
-    "n": 1,
+    "n": 457,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8922,7 +5003,7 @@
     "value": 2522569.0003468534,
     "ci_low": 2270312.1003121682,
     "ci_high": 2774825.9003815386,
-    "n": 1,
+    "n": 457,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8933,7 +5014,7 @@
     "value": 3409067.7444768865,
     "ci_low": 3068160.9700291976,
     "ci_high": 3749974.5189245753,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8944,7 +5025,7 @@
     "value": 2130667.340298054,
     "ci_low": 1917600.6062682485,
     "ci_high": 2343734.074327859,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8955,7 +5036,7 @@
     "value": 2386347.4211338204,
     "ci_low": 2147712.6790204383,
     "ci_high": 2624982.1632472025,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8966,7 +5047,7 @@
     "value": 1704533.8722384432,
     "ci_low": 1534080.4850145988,
     "ci_high": 1874987.2594622876,
-    "n": 1,
+    "n": 396,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8977,7 +5058,7 @@
     "value": 3562479.335212751,
     "ci_low": 3206231.401691476,
     "ci_high": 3918727.268734026,
-    "n": 1,
+    "n": 372,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8988,7 +5069,7 @@
     "value": 2226549.584507969,
     "ci_low": 2003894.6260571722,
     "ci_high": 2449204.542958766,
-    "n": 1,
+    "n": 372,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -8999,7 +5080,7 @@
     "value": 2493735.534648926,
     "ci_low": 2244361.981184033,
     "ci_high": 2743109.088113819,
-    "n": 1,
+    "n": 372,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9010,7 +5091,7 @@
     "value": 1781239.6676063754,
     "ci_low": 1603115.700845738,
     "ci_high": 1959363.634367013,
-    "n": 1,
+    "n": 372,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9021,7 +5102,7 @@
     "value": 3064518.823300996,
     "ci_low": 2758066.9409708963,
     "ci_high": 3370970.7056310955,
-    "n": 1,
+    "n": 350,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9032,7 +5113,7 @@
     "value": 1915324.2645631223,
     "ci_low": 1723791.83810681,
     "ci_high": 2106856.6910194345,
-    "n": 1,
+    "n": 350,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9043,7 +5124,7 @@
     "value": 2145163.176310697,
     "ci_low": 1930646.8586796273,
     "ci_high": 2359679.4939417667,
-    "n": 1,
+    "n": 350,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9054,7 +5135,7 @@
     "value": 1532259.411650498,
     "ci_low": 1379033.4704854481,
     "ci_high": 1685485.3528155477,
-    "n": 1,
+    "n": 350,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9065,7 +5146,7 @@
     "value": 2551397.1732789148,
     "ci_low": 2296257.4559510234,
     "ci_high": 2806536.890606806,
-    "n": 1,
+    "n": 328,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9076,7 +5157,7 @@
     "value": 1594623.233299322,
     "ci_low": 1435160.9099693897,
     "ci_high": 1754085.5566292542,
-    "n": 1,
+    "n": 328,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9087,7 +5168,7 @@
     "value": 1785978.0212952406,
     "ci_low": 1607380.2191657166,
     "ci_high": 1964575.8234247647,
-    "n": 1,
+    "n": 328,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9098,7 +5179,7 @@
     "value": 1275698.5866394574,
     "ci_low": 1148128.7279755117,
     "ci_high": 1403268.445303403,
-    "n": 1,
+    "n": 328,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9109,7 +5190,7 @@
     "value": 2734629.0882130633,
     "ci_low": 2461166.179391757,
     "ci_high": 3008091.9970343695,
-    "n": 1,
+    "n": 333,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9120,7 +5201,7 @@
     "value": 1709143.1801331644,
     "ci_low": 1538228.862119848,
     "ci_high": 1880057.4981464809,
-    "n": 1,
+    "n": 333,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9131,7 +5212,7 @@
     "value": 1914240.3617491443,
     "ci_low": 1722816.32557423,
     "ci_high": 2105664.3979240586,
-    "n": 1,
+    "n": 333,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9142,7 +5223,7 @@
     "value": 1367314.5441065317,
     "ci_low": 1230583.0896958786,
     "ci_high": 1504045.9985171848,
-    "n": 1,
+    "n": 333,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9153,7 +5234,7 @@
     "value": 1847237.9029748098,
     "ci_low": 1662514.1126773288,
     "ci_high": 2031961.6932722908,
-    "n": 1,
+    "n": 303,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9164,7 +5245,7 @@
     "value": 1154523.689359256,
     "ci_low": 1039071.3204233304,
     "ci_high": 1269976.0582951817,
-    "n": 1,
+    "n": 303,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9175,7 +5256,7 @@
     "value": 1293066.532082367,
     "ci_low": 1163759.8788741303,
     "ci_high": 1422373.1852906037,
-    "n": 1,
+    "n": 303,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9186,7 +5267,7 @@
     "value": 923618.9514874049,
     "ci_low": 831257.0563386644,
     "ci_high": 1015980.8466361454,
-    "n": 1,
+    "n": 303,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9197,7 +5278,7 @@
     "value": 2257051.3530288762,
     "ci_low": 2031346.2177259885,
     "ci_high": 2482756.488331764,
-    "n": 1,
+    "n": 318,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9208,7 +5289,7 @@
     "value": 1410657.0956430475,
     "ci_low": 1269591.3860787428,
     "ci_high": 1551722.8052073522,
-    "n": 1,
+    "n": 318,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9219,7 +5300,7 @@
     "value": 1579935.9471202134,
     "ci_low": 1421942.3524081921,
     "ci_high": 1737929.5418322347,
-    "n": 1,
+    "n": 318,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9230,7 +5311,7 @@
     "value": 1128525.6765144381,
     "ci_low": 1015673.1088629942,
     "ci_high": 1241378.244165882,
-    "n": 1,
+    "n": 318,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9241,7 +5322,7 @@
     "value": 2864273.2197234314,
     "ci_low": 2577845.8977510883,
     "ci_high": 3150700.5416957745,
-    "n": 1,
+    "n": 325,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9252,7 +5333,7 @@
     "value": 1790170.7623271446,
     "ci_low": 1611153.6860944303,
     "ci_high": 1969187.838559859,
-    "n": 1,
+    "n": 325,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9263,7 +5344,7 @@
     "value": 2004991.2538064022,
     "ci_low": 1804492.128425762,
     "ci_high": 2205490.3791870424,
-    "n": 1,
+    "n": 325,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9274,7 +5355,7 @@
     "value": 1432136.6098617157,
     "ci_low": 1288922.9488755441,
     "ci_high": 1575350.2708478873,
-    "n": 1,
+    "n": 325,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9285,7 +5366,7 @@
     "value": 2294673.227966701,
     "ci_low": 2065205.905170031,
     "ci_high": 2524140.5507633714,
-    "n": 1,
+    "n": 296,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9296,7 +5377,7 @@
     "value": 1434170.7674791883,
     "ci_low": 1290753.6907312695,
     "ci_high": 1577587.844227107,
-    "n": 1,
+    "n": 296,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9307,7 +5388,7 @@
     "value": 1606271.2595766908,
     "ci_low": 1445644.1336190216,
     "ci_high": 1766898.38553436,
-    "n": 1,
+    "n": 296,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9318,7 +5399,7 @@
     "value": 1147336.6139833506,
     "ci_low": 1032602.9525850154,
     "ci_high": 1262070.2753816857,
-    "n": 1,
+    "n": 296,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9329,7 +5410,7 @@
     "value": 2377163.2651026337,
     "ci_low": 2139446.9385923706,
     "ci_high": 2614879.591612897,
-    "n": 1,
+    "n": 313,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9340,7 +5421,7 @@
     "value": 1485727.040689146,
     "ci_low": 1337154.3366202314,
     "ci_high": 1634299.7447580604,
-    "n": 1,
+    "n": 313,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9351,7 +5432,7 @@
     "value": 1664014.2855718436,
     "ci_low": 1497612.8570146593,
     "ci_high": 1830415.714129028,
-    "n": 1,
+    "n": 313,
     "ci_method": "synthetic fixture interval"
    }
   },
@@ -9362,7 +5443,7 @@
     "value": 1188581.6325513169,
     "ci_low": 1069723.4692961853,
     "ci_high": 1307439.7958064484,
-    "n": 1,
+    "n": 313,
     "ci_method": "synthetic fixture interval"
    }
   }
@@ -9392,20 +5473,6 @@
     "value": 0.03,
     "ci_low": 0.021093603189697094,
     "ci_high": 0.04250368148151,
-    "n": 1000,
-    "ci_method": "wilson_95"
-   }
-  },
-  {
-   "from_date": "2023-12-01",
-   "to_date": "2024-12-01",
-   "from_stage": "1",
-   "to_stage": "3",
-   "n": 5,
-   "share": {
-    "value": 0.005,
-    "ci_low": 0.0021375039957652504,
-    "ci_high": 0.011651125604761368,
     "n": 1000,
     "ci_method": "wilson_95"
    }
@@ -9469,34 +5536,6 @@
   {
    "from_date": "2023-12-01",
    "to_date": "2024-12-01",
-   "from_stage": "2",
-   "to_stage": "exited",
-   "n": 5,
-   "share": {
-    "value": 0.08333333333333333,
-    "ci_low": 0.03611992405048589,
-    "ci_high": 0.18069168468112481,
-    "n": 60,
-    "ci_method": "wilson_95"
-   }
-  },
-  {
-   "from_date": "2023-12-01",
-   "to_date": "2024-12-01",
-   "from_stage": "3",
-   "to_stage": "2",
-   "n": 4,
-   "share": {
-    "value": 0.2,
-    "ci_low": 0.0806563532712,
-    "ci_high": 0.41602172202575993,
-    "n": 20,
-    "ci_method": "wilson_95"
-   }
-  },
-  {
-   "from_date": "2023-12-01",
-   "to_date": "2024-12-01",
    "from_stage": "3",
    "to_stage": "3",
    "n": 10,
@@ -9504,20 +5543,6 @@
     "value": 0.5,
     "ci_low": 0.2992949144298199,
     "ci_high": 0.7007050855701801,
-    "n": 20,
-    "ci_method": "wilson_95"
-   }
-  },
-  {
-   "from_date": "2023-12-01",
-   "to_date": "2024-12-01",
-   "from_stage": "3",
-   "to_stage": "exited",
-   "n": 6,
-   "share": {
-    "value": 0.3,
-    "ci_low": 0.14547527396899385,
-    "ci_high": 0.5189767762289793,
     "n": 20,
     "ci_method": "wilson_95"
    }
@@ -11984,6 +8009,1150 @@
    "covid_affected": false
   }
  ],
+ "prepayment_backtest": [
+  {
+   "reporting_date": "2016-12-01",
+   "grade": "D",
+   "n": 16,
+   "predicted_rate": 0.09200757117857228,
+   "realised_rate": {
+    "value": 0.25,
+    "ci_low": 0.10181901984237346,
+    "ci_high": 0.49498768929398645,
+    "n": 16,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2016-12-01",
+   "grade": "E",
+   "n": 46,
+   "predicted_rate": 0.08957205385972551,
+   "realised_rate": {
+    "value": 0.2391304347826087,
+    "ci_low": 0.13912036561131397,
+    "ci_high": 0.37935416169118025,
+    "n": 46,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2016-12-01",
+   "grade": "F",
+   "n": 98,
+   "predicted_rate": 0.08960565068726568,
+   "realised_rate": {
+    "value": 0.2857142857142857,
+    "ci_low": 0.20568632301416542,
+    "ci_high": 0.38190853016960236,
+    "n": 98,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2016-12-01",
+   "grade": "G",
+   "n": 229,
+   "predicted_rate": 0.09008561610603318,
+   "realised_rate": {
+    "value": 0.23580786026200873,
+    "ci_low": 0.18546643733082835,
+    "ci_high": 0.2948669738809139,
+    "n": 229,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "grade": "D",
+   "n": 13,
+   "predicted_rate": 0.08805640559049746,
+   "realised_rate": {
+    "value": 0.07692307692307693,
+    "ci_low": 0.013710066379696323,
+    "ci_high": 0.3331453392824736,
+    "n": 13,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "grade": "E",
+   "n": 52,
+   "predicted_rate": 0.08896485017496786,
+   "realised_rate": {
+    "value": 0.3269230769230769,
+    "ci_low": 0.2152190173110406,
+    "ci_high": 0.46244064860111084,
+    "n": 52,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "grade": "F",
+   "n": 84,
+   "predicted_rate": 0.08982612994642838,
+   "realised_rate": {
+    "value": 0.21428571428571427,
+    "ci_low": 0.14006654921749656,
+    "ci_high": 0.3134953166865853,
+    "n": 84,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "grade": "G",
+   "n": 216,
+   "predicted_rate": 0.09029509325650725,
+   "realised_rate": {
+    "value": 0.23148148148148148,
+    "ci_low": 0.18022125427228286,
+    "ci_high": 0.2921261085562264,
+    "n": 216,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2018-12-01",
+   "grade": "D",
+   "n": 17,
+   "predicted_rate": 0.0905788681806478,
+   "realised_rate": {
+    "value": 0.29411764705882354,
+    "ci_low": 0.13279793865556402,
+    "ci_high": 0.5313353332621391,
+    "n": 17,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2018-12-01",
+   "grade": "E",
+   "n": 43,
+   "predicted_rate": 0.08887269222492382,
+   "realised_rate": {
+    "value": 0.20930232558139536,
+    "ci_low": 0.11422705997811457,
+    "ci_high": 0.35205931794236645,
+    "n": 43,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2018-12-01",
+   "grade": "F",
+   "n": 80,
+   "predicted_rate": 0.09072435756438682,
+   "realised_rate": {
+    "value": 0.3,
+    "ci_low": 0.21064429162615705,
+    "ci_high": 0.407683602879673,
+    "n": 80,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2018-12-01",
+   "grade": "G",
+   "n": 202,
+   "predicted_rate": 0.08946539876525514,
+   "realised_rate": {
+    "value": 0.2623762376237624,
+    "ci_low": 0.2065483161326831,
+    "ci_high": 0.32707365338173977,
+    "n": 202,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2019-12-01",
+   "grade": "D",
+   "n": 13,
+   "predicted_rate": 0.08850675738518268,
+   "realised_rate": {
+    "value": 0.15384615384615385,
+    "ci_low": 0.04325726318273798,
+    "ci_high": 0.4223517050863101,
+    "n": 13,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2019-12-01",
+   "grade": "E",
+   "n": 42,
+   "predicted_rate": 0.09163038899053587,
+   "realised_rate": {
+    "value": 0.14285714285714285,
+    "ci_low": 0.06715875684189933,
+    "ci_high": 0.2784138235217878,
+    "n": 42,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2019-12-01",
+   "grade": "F",
+   "n": 80,
+   "predicted_rate": 0.08992526723305436,
+   "realised_rate": {
+    "value": 0.1875,
+    "ci_low": 0.11705207812728378,
+    "ci_high": 0.2865852570380757,
+    "n": 80,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2019-12-01",
+   "grade": "G",
+   "n": 185,
+   "predicted_rate": 0.0901324028172135,
+   "realised_rate": {
+    "value": 0.2918918918918919,
+    "ci_low": 0.231143639773163,
+    "ci_high": 0.3611072202068415,
+    "n": 185,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "grade": "D",
+   "n": 15,
+   "predicted_rate": 0.0913381807031845,
+   "realised_rate": {
+    "value": 0.26666666666666666,
+    "ci_low": 0.1089727610318281,
+    "ci_high": 0.5195088965768675,
+    "n": 15,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "grade": "E",
+   "n": 51,
+   "predicted_rate": 0.09047934508046614,
+   "realised_rate": {
+    "value": 0.19607843137254902,
+    "ci_low": 0.11015224836299273,
+    "ci_high": 0.32458342674495444,
+    "n": 51,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "grade": "F",
+   "n": 82,
+   "predicted_rate": 0.08959514377493177,
+   "realised_rate": {
+    "value": 0.32926829268292684,
+    "ci_low": 0.2371996746292997,
+    "ci_high": 0.43661814796487375,
+    "n": 82,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "grade": "G",
+   "n": 178,
+   "predicted_rate": 0.0897305050547504,
+   "realised_rate": {
+    "value": 0.34269662921348315,
+    "ci_low": 0.27695600477861665,
+    "ci_high": 0.41508366051249385,
+    "n": 178,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2021-12-01",
+   "grade": "D",
+   "n": 16,
+   "predicted_rate": 0.09085718758258542,
+   "realised_rate": {
+    "value": 0.25,
+    "ci_low": 0.10181901984237346,
+    "ci_high": 0.49498768929398645,
+    "n": 16,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2021-12-01",
+   "grade": "E",
+   "n": 49,
+   "predicted_rate": 0.08955343385428181,
+   "realised_rate": {
+    "value": 0.2653061224489796,
+    "ci_low": 0.1621113124514944,
+    "ci_high": 0.4026255615265835,
+    "n": 49,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2021-12-01",
+   "grade": "F",
+   "n": 78,
+   "predicted_rate": 0.09087513176408782,
+   "realised_rate": {
+    "value": 0.16666666666666666,
+    "ci_low": 0.10006850973163443,
+    "ci_high": 0.26455779278444536,
+    "n": 78,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2021-12-01",
+   "grade": "G",
+   "n": 155,
+   "predicted_rate": 0.09007500735043919,
+   "realised_rate": {
+    "value": 0.2129032258064516,
+    "ci_low": 0.15580732288767635,
+    "ci_high": 0.28388605718404286,
+    "n": 155,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2022-12-01",
+   "grade": "D",
+   "n": 14,
+   "predicted_rate": 0.0923718921923711,
+   "realised_rate": {
+    "value": 0.21428571428571427,
+    "ci_low": 0.0757124833691637,
+    "ci_high": 0.4758972377320828,
+    "n": 14,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2022-12-01",
+   "grade": "E",
+   "n": 50,
+   "predicted_rate": 0.0886106454154055,
+   "realised_rate": {
+    "value": 0.28,
+    "ci_low": 0.17474014357680362,
+    "ci_high": 0.4166538714598967,
+    "n": 50,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2022-12-01",
+   "grade": "F",
+   "n": 73,
+   "predicted_rate": 0.09050904622788751,
+   "realised_rate": {
+    "value": 0.2328767123287671,
+    "ci_low": 0.15078759076763015,
+    "ci_high": 0.3416748254235996,
+    "n": 73,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2022-12-01",
+   "grade": "G",
+   "n": 176,
+   "predicted_rate": 0.09016647418805136,
+   "realised_rate": {
+    "value": 0.2215909090909091,
+    "ci_low": 0.16654706350320464,
+    "ci_high": 0.28852895895211156,
+    "n": 176,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2023-12-01",
+   "grade": "D",
+   "n": 16,
+   "predicted_rate": 0.09121052258232928,
+   "realised_rate": {
+    "value": 0.0625,
+    "ci_low": 0.01111905730833121,
+    "ci_high": 0.2832926836802987,
+    "n": 16,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2023-12-01",
+   "grade": "E",
+   "n": 41,
+   "predicted_rate": 0.08963643396629231,
+   "realised_rate": {
+    "value": 0.17073170731707318,
+    "ci_low": 0.08525143995273898,
+    "ci_high": 0.31262909954629764,
+    "n": 41,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2023-12-01",
+   "grade": "F",
+   "n": 76,
+   "predicted_rate": 0.08976197867054177,
+   "realised_rate": {
+    "value": 0.27631578947368424,
+    "ci_low": 0.18840105352742306,
+    "ci_high": 0.38575577699701535,
+    "n": 76,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2023-12-01",
+   "grade": "G",
+   "n": 187,
+   "predicted_rate": 0.09072887007541844,
+   "realised_rate": {
+    "value": 0.2192513368983957,
+    "ci_low": 0.1659302235019089,
+    "ci_high": 0.28387526964004756,
+    "n": 187,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2024-12-01",
+   "grade": "D",
+   "n": 20,
+   "predicted_rate": 0.08924083547668271,
+   "realised_rate": {
+    "value": 0.3,
+    "ci_low": 0.14547527396899385,
+    "ci_high": 0.5189767762289793,
+    "n": 20,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2024-12-01",
+   "grade": "E",
+   "n": 40,
+   "predicted_rate": 0.09034277585408121,
+   "realised_rate": {
+    "value": 0.125,
+    "ci_low": 0.05459419773541284,
+    "ci_high": 0.26112420670238146,
+    "n": 40,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2024-12-01",
+   "grade": "F",
+   "n": 66,
+   "predicted_rate": 0.08957628913608819,
+   "realised_rate": {
+    "value": 0.18181818181818182,
+    "ci_low": 0.10718501425764242,
+    "ci_high": 0.2914541921751999,
+    "n": 66,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2024-12-01",
+   "grade": "G",
+   "n": 166,
+   "predicted_rate": 0.0892642395669441,
+   "realised_rate": {
+    "value": 0.19879518072289157,
+    "ci_low": 0.14520087187123953,
+    "ci_high": 0.2660152259516731,
+    "n": 166,
+    "ci_method": "wilson_95"
+   }
+  }
+ ],
+ "stage2_drivers": [
+  {
+   "reporting_date": "2002-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 11,
+   "share_of_stage2": {
+    "value": 0.4583333333333333,
+    "ci_low": 0.2789105835168143,
+    "ci_high": 0.6492544644689336,
+    "n": 24,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2003-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 11,
+   "share_of_stage2": {
+    "value": 0.44,
+    "ci_low": 0.2666537494700256,
+    "ci_high": 0.6293298298043557,
+    "n": 25,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2004-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 14,
+   "share_of_stage2": {
+    "value": 0.5384615384615384,
+    "ci_low": 0.3545763620443012,
+    "ci_high": 0.712444173047651,
+    "n": 26,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2006-12-01",
+   "reason": "cure_probation",
+   "n_loans": 10,
+   "share_of_stage2": {
+    "value": 0.2631578947368421,
+    "ci_low": 0.14971462389701296,
+    "ci_high": 0.42009150206375323,
+    "n": 38,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2006-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 11,
+   "share_of_stage2": {
+    "value": 0.2894736842105263,
+    "ci_low": 0.17003106263656131,
+    "ci_high": 0.44757438266189764,
+    "n": 38,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2006-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 17,
+   "share_of_stage2": {
+    "value": 0.4473684210526316,
+    "ci_low": 0.3014616531155089,
+    "ci_high": 0.6029397082091058,
+    "n": 38,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2007-12-01",
+   "reason": "cure_probation",
+   "n_loans": 10,
+   "share_of_stage2": {
+    "value": 0.30303030303030304,
+    "ci_low": 0.17375347814547223,
+    "ci_high": 0.4733845397473445,
+    "n": 33,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2007-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 15,
+   "share_of_stage2": {
+    "value": 0.45454545454545453,
+    "ci_low": 0.298426891258915,
+    "ci_high": 0.6201434205625044,
+    "n": 33,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2008-12-01",
+   "reason": "cure_probation",
+   "n_loans": 15,
+   "share_of_stage2": {
+    "value": 0.375,
+    "ci_low": 0.2422277353579172,
+    "ci_high": 0.529678399454681,
+    "n": 40,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2008-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 16,
+   "share_of_stage2": {
+    "value": 0.4,
+    "ci_low": 0.2634811061240136,
+    "ci_high": 0.5540438017260649,
+    "n": 40,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2009-12-01",
+   "reason": "cure_probation",
+   "n_loans": 13,
+   "share_of_stage2": {
+    "value": 0.41935483870967744,
+    "ci_low": 0.26415303073549257,
+    "ci_high": 0.5923403564797902,
+    "n": 31,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2009-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 12,
+   "share_of_stage2": {
+    "value": 0.3870967741935484,
+    "ci_low": 0.23732875351271562,
+    "ci_high": 0.5617619885886803,
+    "n": 31,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2010-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 16,
+   "share_of_stage2": {
+    "value": 0.43243243243243246,
+    "ci_low": 0.2867148684035131,
+    "ci_high": 0.5908609366579929,
+    "n": 37,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2010-12-01",
+   "reason": "pd_deterioration",
+   "n_loans": 12,
+   "share_of_stage2": {
+    "value": 0.32432432432432434,
+    "ci_low": 0.19633077820815478,
+    "ci_high": 0.48536631495176064,
+    "n": 37,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2011-12-01",
+   "reason": "cure_probation",
+   "n_loans": 10,
+   "share_of_stage2": {
+    "value": 0.45454545454545453,
+    "ci_low": 0.26920014432004846,
+    "ci_high": 0.6534052671095845,
+    "n": 22,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2016-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 10,
+   "share_of_stage2": {
+    "value": 0.38461538461538464,
+    "ci_low": 0.22428359511834428,
+    "ci_high": 0.5746547996057992,
+    "n": 26,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 13,
+   "share_of_stage2": {
+    "value": 0.48148148148148145,
+    "ci_low": 0.3074295064970908,
+    "ci_high": 0.6601467541378958,
+    "n": 27,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "reason": "dpd30_backstop",
+   "n_loans": 57,
+   "share_of_stage2": {
+    "value": 0.7916666666666666,
+    "ci_low": 0.6843051941004199,
+    "ci_high": 0.8694805910095988,
+    "n": 72,
+    "ci_method": "wilson_95"
+   }
+  }
+ ],
+ "cured_population": [
+  {
+   "reporting_date": "2001-12-01",
+   "n_loans": 10,
+   "ead": {
+    "value": 2007018.2,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 10,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 162510.37172026056,
+    "ci_low": 130008.29737620844,
+    "ci_high": 195012.44606431268,
+    "n": 10,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2002-12-01",
+   "n_loans": 12,
+   "ead": {
+    "value": 2727031.86,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 12,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 323797.3122039076,
+    "ci_low": 259037.84976312605,
+    "ci_high": 388556.7746446891,
+    "n": 12,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2003-12-01",
+   "n_loans": 16,
+   "ead": {
+    "value": 3574909.5300000003,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 16,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 286378.88959230285,
+    "ci_low": 229103.11167384227,
+    "ci_high": 343654.6675107634,
+    "n": 16,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2004-12-01",
+   "n_loans": 12,
+   "ead": {
+    "value": 2152650.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 12,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 228374.95099775755,
+    "ci_low": 182699.96079820604,
+    "ci_high": 274049.94119730906,
+    "n": 12,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2005-12-01",
+   "n_loans": 15,
+   "ead": {
+    "value": 2713587.53,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 15,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 266452.744764441,
+    "ci_low": 213162.19581155278,
+    "ci_high": 319743.29371732916,
+    "n": 15,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2006-12-01",
+   "n_loans": 29,
+   "ead": {
+    "value": 5390239.920000001,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 29,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 626897.1811154345,
+    "ci_low": 501517.7448923476,
+    "ci_high": 752276.6173385214,
+    "n": 29,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2007-12-01",
+   "n_loans": 28,
+   "ead": {
+    "value": 5657216.39,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 28,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 671986.9981536308,
+    "ci_low": 537589.5985229046,
+    "ci_high": 806384.397784357,
+    "n": 28,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2008-12-01",
+   "n_loans": 36,
+   "ead": {
+    "value": 7121738.249999999,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 36,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 835787.7537560061,
+    "ci_low": 668630.2030048049,
+    "ci_high": 1002945.3045072074,
+    "n": 36,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2009-12-01",
+   "n_loans": 37,
+   "ead": {
+    "value": 6458176.72,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 37,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 631236.1872172887,
+    "ci_low": 504988.94977383094,
+    "ci_high": 757483.4246607464,
+    "n": 37,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2010-12-01",
+   "n_loans": 35,
+   "ead": {
+    "value": 5366110.44,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 35,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 621458.1157506051,
+    "ci_low": 497166.4926004841,
+    "ci_high": 745749.7389007262,
+    "n": 35,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2011-12-01",
+   "n_loans": 25,
+   "ead": {
+    "value": 4060039.5999999996,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 25,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 483861.36245166627,
+    "ci_low": 387089.089961333,
+    "ci_high": 580633.6349419996,
+    "n": 25,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2012-12-01",
+   "n_loans": 19,
+   "ead": {
+    "value": 2948423.52,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 19,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 241609.78603513198,
+    "ci_low": 193287.8288281056,
+    "ci_high": 289931.7432421584,
+    "n": 19,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2013-12-01",
+   "n_loans": 15,
+   "ead": {
+    "value": 2272889.64,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 15,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 111761.86222653044,
+    "ci_low": 89409.48978122436,
+    "ci_high": 134114.23467183654,
+    "n": 15,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2014-12-01",
+   "n_loans": 14,
+   "ead": {
+    "value": 2549740.93,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 14,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 212978.1375661391,
+    "ci_low": 170382.5100529113,
+    "ci_high": 255573.76507936692,
+    "n": 14,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2015-12-01",
+   "n_loans": 17,
+   "ead": {
+    "value": 3249373.8899999997,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 232076.6847316612,
+    "ci_low": 185661.34778532895,
+    "ci_high": 278492.02167799347,
+    "n": 17,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2016-12-01",
+   "n_loans": 26,
+   "ead": {
+    "value": 4525305.3,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 26,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 271317.92138779676,
+    "ci_low": 217054.3371102374,
+    "ci_high": 325581.5056653561,
+    "n": 26,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2017-12-01",
+   "n_loans": 25,
+   "ead": {
+    "value": 4191589.27,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 25,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 349444.5077989756,
+    "ci_low": 279555.6062391805,
+    "ci_high": 419333.40935877076,
+    "n": 25,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2018-12-01",
+   "n_loans": 26,
+   "ead": {
+    "value": 4274767.62,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 26,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 311973.71586160024,
+    "ci_low": 249578.9726892802,
+    "ci_high": 374368.4590339203,
+    "n": 26,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2019-12-01",
+   "n_loans": 22,
+   "ead": {
+    "value": 3306096.3000000003,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 22,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 185442.39442017686,
+    "ci_low": 148353.9155361415,
+    "ci_high": 222530.87330421223,
+    "n": 22,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2020-12-01",
+   "n_loans": 17,
+   "ead": {
+    "value": 2684039.42,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 109137.92355898856,
+    "ci_low": 87310.33884719085,
+    "ci_high": 130965.50827078627,
+    "n": 17,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2021-12-01",
+   "n_loans": 14,
+   "ead": {
+    "value": 2180886.85,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 14,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 63258.59860051992,
+    "ci_low": 50606.87888041594,
+    "ci_high": 75910.3183206239,
+    "n": 14,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2022-12-01",
+   "n_loans": 15,
+   "ead": {
+    "value": 2096160.7600000002,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 15,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 139864.29905483953,
+    "ci_low": 111891.43924387163,
+    "ci_high": 167837.15886580743,
+    "n": 15,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2023-12-01",
+   "n_loans": 16,
+   "ead": {
+    "value": 2467038.33,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 16,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 155646.01148256607,
+    "ci_low": 124516.80918605285,
+    "ci_high": 186775.2137790793,
+    "n": 16,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2024-12-01",
+   "n_loans": 23,
+   "ead": {
+    "value": 3492141.8600000003,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 23,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 207521.2310727606,
+    "ci_low": 166016.98485820848,
+    "ci_high": 249025.4772873127,
+    "n": 23,
+    "ci_method": "synthetic fixture interval"
+   }
+  },
+  {
+   "reporting_date": "2025-12-01",
+   "n_loans": 23,
+   "ead": {
+    "value": 3534453.9799999995,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 23,
+    "ci_method": "none: population count, not an estimate"
+   },
+   "ecl": {
+    "value": 188801.95195555285,
+    "ci_low": 151041.5615644423,
+    "ci_high": 226562.3423466634,
+    "n": 23,
+    "ci_method": "synthetic fixture interval"
+   }
+  }
+ ],
+ "hazard_inputs": {
+  "market_rate_carried_forward_months": 217,
+  "loan_months_without_market_rate": 0
+ },
  "pass_rules": [
   {
    "rule_id": "E3",

@@ -5,6 +5,7 @@
  "generated_at": "2026-09-23T00:00:00Z",
  "data_cutoff": "2026-03-01",
  "code_version": "fixture",
+ "suppressed_cells": 68,
  "summary": {
   "n_loans": {
    "value": 4000.0,
@@ -42,10 +43,10 @@
    "ci_method": "none: population count, not an estimate"
   },
   "net_loss_total": {
-   "value": 17054638.91,
+   "value": 14729935.76,
    "ci_low": null,
    "ci_high": null,
-   "n": 296,
+   "n": 254,
    "ci_method": "none: population count, not an estimate"
   }
  },
@@ -984,7 +985,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.010427275267815558,
+    "value": 0.005431346064275733,
     "ci_low": null,
     "ci_high": null,
     "n": 57,
@@ -1004,7 +1005,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.013727704704238473,
+    "value": 0.005431346064275733,
     "ci_low": null,
     "ci_high": null,
     "n": 57,
@@ -1424,7 +1425,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004607403314917127,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 50,
@@ -1444,7 +1445,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004607403314917127,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 50,
@@ -1464,7 +1465,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004607403314917127,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 50,
@@ -1484,7 +1485,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.008346846882399369,
+    "value": 0.0037394435674822416,
     "ci_low": null,
     "ci_high": null,
     "n": 50,
@@ -1584,7 +1585,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.027938680976430975,
+    "value": 0.024858882996632994,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -1604,7 +1605,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.027938680976430975,
+    "value": 0.024858882996632994,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -1724,7 +1725,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.016468051764705883,
+    "value": 0.012499303529411764,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -1824,7 +1825,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004569494755836246,
+    "value": -0.00017513138603811887,
     "ci_low": null,
     "ci_high": null,
     "n": 45,
@@ -1844,7 +1845,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004569494755836246,
+    "value": -0.00017513138603811887,
     "ci_low": null,
     "ci_high": null,
     "n": 45,
@@ -2064,7 +2065,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004965781267278558,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -2084,7 +2085,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004965781267278558,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -2184,7 +2185,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.013048941023519679,
+    "value": 0.010557317101997398,
     "ci_low": null,
     "ci_high": null,
     "n": 39,
@@ -2204,7 +2205,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.021792809360595675,
+    "value": 0.019301185439073394,
     "ci_low": null,
     "ci_high": null,
     "n": 39,
@@ -2444,7 +2445,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.003074595166163142,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 50,
@@ -3024,7 +3025,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.014460086061925018,
+    "value": 0.012938122465130082,
     "ci_low": null,
     "ci_high": null,
     "n": 48,
@@ -3044,7 +3045,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.026941400732020972,
+    "value": 0.02327555247798991,
     "ci_low": null,
     "ci_high": null,
     "n": 48,
@@ -3524,7 +3525,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.06406897196261682,
+    "value": 0.0566960446879364,
     "ci_low": null,
     "ci_high": null,
     "n": 47,
@@ -4044,7 +4045,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.012998228296923254,
+    "value": 0.00551728468489077,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4064,7 +4065,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.012998228296923254,
+    "value": 0.00551728468489077,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4084,7 +4085,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.01484203019558504,
+    "value": 0.007361086583552556,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4104,7 +4105,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.01596538487933204,
+    "value": 0.008484441267299555,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4124,7 +4125,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.018098367837126848,
+    "value": 0.010617424225094362,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4484,7 +4485,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.02397665715410352,
+    "value": 0.021950936823459947,
     "ci_low": null,
     "ci_high": null,
     "n": 52,
@@ -4544,7 +4545,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.0336230913401829,
+    "value": 0.014701800835497348,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -4564,7 +4565,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.040481306311392115,
+    "value": 0.02156001580670656,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -4584,7 +4585,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.049055410409845325,
+    "value": 0.02156001580670656,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -4604,7 +4605,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.05497259342892628,
+    "value": 0.027477198825787513,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -4924,7 +4925,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.006910289424125285,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4944,7 +4945,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.007979875111507584,
+    "value": 0.0010695856873822974,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -4964,7 +4965,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.007979875111507584,
+    "value": 0.0010695856873822974,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -6564,7 +6565,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00498784592046809,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -6584,7 +6585,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00498784592046809,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -6604,7 +6605,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00498784592046809,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -6624,7 +6625,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00498784592046809,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -6644,7 +6645,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00498784592046809,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 44,
@@ -7324,7 +7325,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00919995203488372,
+    "value": 0.006836438953488372,
     "ci_low": null,
     "ci_high": null,
     "n": 36,
@@ -7344,7 +7345,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00919995203488372,
+    "value": 0.006836438953488372,
     "ci_low": null,
     "ci_high": null,
     "n": 36,
@@ -7364,7 +7365,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.00919995203488372,
+    "value": 0.006836438953488372,
     "ci_low": null,
     "ci_high": null,
     "n": 36,
@@ -7464,7 +7465,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004868228524076972,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -7484,7 +7485,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.004868228524076972,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 51,
@@ -8204,7 +8205,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.022828648194794292,
+    "value": 0.01718686565910999,
     "ci_low": null,
     "ci_high": null,
     "n": 59,
@@ -8764,7 +8765,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.038212791338582686,
+    "value": 0.02238489566929134,
     "ci_low": null,
     "ci_high": null,
     "n": 27,
@@ -8784,7 +8785,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.038212791338582686,
+    "value": 0.02238489566929134,
     "ci_low": null,
     "ci_high": null,
     "n": 27,
@@ -8804,7 +8805,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.038212791338582686,
+    "value": 0.02238489566929134,
     "ci_low": null,
     "ci_high": null,
     "n": 27,
@@ -9004,7 +9005,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.024005371000680734,
+    "value": 0.00615213750850919,
     "ci_low": null,
     "ci_high": null,
     "n": 21,
@@ -9024,7 +9025,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.024005371000680734,
+    "value": 0.00615213750850919,
     "ci_low": null,
     "ci_high": null,
     "n": 21,
@@ -9044,7 +9045,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.024005371000680734,
+    "value": 0.00615213750850919,
     "ci_low": null,
     "ci_high": null,
     "n": 21,
@@ -9764,7 +9765,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.009220174927113703,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 25,
@@ -11744,7 +11745,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.0110513685770751,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 35,
@@ -11764,7 +11765,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.0110513685770751,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 35,
@@ -11784,7 +11785,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.0110513685770751,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 35,
@@ -12084,7 +12085,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.024692041996348144,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 16,
@@ -12104,7 +12105,7 @@
     "ci_method": "wilson_95"
    },
    "cum_loss_rate": {
-    "value": 0.024692041996348144,
+    "value": 0.0,
     "ci_low": null,
     "ci_high": null,
     "n": 16,
@@ -12454,11 +12455,11 @@
    "from_bucket": "reo",
    "to_state": "credit_event",
    "rate": {
-    "value": 1.0,
-    "ci_low": 0.20654329147389294,
-    "ci_high": 1.0,
-    "n": 1,
-    "ci_method": "wilson_95"
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    }
   },
   {
@@ -13194,7 +13195,7 @@
    }
   }
  ],
- "cure_rates": [
+ "roll_cure_rates": [
   {
    "period_group": "covid",
    "from_bucket": "dpd_30",
@@ -13361,16 +13362,494 @@
    }
   }
  ],
+ "default_cure_rates": [
+  {
+   "default_year": 1999,
+   "cure_12m": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   },
+   "cure_ever": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   }
+  },
+  {
+   "default_year": 2000,
+   "cure_12m": {
+    "value": 0.6363636363636364,
+    "ci_low": 0.35379677689163724,
+    "ci_high": 0.8483377638586862,
+    "n": 11,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.7272727272727273,
+    "ci_low": 0.4343497069897537,
+    "ci_high": 0.9025411942607853,
+    "n": 11,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "cure_12m": {
+    "value": 0.48,
+    "ci_low": 0.30031003928960015,
+    "ci_high": 0.6650178204685269,
+    "n": 25,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.56,
+    "ci_low": 0.37067017019564436,
+    "ci_high": 0.7333462505299744,
+    "n": 25,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "cure_12m": {
+    "value": 0.2608695652173913,
+    "ci_low": 0.1254844588924897,
+    "ci_high": 0.4647039054375056,
+    "n": 23,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.30434782608695654,
+    "ci_low": 0.15603828020972454,
+    "ci_high": 0.5086612906057261,
+    "n": 23,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "cure_12m": {
+    "value": 0.3157894736842105,
+    "ci_low": 0.15364171004428598,
+    "ci_high": 0.5398998982493537,
+    "n": 19,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.3684210526315789,
+    "ci_low": 0.19149272376273843,
+    "ci_high": 0.5896084250184328,
+    "n": 19,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "cure_12m": {
+    "value": 0.4782608695652174,
+    "ci_low": 0.2923686953994572,
+    "ci_high": 0.6703757013578151,
+    "n": 23,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.4782608695652174,
+    "ci_low": 0.2923686953994572,
+    "ci_high": 0.6703757013578151,
+    "n": 23,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "cure_12m": {
+    "value": 0.3548387096774194,
+    "ci_low": 0.21116447741565816,
+    "ci_high": 0.530523619571851,
+    "n": 31,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.41935483870967744,
+    "ci_low": 0.26415303073549257,
+    "ci_high": 0.5923403564797902,
+    "n": 31,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "cure_12m": {
+    "value": 0.5142857142857142,
+    "ci_low": 0.35568539626711626,
+    "ci_high": 0.6700601960874726,
+    "n": 35,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.6571428571428571,
+    "ci_low": 0.4915164687273671,
+    "ci_high": 0.7916850471731106,
+    "n": 35,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "cure_12m": {
+    "value": 0.43243243243243246,
+    "ci_low": 0.2867148684035131,
+    "ci_high": 0.5908609366579929,
+    "n": 37,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.4594594594594595,
+    "ci_low": 0.31038327828457724,
+    "ci_high": 0.6161622047523264,
+    "n": 37,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "cure_12m": {
+    "value": 0.39622641509433965,
+    "ci_low": 0.27589211919038936,
+    "ci_high": 0.5305876421111926,
+    "n": 53,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.5283018867924528,
+    "ci_low": 0.3965985230075645,
+    "ci_high": 0.6561797239101858,
+    "n": 53,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "cure_12m": {
+    "value": 0.35714285714285715,
+    "ci_low": 0.2445639270270599,
+    "ci_high": 0.4880635428266874,
+    "n": 56,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.375,
+    "ci_low": 0.26010029646692184,
+    "ci_high": 0.505948739655107,
+    "n": 56,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "cure_12m": {
+    "value": 0.5925925925925926,
+    "ci_low": 0.4072638305536409,
+    "ci_high": 0.7548548662714265,
+    "n": 27,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.6666666666666666,
+    "ci_low": 0.47824419872105484,
+    "ci_high": 0.8135694555640665,
+    "n": 27,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "cure_12m": {
+    "value": 0.3,
+    "ci_low": 0.14547527396899385,
+    "ci_high": 0.5189767762289793,
+    "n": 20,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.45,
+    "ci_low": 0.25819502085709295,
+    "ci_high": 0.6579179916924003,
+    "n": 20,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "cure_12m": {
+    "value": 0.2727272727272727,
+    "ci_low": 0.1315058201581444,
+    "ci_high": 0.4815212369900198,
+    "n": 22,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.4090909090909091,
+    "ci_low": 0.23255559668820378,
+    "ci_high": 0.6126552261710619,
+    "n": 22,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "cure_12m": {
+    "value": 0.47058823529411764,
+    "ci_low": 0.26164801196088106,
+    "ci_high": 0.6903710268845051,
+    "n": 17,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.47058823529411764,
+    "ci_low": 0.26164801196088106,
+    "ci_high": 0.6903710268845051,
+    "n": 17,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "cure_12m": {
+    "value": 0.4444444444444444,
+    "ci_low": 0.2758559767007283,
+    "ci_high": 0.6268728052042312,
+    "n": 27,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.5925925925925926,
+    "ci_low": 0.4072638305536409,
+    "ci_high": 0.7548548662714265,
+    "n": 27,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "cure_12m": {
+    "value": 0.3902439024390244,
+    "ci_low": 0.2565593521532712,
+    "ci_high": 0.5427341610130745,
+    "n": 41,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.4146341463414634,
+    "ci_low": 0.2775633082533015,
+    "ci_high": 0.5663316464316339,
+    "n": 41,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "cure_12m": {
+    "value": 0.5625,
+    "ci_low": 0.33178195606776517,
+    "ci_high": 0.7690163666481448,
+    "n": 16,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.6875,
+    "ci_low": 0.4440393186673406,
+    "ci_high": 0.8583556494803894,
+    "n": 16,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "cure_12m": {
+    "value": 0.45454545454545453,
+    "ci_low": 0.26920014432004846,
+    "ci_high": 0.6534052671095845,
+    "n": 22,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.5454545454545454,
+    "ci_low": 0.34659473289041554,
+    "ci_high": 0.7307998556799515,
+    "n": 22,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "cure_12m": {
+    "value": 0.47368421052631576,
+    "ci_low": 0.27329505487448547,
+    "ci_high": 0.6829251748817489,
+    "n": 19,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.47368421052631576,
+    "ci_low": 0.27329505487448547,
+    "ci_high": 0.6829251748817489,
+    "n": 19,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "cure_12m": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   },
+   "cure_ever": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   }
+  },
+  {
+   "default_year": 2020,
+   "cure_12m": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   },
+   "cure_ever": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   }
+  },
+  {
+   "default_year": 2021,
+   "cure_12m": {
+    "value": 0.7272727272727273,
+    "ci_low": 0.4343497069897537,
+    "ci_high": 0.9025411942607853,
+    "n": 11,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.7272727272727273,
+    "ci_low": 0.4343497069897537,
+    "ci_high": 0.9025411942607853,
+    "n": 11,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "cure_12m": {
+    "value": 0.4166666666666667,
+    "ci_low": 0.19325746190524656,
+    "ci_high": 0.6804926643446272,
+    "n": 12,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.5833333333333334,
+    "ci_low": 0.3195073356553728,
+    "ci_high": 0.8067425380947535,
+    "n": 12,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "cure_12m": {
+    "value": 0.5555555555555556,
+    "ci_low": 0.3371606942825164,
+    "ci_high": 0.7544076889861088,
+    "n": 18,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.5555555555555556,
+    "ci_low": 0.3371606942825164,
+    "ci_high": 0.7544076889861088,
+    "n": 18,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "cure_12m": {
+    "value": 0.5,
+    "ci_low": 0.2537781703934222,
+    "ci_high": 0.7462218296065778,
+    "n": 12,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.6666666666666666,
+    "ci_low": 0.3906175873976139,
+    "ci_high": 0.8618821601026385,
+    "n": 12,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "cure_12m": {
+    "value": 0.38461538461538464,
+    "ci_low": 0.17709446581236818,
+    "ci_high": 0.6447751902773146,
+    "n": 13,
+    "ci_method": "wilson_95"
+   },
+   "cure_ever": {
+    "value": 0.38461538461538464,
+    "ci_low": 0.17709446581236818,
+    "ci_high": 0.6447751902773146,
+    "n": 13,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2026,
+   "cure_12m": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   },
+   "cure_ever": {
+    "value": null,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
+   }
+  }
+ ],
  "sma": [
   {
    "period": "1999-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 400437.19999999995,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.014694157410536523,
@@ -13384,11 +13863,11 @@
    "period": "1999-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 993319.59,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.036450146026467074,
@@ -13402,11 +13881,11 @@
    "period": "1999-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 399693.68,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.014666873731802674,
@@ -13438,11 +13917,11 @@
    "period": "2000-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 851772.24,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01540733329972925,
@@ -13456,11 +13935,11 @@
    "period": "2000-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1039067.99,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.018795243717979984,
@@ -13474,11 +13953,11 @@
    "period": "2000-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 399066.77,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.007218543227279155,
@@ -13510,11 +13989,11 @@
    "period": "2000-12-01",
    "sma_class": "unknown",
    "upb": {
-    "value": 117656.42,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.002128235216720529,
@@ -13546,11 +14025,11 @@
    "period": "2001-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 940518.08,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.013737908922181862,
@@ -13600,11 +14079,11 @@
    "period": "2002-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 886859.22,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.011794024484562649,
@@ -13618,11 +14097,11 @@
    "period": "2002-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 313045.23,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.00416307687188001,
@@ -13672,11 +14151,11 @@
    "period": "2003-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1183280.73,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.015110477551842973,
@@ -13690,11 +14169,11 @@
    "period": "2003-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 541671.14,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.006917132506206868,
@@ -13744,11 +14223,11 @@
    "period": "2004-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1443396.72,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.018163682755737372,
@@ -13798,11 +14277,11 @@
    "period": "2005-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1112431.93,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 6,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01278238697695284,
@@ -13816,11 +14295,11 @@
    "period": "2005-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 826977.24,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.009502372970193693,
@@ -13870,11 +14349,11 @@
    "period": "2006-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 2499855.05,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 9,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.025300317325232725,
@@ -13888,11 +14367,11 @@
    "period": "2006-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 258698.75,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0026182159908195676,
@@ -13960,11 +14439,11 @@
    "period": "2007-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 964889.3,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.009404029434309324,
@@ -14032,11 +14511,11 @@
    "period": "2008-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 1330989.21,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.013060113509785292,
@@ -14086,11 +14565,11 @@
    "period": "2009-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 602149.8,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.006562628172576566,
@@ -14104,11 +14583,11 @@
    "period": "2009-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 219985.02,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0023975427539738767,
@@ -14158,11 +14637,11 @@
    "period": "2010-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1249270.28,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01468467100298818,
@@ -14176,11 +14655,11 @@
    "period": "2010-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 1620861.58,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 9,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.019052577672530244,
@@ -14230,11 +14709,11 @@
    "period": "2011-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1143299.01,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.014008309224316543,
@@ -14248,11 +14727,11 @@
    "period": "2011-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 871901.89,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01068300696629312,
@@ -14302,11 +14781,11 @@
    "period": "2012-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1234857.6400000001,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01708347136801628,
@@ -14320,11 +14799,11 @@
    "period": "2012-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 396110.63,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.005479939052870816,
@@ -14374,11 +14853,11 @@
    "period": "2013-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 328407.25,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.004581379350517457,
@@ -14392,11 +14871,11 @@
    "period": "2013-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 869315.29,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.012127208271726933,
@@ -14428,11 +14907,11 @@
    "period": "2013-12-01",
    "sma_class": "unknown",
    "upb": {
-    "value": 340903.68,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.004755708286182509,
@@ -14464,11 +14943,11 @@
    "period": "2014-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 478898.05000000005,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.005858801349011962,
@@ -14482,11 +14961,11 @@
    "period": "2014-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 676117.95,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.008271574205723331,
@@ -14518,11 +14997,11 @@
    "period": "2014-12-01",
    "sma_class": "unknown",
    "upb": {
-    "value": 493524.02,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.006037734323925116,
@@ -14554,11 +15033,11 @@
    "period": "2015-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 473601.01,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.005409519789117403,
@@ -14572,11 +15051,11 @@
    "period": "2015-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 260668.77000000002,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0029773856895277586,
@@ -14626,11 +15105,11 @@
    "period": "2016-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1459851.4,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01991760117104091,
@@ -14644,11 +15123,11 @@
    "period": "2016-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 375058.24,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.005117137566352674,
@@ -14680,11 +15159,11 @@
    "period": "2016-12-01",
    "sma_class": "unknown",
    "upb": {
-    "value": 163273.34,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0022276330782597196,
@@ -14716,11 +15195,11 @@
    "period": "2017-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 882578.48,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01286644997491303,
@@ -14734,11 +15213,11 @@
    "period": "2017-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 1205943.98,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.017580553166464608,
@@ -14788,11 +15267,11 @@
    "period": "2018-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 736003.95,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.011684114366553916,
@@ -14806,11 +15285,11 @@
    "period": "2018-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 95410.21,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.001514643780616838,
@@ -14842,11 +15321,11 @@
    "period": "2019-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 1531668.9400000002,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0261298500598709,
@@ -14860,11 +15339,11 @@
    "period": "2019-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 1065412.9,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 5,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.01817565049589125,
@@ -14878,11 +15357,11 @@
    "period": "2019-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 399024.46,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0068072473350676895,
@@ -14986,11 +15465,11 @@
    "period": "2021-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 1274194.35,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.023895089576381003,
@@ -15004,11 +15483,11 @@
    "period": "2021-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 178422.95,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.003345982795114536,
@@ -15040,11 +15519,11 @@
    "period": "2022-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 1044062.63,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 7,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.018093827614961328,
@@ -15058,11 +15537,11 @@
    "period": "2022-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 437480.01,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0075816216944107635,
@@ -15076,11 +15555,11 @@
    "period": "2022-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 296961.63,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 2,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.00514640825855239,
@@ -15130,11 +15609,11 @@
    "period": "2023-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 693296.37,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.011733534035572769,
@@ -15148,11 +15627,11 @@
    "period": "2023-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 123189.24,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.002084887795325313,
@@ -15184,11 +15663,11 @@
    "period": "2024-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 1527216.03,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 9,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.028154775140636093,
@@ -15202,11 +15681,11 @@
    "period": "2024-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 501219.64,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.00924016379023377,
@@ -15220,11 +15699,11 @@
    "period": "2024-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 300281.9,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.005535804501281311,
@@ -15256,11 +15735,11 @@
    "period": "2025-12-01",
    "sma_class": "npa",
    "upb": {
-    "value": 1234890.6600000001,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 8,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.0224889779577242,
@@ -15274,11 +15753,11 @@
    "period": "2025-12-01",
    "sma_class": "sma_1",
    "upb": {
-    "value": 508296.73,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 3,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.009256749870432486,
@@ -15292,11 +15771,11 @@
    "period": "2025-12-01",
    "sma_class": "sma_2",
    "upb": {
-    "value": 537953.7,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 4,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.009796842176760957,
@@ -15328,11 +15807,11 @@
    "period": "2025-12-01",
    "sma_class": "unknown",
    "upb": {
-    "value": 277987.6,
+    "value": null,
     "ci_low": null,
     "ci_high": null,
-    "n": 1,
-    "ci_method": "none: population count, not an estimate"
+    "n": 0,
+    "ci_method": "none: suppressed, fewer than 10 loans"
    },
    "share": {
     "value": 0.00506251865968494,
@@ -15627,7 +16106,7 @@
     "ci_method": "wilson_95"
    },
    "loss_rate": {
-    "value": 0.026828830875975717,
+    "value": 0.02321181021248916,
     "ci_low": null,
     "ci_high": null,
     "n": 2317,
@@ -15645,7 +16124,7 @@
     "ci_method": "wilson_95"
    },
    "loss_rate": {
-    "value": 0.015827574964096057,
+    "value": 0.012792517684780067,
     "ci_low": null,
     "ci_high": null,
     "n": 774,
@@ -15663,7 +16142,7 @@
     "ci_method": "wilson_95"
    },
    "loss_rate": {
-    "value": 0.012241826252904082,
+    "value": 0.010659231662794557,
     "ci_low": null,
     "ci_high": null,
     "n": 403,
@@ -15681,7 +16160,7 @@
     "ci_method": "wilson_95"
    },
    "loss_rate": {
-    "value": 0.013158998541036086,
+    "value": 0.011663975132286656,
     "ci_low": null,
     "ci_high": null,
     "n": 229,
@@ -16166,6 +16645,76 @@
     "n": 101,
     "ci_method": "none: population count, not an estimate"
    }
+  }
+ ],
+ "reconciliation": [
+  {
+   "rule_id": "R1",
+   "n_checked": 27,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  },
+  {
+   "rule_id": "R2",
+   "n_checked": 27,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  },
+  {
+   "rule_id": "R3",
+   "n_checked": 326,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  },
+  {
+   "rule_id": "R4",
+   "n_checked": 27,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  },
+  {
+   "rule_id": "R7",
+   "n_checked": 2608,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  },
+  {
+   "rule_id": "R8",
+   "n_checked": 120,
+   "n_outside_tolerance": 0,
+   "max_abs_difference": 0.0
+  }
+ ],
+ "pass_rules": [
+  {
+   "rule_id": "R1",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R2",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R3",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R4",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R7",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R8",
+   "result": "pending",
+   "evidence": "synthetic fixture"
   }
  ]
 }
