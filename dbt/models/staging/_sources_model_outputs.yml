@@ -1,0 +1,14 @@
+version: 2
+
+# ecl_results is written by the loss engine (models_out/ecl_results.parquet), not by this
+# project. On "ci" it reads the synthetic fixture directly (dbt-duckdb's external_location,
+# ignored by dbt-bigquery). On "bq" the table doesn't exist yet -- it isn't loaded into
+# BigQuery (see docs/RECONCILIATION.md) -- so fct_ecl and the two metrics that depend on it are
+# excluded from the real build until it is.
+sources:
+  - name: model_outputs
+    schema: models
+    tables:
+      - name: ecl_results
+        meta:
+          external_location: "{{ env_var('VINTAGE_CI_MODELS_ROOT', '') }}/ecl_results.parquet"

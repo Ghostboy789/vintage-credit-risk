@@ -1,0 +1,194 @@
+version: 2
+
+semantic_models:
+  - name: sem_loan_month
+    description: One row per loan per reporting month (fct_loan_month). Backs the portfolio metrics.
+    model: ref('fct_loan_month')
+    defaults:
+      agg_time_dimension: period
+    entities:
+      - name: loan_month
+        type: primary
+        expr: "loan_id || '-' || cast(period as varchar)"
+      - name: loan
+        type: foreign
+        expr: loan_id
+    dimensions:
+      - name: period
+        type: time
+        type_params:
+          time_granularity: month
+      - name: dpd_bucket
+        type: categorical
+      - name: zero_balance_code
+        type: categorical
+      - name: exit_type
+        type: categorical
+    measures:
+      - name: active_loan_months
+        description: Count of loan-months with no Zero Balance Code (an active month-end record).
+        agg: count
+        expr: "case when zero_balance_code is null then loan_id end"
+      - name: active_current_upb
+        description: current_upb, summed only over active loan-months.
+        agg: sum
+        expr: "case when zero_balance_code is null then current_upb end"
+      - name: dpd30p_current_upb
+        agg: sum
+        expr: "case when zero_balance_code is null and dpd_bucket in ('dpd_30','dpd_60','dpd_90p','reo') then current_upb end"
+      - name: dpd90p_current_upb
+        agg: sum
+        expr: "case when zero_balance_code is null and dpd_bucket in ('dpd_90p','reo') then current_upb end"
+      - name: at_risk_start_count
+        agg: sum
+        expr: "case when at_risk_at_start then 1 else 0 end"
+      - name: first_default_count
+        agg: sum
+        expr: "case when is_first_default_month then 1 else 0 end"
+
+  - name: sem_loss_events
+    description: One row per resolved primary default (fct_loss_events). Backs loss_rate.
+    model: ref('fct_loss_events')
+    defaults:
+      agg_time_dimension: disposition_period
+    entities:
+      - name: loss_event
+        type: primary
+        expr: loan_id
+    dimensions:
+      - name: disposition_period
+        type: time
+        type_params:
+          time_granularity: month
+      - name: disposition_type
+        type: categorical
+    measures:
+      - name: net_loss
+        description: computed_loss, excluding paid-off resolutions (which are 0 by definition anyway).
+        agg: sum
+        expr: "case when disposition_type != 'paid_off' then computed_loss else 0 end"
+
+  - name: sem_ecl
+    description: ECL by reporting date, scenario, grade and stage (fct_ecl). Real data only once
+      the loss engine's ecl_results has been loaded (docs/RECONCILIATION.md).
+    model: ref('fct_ecl')
+    defaults:
+      agg_time_dimension: reporting_date
+    entities:
+      - name: ecl_row
+        type: primary
+        expr: "reporting_date || '-' || scenario || '-' || grade || '-' || cast(stage as varchar)"
+    dimensions:
+      - name: reporting_date
+        type: time
+        type_params:
+          time_granularity: month
+      - name: scenario
+        type: categorical
+      - name: grade
+        type: categorical
+    measures:
+      - name: ecl_final
+        agg: sum
+        expr: "case when scenario = 'final' then ecl else 0 end"
+      - name: ead_final
+        agg: sum
+        expr: "case when scenario = 'final' then ead else 0 end"
+
+metrics:
+  - name: active_loans
+    description: Active loan-months at month end (CONTRACTS metrics_monthly.n_active_loans).
+    type: simple
+    label: Active loans
+    type_params:
+      measure: active_loan_months
+
+  - name: total_upb
+    description: Balance of active loans (metrics_monthly.total_upb).
+    type: simple
+    label: Total UPB
+    type_params:
+      measure: active_current_upb
+
+  # A dbt-core/MetricFlow ratio metric's numerator and denominator are metric references, not
+  # bare measures -- these small simple metrics exist only to be that reference.
+  - name: internal_dpd30p_upb
+    type: simple
+    label: (internal) 30+ DPD active UPB
+    type_params:
+      measure: dpd30p_current_upb
+  - name: internal_dpd90p_upb
+    type: simple
+    label: (internal) 90+ DPD active UPB
+    type_params:
+      measure: dpd90p_current_upb
+  - name: internal_at_risk_loans
+    type: simple
+    label: (internal) loans at risk of a first default
+    type_params:
+      measure: at_risk_start_count
+  - name: internal_new_defaults
+    type: simple
+    label: (internal) new first defaults
+    type_params:
+      measure: first_default_count
+  - name: internal_net_loss_amount
+    type: simple
+    label: (internal) net realised loss
+    type_params:
+      measure: net_loss
+  - name: ecl_total
+    description: Published ECL, final scenario (fct_ecl, sum of ecl by reporting_date).
+    type: simple
+    label: ECL total
+    type_params:
+      measure: ecl_final
+  - name: internal_ead_total
+    type: simple
+    label: (internal) exposure at default, final scenario
+    type_params:
+      measure: ead_final
+
+  - name: delinquency_rate_30p
+    description: UPB-weighted share of active balance 30+ days past due, including REO
+      (metrics_monthly.delinquency_rate_30p).
+    type: ratio
+    label: Delinquency rate (30+)
+    type_params:
+      numerator: internal_dpd30p_upb
+      denominator: total_upb
+
+  - name: delinquency_rate_90p
+    description: UPB-weighted share of active balance 90+ days past due, including REO
+      (metrics_monthly.delinquency_rate_90p).
+    type: ratio
+    label: Delinquency rate (90+)
+    type_params:
+      numerator: internal_dpd90p_upb
+      denominator: total_upb
+
+  - name: default_rate
+    description: Monthly rate of first defaults among loans at risk (metrics_monthly.default_rate).
+    type: ratio
+    label: Default rate
+    type_params:
+      numerator: internal_new_defaults
+      denominator: internal_at_risk_loans
+
+  - name: loss_rate
+    description: Monthly realised net loss over active balance (metrics_monthly.loss_rate). Mixes
+      two semantic models (loan-months and loss events); MetricFlow joins them on the shared
+      metric_time dimension.
+    type: ratio
+    label: Loss rate
+    type_params:
+      numerator: internal_net_loss_amount
+      denominator: total_upb
+
+  - name: coverage_ratio
+    description: ECL as a share of exposure, final scenario (fct_ecl).
+    type: ratio
+    label: Coverage ratio
+    type_params:
+      numerator: ecl_total
+      denominator: internal_ead_total
