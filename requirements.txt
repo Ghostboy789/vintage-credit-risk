@@ -1,6 +1,6 @@
 # Requirements file -- append new lines, don't reorder existing ones.
 # extract/
-pandas==3.0.6
+pandas==2.3.3  # lifelines requires pandas<3
 pyarrow==25.0.1
 duckdb==1.5.5
 
