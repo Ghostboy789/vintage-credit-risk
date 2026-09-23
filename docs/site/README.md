@@ -31,7 +31,7 @@ are added to this folder for the README once real data replaces the fixtures.
 
 ## Known gaps against the design brief
 
-See the handover for the full list. In short: the ExpandOnHover scorecard feature list and the
+Still to build: the ExpandOnHover scorecard feature list and the
 Dynamic Island mobile calculator result pill are not built; the vintage-year command-palette
 index is built at runtime from the loaded artefacts rather than at build time; performance-budget
 numbers (initial JS gzip) have not been measured against the brief's 120 KB target.

@@ -23,9 +23,8 @@ technique below was re-implemented from the component's public description, not 
 - **Scroll progress** (skiper89) — `src/components/ScrollProgress.tsx`, on the Methods page.
 - **Scroll with fade** (skiper87) — `src/components/Prose.tsx`, used for the Methods "what these
   results do not establish" section.
-- **ExpandOnHover** (skiper53) — not built; open item, see the handover.
-- **Dynamic Island** (skiper2) — not built as the calculator's mobile result pill; open item, see
-  the handover.
+- **ExpandOnHover** (skiper53) — not built yet (planned).
+- **Dynamic Island** (skiper2) — not built yet as the calculator's mobile result pill (planned).
 
 ## Rebuilt from a written spec (Pro-tier reference only, no source copied)
 
