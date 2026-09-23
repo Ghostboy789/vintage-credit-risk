@@ -12293,6 +12293,2972 @@
    }
   }
  ],
+ "vintage_curves_annual": [
+  {
+   "vintage_year": 1999,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.019867549668874173,
+    "ci_low": 0.00677927946976414,
+    "ci_high": 0.056779867426160466,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 1999,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.052980132450331126,
+    "ci_low": 0.027086981196153395,
+    "ci_high": 0.10105429350005228,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0008803280708010503,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 1999,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07947019867549669,
+    "ci_low": 0.04604220934704814,
+    "ci_high": 0.13376476758938236,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0018514769669659933,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 1999,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11258278145695365,
+    "ci_low": 0.07148865387297473,
+    "ci_high": 0.17290045086373684,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0032139371737932372,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 1999,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1390728476821192,
+    "ci_low": 0.09279417711003801,
+    "ci_high": 0.2032606298668984,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.010410525172626186,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 1999,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1390728476821192,
+    "ci_low": 0.09279417711003801,
+    "ci_high": 0.2032606298668984,
+    "n": 151,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.01728658897137485,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 151,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.025510204081632654,
+    "ci_low": 0.010944401954660631,
+    "ci_high": 0.05831845422743559,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04591836734693878,
+    "ci_low": 0.02434281028877652,
+    "ci_high": 0.08495175100376716,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07653061224489796,
+    "ci_low": 0.046923968553332,
+    "ci_high": 0.12241815040488291,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005480198232323231,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08673469387755102,
+    "ci_low": 0.05485665839379306,
+    "ci_high": 0.13450131311964558,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.006012812121212121,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09183673469387756,
+    "ci_low": 0.058880585398154675,
+    "ci_high": 0.14048531239289586,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.006952559343434343,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2000,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09693877551020408,
+    "ci_low": 0.06293926032579855,
+    "ci_high": 0.14643456374286382,
+    "n": 196,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0072450262626262635,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 196,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.016042780748663103,
+    "ci_low": 0.005470637462600011,
+    "ci_high": 0.046098831667820195,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06417112299465241,
+    "ci_low": 0.037085852127746975,
+    "ci_high": 0.10880267532119497,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08021390374331551,
+    "ci_low": 0.04921066658458524,
+    "ci_high": 0.12811754697053063,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0034453975227609567,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.10160427807486631,
+    "ci_low": 0.06601451806968045,
+    "ci_high": 0.15323327696033395,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.007634490260427695,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11229946524064172,
+    "ci_low": 0.07463279899357167,
+    "ci_high": 0.165574786773892,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.012611174041922508,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2001,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11764705882352941,
+    "ci_low": 0.07898820407454138,
+    "ci_high": 0.17169927706164695,
+    "n": 187,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.021460394346813468,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 187,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.027932960893854747,
+    "ci_low": 0.011988873582240142,
+    "ci_high": 0.06371381114596174,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.061452513966480445,
+    "ci_low": 0.03465683040490904,
+    "ci_high": 0.10667643292247378,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0051842000914642345,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0893854748603352,
+    "ci_low": 0.05576821955377322,
+    "ci_high": 0.14025719260626038,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0051842000914642345,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.10614525139664804,
+    "ci_low": 0.0690119365829775,
+    "ci_high": 0.15982876487664657,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009167685147822343,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12849162011173185,
+    "ci_low": 0.08716759536133528,
+    "ci_high": 0.1854268251644094,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.010760894197401338,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2002,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.13966480446927373,
+    "ci_low": 0.09642311191795816,
+    "ci_high": 0.1980481681408468,
+    "n": 179,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.011110265784305812,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 179,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.021164021164021163,
+    "ci_low": 0.008260183483943823,
+    "ci_high": 0.05314565426060923,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0582010582010582,
+    "ci_low": 0.03280560019207846,
+    "ci_high": 0.10119868104184618,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08465608465608465,
+    "ci_low": 0.05277883944836154,
+    "ci_high": 0.13308147284939995,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.10582010582010581,
+    "ci_low": 0.06955192196612822,
+    "ci_high": 0.15779321518270273,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12169312169312169,
+    "ci_low": 0.08247436935353425,
+    "ci_high": 0.17598438643359882,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0022411486062674057,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2003,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12169312169312169,
+    "ci_low": 0.08247436935353425,
+    "ci_high": 0.17598438643359882,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.004097331209072434,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.010810810810810811,
+    "ci_low": 0.002969675963139271,
+    "ci_high": 0.03855507282102694,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.021621621621621623,
+    "ci_low": 0.008439451064916212,
+    "ci_high": 0.05426707122678223,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0022178333909635777,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.02702702702702703,
+    "ci_low": 0.011598213771870952,
+    "ci_high": 0.061699195273593604,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0022178333909635777,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05945945945945946,
+    "ci_low": 0.033521838279429846,
+    "ci_high": 0.10332089128863142,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.006744719628861227,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07027027027027027,
+    "ci_low": 0.041522562178670855,
+    "ci_high": 0.11650194089692266,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00893899060627017,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2004,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07567567567567568,
+    "ci_low": 0.04561041020171801,
+    "ci_high": 0.12300497962764163,
+    "n": 185,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.015453795239741816,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 185,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06593406593406594,
+    "ci_low": 0.03811559898191012,
+    "ci_high": 0.1116980057223111,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11538461538461539,
+    "ci_low": 0.07671799714543637,
+    "ci_high": 0.16995228550387362,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.006876379239885574,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.15934065934065933,
+    "ci_low": 0.11329260146413545,
+    "ci_high": 0.21947250602525337,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00911240158016619,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.19230769230769232,
+    "ci_low": 0.14164842984347015,
+    "ci_high": 0.2556877962759779,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.01491573818280888,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.21428571428571427,
+    "ci_low": 0.16090214588354124,
+    "ci_high": 0.2794814926559462,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.023393493257049446,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2005,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.25824175824175827,
+    "ci_low": 0.20011525678435235,
+    "ci_high": 0.3263632065952139,
+    "n": 182,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.026240546247105298,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 182,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.015789473684210527,
+    "ci_low": 0.005384028565230823,
+    "ci_high": 0.04538732288873984,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05263157894736842,
+    "ci_low": 0.02883612554849993,
+    "ci_high": 0.09415914481658165,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08947368421052632,
+    "ci_low": 0.0566126613093191,
+    "ci_high": 0.13860652796687342,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12105263157894737,
+    "ci_low": 0.0820327091691382,
+    "ci_high": 0.17509269631657798,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": -0.0008633742896232372,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.14736842105263157,
+    "ci_low": 0.10396825877158991,
+    "ci_high": 0.20474566022206261,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.017552015102083773,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2006,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.15789473684210525,
+    "ci_low": 0.11289551507402966,
+    "ci_high": 0.2164538093227974,
+    "n": 190,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.019358869448537153,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 190,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05235602094240838,
+    "ci_low": 0.028683837324335833,
+    "ci_high": 0.09368017528898698,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12041884816753927,
+    "ci_low": 0.08159575665748216,
+    "ci_high": 0.17420998503217755,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.003983105498981671,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.14659685863874344,
+    "ci_low": 0.10341285483870792,
+    "ci_high": 0.20371662880338898,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.004469003122878479,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.18848167539267016,
+    "ci_low": 0.13936531665596513,
+    "ci_high": 0.24988215411003145,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.014467369450101833,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.2094240837696335,
+    "ci_low": 0.15773195758275677,
+    "ci_high": 0.2725745067451896,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.020952645213849288,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2007,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.21465968586387435,
+    "ci_low": 0.16235909052159667,
+    "ci_high": 0.2782121221968372,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.02653180067888663,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05555555555555555,
+    "ci_low": 0.03045294395962398,
+    "ci_high": 0.09923261143153883,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12777777777777777,
+    "ci_low": 0.08667435764393652,
+    "ci_high": 0.18443729499616232,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0022943138823798364,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.16111111111111112,
+    "ci_low": 0.11457950211011259,
+    "ci_high": 0.2218057338756491,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.015457603303423445,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.18333333333333332,
+    "ci_low": 0.13362624296924455,
+    "ci_high": 0.24627471524695896,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.017193421157912784,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.20555555555555555,
+    "ci_low": 0.15296937573087127,
+    "ci_high": 0.2704473047157741,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.020456496542264384,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2008,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.2111111111111111,
+    "ci_low": 0.15784712930233702,
+    "ci_high": 0.2764484817019188,
+    "n": 180,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.021954138709493053,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 180,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.03314917127071823,
+    "ci_low": 0.015279205399379953,
+    "ci_high": 0.07042444572677346,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04419889502762431,
+    "ci_low": 0.022563518157913128,
+    "ci_high": 0.08478028323744374,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07734806629834254,
+    "ci_low": 0.04663073467393614,
+    "ci_high": 0.12563351752903112,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0019405953511761748,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08287292817679558,
+    "ci_low": 0.050863140721666276,
+    "ci_high": 0.13222118661590274,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0047226278147175504,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09392265193370165,
+    "ci_low": 0.059468164022013076,
+    "ci_high": 0.1452563135847594,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005723453930826395,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2009,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09944751381215469,
+    "ci_low": 0.06383371231190105,
+    "ci_high": 0.15171084042947316,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.007123818796446331,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.022099447513812154,
+    "ci_low": 0.008626672551081856,
+    "ci_high": 0.05543682830586808,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.049723756906077346,
+    "ci_low": 0.026377062581009844,
+    "ci_high": 0.09178681394894876,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06077348066298342,
+    "ci_low": 0.03427005402307322,
+    "ci_high": 0.10553397277608885,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0013923121845287006,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07734806629834254,
+    "ci_low": 0.04663073467393614,
+    "ci_high": 0.12563351752903112,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0013923121845287006,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08839779005524862,
+    "ci_low": 0.055143548023166934,
+    "ci_high": 0.13876085444900382,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0013923121845287006,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2010,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09392265193370165,
+    "ci_low": 0.059468164022013076,
+    "ci_high": 0.1452563135847594,
+    "n": 181,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.004000146437375279,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 181,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.015706806282722512,
+    "ci_low": 0.0053557651415026,
+    "ci_high": 0.045155008738408046,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.015706806282722512,
+    "ci_low": 0.0053557651415026,
+    "ci_high": 0.045155008738408046,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.02617801047120419,
+    "ci_low": 0.011232210619450546,
+    "ci_high": 0.05980806004143501,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00021361624702325206,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.03664921465968586,
+    "ci_low": 0.017864045764811088,
+    "ci_high": 0.07370572167704938,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0012762732453910578,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.041884816753926704,
+    "ci_low": 0.02137375216179106,
+    "ci_high": 0.08046076367055685,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0012762732453910578,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2011,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04712041884816754,
+    "ci_low": 0.02498510790877515,
+    "ci_high": 0.08711415631406022,
+    "n": 191,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.002432806571589115,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 191,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.03048780487804878,
+    "ci_low": 0.013091251114609858,
+    "ci_high": 0.06937698083742111,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06097560975609756,
+    "ci_low": 0.033454199348097076,
+    "ci_high": 0.1085940175421137,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0975609756097561,
+    "ci_low": 0.06094644196394342,
+    "ci_high": 0.15259775685208313,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0044381029025322505,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.10365853658536585,
+    "ci_low": 0.06573095864846087,
+    "ci_high": 0.15972923715520163,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00879449056378404,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12804878048780488,
+    "ci_low": 0.08529805310783153,
+    "ci_high": 0.1878261306463748,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.011556951445293836,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2012,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1402439024390244,
+    "ci_low": 0.09530323762421833,
+    "ci_high": 0.20165294010525997,
+    "n": 164,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.014095810738174869,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 164,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.018518518518518517,
+    "ci_low": 0.0063175154296968815,
+    "ci_high": 0.053025858006159984,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04938271604938271,
+    "ci_low": 0.025232188799837046,
+    "ci_high": 0.09440968633884951,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09259259259259259,
+    "ci_low": 0.05691551968142478,
+    "ci_high": 0.14714425784122334,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0005636415397195554,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1111111111111111,
+    "ci_low": 0.07144727730565137,
+    "ci_high": 0.16879160123869458,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0005636415397195554,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12962962962962962,
+    "ci_low": 0.08637142881967508,
+    "ci_high": 0.19004655074636867,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005821487931191132,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2013,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1419753086419753,
+    "ci_low": 0.09650426940997232,
+    "ci_high": 0.20403311083720327,
+    "n": 162,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.014747608952421333,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 162,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.034482758620689655,
+    "ci_low": 0.015897570022231685,
+    "ci_high": 0.0731794513271039,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08045977011494253,
+    "ci_low": 0.04853065268904715,
+    "ci_high": 0.13051407025541578,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.002588761181667587,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11494252873563218,
+    "ci_low": 0.075650426877892,
+    "ci_high": 0.17087007226291645,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00923908199889564,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.14367816091954022,
+    "ci_low": 0.09925081008472839,
+    "ci_high": 0.20349950255303464,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.013119241303147433,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.14942528735632185,
+    "ci_low": 0.10405657055929221,
+    "ci_high": 0.2099397047778618,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.013119241303147433,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2014,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.16666666666666666,
+    "ci_low": 0.11862200125956365,
+    "ci_high": 0.22911216217576305,
+    "n": 174,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.013119241303147433,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 174,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.026455026455026454,
+    "ci_low": 0.011351617671279908,
+    "ci_high": 0.06042542628604051,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06349206349206349,
+    "ci_low": 0.036689368496222924,
+    "ci_high": 0.10768611895046906,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09523809523809523,
+    "ci_low": 0.061092759677558284,
+    "ci_high": 0.14550996504573793,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00849061640550048,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1164021164021164,
+    "ci_low": 0.07813817401172804,
+    "ci_high": 0.16994937556263764,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.012110698752798209,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12169312169312169,
+    "ci_low": 0.08247436935353425,
+    "ci_high": 0.17598438643359882,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.012110698752798209,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2015,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.13227513227513227,
+    "ci_low": 0.09122533565995752,
+    "ci_high": 0.18797583255271025,
+    "n": 189,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.014135471165120986,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 189,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.025,
+    "ci_low": 0.006882748898125228,
+    "ci_high": 0.08664600055322111,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0625,
+    "ci_low": 0.026988977697985535,
+    "ci_high": 0.1381032915335177,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.075,
+    "ci_low": 0.03482477485108787,
+    "ci_high": 0.15412200097380097,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.075,
+    "ci_low": 0.03482477485108787,
+    "ci_high": 0.15412200097380097,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0033433643526694745,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0875,
+    "ci_low": 0.04303145464743989,
+    "ci_high": 0.1697698277708346,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0033433643526694745,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2016,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0875,
+    "ci_low": 0.04303145464743989,
+    "ci_high": 0.1697698277708346,
+    "n": 80,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0033433643526694745,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 80,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.02040816326530612,
+    "ci_low": 0.005614496475772293,
+    "ci_high": 0.07138350826885075,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09183673469387756,
+    "ci_low": 0.04906865909068409,
+    "ci_high": 0.16539772792601637,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005383384556907038,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11224489795918367,
+    "ci_low": 0.0638420422031541,
+    "ci_high": 0.18990102546271131,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.01303041648566464,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.12244897959183673,
+    "ci_low": 0.07145129752202053,
+    "ci_high": 0.20193011046842743,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.016674939726324934,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1326530612244898,
+    "ci_low": 0.07918911601863514,
+    "ci_high": 0.21383063229639532,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.016674939726324934,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2017,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.1326530612244898,
+    "ci_low": 0.07918911601863514,
+    "ci_high": 0.21383063229639532,
+    "n": 98,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.018937481537793226,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 98,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.031914893617021274,
+    "ci_low": 0.01091242972824407,
+    "ci_high": 0.0896746416197306,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07446808510638298,
+    "ci_low": 0.03653811601751902,
+    "ci_high": 0.14581376702609433,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.004838770580589255,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07446808510638298,
+    "ci_low": 0.03653811601751902,
+    "ci_high": 0.14581376702609433,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00955352144714038,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0851063829787234,
+    "ci_low": 0.04375496466822986,
+    "ci_high": 0.15903812129929315,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00955352144714038,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0851063829787234,
+    "ci_low": 0.04375496466822986,
+    "ci_high": 0.15903812129929315,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00955352144714038,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2018,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09574468085106383,
+    "ci_low": 0.05119138083044319,
+    "ci_high": 0.17204290806098949,
+    "n": 94,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.00955352144714038,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 94,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.021505376344086023,
+    "ci_low": 0.005917375771978241,
+    "ci_high": 0.07505609017653975,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.043010752688172046,
+    "ci_low": 0.016850881320861148,
+    "ci_high": 0.10542714795581334,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.043010752688172046,
+    "ci_low": 0.016850881320861148,
+    "ci_high": 0.10542714795581334,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0035468465100708586,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.053763440860215055,
+    "ci_low": 0.023180332422992958,
+    "ci_high": 0.11974997851775977,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0035468465100708586,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07526881720430108,
+    "ci_low": 0.036936214085016475,
+    "ci_high": 0.14729866018389276,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0035468465100708586,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2019,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07526881720430108,
+    "ci_low": 0.036936214085016475,
+    "ci_high": 0.14729866018389276,
+    "n": 93,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0035468465100708586,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 93,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.010101010101010102,
+    "ci_low": 0.0017852613200520298,
+    "ci_high": 0.05501665541403223,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.020202020202020204,
+    "ci_low": 0.005557603625523107,
+    "ci_high": 0.07069169626868313,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.030303030303030304,
+    "ci_low": 0.010358451889070856,
+    "ci_high": 0.08533823116525735,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005820425197733774,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04040404040404041,
+    "ci_low": 0.015822382974672186,
+    "ci_high": 0.09932168323977801,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009944386604588547,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06060606060606061,
+    "ci_low": 0.028069414889737472,
+    "ci_high": 0.12596941764495667,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009944386604588547,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2020,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0707070707070707,
+    "ci_low": 0.034669789128209616,
+    "ci_high": 0.13881642656660648,
+    "n": 99,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009944386604588547,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 99,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.03809538920445529,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.010309278350515464,
+    "ci_low": 0.0018221178995736602,
+    "ci_high": 0.05610635606355266,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05154639175257732,
+    "ci_low": 0.022215723427449756,
+    "ci_high": 0.11504508957036064,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08247422680412371,
+    "ci_low": 0.04238219710770542,
+    "ci_high": 0.15437787016611806,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.001692690196480788,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08247422680412371,
+    "ci_low": 0.04238219710770542,
+    "ci_high": 0.15437787016611806,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0055763751090134915,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2021,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.09278350515463918,
+    "ci_low": 0.04958265664341581,
+    "ci_high": 0.1670104953890787,
+    "n": 97,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0055763751090134915,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 97,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.029411764705882353,
+    "ci_low": 0.010052266068000588,
+    "ci_high": 0.0829319669745838,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.058823529411764705,
+    "ci_low": 0.027235268139653053,
+    "ci_high": 0.12243745033776982,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005569566570768287,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06862745098039216,
+    "ci_low": 0.033637792813023634,
+    "ci_high": 0.13493108747601207,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.005569566570768287,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0784313725490196,
+    "ci_low": 0.04027620360068292,
+    "ci_high": 0.1471888384999656,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009381524312597273,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0784313725490196,
+    "ci_low": 0.04027620360068292,
+    "ci_high": 0.1471888384999656,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.009381524312597273,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2022,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.11764705882352941,
+    "ci_low": 0.068593790294468,
+    "ci_high": 0.19445589905263183,
+    "n": 102,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.012098362495873224,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 102,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.02830188679245283,
+    "ci_low": 0.009671108644619023,
+    "ci_high": 0.07992700354602641,
+    "n": 106,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 106,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07547169811320754,
+    "ci_low": 0.03873637400565599,
+    "ci_high": 0.14190192696592488,
+    "n": 106,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 106,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07547169811320754,
+    "ci_low": 0.03873637400565599,
+    "ci_high": 0.14190192696592488,
+    "n": 106,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.001424225068064939,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 106,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.07547169811320754,
+    "ci_low": 0.03873637400565599,
+    "ci_high": 0.14190192696592488,
+    "n": 106,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.002873946253907432,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 106,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 30,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.08235294117647059,
+    "ci_low": 0.04046320889853023,
+    "ci_high": 0.16036162991571895,
+    "n": 85,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0017446617316910383,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 85,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2023,
+   "months_on_book": 36,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.125,
+    "ci_low": 0.04344255039315584,
+    "ci_high": 0.3100428814785757,
+    "n": 24,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 24,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2024,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.034482758620689655,
+    "ci_low": 0.009507728866485675,
+    "ci_high": 0.11729364755327057,
+    "n": 58,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 58,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2024,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.05172413793103448,
+    "ci_low": 0.017745812831795674,
+    "ci_high": 0.14139625335019185,
+    "n": 58,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 58,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2024,
+   "months_on_book": 18,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.0425531914893617,
+    "ci_low": 0.01174802937056972,
+    "ci_high": 0.1424878719385944,
+    "n": 47,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 47,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2024,
+   "months_on_book": 24,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.06666666666666667,
+    "ci_low": 0.011866588606194856,
+    "ci_high": 0.2981707755242399,
+    "n": 15,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 15,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2025,
+   "months_on_book": 6,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.04225352112676056,
+    "ci_low": 0.014472998249826653,
+    "ci_high": 0.11702606109684685,
+    "n": 71,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71,
+    "ci_method": "none: synthetic fixture"
+   }
+  },
+  {
+   "vintage_year": 2025,
+   "months_on_book": 12,
+   "fully_observed": true,
+   "cum_default_rate": {
+    "value": 0.10526315789473684,
+    "ci_low": 0.029357941395096593,
+    "ci_high": 0.313945504948417,
+    "n": 19,
+    "ci_method": "wilson_95"
+   },
+   "cum_loss_rate": {
+    "value": 0.0,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 19,
+    "ci_method": "none: synthetic fixture"
+   }
+  }
+ ],
  "roll_rates": [
   {
    "period_group": "covid",
