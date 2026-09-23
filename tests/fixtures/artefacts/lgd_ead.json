@@ -1,0 +1,558 @@
+{
+ "schema_version": "1.0",
+ "artefact": "lgd_ead",
+ "synthetic": true,
+ "generated_at": "2026-09-23T00:00:00Z",
+ "data_cutoff": "2026-03-01",
+ "code_version": "fixture",
+ "ead": {
+  "ccf_applied": false,
+  "mean_ead": {
+   "value": 191070.09013029316,
+   "ci_low": 186070.09013029316,
+   "ci_high": 196070.09013029316,
+   "n": 614,
+   "ci_method": "synthetic fixture interval"
+  }
+ },
+ "lgd_segments": [
+  {
+   "dimension": "overall",
+   "segment": "all",
+   "lgd_economic": {
+    "value": 0.15641062569996797,
+    "ci_low": 0.14072836464327,
+    "ci_high": 0.17209288675666595,
+    "n": 513,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2075956976513165,
+    "ci_low": 0.19011118686890882,
+    "ci_high": 0.22508020843372417,
+    "n": 513,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.16210602453910905,
+    "ci_low": 0.14587010467002007,
+    "ci_high": 0.17834194440819803,
+    "n": 513,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "60_80",
+   "lgd_economic": {
+    "value": 0.21602748697355537,
+    "ci_low": 0.19170836773211303,
+    "ci_high": 0.2403466062149977,
+    "n": 263,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.21602748697355537,
+    "ci_low": 0.19170836773211303,
+    "ci_high": 0.2403466062149977,
+    "n": 263,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2242443578558148,
+    "ci_low": 0.19911210441648608,
+    "ci_high": 0.24937661129514355,
+    "n": 263,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "80_90",
+   "lgd_economic": {
+    "value": 0.09923861949094281,
+    "ci_low": 0.07608104450588177,
+    "ci_high": 0.12239619447600386,
+    "n": 121,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.18330383249009763,
+    "ci_low": 0.14765251086801023,
+    "ci_high": 0.21895515411218502,
+    "n": 121,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1026593691449054,
+    "ci_low": 0.07891047341519253,
+    "ci_high": 0.12640826487461826,
+    "n": 121,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "90_95",
+   "lgd_economic": {
+    "value": 0.07130273653066889,
+    "ci_low": 0.047387711670059014,
+    "ci_high": 0.09521776139127877,
+    "n": 69,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.19579746574040752,
+    "ci_low": 0.1479746742753078,
+    "ci_high": 0.24362025720550723,
+    "n": 69,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.07286683005209672,
+    "ci_low": 0.04810081005348499,
+    "ci_high": 0.09763285005070846,
+    "n": 69,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "gt_95",
+   "lgd_economic": {
+    "value": 0.06061386795393343,
+    "ci_low": 0.03255363047450932,
+    "ci_high": 0.08867410543335753,
+    "n": 46,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.22356853801202223,
+    "ci_low": 0.16420707062959258,
+    "ci_high": 0.2829300053944519,
+    "n": 46,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.06047665706927581,
+    "ci_low": 0.03278025898128034,
+    "ci_high": 0.08817305515727128,
+    "n": 46,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "le_60",
+   "lgd_economic": {
+    "value": 0.2648158717955239,
+    "ci_low": 0.1485690620959615,
+    "ci_high": 0.3810626814950863,
+    "n": 14,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2648158717955239,
+    "ci_low": 0.1485690620959615,
+    "ci_high": 0.3810626814950863,
+    "n": 14,
+    "ci_method": "normal_approx_fixture"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2823288076549106,
+    "ci_low": 0.158250988493859,
+    "ci_high": 0.4064066268159622,
+    "n": 14,
+    "ci_method": "normal_approx_fixture"
+   }
+  }
+ ],
+ "downturn_lgd": [
+  {
+   "ltv_band": "60_80",
+   "lgd_gross_of_mi": {
+    "value": 0.21602748697355537,
+    "ci_low": 0.19170836773211303,
+    "ci_high": 0.2403466062149977,
+    "n": 263,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "ltv_band": "80_90",
+   "lgd_gross_of_mi": {
+    "value": 0.18330383249009763,
+    "ci_low": 0.14765251086801023,
+    "ci_high": 0.21895515411218502,
+    "n": 121,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "ltv_band": "90_95",
+   "lgd_gross_of_mi": {
+    "value": 0.19579746574040752,
+    "ci_low": 0.1479746742753078,
+    "ci_high": 0.24362025720550723,
+    "n": 69,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "ltv_band": "gt_95",
+   "lgd_gross_of_mi": {
+    "value": 0.22356853801202223,
+    "ci_low": 0.16420707062959258,
+    "ci_high": 0.2829300053944519,
+    "n": 46,
+    "ci_method": "normal_approx_fixture"
+   }
+  },
+  {
+   "ltv_band": "le_60",
+   "lgd_gross_of_mi": {
+    "value": 0.2648158717955239,
+    "ci_low": 0.1485690620959615,
+    "ci_high": 0.3810626814950863,
+    "n": 14,
+    "ci_method": "normal_approx_fixture"
+   }
+  }
+ ],
+ "open_workouts": [
+  {
+   "default_year": 1999,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.5615060804490177,
+    "n": 3,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2000,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 2.7755575615628914e-17,
+    "ci_high": 0.2588400172488141,
+    "n": 11,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.13319649395317873,
+    "n": 25,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.14312112541726274,
+    "n": 23,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.16818436536845052,
+    "n": 19,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.14312112541726274,
+    "n": 23,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.11025900073475385,
+    "n": 31,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.09890426758938868,
+    "n": 35,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.09406095745514377,
+    "n": 37,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.06758430445307662,
+    "n": 53,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.06419614448811528,
+    "n": 56,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 6.938893903907228e-18,
+    "ci_high": 0.12455903714463581,
+    "n": 27,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.16113012549493322,
+    "n": 20,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 1.3877787807814457e-17,
+    "ci_high": 0.14865952572596125,
+    "n": 22,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.18432366037156456,
+    "n": 17,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 6.938893903907228e-18,
+    "ci_high": 0.12455903714463581,
+    "n": 27,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.08567044886890744,
+    "n": 41,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.19361341827271994,
+    "n": 16,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 1.3877787807814457e-17,
+    "ci_high": 0.14865952572596125,
+    "n": 22,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.16818436536845052,
+    "n": 19,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.3244156195108769,
+    "n": 8,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.3244156195108769,
+    "n": 8,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 2.7755575615628914e-17,
+    "ci_high": 0.2588400172488141,
+    "n": 11,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.2425007574992425,
+    "n": 12,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "share_open": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.1758845505823749,
+    "n": 18,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "share_open": {
+    "value": 0.08333333333333333,
+    "ci_low": 0.014864709450773478,
+    "ci_high": 0.35388592179859524,
+    "n": 12,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "share_open": {
+    "value": 0.38461538461538464,
+    "ci_low": 0.17709446581236818,
+    "ci_high": 0.6447751902773146,
+    "n": 13,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2026,
+   "share_open": {
+    "value": 1.0,
+    "ci_low": 0.5655085052479191,
+    "ci_high": 1.0,
+    "n": 5,
+    "ci_method": "wilson_95"
+   }
+  }
+ ],
+ "lgd_distribution": {
+  "share_above_1": {
+   "value": 0.0,
+   "ci_low": 0.0,
+   "ci_high": 0.007432838223548568,
+   "n": 513,
+   "ci_method": "wilson_95"
+  },
+  "share_below_0": {
+   "value": 0.017543859649122806,
+   "ci_low": 0.009256695375208998,
+   "ci_high": 0.03300306080540803,
+   "n": 513,
+   "ci_method": "wilson_95"
+  }
+ },
+ "reconciliation": {
+  "computed_vs_actual_within_1usd": {
+   "value": 1.0,
+   "ci_low": 0.9871879018788587,
+   "ci_high": 1.0,
+   "n": 296,
+   "ci_method": "wilson_95"
+  },
+  "expenses_within_1usd": {
+   "value": 1.0,
+   "ci_low": 0.9871879018788587,
+   "ci_high": 1.0,
+   "n": 296,
+   "ci_method": "wilson_95"
+  }
+ },
+ "lgd_model": {
+  "status": "not_run",
+  "used_in_ecl": false,
+  "delta_mae": null
+ },
+ "pass_rules": [
+  {
+   "rule_id": "R5",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "R6",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  },
+  {
+   "rule_id": "G2",
+   "result": "pending",
+   "evidence": "synthetic fixture"
+  }
+ ]
+}
