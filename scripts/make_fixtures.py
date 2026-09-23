@@ -1177,6 +1177,32 @@ def artefacts(d: dict) -> dict:
         for r in vc[vc["months_on_book"] % 6 == 0].itertuples()
         if r.months_on_book <= 36
     ]
+    vc_annual = (
+        vc.groupby(["vintage_year", "months_on_book"])
+        .agg(
+            n_loans=("n_loans", "sum"),
+            cum_defaults=("cum_defaults", "sum"),
+            cum_net_loss=("cum_net_loss", "sum"),
+            original_upb_total=("original_upb_total", "sum"),
+            fully_observed=("fully_observed", "all"),
+        )
+        .reset_index()
+    )
+    curves_annual = [
+        {
+            "vintage_year": int(r.vintage_year),
+            "months_on_book": int(r.months_on_book),
+            "fully_observed": bool(r.fully_observed),
+            "cum_default_rate": rate_metric(r.cum_defaults, r.n_loans),
+            "cum_loss_rate": C.metric(
+                float(r.cum_net_loss / r.original_upb_total) if r.original_upb_total else None,
+                n=int(r.n_loans),
+                ci_method="none: synthetic fixture",
+            ),
+        }
+        for r in vc_annual[vc_annual["months_on_book"] % 6 == 0].itertuples()
+        if r.months_on_book <= 36
+    ]
     portfolio = {
         **envelope("portfolio"),
         "summary": {
@@ -1189,6 +1215,7 @@ def artefacts(d: dict) -> dict:
         },
         "comparable_months_on_book": comparable,
         "vintage_curves": curves,
+        "vintage_curves_annual": curves_annual,
         "roll_rates": roll,
         "roll_cure_rates": cure,
         "default_cure_rates": [
@@ -1223,7 +1250,9 @@ def artefacts(d: dict) -> dict:
     }
 
     # pd_models: shapes only. Numbers are synthetic, not a fitted scorecard.
-    sc = d["loan_scores"].merge(sb[["loan_id", "default_12m", "default_12m_naive"]], on="loan_id")
+    sc = d["loan_scores"].merge(
+        sb[["loan_id", "vintage_year", "default_12m", "default_12m_naive"]], on="loan_id"
+    )
     # D1a: loans modified before (or without) a primary default, against primary defaults.
     first_mod = lm[lm["mod_flag"].notna()].groupby("loan_id")["period"].min()
     first_def = prim.set_index("loan_id")["default_period"]
@@ -1332,16 +1361,27 @@ def artefacts(d: dict) -> dict:
                 "merged_into": None,
             }
         )
+    def sample_frame(s: str):
+        if s == "oot_and_covid":
+            return sc[sc["sample"].isin(["oot", "covid"])]
+        if s == "oot_2017_2019":
+            return sc[(sc["sample"] == "oot") & sc["vintage_year"].between(2017, 2019)]
+        if s == "oot_2022_2024":
+            return sc[(sc["sample"] == "oot") & sc["vintage_year"].between(2022, 2024)]
+        return sc[sc["sample"] == s]
+
     calib, citl = [], []
     combos = [
         ("dev_test", "primary"),
         ("oot", "primary"),
         ("covid", "primary"),
         ("oot_and_covid", "primary"),
+        ("oot_2017_2019", "primary"),
+        ("oot_2022_2024", "primary"),
         ("oot", "naive"),
     ]
     for s, definition in combos:
-        g = sc[sc["sample"].isin(["oot", "covid"] if s == "oot_and_covid" else [s])]
+        g = sample_frame(s)
         target = "default_12m" if definition == "primary" else "default_12m_naive"
         for gr, gg in g.groupby("grade"):
             k, n = int(gg[target].sum()), len(gg)
@@ -1388,6 +1428,8 @@ def artefacts(d: dict) -> dict:
             ("oot", "primary"),
             ("covid", "primary"),
             ("oot_and_covid", "primary"),
+            ("oot_2017_2019", "primary"),
+            ("oot_2022_2024", "primary"),
             ("dev_test", "naive"),
             ("oot", "naive"),
         ]

@@ -476,6 +476,7 @@ Portfolio analytics.
 | `summary` | object | `n_loans`, `n_loan_months`, `original_upb_total`, `n_defaults_primary`, `n_defaults_naive`, `net_loss_total`, all metrics |
 | `comparable_months_on_book` | int | The largest months on book that every compared vintage has fully observed |
 | `vintage_curves` | list | `vintage_year`, `vintage_quarter`, `months_on_book`, `fully_observed`, `cum_default_rate` (metric), `cum_loss_rate` (metric) |
+| `vintage_curves_annual` | list | One series per origination **year** (1999-2025) for the website and dashboards, same shape and right-censoring rule as `vintage_curves`: `vintage_year`, `months_on_book`, `fully_observed`, `cum_default_rate` (metric), `cum_loss_rate` (metric). Produced by the portfolio analytics step (`analysis/portfolio.py`), from the same year-grain aggregation as `fct_vintage_curve`'s quarters. Subject to the small-cell rule |
 | `roll_rates` | list | `period_group` (`all` or an economic period), `from_bucket`, `to_state`, `rate` (metric) |
 | `roll_cure_rates` | list | `period_group`, `from_bucket` (`dpd_30`, `dpd_60`, `dpd_90p`), `rate` (metric, share moving to `current` next month; the roll-rate cure, not D4) |
 | `default_cure_rates` | list | `default_year`, `cure_12m`, `cure_ever` (metrics): share of that year's primary defaults that cure under D4 within 12 months of the default month, and by the cut-off |
@@ -509,14 +510,21 @@ and the Excel workbook use.
 | `features` | list | `feature`, `iv` (metric), `selected`, `drop_reason` (string or null), `coefficient` (float or null) |
 | `points_table` | list | `feature`, `bin` (label), `lower` and `upper` (numeric bin edges, lower inclusive, upper exclusive, null if open or categorical), `categories` (list of category codes; empty for numeric bins), `is_missing_bin`, `woe`, `points` (int), `default_rate_dev_train` (metric) |
 | `grades` | list | `grade`, `pd_low` (inclusive), `pd_high` (exclusive), `score_min`, `score_max` (int or null at the open ends), `merged_into` (grade letter, or null if the grade survives; section 3 merge rule) |
-| `discrimination` | list | `sample` (`dev_train`, `dev_test`, `oot`, `covid`, `oot_and_covid`), `definition` (`primary`, `naive`), `model` (`champion`, `challenger`), `auc`, `gini`, `ks` (metrics) |
-| `calibration` | list | `sample` (`dev_test`, `oot`, `covid`, `oot_and_covid`), `definition` (`primary`, `naive`), `grade`, `n`, `mean_pd`, `realised_rate` (metric, Jeffreys), `result` (`PASS`, `FAIL`, `INSUFFICIENT`; `naive` rows and `oot_and_covid` are secondary) |
+| `discrimination` | list | `sample` (`dev_train`, `dev_test`, `oot`, `covid`, `oot_and_covid`, `oot_2017_2019`, `oot_2022_2024`), `definition` (`primary`, `naive`), `model` (`champion`, `challenger`), `auc`, `gini`, `ks` (metrics) |
+| `calibration` | list | `sample` (`dev_test`, `oot`, `covid`, `oot_and_covid`, `oot_2017_2019`, `oot_2022_2024`), `definition` (`primary`, `naive`), `grade`, `n`, `mean_pd`, `realised_rate` (metric, Jeffreys), `result` (`PASS`, `FAIL`, `INSUFFICIENT`; `naive` rows and `oot_and_covid` are secondary) |
 | `calibration_in_the_large` | list | `sample` (as `calibration`), `definition`, `mean_pd` (float), `realised_rate` (metric, Jeffreys), `ratio` (metric: realised over `mean_pd`, `jeffreys_95_over_mean_pd`) |
 | `gini_drop` | list | `definition` (`primary` decides S2; `naive` is secondary), `relative` (metric), `absolute` (metric), `rag` (`green`, `amber`, `red`), per S2 |
 | `fairness_sensitivity` | list | `feature` (`number_of_borrowers`, `first_time_homebuyer`), `in_model` (bool), `iv` (metric), `gini_dev_test_with`, `gini_dev_test_without` (metrics) |
 | `challenger` | object | `status` (`not_run`, `run`), `confirm_passed` (bool or null; the `dev_test` confirm step, section 5), `delta_gini_oot` (metric or null), `promotion_recommended` (bool or null), `criteria` (list of `criterion`, `met`), `shap_global` (list of `feature`, `mean_abs_shap`) |
 | `oot_scoring` | object | `calls` (int; must be 1 once scored), `scored_at` (timestamp or null) |
 | `pass_rules` | list | D1a, S1 to S5 (S4a and S4b separately) and C1 |
+
+`oot_2017_2019` and `oot_2022_2024` split the `oot` sample by vintage year (VALIDATION_PLAN
+D2/S2/S4b: the pre-COVID and post-COVID out-of-time windows, reported separately alongside the
+pooled `oot_and_covid` view). Same metric and interval shape as the primary `oot` rows in
+`discrimination`, `calibration` and `calibration_in_the_large`; secondary, never pass/fail on
+their own. `models/pd/run.py` (D2) fills them from the scored out-of-time frame filtered by
+`vintage_year`, or writes them with `n: 0` and a `none:` reason if a split has too few loans.
 
 ```json
 {"points_table": [{"feature": "fico", "bin": "[700, 740)", "lower": 700, "upper": 740,

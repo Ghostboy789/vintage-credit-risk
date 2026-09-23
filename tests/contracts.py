@@ -382,7 +382,11 @@ RULE_RESULT = "enum:PASS|FAIL|AMBER|INSUFFICIENT|NOT_RUN|pending"
 PASS_RULES = [{"rule_id": "str", "result": RULE_RESULT, "evidence": "str"}]
 GRADE = "enum:" + "|".join(GRADES)
 DEFINITION = "enum:primary|naive"
-CALIB_SAMPLE = "enum:dev_test|oot|covid|oot_and_covid"
+SECONDARY_OOT_SAMPLES = ["oot_2017_2019", "oot_2022_2024"]
+DISCRIM_SAMPLE = "enum:dev_train|dev_test|oot|covid|oot_and_covid|" + "|".join(
+    SECONDARY_OOT_SAMPLES
+)
+CALIB_SAMPLE = "enum:dev_test|oot|covid|oot_and_covid|" + "|".join(SECONDARY_OOT_SAMPLES)
 STAGE2_REASONS = [r for r in STAGE_FLOOR_REASONS if r != "default"] + ["pd_deterioration"]
 
 ENVELOPE = {
@@ -411,6 +415,15 @@ ARTEFACTS: dict[str, dict] = {
             {
                 "vintage_year": "int",
                 "vintage_quarter": "str",
+                "months_on_book": "int",
+                "fully_observed": "bool",
+                "cum_default_rate": "metric",
+                "cum_loss_rate": "metric",
+            }
+        ],
+        "vintage_curves_annual": [
+            {
+                "vintage_year": "int",
                 "months_on_book": "int",
                 "fully_observed": "bool",
                 "cum_default_rate": "metric",
@@ -539,7 +552,7 @@ ARTEFACTS: dict[str, dict] = {
         ],
         "discrimination": [
             {
-                "sample": "enum:dev_train|dev_test|oot|covid|oot_and_covid",
+                "sample": DISCRIM_SAMPLE,
                 "definition": DEFINITION,
                 "model": "enum:champion|challenger",
                 "auc": "metric",
