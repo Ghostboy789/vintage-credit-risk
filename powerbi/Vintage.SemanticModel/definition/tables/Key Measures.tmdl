@@ -1,0 +1,95 @@
+table 'Key Measures'
+	lineageTag: 3636e13e-9d3c-4df8-ae49-d348ec0fbfbc
+
+	/// Latest month's active balance; filter Dim Date to one period for a snapshot.
+	measure 'Total UPB' = SUM ( 'Metrics Monthly'[Total Upb] )
+		formatString: $#,0,,"M"
+		displayFolder: Portfolio overview
+		lineageTag: c1572e00-57d6-47b0-a40a-0bd3a3f46262
+
+	measure 'Delinquency Rate 30+' = AVERAGE ( 'Metrics Monthly'[Delinquency Rate 30p] )
+		formatString: 0.00%
+		displayFolder: Portfolio overview
+		lineageTag: d6cbbe7a-3987-4abd-8858-a1b8c39cbab1
+
+	measure 'Delinquency Rate 90+' = AVERAGE ( 'Metrics Monthly'[Delinquency Rate 90p] )
+		formatString: 0.00%
+		displayFolder: Portfolio overview
+		lineageTag: b74c448b-2f28-4d59-a648-b8a40e9c5dcc
+
+	measure 'Monthly Default Rate' = AVERAGE ( 'Metrics Monthly'[Default Rate] )
+		formatString: 0.000%
+		displayFolder: Portfolio overview
+		lineageTag: 5d9b94f6-0aed-409e-9365-1cbc2a0b3ec8
+
+	measure 'Monthly Loss Rate' = AVERAGE ( 'Metrics Monthly'[Loss Rate] )
+		formatString: 0.000%
+		displayFolder: Portfolio overview
+		lineageTag: 75ed0c27-cbc5-46d6-89f2-2b2f2d959119
+
+	/// One vintage-quarter at a time; a multi-select average is not the pooled rate.
+	measure 'Cumulative Default Rate' = AVERAGE ( 'Vintage Curves'[Cum Default Rate] )
+		formatString: 0.0%
+		displayFolder: Vintages
+		lineageTag: 8283b21d-6d0d-4026-b8f6-decc923ed30e
+
+	measure 'Cumulative Loss Rate' = AVERAGE ( 'Vintage Curves'[Cum Loss Rate] )
+		formatString: 0.0%
+		displayFolder: Vintages
+		lineageTag: 7096bd12-0200-444d-97bd-1cced4946402
+
+	measure 'Roll Rate' = AVERAGE ( 'Roll Rates'[Rate] )
+		formatString: 0.0%
+		displayFolder: Roll rates
+		lineageTag: 1db38da5-ef9a-4ca2-976b-d3fa7d2254d7
+
+	measure 'Cure Rate (Roll)' = AVERAGE ( 'Roll Cure Rates'[Rate] )
+		formatString: 0.0%
+		displayFolder: Roll rates
+		lineageTag: d8203a57-def7-4bb4-8c0b-3f5585715e8b
+
+	measure 'Gini (OOT)' = CALCULATE ( AVERAGE ( 'Scorecard Discrimination'[Gini] ), 'Scorecard Discrimination'[Sample] = "oot", 'Scorecard Discrimination'[Definition] = "primary", 'Scorecard Discrimination'[Model] = "champion" )
+		formatString: 0.000
+		displayFolder: Scorecard and monitoring
+		lineageTag: 46017017-2587-43be-8ddf-7199f67a17ec
+
+	measure 'KS (OOT)' = CALCULATE ( AVERAGE ( 'Scorecard Discrimination'[Ks] ), 'Scorecard Discrimination'[Sample] = "oot", 'Scorecard Discrimination'[Definition] = "primary", 'Scorecard Discrimination'[Model] = "champion" )
+		formatString: 0.000
+		displayFolder: Scorecard and monitoring
+		lineageTag: 159bbeff-3ae0-44a4-81df-a47dadb63f30
+
+	measure 'Score PSI (dev vs OOT)' = CALCULATE ( AVERAGE ( 'Monitoring Psi'[Psi] ), 'Monitoring Psi'[Comparison] = "dev_train_vs_oot" )
+		formatString: 0.000
+		displayFolder: Scorecard and monitoring
+		lineageTag: 4d02808c-1bb3-4151-9fa6-e81ff2a1c7ee
+
+	measure 'Realised LGD' = AVERAGE ( 'Lgd Segments'[Lgd Economic] )
+		formatString: 0.0%
+		displayFolder: Loss engine
+		lineageTag: 3048de07-ca6d-4e42-8e2b-60e0f079947f
+
+	measure 'ECL Total' = SUM ( 'Ecl By Date'[Ecl] )
+		formatString: $#,0,,"M"
+		displayFolder: IFRS 9 ECL
+		lineageTag: 8837ab5f-577d-4e17-9d3b-684df908df0e
+
+	measure 'Coverage Ratio' = DIVIDE ( SUM ( 'Ecl By Date'[Ecl] ), SUM ( 'Ecl By Date'[Ead] ) )
+		formatString: 0.00%
+		displayFolder: IFRS 9 ECL
+		lineageTag: ad04e570-f1e9-4eb5-9341-41b134fd23fa
+
+	measure 'Capital' = SUM ( 'Capital By Grade'[Capital] )
+		formatString: $#,0,,"M"
+		displayFolder: Capital
+		lineageTag: e2f02eb2-5378-4cf4-a85b-83f14946ad6b
+
+	measure 'RWA' = SUM ( 'Capital By Grade'[Rwa] )
+		formatString: $#,0,,"M"
+		displayFolder: Capital
+		lineageTag: a089553f-33c8-4aed-9bb1-f5f4f539580b
+
+	/// Every page must show this; it is blank once real artefacts are exported.
+	measure 'Synthetic Data Warning' = IF ( MAX ( 'Artefact Metadata'[Synthetic] ), "SYNTHETIC FIXTURES — not the real Freddie Mac portfolio", "" )
+		formatString: General
+		displayFolder: General
+		lineageTag: c0be4de4-69d7-41ce-9505-ec3891f125c7

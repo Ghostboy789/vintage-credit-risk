@@ -1,0 +1,144 @@
+{
+  "name": "capital-detail-by-grade-tableEx-1131ac",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "Capital By Grade.Grade",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "Grade"
+                }
+              },
+              "nativeQueryRef": "Grade"
+            },
+            {
+              "queryRef": "Capital By Grade.EAD",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "EAD"
+                }
+              },
+              "nativeQueryRef": "EAD"
+            },
+            {
+              "queryRef": "Capital By Grade.PD",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "PD"
+                }
+              },
+              "nativeQueryRef": "PD"
+            },
+            {
+              "queryRef": "Capital By Grade.LGD",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "LGD"
+                }
+              },
+              "nativeQueryRef": "LGD"
+            },
+            {
+              "queryRef": "Capital By Grade.RWA",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "RWA"
+                }
+              },
+              "nativeQueryRef": "RWA"
+            },
+            {
+              "queryRef": "Capital By Grade.Capital",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capital By Grade"
+                    }
+                  },
+                  "Property": "Capital"
+                }
+              },
+              "nativeQueryRef": "Capital"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Capital detail by grade'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 640,
+    "y": 280,
+    "width": 620,
+    "height": 350,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

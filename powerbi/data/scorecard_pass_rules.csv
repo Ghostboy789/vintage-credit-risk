@@ -1,0 +1,9 @@
+rule_id,result,evidence,synthetic
+D1a,pending,synthetic fixture,True
+S1,pending,synthetic fixture,True
+S2,pending,synthetic fixture,True
+S3,pending,synthetic fixture,True
+S4a,pending,synthetic fixture,True
+S4b,pending,synthetic fixture,True
+S5,pending,synthetic fixture,True
+C1,pending,synthetic fixture,True

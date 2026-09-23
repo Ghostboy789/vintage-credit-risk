@@ -1,0 +1,75 @@
+table 'Lgd Downturn'
+	lineageTag: 0619880f-e7fc-4c36-90c9-282f70ac6f7f
+
+	column 'Ltv Band'
+		dataType: string
+		lineageTag: f7fc9df6-f812-4524-aafc-290af86c08bb
+		summarizeBy: none
+		sourceColumn: ltv_band
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dae13b36-651f-4b7c-8224-7203a2338d73
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 0e66ecb9-b58a-4550-b535-9366ac9d3a8d
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 7389ed9c-6b2b-47cd-b5d2-e4e0a56b48bc
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 76c8d812-53e1-4755-8c9f-f00db61251f5
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_n
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Method'
+		dataType: string
+		lineageTag: d945f017-8cd7-4783-a71a-34be7dcf8c2a
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 3eb637e3-4e18-4f43-a621-f42ff854c3e2
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Lgd Downturn' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("lgd_downturn.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"ltv_band", type text}, {"lgd_gross_of_mi", type number}, {"lgd_gross_of_mi_lo", type number}, {"lgd_gross_of_mi_hi", type number}, {"lgd_gross_of_mi_n", Int64.Type}, {"lgd_gross_of_mi_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

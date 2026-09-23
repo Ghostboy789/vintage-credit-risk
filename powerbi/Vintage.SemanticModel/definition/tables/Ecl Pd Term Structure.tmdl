@@ -1,0 +1,128 @@
+table 'Ecl Pd Term Structure'
+	lineageTag: f79a96ae-3264-404a-925c-f5b1d4c68707
+
+	column 'Grade'
+		dataType: string
+		lineageTag: e4f31216-75f4-4ca7-94fe-0a35217b3cc1
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: a6be3d97-448f-446d-8bad-6ec86c5f783f
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column 'Marginal PD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d8fc1ba9-267d-4444-b068-2466e054952c
+		summarizeBy: none
+		sourceColumn: marginal_pd
+
+		annotation SummarizationSetBy = User
+
+	column 'Marginal PD Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ca897061-cc05-42be-8d54-1ff87b83b3f3
+		summarizeBy: none
+		sourceColumn: marginal_pd_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Marginal PD Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: be2aadae-6bbd-4848-b112-ac4333615306
+		summarizeBy: none
+		sourceColumn: marginal_pd_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Marginal PD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c853347-d65c-40b3-afec-7390399de4a0
+		summarizeBy: none
+		sourceColumn: marginal_pd_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Marginal PD Method'
+		dataType: string
+		lineageTag: 8c799b66-c9c0-4ca7-b7df-96644046ace6
+		summarizeBy: none
+		sourceColumn: marginal_pd_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Cumulative PD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5502faf5-4375-4d23-8592-a5c48bd91e02
+		summarizeBy: none
+		sourceColumn: cumulative_pd
+
+		annotation SummarizationSetBy = User
+
+	column 'Cumulative PD Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a2a7d98b-b7b3-48b4-8787-87febe69a939
+		summarizeBy: none
+		sourceColumn: cumulative_pd_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Cumulative PD Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d1167fb4-c540-46ee-8639-be8e59d09c8b
+		summarizeBy: none
+		sourceColumn: cumulative_pd_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Cumulative PD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 08cffc21-27d4-49c7-8dd6-ea87dc0e1f6d
+		summarizeBy: none
+		sourceColumn: cumulative_pd_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Cumulative PD Method'
+		dataType: string
+		lineageTag: 76d7f77c-a00e-41e0-856b-d4be93800758
+		summarizeBy: none
+		sourceColumn: cumulative_pd_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 0520f809-3f12-4680-a52c-545aeac4f32e
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Pd Term Structure' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_pd_term_structure.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"grade", type text}, {"year", Int64.Type}, {"marginal_pd", type number}, {"marginal_pd_lo", type number}, {"marginal_pd_hi", type number}, {"marginal_pd_n", Int64.Type}, {"marginal_pd_method", type text}, {"cumulative_pd", type number}, {"cumulative_pd_lo", type number}, {"cumulative_pd_hi", type number}, {"cumulative_pd_n", Int64.Type}, {"cumulative_pd_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

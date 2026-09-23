@@ -1,0 +1,120 @@
+table 'Default Cure Rates'
+	lineageTag: d9a82359-091f-4651-b3d6-9fc6ea390d22
+
+	column 'Default Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 898f3f24-cbc5-4fa2-b053-565cfffe56af
+		summarizeBy: none
+		sourceColumn: default_year
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure 12m'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 9d43794e-4605-49ed-a0ff-81dc19481d0d
+		summarizeBy: none
+		sourceColumn: cure_12m
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure 12m Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 9fc8fdfc-bcaf-40a4-a146-be97502535d8
+		summarizeBy: none
+		sourceColumn: cure_12m_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure 12m Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 39f091f8-d91f-4b72-a659-121986f569c3
+		summarizeBy: none
+		sourceColumn: cure_12m_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure 12m N'
+		dataType: int64
+		formatString: 0
+		lineageTag: c0fe40c7-3b72-4c68-8770-888140ea3486
+		summarizeBy: none
+		sourceColumn: cure_12m_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure 12m Method'
+		dataType: string
+		lineageTag: 87faf627-1881-4191-8926-e7f568fcd3c2
+		summarizeBy: none
+		sourceColumn: cure_12m_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure Ever'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1db31505-ad3e-48f6-8faf-267282fc1905
+		summarizeBy: none
+		sourceColumn: cure_ever
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure Ever Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 0cbf8d9e-6c97-4958-9492-141b3c7f5df7
+		summarizeBy: none
+		sourceColumn: cure_ever_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure Ever Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: f0d92691-b36c-4ea4-b4a8-0812034a7f7c
+		summarizeBy: none
+		sourceColumn: cure_ever_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure Ever N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f0b3af3-8683-4846-b4ce-8ba9f0f5d401
+		summarizeBy: none
+		sourceColumn: cure_ever_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Cure Ever Method'
+		dataType: string
+		lineageTag: e4d882d0-e96c-43f9-b2e7-225d88edf084
+		summarizeBy: none
+		sourceColumn: cure_ever_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 8b1e49f4-9967-43b2-b7dd-4c15fb4c0d0a
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Default Cure Rates' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("default_cure_rates.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"default_year", Int64.Type}, {"cure_12m", type number}, {"cure_12m_lo", type number}, {"cure_12m_hi", type number}, {"cure_12m_n", Int64.Type}, {"cure_12m_method", type text}, {"cure_ever", type number}, {"cure_ever_lo", type number}, {"cure_ever_hi", type number}, {"cure_ever_n", Int64.Type}, {"cure_ever_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

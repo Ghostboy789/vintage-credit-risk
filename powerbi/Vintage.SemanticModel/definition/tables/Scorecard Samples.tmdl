@@ -1,0 +1,119 @@
+table 'Scorecard Samples'
+	lineageTag: 16d10cdb-8a8f-4efb-ab00-f2d92af9cb72
+
+	column 'Sample'
+		dataType: string
+		lineageTag: b276112d-8af6-42a3-b16c-70c687f245df
+		summarizeBy: none
+		sourceColumn: sample
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 5d5d5dcd-3474-492b-a58a-55414cf22d88
+		summarizeBy: none
+		sourceColumn: n_loans
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: aa1b3485-0c2b-47d1-ba27-b75b5a91ad6e
+		summarizeBy: none
+		sourceColumn: n_loans_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 71a91c4b-d4bf-464f-a7df-b6fb0f007dca
+		summarizeBy: none
+		sourceColumn: n_loans_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ba2f077-74e4-4dfa-b18d-8d92edfcb7b1
+		summarizeBy: none
+		sourceColumn: n_loans_n
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans Method'
+		dataType: string
+		lineageTag: 13611a39-8830-405f-a80e-797c7b7c109a
+		summarizeBy: none
+		sourceColumn: n_loans_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6cd5b559-d5ce-4133-938c-2c4ab249b786
+		summarizeBy: none
+		sourceColumn: default_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 352c8350-ad82-4567-acdd-14db73dfd08c
+		summarizeBy: none
+		sourceColumn: default_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 412ca449-46e6-46ee-936c-631604886bea
+		summarizeBy: none
+		sourceColumn: default_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 588c715b-23d5-4ed5-a4d7-09c013135738
+		summarizeBy: none
+		sourceColumn: default_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Method'
+		dataType: string
+		lineageTag: f4ed4105-e313-4f7e-a495-b27d4dd25de3
+		summarizeBy: none
+		sourceColumn: default_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: fe89164a-1dc7-4ced-879d-1b5dcc8235e6
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Samples' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_samples.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"sample", type text}, {"n_loans", type number}, {"n_loans_lo", type number}, {"n_loans_hi", type number}, {"n_loans_n", Int64.Type}, {"n_loans_method", type text}, {"default_rate", type number}, {"default_rate_lo", type number}, {"default_rate_hi", type number}, {"default_rate_n", Int64.Type}, {"default_rate_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,93 @@
+table 'Ecl Stage2 Drivers'
+	lineageTag: 6f1620bd-79e9-4868-96db-5f830c155b2c
+
+	column 'Reporting Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: cd94014c-864e-4c1a-866b-5981a263206d
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = User
+
+	column 'Reason'
+		dataType: string
+		lineageTag: cd48a8c5-3907-40f4-bc1e-dc24f88cfdea
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dfa4771-85bc-4e2f-954e-707b732af8c5
+		summarizeBy: none
+		sourceColumn: n_loans
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Of Stage2'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1f851b86-f303-45a7-82c1-9a83dc73f68c
+		summarizeBy: none
+		sourceColumn: share_of_stage2
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Of Stage2 Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 93b2e4ea-e95f-4f15-8a39-a1399e2a0383
+		summarizeBy: none
+		sourceColumn: share_of_stage2_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Of Stage2 Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 50404b91-4b7b-421a-a2d7-5ab439986dcb
+		summarizeBy: none
+		sourceColumn: share_of_stage2_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Of Stage2 N'
+		dataType: int64
+		formatString: 0
+		lineageTag: f3c6aa79-9e4f-4d18-bdbf-e9f1f6b7478b
+		summarizeBy: none
+		sourceColumn: share_of_stage2_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Of Stage2 Method'
+		dataType: string
+		lineageTag: b02a2e24-05ac-4ca6-bc15-dedb85abe122
+		summarizeBy: none
+		sourceColumn: share_of_stage2_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 19fde48e-b227-4b1a-85ac-382c71c9c54f
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Stage2 Drivers' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_stage2_drivers.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"reporting_date", type date}, {"reason", type text}, {"n_loans", Int64.Type}, {"share_of_stage2", type number}, {"share_of_stage2_lo", type number}, {"share_of_stage2_hi", type number}, {"share_of_stage2_n", Int64.Type}, {"share_of_stage2_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

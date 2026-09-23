@@ -1,0 +1,47 @@
+table 'Lgd Pass Rules'
+	lineageTag: e105f491-fb0b-4ce7-bb71-36d331a8abf8
+
+	column 'Rule ID'
+		dataType: string
+		lineageTag: a01111f3-0d55-41c9-b546-b5b8b1a5fef7
+		summarizeBy: none
+		sourceColumn: rule_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Result'
+		dataType: string
+		lineageTag: a7170c1e-d3fd-4dc8-9194-54e28d7750ef
+		summarizeBy: none
+		sourceColumn: result
+
+		annotation SummarizationSetBy = User
+
+	column 'Evidence'
+		dataType: string
+		lineageTag: eceaf55e-fb9a-4ba5-a1b4-72f57e672e9e
+		summarizeBy: none
+		sourceColumn: evidence
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 7c3d736e-0529-4eab-a6cf-8a69c15cf486
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Lgd Pass Rules' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("lgd_pass_rules.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"rule_id", type text}, {"result", type text}, {"evidence", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

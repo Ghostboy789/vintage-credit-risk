@@ -1,0 +1,2 @@
+base_score,base_odds,pdo,factor,offset,intercept,pd_label,synthetic
+600,50.0,20,28.85390081777927,487.1228762045055,-4.5,"12-month PD, development average (synthetic fixture)",True

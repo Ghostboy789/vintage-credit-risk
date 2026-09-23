@@ -1,0 +1,47 @@
+table 'Portfolio Pass Rules'
+	lineageTag: 662100fe-c0da-4d8a-98c4-5007fc8a27c3
+
+	column 'Rule ID'
+		dataType: string
+		lineageTag: 04797c0c-bc44-45cb-96e1-e48e38a641c6
+		summarizeBy: none
+		sourceColumn: rule_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Result'
+		dataType: string
+		lineageTag: 7a3768a3-51b0-4e17-8ff6-bdf15a53b3b3
+		summarizeBy: none
+		sourceColumn: result
+
+		annotation SummarizationSetBy = User
+
+	column 'Evidence'
+		dataType: string
+		lineageTag: 08b74697-aeda-472b-b1bf-4fcc1c3d386d
+		summarizeBy: none
+		sourceColumn: evidence
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 0a054910-79d4-4f05-8b0a-43768480501c
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Portfolio Pass Rules' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("portfolio_pass_rules.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"rule_id", type text}, {"result", type text}, {"evidence", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

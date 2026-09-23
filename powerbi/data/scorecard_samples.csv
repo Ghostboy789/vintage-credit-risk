@@ -1,0 +1,7 @@
+sample,n_loans,n_loans_lo,n_loans_hi,n_loans_n,n_loans_method,default_rate,default_rate_lo,default_rate_hi,default_rate_n,default_rate_method,synthetic
+covid,263.0,,,263,"none: population count, not an estimate",0.019011406844106463,0.00814707995269854,0.043724892033678395,263,wilson_95,True
+dev_test,905.0,,,905,"none: population count, not an estimate",0.06077348066298342,0.04698653650818525,0.07827357482474671,905,wilson_95,True
+dev_train,2085.0,,,2085,"none: population count, not an estimate",0.06522781774580336,0.055407833394453085,0.07664698588911538,2085,wilson_95,True
+excluded,192.0,,,192,"none: population count, not an estimate",0.0,0.0,0.019615852811660034,192,wilson_95,True
+gap,73.0,,,73,"none: population count, not an estimate",0.0684931506849315,0.029608602066378893,0.15052299331945376,73,wilson_95,True
+oot,482.0,,,482,"none: population count, not an estimate",0.07261410788381743,0.05267193835998711,0.09931504669851758,482,wilson_95,True

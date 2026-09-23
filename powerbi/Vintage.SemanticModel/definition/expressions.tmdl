@@ -1,0 +1,15 @@
+/// Folder or URL the report loads its data from. Point it at a local clone's powerbi\data\ folder to work offline.
+expression DataFolder = "https://raw.githubusercontent.com/Ghostboy789/vintage-credit-risk/main/powerbi/data/" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 7f806124-a739-42e3-8823-fd4db8925042
+
+	annotation PBI_ResultType = Text
+
+/// Reads one data file from DataFolder, over HTTPS or from disk.
+expression VintageFile =
+		(name as text) as binary =>
+		    if Text.StartsWith(DataFolder, "http")
+		    then Web.Contents(DataFolder, [RelativePath = name])
+		    else File.Contents(DataFolder & name)
+	lineageTag: 08be0755-a857-4669-afe9-2708b53ed310
+
+	annotation PBI_ResultType = Function

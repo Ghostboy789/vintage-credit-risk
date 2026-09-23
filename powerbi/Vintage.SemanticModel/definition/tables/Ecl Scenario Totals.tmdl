@@ -1,0 +1,84 @@
+table 'Ecl Scenario Totals'
+	lineageTag: bb7fd927-1498-4a46-ab8b-395688ba8bd5
+
+	column 'Reporting Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: e8f90d9a-1217-4582-89be-174351b71dfa
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = User
+
+	column 'Scenario'
+		dataType: string
+		lineageTag: e83b1da3-67f7-43bd-b3d3-8ade1c75bf2c
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1a914c43-0ae1-4cef-a146-cfd95b7b4bbb
+		summarizeBy: none
+		sourceColumn: ecl
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 87416638-1df2-4f54-998d-f221ebae10ec
+		summarizeBy: none
+		sourceColumn: ecl_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 116efd62-9ecd-47b2-a1c1-e12fb728bda5
+		summarizeBy: none
+		sourceColumn: ecl_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9bb51c06-04b6-4556-8f99-8bdb77b097f8
+		summarizeBy: none
+		sourceColumn: ecl_n
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Method'
+		dataType: string
+		lineageTag: 0b138ff2-61b1-4b10-a7ef-b961af4bca62
+		summarizeBy: none
+		sourceColumn: ecl_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: dc28b597-e18a-4934-b5c4-ac7ec6c17a41
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Scenario Totals' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_scenario_totals.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"reporting_date", type date}, {"scenario", type text}, {"ecl", type number}, {"ecl_lo", type number}, {"ecl_hi", type number}, {"ecl_n", Int64.Type}, {"ecl_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,14 @@
+feature,bin,lower,upper,is_missing_bin,woe,points,default_rate_dev_train,default_rate_dev_train_lo,default_rate_dev_train_hi,default_rate_dev_train_n,default_rate_dev_train_method,synthetic
+fico,"[None, 680)",,680.0,False,-0.667,0,0.02,0.015,0.025,300,synthetic fixture interval,True
+fico,"[680, 740)",680.0,740.0,False,0.067,22,0.02,0.015,0.025,300,synthetic fixture interval,True
+fico,"[740, None)",740.0,,False,0.7,41,0.02,0.015,0.025,300,synthetic fixture interval,True
+fico,missing,,,True,-0.4,5,0.03,0.019999999999999997,0.04,60,synthetic fixture interval,True
+ltv_pct,"[None, 80)",,80.0,False,0.5,35,0.02,0.015,0.025,300,synthetic fixture interval,True
+ltv_pct,"[80, 90)",80.0,90.0,False,0.0,20,0.02,0.015,0.025,300,synthetic fixture interval,True
+ltv_pct,"[90, None)",90.0,,False,-0.4,8,0.02,0.015,0.025,300,synthetic fixture interval,True
+ltv_pct,missing,,,True,-0.4,5,0.03,0.019999999999999997,0.04,60,synthetic fixture interval,True
+dti_pct,"[None, 36)",,36.0,False,0.333,30,0.02,0.015,0.025,300,synthetic fixture interval,True
+dti_pct,"[36, None)",36.0,,False,-0.167,15,0.02,0.015,0.025,300,synthetic fixture interval,True
+dti_pct,missing,,,True,-0.4,5,0.03,0.019999999999999997,0.04,60,synthetic fixture interval,True
+occupancy_status,P,,,False,0.1,25,0.02,0.016,0.024,900,synthetic fixture interval,True
+occupancy_status,other,,,False,-0.5,10,0.04,0.03,0.05,150,synthetic fixture interval,True

@@ -1,0 +1,85 @@
+table 'Scorecard Scaling'
+	lineageTag: 7f13f3c1-6726-4510-bad7-4aa78b4b6198
+
+	column 'Base Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4463f72b-a346-47f7-99c8-e7f11e3ae7d8
+		summarizeBy: none
+		sourceColumn: base_score
+
+		annotation SummarizationSetBy = User
+
+	column 'Base Odds'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 0ae37973-3e10-444a-ad78-347b085975ab
+		summarizeBy: none
+		sourceColumn: base_odds
+
+		annotation SummarizationSetBy = User
+
+	column 'Pdo'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e1df7e5-0b08-4a94-bf92-5416c069b44c
+		summarizeBy: none
+		sourceColumn: pdo
+
+		annotation SummarizationSetBy = User
+
+	column 'Factor'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: bd6f2e66-2ffa-4fa4-b065-566568725e1f
+		summarizeBy: none
+		sourceColumn: factor
+
+		annotation SummarizationSetBy = User
+
+	column 'Offset'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 257802e2-cd60-4016-95c1-0930110b2f13
+		summarizeBy: none
+		sourceColumn: offset
+
+		annotation SummarizationSetBy = User
+
+	column 'Intercept'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 072591f9-4693-410a-b6ca-d6e986f0a7ad
+		summarizeBy: none
+		sourceColumn: intercept
+
+		annotation SummarizationSetBy = User
+
+	column 'PD Label'
+		dataType: string
+		lineageTag: 6b491682-e5c3-48f1-a46b-195a0d8599d6
+		summarizeBy: none
+		sourceColumn: pd_label
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: dd12db23-8cbb-410c-a45a-f2d3ab1dae6b
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Scaling' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_scaling.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"base_score", Int64.Type}, {"base_odds", type number}, {"pdo", Int64.Type}, {"factor", type number}, {"offset", type number}, {"intercept", type number}, {"pd_label", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

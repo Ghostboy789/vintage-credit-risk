@@ -1,0 +1,127 @@
+table 'Loss Drivers'
+	lineageTag: ab13bd6a-3d03-41af-8765-104906efa0c1
+
+	column 'Dimension'
+		dataType: string
+		lineageTag: f55551d4-203a-413a-961c-98496f99bf50
+		summarizeBy: none
+		sourceColumn: dimension
+
+		annotation SummarizationSetBy = User
+
+	column 'Segment'
+		dataType: string
+		lineageTag: 7a09fd73-41d7-45d7-917a-7330b31ebccc
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e71bd08c-e329-4996-9086-74867ac1803f
+		summarizeBy: none
+		sourceColumn: default_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a95e2be8-9a16-46a1-843c-79476463a013
+		summarizeBy: none
+		sourceColumn: default_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 04e9ed27-c1b8-44c4-ab08-e7b53d991edc
+		summarizeBy: none
+		sourceColumn: default_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 85829bf1-54f2-4baa-b806-437004688635
+		summarizeBy: none
+		sourceColumn: default_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Method'
+		dataType: string
+		lineageTag: 8936a737-d25a-432c-88cd-2f9d98aaab46
+		summarizeBy: none
+		sourceColumn: default_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 700f537f-ac25-4fa1-aaae-71deb9692d1f
+		summarizeBy: none
+		sourceColumn: loss_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9f35833d-bab7-4c6b-a02f-e36e2319c63b
+		summarizeBy: none
+		sourceColumn: loss_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2b9e043b-5f67-4466-888e-d3816e4d749c
+		summarizeBy: none
+		sourceColumn: loss_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: c7b67cc9-1bb1-4f20-8d4e-e8b1571e9a1b
+		summarizeBy: none
+		sourceColumn: loss_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate Method'
+		dataType: string
+		lineageTag: 7801669b-8d0f-496e-b3bd-3a39fb221bcf
+		summarizeBy: none
+		sourceColumn: loss_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 2c10f211-a79c-41e2-bf83-0307c49c5087
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Loss Drivers' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("loss_drivers.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"dimension", type text}, {"segment", type text}, {"default_rate", type number}, {"default_rate_lo", type number}, {"default_rate_hi", type number}, {"default_rate_n", Int64.Type}, {"default_rate_method", type text}, {"loss_rate", type number}, {"loss_rate_lo", type number}, {"loss_rate_hi", type number}, {"loss_rate_n", Int64.Type}, {"loss_rate_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,8 @@
+sample,definition,model,auc,auc_lo,auc_hi,auc_n,auc_method,gini,gini_lo,gini_hi,gini_n,gini_method,ks,ks_lo,ks_hi,ks_n,ks_method,synthetic
+dev_train,primary,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+dev_test,primary,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+oot,primary,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+covid,primary,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+oot_and_covid,primary,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+dev_test,naive,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True
+oot,naive,champion,0.78,0.75,0.81,500,synthetic fixture interval,0.56,0.5,0.6200000000000001,500,synthetic fixture interval,0.42,0.37,0.47,500,synthetic fixture interval,True

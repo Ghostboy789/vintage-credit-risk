@@ -1,0 +1,43 @@
+relationship e4704551-dae7-4fca-8027-a944cd0eaf5e
+	fromColumn: 'Dim Vintage Year'.'Year'
+	toColumn: 'Vintage Curves'.'Vintage Year'
+
+relationship fc191e95-08c5-4de9-8ff6-d2088ef45da3
+	fromColumn: 'Dim Vintage Year'.'Year'
+	toColumn: 'Default Definition Effect'.'Vintage Year'
+
+relationship 6ac23c19-c45b-4f74-af98-60a8358892e0
+	fromColumn: 'Dim Vintage Year'.'Year'
+	toColumn: 'Default Cure Rates'.'Default Year'
+
+relationship f91e8440-fe9b-49f6-a3e1-93e0eeb4790a
+	fromColumn: 'Dim Vintage Year'.'Year'
+	toColumn: 'Lgd Resolution Mix'.'Default Year'
+
+relationship 256a01aa-17d1-4ed8-82c7-474727eeee6b
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Scorecard Grades'.'Grade'
+
+relationship bf1641a5-aa82-47a9-8564-8afd6cfc00cc
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Scorecard Calibration'.'Grade'
+
+relationship 39ea2808-4229-4b62-bfdc-508a345d9653
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Ecl By Date'.'Grade'
+
+relationship cef5d853-14d8-4e2b-984f-cfca1d5cdabe
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Ecl Backtest'.'Grade'
+
+relationship 7390c8c4-2087-4983-adef-75639d76ace8
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Ecl Pd Term Structure'.'Grade'
+
+relationship 5cbda30b-8ffe-41e2-a041-9c580eccaac5
+	fromColumn: 'Dim Grade'.'Grade'
+	toColumn: 'Capital By Grade'.'Grade'
+
+relationship f37c96ca-fd94-4910-ab5e-fd73394f248e
+	fromColumn: 'Dim Date'.'Month'
+	toColumn: 'Metrics Monthly'.'Period'

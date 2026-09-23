@@ -1,0 +1,116 @@
+{
+  "name": "points-table-tableEx-0c5c1d",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "Scorecard Points.Feature",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Points"
+                    }
+                  },
+                  "Property": "Feature"
+                }
+              },
+              "nativeQueryRef": "Feature"
+            },
+            {
+              "queryRef": "Scorecard Points.Bin",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Points"
+                    }
+                  },
+                  "Property": "Bin"
+                }
+              },
+              "nativeQueryRef": "Bin"
+            },
+            {
+              "queryRef": "Scorecard Points.Points",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Points"
+                    }
+                  },
+                  "Property": "Points"
+                }
+              },
+              "nativeQueryRef": "Points"
+            },
+            {
+              "queryRef": "Scorecard Points.Woe",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Points"
+                    }
+                  },
+                  "Property": "Woe"
+                }
+              },
+              "nativeQueryRef": "Woe"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Points table'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 20,
+    "y": 300,
+    "width": 600,
+    "height": 330,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

@@ -1,0 +1,53 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Key Measures", "Dim Vintage Year", "Dim Grade", "Artefact Metadata", "Capital By Grade", "Capital Totals", "Default Cure Rates", "Default Definition Effect", "Dim Date", "Ecl Backtest", "Ecl By Date", "Ecl Pass Rules", "Ecl Pd Term Structure", "Ecl Scenario Totals", "Ecl Stage Migration", "Ecl Stage2 Drivers", "Lgd Downturn", "Lgd Pass Rules", "Lgd Resolution Mix", "Lgd Segments", "Loss Drivers", "Metrics Monthly", "Monitoring Csi", "Monitoring Psi", "Portfolio Pass Rules", "Portfolio Reconciliation", "Prepayment", "Roll Cure Rates", "Roll Rates", "Scorecard Calibration", "Scorecard Discrimination", "Scorecard Gini Drop", "Scorecard Grades", "Scorecard Pass Rules", "Scorecard Points", "Scorecard Samples", "Scorecard Scaling", "Sma", "Vintage Curves", "DataFolder"]
+
+ref table 'Key Measures'
+ref table 'Dim Vintage Year'
+ref table 'Dim Grade'
+ref table 'Artefact Metadata'
+ref table 'Capital By Grade'
+ref table 'Capital Totals'
+ref table 'Default Cure Rates'
+ref table 'Default Definition Effect'
+ref table 'Dim Date'
+ref table 'Ecl Backtest'
+ref table 'Ecl By Date'
+ref table 'Ecl Pass Rules'
+ref table 'Ecl Pd Term Structure'
+ref table 'Ecl Scenario Totals'
+ref table 'Ecl Stage Migration'
+ref table 'Ecl Stage2 Drivers'
+ref table 'Lgd Downturn'
+ref table 'Lgd Pass Rules'
+ref table 'Lgd Resolution Mix'
+ref table 'Lgd Segments'
+ref table 'Loss Drivers'
+ref table 'Metrics Monthly'
+ref table 'Monitoring Csi'
+ref table 'Monitoring Psi'
+ref table 'Portfolio Pass Rules'
+ref table 'Portfolio Reconciliation'
+ref table Prepayment
+ref table 'Roll Cure Rates'
+ref table 'Roll Rates'
+ref table 'Scorecard Calibration'
+ref table 'Scorecard Discrimination'
+ref table 'Scorecard Gini Drop'
+ref table 'Scorecard Grades'
+ref table 'Scorecard Pass Rules'
+ref table 'Scorecard Points'
+ref table 'Scorecard Samples'
+ref table 'Scorecard Scaling'
+ref table Sma
+ref table 'Vintage Curves'
+ref table DataFolder

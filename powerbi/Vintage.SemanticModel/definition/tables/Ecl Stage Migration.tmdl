@@ -1,0 +1,111 @@
+table 'Ecl Stage Migration'
+	lineageTag: 54b42bdb-1dc1-4368-bf36-ecaf416e81e6
+
+	column 'From Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 0d61979c-bfeb-41ba-b6a2-783847551e36
+		summarizeBy: none
+		sourceColumn: from_date
+
+		annotation SummarizationSetBy = User
+
+	column 'To Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 82af0355-f1e5-4001-afec-0859f0132460
+		summarizeBy: none
+		sourceColumn: to_date
+
+		annotation SummarizationSetBy = User
+
+	column 'From Stage'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8dcafbb2-d93f-4fae-805a-17e9af0011df
+		summarizeBy: none
+		sourceColumn: from_stage
+
+		annotation SummarizationSetBy = User
+
+	column 'To Stage'
+		dataType: string
+		lineageTag: 0a868108-36ae-48ee-8f47-4488c42cb7f8
+		summarizeBy: none
+		sourceColumn: to_stage
+
+		annotation SummarizationSetBy = User
+
+	column 'N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01207b22-b69d-41b2-8ef2-324525282add
+		summarizeBy: none
+		sourceColumn: n
+
+		annotation SummarizationSetBy = User
+
+	column 'Share'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 50efbbbc-086f-43c8-805c-b901b1be39f2
+		summarizeBy: none
+		sourceColumn: share
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3a6a2c6f-015e-4695-b2b3-0ea7ea2076eb
+		summarizeBy: none
+		sourceColumn: share_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1426a74b-5c42-4e9c-9712-b822ef4e8354
+		summarizeBy: none
+		sourceColumn: share_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Share N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4facfdb4-2e09-4381-ba90-7ac051868263
+		summarizeBy: none
+		sourceColumn: share_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Method'
+		dataType: string
+		lineageTag: 77c5efef-c082-4ce2-80e8-f49f21632004
+		summarizeBy: none
+		sourceColumn: share_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: d46198e5-8fba-4e89-8a75-86b0d8b8a3c6
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Stage Migration' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_stage_migration.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"from_date", type date}, {"to_date", type date}, {"from_stage", Int64.Type}, {"to_stage", type text}, {"n", Int64.Type}, {"share", type number}, {"share_lo", type number}, {"share_hi", type number}, {"share_n", Int64.Type}, {"share_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -34,3 +34,6 @@ service-account*.json
 Thumbs.db
 .vscode/
 .idea/
+
+# pbir CLI local connection-state cache (tool metadata, not project content).
+.pbir/

@@ -1,0 +1,92 @@
+table 'Monitoring Psi'
+	lineageTag: 660ceffe-4bba-4277-ab1e-15a872eeb1ba
+
+	column 'Comparison'
+		dataType: string
+		lineageTag: 06ca91eb-5b00-46b2-a69a-8e4d3425b4d8
+		summarizeBy: none
+		sourceColumn: comparison
+
+		annotation SummarizationSetBy = User
+
+	column 'N Bins'
+		dataType: int64
+		formatString: 0
+		lineageTag: 972e9b2a-5780-441d-9e83-c9de6d8f73ce
+		summarizeBy: none
+		sourceColumn: n_bins
+
+		annotation SummarizationSetBy = User
+
+	column 'PSI'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 37c29c85-484c-43b3-b269-eb4c36b6f2fa
+		summarizeBy: none
+		sourceColumn: psi
+
+		annotation SummarizationSetBy = User
+
+	column 'PSI Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d02b3e9c-1ffa-4e49-911d-9949b828f65c
+		summarizeBy: none
+		sourceColumn: psi_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'PSI Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 27a96529-b19a-4607-872b-edf90d00928b
+		summarizeBy: none
+		sourceColumn: psi_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'PSI N'
+		dataType: int64
+		formatString: 0
+		lineageTag: ba4a3c1a-81c8-4372-893d-b30d3a2fd92d
+		summarizeBy: none
+		sourceColumn: psi_n
+
+		annotation SummarizationSetBy = User
+
+	column 'PSI Method'
+		dataType: string
+		lineageTag: 7541296b-59d7-4876-82c3-dcc0552d4701
+		summarizeBy: none
+		sourceColumn: psi_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Rag'
+		dataType: string
+		lineageTag: 30020fad-3034-4879-a75a-e7bdcb2d4bda
+		summarizeBy: none
+		sourceColumn: rag
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: b6ce6075-f36b-4728-be33-fd0b2548aebe
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Monitoring Psi' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("monitoring_psi.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"comparison", type text}, {"n_bins", Int64.Type}, {"psi", type number}, {"psi_lo", type number}, {"psi_hi", type number}, {"psi_n", Int64.Type}, {"psi_method", type text}, {"rag", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

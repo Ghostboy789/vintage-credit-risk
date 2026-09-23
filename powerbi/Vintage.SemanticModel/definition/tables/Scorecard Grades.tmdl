@@ -1,0 +1,75 @@
+table 'Scorecard Grades'
+	lineageTag: f4966e80-28cf-4054-a138-5401f380639c
+
+	column 'Grade'
+		dataType: string
+		lineageTag: 433af1cd-1501-4831-addb-0724afc237ef
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'PD Low'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e56d677e-880b-4395-8e08-957e9908e395
+		summarizeBy: none
+		sourceColumn: pd_low
+
+		annotation SummarizationSetBy = User
+
+	column 'PD High'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 553120fa-0ea3-40c9-b97a-c4ec3b91689e
+		summarizeBy: none
+		sourceColumn: pd_high
+
+		annotation SummarizationSetBy = User
+
+	column 'Score Min'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1ca8d4b0-9e20-484e-8f8e-9da003dd04ef
+		summarizeBy: none
+		sourceColumn: score_min
+
+		annotation SummarizationSetBy = User
+
+	column 'Score Max'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: fc37b243-5619-4f97-bd34-1c3fd6a2d708
+		summarizeBy: none
+		sourceColumn: score_max
+
+		annotation SummarizationSetBy = User
+
+	column 'Merged Into'
+		dataType: string
+		lineageTag: 823aac24-e4ed-4005-bf52-93cb8660e5a0
+		summarizeBy: none
+		sourceColumn: merged_into
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: dd00ca44-e7a3-4dcc-9a1c-bae4fc633cfd
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Grades' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_grades.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"grade", type text}, {"pd_low", type number}, {"pd_high", type number}, {"score_min", type number}, {"score_max", type number}, {"merged_into", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

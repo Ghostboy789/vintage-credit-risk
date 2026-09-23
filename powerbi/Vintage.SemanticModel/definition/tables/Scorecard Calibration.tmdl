@@ -1,0 +1,117 @@
+table 'Scorecard Calibration'
+	lineageTag: 74444b5b-ddec-4bc3-842c-98bac1de4aa7
+
+	column 'Sample'
+		dataType: string
+		lineageTag: d72b3220-b1a5-46f8-a00e-823d5a4b40f4
+		summarizeBy: none
+		sourceColumn: sample
+
+		annotation SummarizationSetBy = User
+
+	column 'Definition'
+		dataType: string
+		lineageTag: d21b55b5-fdff-4626-8f73-8bf7eaa6a583
+		summarizeBy: none
+		sourceColumn: definition
+
+		annotation SummarizationSetBy = User
+
+	column 'Grade'
+		dataType: string
+		lineageTag: a233075c-5ab3-4828-a09d-50f7f899e83f
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'N'
+		dataType: int64
+		formatString: 0
+		lineageTag: af5d8901-6bfa-47b3-9332-de198d353859
+		summarizeBy: none
+		sourceColumn: n
+
+		annotation SummarizationSetBy = User
+
+	column 'Mean PD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3b362aac-48c3-4f86-83a2-16b99ff6094e
+		summarizeBy: none
+		sourceColumn: mean_pd
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 68bd4ddf-c635-4c43-afcd-dd285cdeb071
+		summarizeBy: none
+		sourceColumn: realised_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a78f8d49-5676-4ae7-ab53-741d21e4a136
+		summarizeBy: none
+		sourceColumn: realised_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c1a15dae-3f9e-4db9-aac6-3b79984bc3e2
+		summarizeBy: none
+		sourceColumn: realised_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ad7edf8-3d8b-4a25-a019-cc1ab6505535
+		summarizeBy: none
+		sourceColumn: realised_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Method'
+		dataType: string
+		lineageTag: 1f504a17-2be7-4185-af74-c49c21a4fa5a
+		summarizeBy: none
+		sourceColumn: realised_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Result'
+		dataType: string
+		lineageTag: 492b2558-9d8c-4dcc-82e4-1db37a3900fb
+		summarizeBy: none
+		sourceColumn: result
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 89a6d0ce-5526-4f74-9d0b-da61d0d6d8fd
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Calibration' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_calibration.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"sample", type text}, {"definition", type text}, {"grade", type text}, {"n", Int64.Type}, {"mean_pd", type number}, {"realised_rate", type number}, {"realised_rate_lo", type number}, {"realised_rate_hi", type number}, {"realised_rate_n", Int64.Type}, {"realised_rate_method", type text}, {"result", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

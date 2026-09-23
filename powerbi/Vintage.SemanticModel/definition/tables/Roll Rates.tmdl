@@ -1,0 +1,91 @@
+table 'Roll Rates'
+	lineageTag: eb2c1747-b6e3-447a-8806-fc5736116e1a
+
+	column 'Period Group'
+		dataType: string
+		lineageTag: e77f20da-2056-4338-b03f-259a5d29a7ac
+		summarizeBy: none
+		sourceColumn: period_group
+
+		annotation SummarizationSetBy = User
+
+	column 'From Bucket'
+		dataType: string
+		lineageTag: 4d63e53c-0363-4a71-bccd-f54e76ce7128
+		summarizeBy: none
+		sourceColumn: from_bucket
+
+		annotation SummarizationSetBy = User
+
+	column 'To State'
+		dataType: string
+		lineageTag: 6d1f3f1c-10a9-4bdf-8734-02516be16e66
+		summarizeBy: none
+		sourceColumn: to_state
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a12e3c7d-3814-4d38-a0ff-89e079c0f7ca
+		summarizeBy: none
+		sourceColumn: rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2de00b3a-eaa7-4a8a-b806-4aba42b3b6b9
+		summarizeBy: none
+		sourceColumn: rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2a1b64b0-c8ce-46f3-be8c-849cb16b9660
+		summarizeBy: none
+		sourceColumn: rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01b5b3e2-0e7d-43a5-b4cd-5eebe27c7818
+		summarizeBy: none
+		sourceColumn: rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Method'
+		dataType: string
+		lineageTag: 94ebb257-5e05-4133-9d7f-456e9404e68a
+		summarizeBy: none
+		sourceColumn: rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: d0c8875d-8d8b-42dd-bd43-e9b1eaf696b6
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Roll Rates' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("roll_rates.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"period_group", type text}, {"from_bucket", type text}, {"to_state", type text}, {"rate", type number}, {"rate_lo", type number}, {"rate_hi", type number}, {"rate_n", Int64.Type}, {"rate_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

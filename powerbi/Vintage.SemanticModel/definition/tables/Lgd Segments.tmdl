@@ -1,0 +1,171 @@
+table 'Lgd Segments'
+	lineageTag: d8b917fc-70b7-4fbf-ae5d-ff783888d329
+
+	column 'Dimension'
+		dataType: string
+		lineageTag: 78e56914-c529-4026-bc51-301277bd50ac
+		summarizeBy: none
+		sourceColumn: dimension
+
+		annotation SummarizationSetBy = User
+
+	column 'Segment'
+		dataType: string
+		lineageTag: 93b00599-1c6c-4f75-9d20-d063dde84357
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Economic'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 80b91cb3-47b5-4b7c-ace3-97bcc846e22a
+		summarizeBy: none
+		sourceColumn: lgd_economic
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Economic Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 75118548-804a-4325-ab38-a46b294eda18
+		summarizeBy: none
+		sourceColumn: lgd_economic_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Economic Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: bead6690-94c4-452a-bd5a-518e32c66149
+		summarizeBy: none
+		sourceColumn: lgd_economic_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Economic N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ee3fb6d-1a20-4e3d-b1c4-b5d593f1ec0f
+		summarizeBy: none
+		sourceColumn: lgd_economic_n
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Economic Method'
+		dataType: string
+		lineageTag: b4a967b4-5e28-40e2-8b15-d77e420fa23e
+		summarizeBy: none
+		sourceColumn: lgd_economic_method
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5fb9bc7e-dac7-476b-a5ee-f116168732d5
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4546e2c8-512a-4b58-8eca-f5d2f1671b0f
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4d1d7e77-f4ae-4f88-942c-df74b8f27368
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f508a38-528a-452a-83c8-af58a8ca9b02
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_n
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Gross Of Mi Method'
+		dataType: string
+		lineageTag: f7e5b42f-60b4-467a-8266-742be237a044
+		summarizeBy: none
+		sourceColumn: lgd_gross_of_mi_method
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Undiscounted'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e81d2979-99d1-4590-8fe4-b502e0585fab
+		summarizeBy: none
+		sourceColumn: lgd_undiscounted
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Undiscounted Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 90d89d93-788d-462c-94e1-b50753a2b9e6
+		summarizeBy: none
+		sourceColumn: lgd_undiscounted_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Undiscounted Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 82cb17d5-629b-451e-97ae-ac7cbca4b31e
+		summarizeBy: none
+		sourceColumn: lgd_undiscounted_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Undiscounted N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 91bbffe1-4978-46aa-a3b2-a984a0478953
+		summarizeBy: none
+		sourceColumn: lgd_undiscounted_n
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Undiscounted Method'
+		dataType: string
+		lineageTag: 34b800ad-0abc-48cb-a8fe-f3692dd46e8b
+		summarizeBy: none
+		sourceColumn: lgd_undiscounted_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 33b4d47a-4588-4af8-a466-a0a3100bdc20
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Lgd Segments' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("lgd_segments.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"dimension", type text}, {"segment", type text}, {"lgd_economic", type number}, {"lgd_economic_lo", type number}, {"lgd_economic_hi", type number}, {"lgd_economic_n", Int64.Type}, {"lgd_economic_method", type text}, {"lgd_gross_of_mi", type number}, {"lgd_gross_of_mi_lo", type number}, {"lgd_gross_of_mi_hi", type number}, {"lgd_gross_of_mi_n", Int64.Type}, {"lgd_gross_of_mi_method", type text}, {"lgd_undiscounted", type number}, {"lgd_undiscounted_lo", type number}, {"lgd_undiscounted_hi", type number}, {"lgd_undiscounted_n", Int64.Type}, {"lgd_undiscounted_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
