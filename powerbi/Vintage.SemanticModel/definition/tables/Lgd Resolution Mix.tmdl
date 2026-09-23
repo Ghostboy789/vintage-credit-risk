@@ -1,0 +1,93 @@
+table 'Lgd Resolution Mix'
+	lineageTag: f8f81b47-d927-4494-980f-99b950e58f05
+
+	column 'Default Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: b500dcd3-6de1-45db-85f3-5518a30b083e
+		summarizeBy: none
+		sourceColumn: default_year
+
+		annotation SummarizationSetBy = User
+
+	column 'Resolution'
+		dataType: string
+		lineageTag: 9bd7919a-74e8-49e4-b38e-7bb2368fcceb
+		summarizeBy: none
+		sourceColumn: resolution
+
+		annotation SummarizationSetBy = User
+
+	column 'N Defaults'
+		dataType: int64
+		formatString: 0
+		lineageTag: 914587af-6af3-4038-8e17-759d73a9aff2
+		summarizeBy: none
+		sourceColumn: n_defaults
+
+		annotation SummarizationSetBy = User
+
+	column 'Share'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 68594326-aa0e-43fa-b26b-e170ac254b7f
+		summarizeBy: none
+		sourceColumn: share
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: b2e143fd-7856-42da-a88a-3e53b7363f87
+		summarizeBy: none
+		sourceColumn: share_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dac509cf-23df-41ba-b08f-a7fc43010a8f
+		summarizeBy: none
+		sourceColumn: share_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Share N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 78005dd7-c5f0-4a6f-bffe-f1cb1e2762da
+		summarizeBy: none
+		sourceColumn: share_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Method'
+		dataType: string
+		lineageTag: 856b6c0a-c42b-479c-88f0-96672f4999f5
+		summarizeBy: none
+		sourceColumn: share_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: b0e74db1-c126-49a5-98fd-02dfea844179
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Lgd Resolution Mix' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("lgd_resolution_mix.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"default_year", Int64.Type}, {"resolution", type text}, {"n_defaults", Int64.Type}, {"share", type number}, {"share_lo", type number}, {"share_hi", type number}, {"share_n", Int64.Type}, {"share_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

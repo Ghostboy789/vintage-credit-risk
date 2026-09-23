@@ -1,0 +1,17 @@
+table 'Dim Vintage Year'
+	lineageTag: 103e8562-fe37-44e7-9296-513a8bf375a9
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 40d19cb0-191f-4336-a5ff-5ac94aee03c8
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Vintage Year' = calculated
+		mode: import
+		source = DISTINCT ( UNION ( VALUES ( 'Vintage Curves'[Vintage Year] ), VALUES ( 'Default Definition Effect'[Vintage Year] ) ) )
+
+	annotation PBI_ResultType = Table

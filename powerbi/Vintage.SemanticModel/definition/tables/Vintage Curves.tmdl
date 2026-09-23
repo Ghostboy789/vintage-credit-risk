@@ -1,0 +1,145 @@
+table 'Vintage Curves'
+	lineageTag: a8c41739-fa86-4674-a968-b1488b320946
+
+	column 'Vintage Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c9e4ca4-d3ac-4d77-93e3-710f66c3f0eb
+		summarizeBy: none
+		sourceColumn: vintage_year
+
+		annotation SummarizationSetBy = User
+
+	column 'Vintage Quarter'
+		dataType: string
+		lineageTag: 8149f442-30ff-42e4-a5d8-bc38969a0256
+		summarizeBy: none
+		sourceColumn: vintage_quarter
+
+		annotation SummarizationSetBy = User
+
+	column 'Months On Book'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ea39807-204c-47ef-8886-e6199fd6b33d
+		summarizeBy: none
+		sourceColumn: months_on_book
+
+		annotation SummarizationSetBy = User
+
+	column 'Fully Observed'
+		dataType: boolean
+		lineageTag: f0baecef-05ed-48b4-a947-9cb4779556a0
+		summarizeBy: none
+		sourceColumn: fully_observed
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 68a483ee-49bf-4dd0-84ab-f9973aa2b3df
+		summarizeBy: none
+		sourceColumn: cum_default_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Default Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 815e014d-3039-4b33-9fc5-d8720a211afd
+		summarizeBy: none
+		sourceColumn: cum_default_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Default Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: bb82b85a-8335-47ca-b755-aba2c7d4899e
+		summarizeBy: none
+		sourceColumn: cum_default_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Default Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ff50b2f-cc58-4520-a39e-5cfc19195018
+		summarizeBy: none
+		sourceColumn: cum_default_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Default Rate Method'
+		dataType: string
+		lineageTag: fa6af7cd-c36f-4ebf-af29-98e47d2579f1
+		summarizeBy: none
+		sourceColumn: cum_default_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Loss Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e9b12a2f-4a90-4359-860c-638efe33b5d0
+		summarizeBy: none
+		sourceColumn: cum_loss_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Loss Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 92a3cfae-ba79-4a63-aad1-2392f5f7c121
+		summarizeBy: none
+		sourceColumn: cum_loss_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Loss Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 250e464d-808c-4a00-bbfa-4b4ab451434c
+		summarizeBy: none
+		sourceColumn: cum_loss_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Loss Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c9e0b90-36c6-4527-92c3-3e3d6feefcbf
+		summarizeBy: none
+		sourceColumn: cum_loss_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Cum Loss Rate Method'
+		dataType: string
+		lineageTag: ec0ecd44-4e2b-4cef-bb91-66fbd315f553
+		summarizeBy: none
+		sourceColumn: cum_loss_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 49922bb1-02fa-4815-9cba-77649a3fe6a3
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Vintage Curves' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("vintage_curves.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"vintage_year", Int64.Type}, {"vintage_quarter", type text}, {"months_on_book", Int64.Type}, {"fully_observed", type logical}, {"cum_default_rate", type number}, {"cum_default_rate_lo", type number}, {"cum_default_rate_hi", type number}, {"cum_default_rate_n", Int64.Type}, {"cum_default_rate_method", type text}, {"cum_loss_rate", type number}, {"cum_loss_rate_lo", type number}, {"cum_loss_rate_hi", type number}, {"cum_loss_rate_n", Int64.Type}, {"cum_loss_rate_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,168 @@
+table 'Metrics Monthly'
+	lineageTag: 253e9670-d516-4fbe-b5a8-84e5a4b2dbf4
+
+	column 'Period'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 4471d9ac-f49c-4f66-af8e-e26c4d4439f8
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = User
+
+	column 'N Active Loans'
+		dataType: int64
+		formatString: 0
+		lineageTag: f36d7ccd-64d3-4ffa-b343-f5b3441e439f
+		summarizeBy: none
+		sourceColumn: n_active_loans
+
+		annotation SummarizationSetBy = User
+
+	column 'Total UPB'
+		dataType: double
+		formatString: #,0
+		lineageTag: 19f0bd3a-8149-4695-b2f0-2cedcf3d4003
+		summarizeBy: none
+		sourceColumn: total_upb
+
+		annotation SummarizationSetBy = User
+
+	column 'N Dpd30p'
+		dataType: int64
+		formatString: 0
+		lineageTag: 468681a4-e0a1-4b3d-9d2e-670cb8f08409
+		summarizeBy: none
+		sourceColumn: n_dpd30p
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Dpd30p'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ae5d5371-c5eb-45da-9e94-d8bd5f70cda1
+		summarizeBy: none
+		sourceColumn: upb_dpd30p
+
+		annotation SummarizationSetBy = User
+
+	column 'N Dpd90p'
+		dataType: int64
+		formatString: 0
+		lineageTag: 21bc589f-9ff6-407c-b620-9b64920b6e46
+		summarizeBy: none
+		sourceColumn: n_dpd90p
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Dpd90p'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9907eb31-a08e-4cad-a968-c3cbe720a492
+		summarizeBy: none
+		sourceColumn: upb_dpd90p
+
+		annotation SummarizationSetBy = User
+
+	column 'N At Risk Start'
+		dataType: int64
+		formatString: 0
+		lineageTag: d3cf09ea-5d2e-4091-9dc6-d4a100465935
+		summarizeBy: none
+		sourceColumn: n_at_risk_start
+
+		annotation SummarizationSetBy = User
+
+	column 'N New Defaults'
+		dataType: int64
+		formatString: 0
+		lineageTag: dfe90a56-6ed9-42dd-a682-0a14f9b77124
+		summarizeBy: none
+		sourceColumn: n_new_defaults
+
+		annotation SummarizationSetBy = User
+
+	column 'N Prepaid'
+		dataType: int64
+		formatString: 0
+		lineageTag: f7bee520-9659-42a2-b92d-bbe464829a7b
+		summarizeBy: none
+		sourceColumn: n_prepaid
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Prepaid'
+		dataType: double
+		formatString: #,0
+		lineageTag: 5635eded-27e8-47c9-8426-c5633d8e43b9
+		summarizeBy: none
+		sourceColumn: upb_prepaid
+
+		annotation SummarizationSetBy = User
+
+	column 'N Credit Event Exits'
+		dataType: int64
+		formatString: 0
+		lineageTag: 415f6096-82e2-42d4-af18-8e85d542e833
+		summarizeBy: none
+		sourceColumn: n_credit_event_exits
+
+		annotation SummarizationSetBy = User
+
+	column 'Net Loss'
+		dataType: double
+		formatString: #,0
+		lineageTag: c564ab46-be80-4a44-b928-b4adfcaff053
+		summarizeBy: none
+		sourceColumn: net_loss
+
+		annotation SummarizationSetBy = User
+
+	column 'Delinquency Rate 30p'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9701735a-1579-4fd5-ad44-726afd84ac07
+		summarizeBy: none
+		sourceColumn: delinquency_rate_30p
+
+		annotation SummarizationSetBy = User
+
+	column 'Delinquency Rate 90p'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 977201ab-ce57-4575-ac50-ac78fc773414
+		summarizeBy: none
+		sourceColumn: delinquency_rate_90p
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6d4fdf85-55f5-47e6-8630-08e831cc0754
+		summarizeBy: none
+		sourceColumn: default_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Loss Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6fb7f428-2af0-48b4-a2a1-d929b97d72d0
+		summarizeBy: none
+		sourceColumn: loss_rate
+
+		annotation SummarizationSetBy = User
+
+	partition 'Metrics Monthly' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("metrics_monthly.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"period", type date}, {"n_active_loans", Int64.Type}, {"total_upb", type number}, {"n_dpd30p", Int64.Type}, {"upb_dpd30p", type number}, {"n_dpd90p", Int64.Type}, {"upb_dpd90p", type number}, {"n_at_risk_start", Int64.Type}, {"n_new_defaults", Int64.Type}, {"n_prepaid", Int64.Type}, {"upb_prepaid", type number}, {"n_credit_event_exits", Int64.Type}, {"net_loss", type number}, {"delinquency_rate_30p", type number}, {"delinquency_rate_90p", type number}, {"default_rate", type number}, {"loss_rate", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

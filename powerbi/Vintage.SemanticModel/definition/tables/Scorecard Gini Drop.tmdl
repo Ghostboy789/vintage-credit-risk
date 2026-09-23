@@ -1,0 +1,127 @@
+table 'Scorecard Gini Drop'
+	lineageTag: e69bfd7e-0eaa-4ab0-9894-411554578e1d
+
+	column 'Definition'
+		dataType: string
+		lineageTag: 39e6761d-2c50-4cf2-8b78-b54482ae7b8b
+		summarizeBy: none
+		sourceColumn: definition
+
+		annotation SummarizationSetBy = User
+
+	column 'Relative'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 9b7a9efe-c1af-45f7-816f-77a07700db35
+		summarizeBy: none
+		sourceColumn: relative
+
+		annotation SummarizationSetBy = User
+
+	column 'Relative Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: adda5b8b-bb05-4dac-b716-2592f2749ae0
+		summarizeBy: none
+		sourceColumn: relative_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Relative Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: db5205a0-5536-4fb4-b7f1-7f65f601c5c7
+		summarizeBy: none
+		sourceColumn: relative_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Relative N'
+		dataType: int64
+		formatString: 0
+		lineageTag: ff755747-c40f-4ed9-8b88-c61692df1384
+		summarizeBy: none
+		sourceColumn: relative_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Relative Method'
+		dataType: string
+		lineageTag: 8eb73398-98b0-475c-be4c-5123b96609a5
+		summarizeBy: none
+		sourceColumn: relative_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Absolute'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 52530c51-edca-4efe-821c-e8af3463eea0
+		summarizeBy: none
+		sourceColumn: absolute
+
+		annotation SummarizationSetBy = User
+
+	column 'Absolute Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 86a7506b-1eae-4fb4-a355-4681195eea6e
+		summarizeBy: none
+		sourceColumn: absolute_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Absolute Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 3a10356d-6379-4daa-ba00-c4377c74f004
+		summarizeBy: none
+		sourceColumn: absolute_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Absolute N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 40b013d9-df7b-4d77-a15c-31c89d058406
+		summarizeBy: none
+		sourceColumn: absolute_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Absolute Method'
+		dataType: string
+		lineageTag: c1069e92-33c4-4338-9150-a6a2b0b851ae
+		summarizeBy: none
+		sourceColumn: absolute_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Rag'
+		dataType: string
+		lineageTag: eb5b9f7e-961d-4392-a9a3-6c2c01b7e03c
+		summarizeBy: none
+		sourceColumn: rag
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 9bbba0c4-9786-4b2e-a94d-fd8bc858d854
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Gini Drop' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_gini_drop.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"definition", type text}, {"relative", type number}, {"relative_lo", type number}, {"relative_hi", type number}, {"relative_n", Int64.Type}, {"relative_method", type text}, {"absolute", type number}, {"absolute_lo", type number}, {"absolute_hi", type number}, {"absolute_n", Int64.Type}, {"absolute_method", type text}, {"rag", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

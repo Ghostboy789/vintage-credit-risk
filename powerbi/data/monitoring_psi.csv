@@ -1,0 +1,11 @@
+comparison,n_bins,psi,psi_lo,psi_hi,psi_n,psi_method,rag,synthetic
+dev_train_vs_oot,10,0.14,0.11000000000000001,0.17,1000,synthetic fixture interval,amber,True
+dev_train_vs_2016,10,0.05,0.030000000000000002,0.07,150,synthetic fixture interval,green,True
+dev_train_vs_2017,10,0.060000000000000005,0.04000000000000001,0.08,150,synthetic fixture interval,green,True
+dev_train_vs_2018,10,0.07,0.05,0.09000000000000001,150,synthetic fixture interval,green,True
+dev_train_vs_2019,10,0.08,0.06,0.1,150,synthetic fixture interval,green,True
+dev_train_vs_2020,10,0.09,0.06999999999999999,0.11,150,synthetic fixture interval,green,True
+dev_train_vs_2021,10,0.1,0.08,0.12000000000000001,150,synthetic fixture interval,green,True
+dev_train_vs_2022,10,0.11,0.09,0.13,150,synthetic fixture interval,green,True
+dev_train_vs_2023,10,0.12000000000000001,0.1,0.14,150,synthetic fixture interval,green,True
+dev_train_vs_2024,10,0.13,0.11,0.15,150,synthetic fixture interval,green,True

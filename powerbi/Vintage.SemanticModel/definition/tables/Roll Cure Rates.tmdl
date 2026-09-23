@@ -1,0 +1,83 @@
+table 'Roll Cure Rates'
+	lineageTag: bb1ce1d4-68c9-4e82-88a1-4ebee83d7d92
+
+	column 'Period Group'
+		dataType: string
+		lineageTag: 1b516af3-4a15-4019-8b4f-aa30990422e4
+		summarizeBy: none
+		sourceColumn: period_group
+
+		annotation SummarizationSetBy = User
+
+	column 'From Bucket'
+		dataType: string
+		lineageTag: 0abdd77e-9e2e-4240-8b34-c3d272b1e0d6
+		summarizeBy: none
+		sourceColumn: from_bucket
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fc0a914d-c89d-435f-9c24-ebcc18b0c083
+		summarizeBy: none
+		sourceColumn: rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 91d8652a-2d44-4d6c-bf5d-9d598e2f6d12
+		summarizeBy: none
+		sourceColumn: rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 64439e3c-9f3e-42cf-b593-22b99fdd072e
+		summarizeBy: none
+		sourceColumn: rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: b56390aa-fda7-4184-8a8c-8369c45ccae9
+		summarizeBy: none
+		sourceColumn: rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Rate Method'
+		dataType: string
+		lineageTag: 2345348d-3d1e-4332-a238-55ba9553ce7c
+		summarizeBy: none
+		sourceColumn: rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 0bad5808-a5e6-4f5c-8905-e6347bc1c4f6
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Roll Cure Rates' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("roll_cure_rates.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"period_group", type text}, {"from_bucket", type text}, {"rate", type number}, {"rate_lo", type number}, {"rate_hi", type number}, {"rate_n", Int64.Type}, {"rate_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

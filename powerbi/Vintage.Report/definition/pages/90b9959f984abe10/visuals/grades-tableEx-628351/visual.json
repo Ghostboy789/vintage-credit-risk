@@ -1,0 +1,102 @@
+{
+  "name": "grades-tableEx-628351",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "Scorecard Grades.Grade",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Grades"
+                    }
+                  },
+                  "Property": "Grade"
+                }
+              },
+              "nativeQueryRef": "Grade"
+            },
+            {
+              "queryRef": "Scorecard Grades.PD Low",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Grades"
+                    }
+                  },
+                  "Property": "PD Low"
+                }
+              },
+              "nativeQueryRef": "PD Low"
+            },
+            {
+              "queryRef": "Scorecard Grades.PD High",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scorecard Grades"
+                    }
+                  },
+                  "Property": "PD High"
+                }
+              },
+              "nativeQueryRef": "PD High"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Grades'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 640,
+    "y": 300,
+    "width": 300,
+    "height": 330,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

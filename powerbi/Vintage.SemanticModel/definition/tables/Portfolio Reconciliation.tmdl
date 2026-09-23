@@ -1,0 +1,58 @@
+table 'Portfolio Reconciliation'
+	lineageTag: ee12ab8e-75ad-4dee-9553-f9505801ca02
+
+	column 'Rule ID'
+		dataType: string
+		lineageTag: 5ff0d566-fc68-4191-af84-5447a1c98e5b
+		summarizeBy: none
+		sourceColumn: rule_id
+
+		annotation SummarizationSetBy = User
+
+	column 'N Checked'
+		dataType: int64
+		formatString: 0
+		lineageTag: 28a72451-3808-46eb-b30e-9476e1980469
+		summarizeBy: none
+		sourceColumn: n_checked
+
+		annotation SummarizationSetBy = User
+
+	column 'N Outside Tolerance'
+		dataType: int64
+		formatString: 0
+		lineageTag: e2bf3a52-b40e-4f75-b567-6ead1002ca01
+		summarizeBy: none
+		sourceColumn: n_outside_tolerance
+
+		annotation SummarizationSetBy = User
+
+	column 'Max Abs Difference'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 24ecfd0a-0c10-4fe9-b77a-0162040e859d
+		summarizeBy: none
+		sourceColumn: max_abs_difference
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 9d9e024a-1465-4c03-adcc-6e7584744f8d
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Portfolio Reconciliation' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("portfolio_reconciliation.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"rule_id", type text}, {"n_checked", Int64.Type}, {"n_outside_tolerance", Int64.Type}, {"max_abs_difference", type number}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,7 @@
+artefact,synthetic,generated_at,data_cutoff,code_version,suppressed_cells
+portfolio,True,2026-09-23T00:00:00Z,2026-03-01,fixture,68
+pd_models,True,2026-09-23T00:00:00Z,2026-03-01,fixture,14
+monitoring,True,2026-09-23T00:00:00Z,2026-03-01,fixture,0
+lgd_ead,True,2026-09-23T00:00:00Z,2026-03-01,fixture,84
+ecl,True,2026-09-23T00:00:00Z,2026-03-01,fixture,228
+capital,True,2026-09-23T00:00:00Z,2026-03-01,fixture,0

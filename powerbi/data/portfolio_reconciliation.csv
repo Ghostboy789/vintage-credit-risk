@@ -1,0 +1,7 @@
+rule_id,n_checked,n_outside_tolerance,max_abs_difference,synthetic
+R1,27,0,0.0,True
+R2,27,0,0.0,True
+R3,326,0,0.0,True
+R4,27,0,0.0,True
+R7,2608,0,0.0,True
+R8,120,0,0.0,True

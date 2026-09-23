@@ -1,0 +1,348 @@
+table 'Capital By Grade'
+	lineageTag: 91e2c9f0-51c9-484f-95b5-6181036e747c
+
+	column 'Grade'
+		dataType: string
+		lineageTag: 8198dd82-170e-440e-a334-b74f291ccfe4
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans'
+		dataType: int64
+		formatString: 0
+		lineageTag: 54131b14-86a7-43ab-8bd8-96f7e25c7ab3
+		summarizeBy: none
+		sourceColumn: n_loans
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD'
+		dataType: double
+		formatString: #,0
+		lineageTag: 36e9bc44-4099-4162-8a92-ead390b78000
+		summarizeBy: none
+		sourceColumn: ead
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: 7bfde338-d41b-404a-8004-dfbb8c9a57cc
+		summarizeBy: none
+		sourceColumn: ead_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: e180b217-ebd0-4b9a-ab19-2995f9df1fd1
+		summarizeBy: none
+		sourceColumn: ead_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: e88a2ed5-689f-4f8c-bc43-41037681fe5d
+		summarizeBy: none
+		sourceColumn: ead_n
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Method'
+		dataType: string
+		lineageTag: 5a04502a-7304-44ef-a4f5-0dddec1af018
+		summarizeBy: none
+		sourceColumn: ead_method
+
+		annotation SummarizationSetBy = User
+
+	column 'PD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 7fad9c6b-275c-414d-ab7e-83c55d230807
+		summarizeBy: none
+		sourceColumn: pd
+
+		annotation SummarizationSetBy = User
+
+	column 'PD Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fdecebf0-58a3-493a-ae23-0ccd9c4b599b
+		summarizeBy: none
+		sourceColumn: pd_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'PD Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 418c8924-6f0e-4688-b6aa-ee794f4dec31
+		summarizeBy: none
+		sourceColumn: pd_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'PD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: c40ab792-6576-4f89-b770-2d9d020bb706
+		summarizeBy: none
+		sourceColumn: pd_n
+
+		annotation SummarizationSetBy = User
+
+	column 'PD Method'
+		dataType: string
+		lineageTag: adb716dc-ea3a-4383-a453-0ef0484cb6bc
+		summarizeBy: none
+		sourceColumn: pd_method
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e9726d19-5963-4e03-b8bc-81bc5f1369ea
+		summarizeBy: none
+		sourceColumn: lgd
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 35fb88df-1cd2-4f73-a83b-dc40e210e133
+		summarizeBy: none
+		sourceColumn: lgd_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d4cc0915-a216-4451-a999-3ab95a42a900
+		summarizeBy: none
+		sourceColumn: lgd_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bcdd4ba-2f78-4d87-bc7f-f04e3b184809
+		summarizeBy: none
+		sourceColumn: lgd_n
+
+		annotation SummarizationSetBy = User
+
+	column 'LGD Method'
+		dataType: string
+		lineageTag: 72093c62-6676-4376-a130-af6e3f6b079d
+		summarizeBy: none
+		sourceColumn: lgd_method
+
+		annotation SummarizationSetBy = User
+
+	column 'K'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 507635ea-8baf-44b5-bc2e-e78c8c609b07
+		summarizeBy: none
+		sourceColumn: k
+
+		annotation SummarizationSetBy = User
+
+	column 'K Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 5410b202-71e7-4850-bbad-60b5634a31b3
+		summarizeBy: none
+		sourceColumn: k_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'K Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: fdf391d6-13c7-4b1a-8b50-56cdfcda6696
+		summarizeBy: none
+		sourceColumn: k_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'K N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 02883533-36d6-4ce5-ab5b-b92edd69408b
+		summarizeBy: none
+		sourceColumn: k_n
+
+		annotation SummarizationSetBy = User
+
+	column 'K Method'
+		dataType: string
+		lineageTag: f6f40339-eb4b-4936-9596-b88d51a89573
+		summarizeBy: none
+		sourceColumn: k_method
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA'
+		dataType: double
+		formatString: #,0
+		lineageTag: c4da3dd6-6ad3-488d-873e-4afd314ea4dc
+		summarizeBy: none
+		sourceColumn: rwa
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: 6f6c5f4d-a036-465c-9a11-9e2d46037191
+		summarizeBy: none
+		sourceColumn: rwa_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: fd6dac43-7958-4e70-b3e9-3a91ce972225
+		summarizeBy: none
+		sourceColumn: rwa_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4009a0fd-44a7-44ae-a9b4-5478963491a7
+		summarizeBy: none
+		sourceColumn: rwa_n
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Method'
+		dataType: string
+		lineageTag: ed1d0485-b5b5-4da1-a6e1-682b1c366df6
+		summarizeBy: none
+		sourceColumn: rwa_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital'
+		dataType: double
+		formatString: #,0
+		lineageTag: d5124def-b151-4503-8ca8-12a03cd5b0eb
+		summarizeBy: none
+		sourceColumn: capital
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: bdb6078d-d0c3-4aaa-979d-652bdb58fef6
+		summarizeBy: none
+		sourceColumn: capital_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 85d34e64-fd85-4bec-8599-9158333bc795
+		summarizeBy: none
+		sourceColumn: capital_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 46202479-cea8-47c3-a3ec-fbf178494549
+		summarizeBy: none
+		sourceColumn: capital_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Method'
+		dataType: string
+		lineageTag: f12a720a-53d3-4584-a2e1-7180c594b8a9
+		summarizeBy: none
+		sourceColumn: capital_method
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 7dd869e7-1be2-4bf9-bce7-65274f8aa81a
+		summarizeBy: none
+		sourceColumn: ecl
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1465380f-bbda-444b-963f-1dc84fab0b12
+		summarizeBy: none
+		sourceColumn: ecl_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 8b71a437-ca50-42d4-8ca6-2d1fa525acb0
+		summarizeBy: none
+		sourceColumn: ecl_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e6329c6-b1fe-4c64-a121-710915350398
+		summarizeBy: none
+		sourceColumn: ecl_n
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Method'
+		dataType: string
+		lineageTag: a6117efc-474f-4696-818e-ca89a7b1e1ad
+		summarizeBy: none
+		sourceColumn: ecl_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 2df5738d-c883-4c03-9a5b-2c8ae6263f7d
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Capital By Grade' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("capital_by_grade.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"grade", type text}, {"n_loans", Int64.Type}, {"ead", type number}, {"ead_lo", type number}, {"ead_hi", type number}, {"ead_n", Int64.Type}, {"ead_method", type text}, {"pd", type number}, {"pd_lo", type number}, {"pd_hi", type number}, {"pd_n", Int64.Type}, {"pd_method", type text}, {"lgd", type number}, {"lgd_lo", type number}, {"lgd_hi", type number}, {"lgd_n", Int64.Type}, {"lgd_method", type text}, {"k", type number}, {"k_lo", type number}, {"k_hi", type number}, {"k_n", Int64.Type}, {"k_method", type text}, {"rwa", type number}, {"rwa_lo", type number}, {"rwa_hi", type number}, {"rwa_n", Int64.Type}, {"rwa_method", type text}, {"capital", type number}, {"capital_lo", type number}, {"capital_hi", type number}, {"capital_n", Int64.Type}, {"capital_method", type text}, {"ecl", type number}, {"ecl_lo", type number}, {"ecl_hi", type number}, {"ecl_n", Int64.Type}, {"ecl_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

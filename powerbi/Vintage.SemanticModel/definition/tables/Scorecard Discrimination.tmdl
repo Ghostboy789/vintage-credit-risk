@@ -1,0 +1,179 @@
+table 'Scorecard Discrimination'
+	lineageTag: fcba7303-34ae-4b66-a22b-c03ba6a31ec8
+
+	column 'Sample'
+		dataType: string
+		lineageTag: fe7332e7-99d9-4a0b-ac6e-8021cd3da00e
+		summarizeBy: none
+		sourceColumn: sample
+
+		annotation SummarizationSetBy = User
+
+	column 'Definition'
+		dataType: string
+		lineageTag: 8253b127-21cc-4a2c-9be5-46eb4adb8902
+		summarizeBy: none
+		sourceColumn: definition
+
+		annotation SummarizationSetBy = User
+
+	column 'Model'
+		dataType: string
+		lineageTag: 9ab4f1a0-2f7a-43a4-af9a-dcb368e61db4
+		summarizeBy: none
+		sourceColumn: model
+
+		annotation SummarizationSetBy = User
+
+	column 'Auc'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 6c474abe-a450-4b30-84b7-5138da9b360e
+		summarizeBy: none
+		sourceColumn: auc
+
+		annotation SummarizationSetBy = User
+
+	column 'Auc Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 038ea0d5-382e-4411-95ec-1bf87a4b0636
+		summarizeBy: none
+		sourceColumn: auc_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Auc Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 7a813d7e-c5bf-47fe-89b2-ef66e2ce8bf2
+		summarizeBy: none
+		sourceColumn: auc_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Auc N'
+		dataType: int64
+		formatString: 0
+		lineageTag: d57f1fde-8114-43bd-a42d-97c8aedc4b93
+		summarizeBy: none
+		sourceColumn: auc_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Auc Method'
+		dataType: string
+		lineageTag: 2d40492f-6ab1-4c1b-8774-55f46466c842
+		summarizeBy: none
+		sourceColumn: auc_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Gini'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 8307894b-f007-4a6c-87d7-3b6dee9655e4
+		summarizeBy: none
+		sourceColumn: gini
+
+		annotation SummarizationSetBy = User
+
+	column 'Gini Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d5bf8e1b-c82e-4f20-9166-2944375da414
+		summarizeBy: none
+		sourceColumn: gini_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Gini Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: fbdf80f1-8416-4a3c-911a-4347746425d8
+		summarizeBy: none
+		sourceColumn: gini_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Gini N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 62be7403-319c-47fb-b8a5-cee78f6f6143
+		summarizeBy: none
+		sourceColumn: gini_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Gini Method'
+		dataType: string
+		lineageTag: eaea4ef1-6f17-41fe-9cc5-6652481f06bf
+		summarizeBy: none
+		sourceColumn: gini_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Ks'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 5708fb00-cc1d-436b-9b21-ed653d6e7cec
+		summarizeBy: none
+		sourceColumn: ks
+
+		annotation SummarizationSetBy = User
+
+	column 'Ks Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2bd600ad-f3a5-404f-86c2-ac41afdd034b
+		summarizeBy: none
+		sourceColumn: ks_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Ks Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d7825200-65ba-4751-b275-2435c94fde2a
+		summarizeBy: none
+		sourceColumn: ks_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Ks N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 75944ec3-3987-4be1-8944-a0419792daf0
+		summarizeBy: none
+		sourceColumn: ks_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Ks Method'
+		dataType: string
+		lineageTag: f11f8a15-71f5-4af3-91c0-4bae15e6ec5e
+		summarizeBy: none
+		sourceColumn: ks_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: ddee3b08-447a-4592-954f-e6fa07542b89
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Discrimination' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_discrimination.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"sample", type text}, {"definition", type text}, {"model", type text}, {"auc", type number}, {"auc_lo", type number}, {"auc_hi", type number}, {"auc_n", Int64.Type}, {"auc_method", type text}, {"gini", type number}, {"gini_lo", type number}, {"gini_hi", type number}, {"gini_n", Int64.Type}, {"gini_method", type text}, {"ks", type number}, {"ks_lo", type number}, {"ks_hi", type number}, {"ks_n", Int64.Type}, {"ks_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

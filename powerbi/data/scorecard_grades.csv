@@ -1,0 +1,8 @@
+grade,pd_low,pd_high,score_min,score_max,merged_into,synthetic
+A,0.0,0.001,687.0,,,True
+B,0.001,0.002,667.0,686.0,,True
+C,0.002,0.004,647.0,666.0,,True
+D,0.004,0.008,627.0,646.0,,True
+E,0.008,0.016,606.0,626.0,,True
+F,0.016,0.032,586.0,605.0,,True
+G,0.032,1.0,,585.0,,True

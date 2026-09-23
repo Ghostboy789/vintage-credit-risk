@@ -1,0 +1,154 @@
+table 'Ecl Backtest'
+	lineageTag: 5831ab3a-485c-4031-bf77-c3a2953a4719
+
+	column 'Reporting Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: d1a3810e-6b63-422b-90f2-4ab239e96d36
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = User
+
+	column 'Grade'
+		dataType: string
+		lineageTag: 6842d3b0-5efc-45a7-81f1-94b2c0c65da8
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'N'
+		dataType: int64
+		formatString: 0
+		lineageTag: ba052d4f-6c42-4def-af22-7bbbd802a784
+		summarizeBy: none
+		sourceColumn: n
+
+		annotation SummarizationSetBy = User
+
+	column 'Predicted PD'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 90bc1f8a-0326-401d-9ff9-4b06a91d6af7
+		summarizeBy: none
+		sourceColumn: predicted_pd
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9baace9e-3ba1-4577-8564-3b21982b2c4b
+		summarizeBy: none
+		sourceColumn: realised_rate
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3da1ca0c-52e5-4eb1-bec4-97a8240a432f
+		summarizeBy: none
+		sourceColumn: realised_rate_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fc73278e-5ba2-435f-a631-8984c98d529f
+		summarizeBy: none
+		sourceColumn: realised_rate_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate N'
+		dataType: int64
+		formatString: 0
+		lineageTag: aea92fb2-36e7-4bde-ad33-f47353711108
+		summarizeBy: none
+		sourceColumn: realised_rate_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Realised Rate Method'
+		dataType: string
+		lineageTag: 255f187c-ca0f-4800-9f90-982db4e7e7a4
+		summarizeBy: none
+		sourceColumn: realised_rate_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Binomial Low'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 11b35671-3b5c-43cf-b4c4-e361c11432c7
+		summarizeBy: none
+		sourceColumn: binomial_low
+
+		annotation SummarizationSetBy = User
+
+	column 'Binomial High'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 19929f88-953b-4c95-905f-9086f348f477
+		summarizeBy: none
+		sourceColumn: binomial_high
+
+		annotation SummarizationSetBy = User
+
+	column 'Vasicek Low'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1e430bf3-8557-4bfd-902c-5f86f80bc256
+		summarizeBy: none
+		sourceColumn: vasicek_low
+
+		annotation SummarizationSetBy = User
+
+	column 'Vasicek High'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 4673f4fd-6e00-453a-bb11-52553b1e8baf
+		summarizeBy: none
+		sourceColumn: vasicek_high
+
+		annotation SummarizationSetBy = User
+
+	column 'Rag'
+		dataType: string
+		lineageTag: 12288b66-28af-4911-ba85-77f21e22083b
+		summarizeBy: none
+		sourceColumn: rag
+
+		annotation SummarizationSetBy = User
+
+	column 'Covid Affected'
+		dataType: boolean
+		lineageTag: c40fb448-9509-492a-9637-64bb5e39e8df
+		summarizeBy: none
+		sourceColumn: covid_affected
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 1a41ba6d-74ae-4015-84a5-b3e68e7e6079
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Backtest' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_backtest.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"reporting_date", type date}, {"grade", type text}, {"n", Int64.Type}, {"predicted_pd", type number}, {"realised_rate", type number}, {"realised_rate_lo", type number}, {"realised_rate_hi", type number}, {"realised_rate_n", Int64.Type}, {"realised_rate_method", type text}, {"binomial_low", type number}, {"binomial_high", type number}, {"vasicek_low", type number}, {"vasicek_high", type number}, {"rag", type text}, {"covid_affected", type logical}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

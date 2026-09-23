@@ -1,0 +1,33 @@
+table 'Dim Grade'
+	lineageTag: d115ba5a-b98c-4c35-81a3-c79e8a7521fb
+
+	column Grade
+		dataType: string
+		lineageTag: 80479441-09bb-43e0-b3e2-6330aa9327fc
+		summarizeBy: none
+		sourceColumn: Grade
+		sortByColumn: 'Grade Order'
+
+		annotation SummarizationSetBy = User
+
+	column 'Grade Order'
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 7cb3334b-e9db-4752-b1f7-d994bc236a97
+		summarizeBy: none
+		sourceColumn: 'Grade Order'
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Grade' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Grade", STRING, "Grade Order", INT64,
+				    {
+				        {"A", 1}, {"B", 2}, {"C", 3}, {"D", 4}, {"E", 5}, {"F", 6}, {"G", 7}
+				    }
+				)
+
+	annotation PBI_ResultType = Table

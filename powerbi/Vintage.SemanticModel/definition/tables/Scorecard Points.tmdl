@@ -1,0 +1,127 @@
+table 'Scorecard Points'
+	lineageTag: 6860cc16-2442-4074-b8c3-a6eea13086c9
+
+	column 'Feature'
+		dataType: string
+		lineageTag: 523dc95f-ef9c-4da1-8690-72dc37d8259c
+		summarizeBy: none
+		sourceColumn: feature
+
+		annotation SummarizationSetBy = User
+
+	column 'Bin'
+		dataType: string
+		lineageTag: 9e90551f-83c6-4ab4-8955-2691cb5fdffe
+		summarizeBy: none
+		sourceColumn: bin
+
+		annotation SummarizationSetBy = User
+
+	column 'Lower'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 8fc6f0dd-09e6-40c4-9250-1495d3baab72
+		summarizeBy: none
+		sourceColumn: lower
+
+		annotation SummarizationSetBy = User
+
+	column 'Upper'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d1770022-32cb-44db-b40c-9b0b634d311e
+		summarizeBy: none
+		sourceColumn: upper
+
+		annotation SummarizationSetBy = User
+
+	column 'Is Missing Bin'
+		dataType: boolean
+		lineageTag: c24bed10-38f5-4318-b617-e88df7cbef68
+		summarizeBy: none
+		sourceColumn: is_missing_bin
+
+		annotation SummarizationSetBy = User
+
+	column 'Woe'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: a44b1121-9ad4-4fe4-bbfa-6b88165d2a28
+		summarizeBy: none
+		sourceColumn: woe
+
+		annotation SummarizationSetBy = User
+
+	column 'Points'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c9cd368-113f-494c-86c4-bb8db1973854
+		summarizeBy: none
+		sourceColumn: points
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Dev Train'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 45e5221e-ea91-486f-9398-0e09494ed13f
+		summarizeBy: none
+		sourceColumn: default_rate_dev_train
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Dev Train Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 67c6e432-f086-4ab0-bf0c-198df2c5d140
+		summarizeBy: none
+		sourceColumn: default_rate_dev_train_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Dev Train Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dd19d3d3-26f5-48f4-b025-73ca920848dd
+		summarizeBy: none
+		sourceColumn: default_rate_dev_train_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Dev Train N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 703f8a73-fa6d-42d4-84ac-cde1cc579c02
+		summarizeBy: none
+		sourceColumn: default_rate_dev_train_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Default Rate Dev Train Method'
+		dataType: string
+		lineageTag: ba5def65-d368-4d57-ae2e-0262913d8c70
+		summarizeBy: none
+		sourceColumn: default_rate_dev_train_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 3b63f446-b194-4ebf-affc-187478ecf557
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scorecard Points' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("scorecard_points.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"feature", type text}, {"bin", type text}, {"lower", type number}, {"upper", type number}, {"is_missing_bin", type logical}, {"woe", type number}, {"points", Int64.Type}, {"default_rate_dev_train", type number}, {"default_rate_dev_train_lo", type number}, {"default_rate_dev_train_hi", type number}, {"default_rate_dev_train_n", Int64.Type}, {"default_rate_dev_train_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

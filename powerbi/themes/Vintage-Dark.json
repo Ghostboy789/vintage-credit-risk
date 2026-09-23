@@ -1,0 +1,62 @@
+{
+  "name": "Vintage-Dark.json",
+  "dataColors": [
+    "#7FA0C9",
+    "#B8CBE3",
+    "#5B7BA6",
+    "#E08D8A",
+    "#E8B074",
+    "#9AA5B1",
+    "#3E5C76",
+    "#C7CDD6"
+  ],
+  "background": "#0F1620",
+  "foreground": "#E7ECF3",
+  "tableAccent": "#7FA0C9",
+  "good": "#63B37A",
+  "neutral": "#E8B074",
+  "bad": "#E08D8A",
+  "maximum": "#7FA0C9",
+  "center": "#3E5C76",
+  "minimum": "#1B2530",
+  "textClasses": {
+    "title": {
+      "color": "#E7ECF3",
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold"
+    },
+    "label": {
+      "color": "#C7CDD6",
+      "fontSize": 10,
+      "fontFace": "Segoe UI"
+    },
+    "callout": {
+      "color": "#E7ECF3",
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#26313F"
+              }
+            },
+            "radius": 4
+          }
+        ]
+      }
+    }
+  },
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.153.json"
+}

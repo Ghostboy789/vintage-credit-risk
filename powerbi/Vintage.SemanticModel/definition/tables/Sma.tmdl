@@ -1,0 +1,128 @@
+table 'Sma'
+	lineageTag: fb752b1b-f774-4a73-8620-3a3738ded0e4
+
+	column 'Period'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: b3fbb958-fb0b-4e33-933b-dd43cf8dc3d9
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = User
+
+	column 'SMA Class'
+		dataType: string
+		lineageTag: 81d1cb60-f3d4-44bd-8a8a-7beac88b4655
+		summarizeBy: none
+		sourceColumn: sma_class
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB'
+		dataType: double
+		formatString: #,0
+		lineageTag: a233ef0a-7174-4147-a978-14da5d1c6430
+		summarizeBy: none
+		sourceColumn: upb
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: d4e77ec6-3933-4065-b8f8-e5a30823d265
+		summarizeBy: none
+		sourceColumn: upb_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 1d40a533-cd2f-4fb2-8fc1-ea0990655bd3
+		summarizeBy: none
+		sourceColumn: upb_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d5682f8-e449-42ca-b467-5bb07250c319
+		summarizeBy: none
+		sourceColumn: upb_n
+
+		annotation SummarizationSetBy = User
+
+	column 'UPB Method'
+		dataType: string
+		lineageTag: 20f973ec-1f31-4623-9845-eaf8eee9334e
+		summarizeBy: none
+		sourceColumn: upb_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Share'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d00eba37-c718-43f1-9d12-d82c2fd64336
+		summarizeBy: none
+		sourceColumn: share
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 79e69e25-bb39-418d-b347-857262b46472
+		summarizeBy: none
+		sourceColumn: share_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 25a313b5-dfd9-4ece-b465-45ee00a061b6
+		summarizeBy: none
+		sourceColumn: share_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Share N'
+		dataType: int64
+		formatString: 0
+		lineageTag: f215fc0f-5eac-4803-9576-0b389e8e3060
+		summarizeBy: none
+		sourceColumn: share_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Share Method'
+		dataType: string
+		lineageTag: b2ada551-8fdd-4b69-b973-4ba0b447c415
+		summarizeBy: none
+		sourceColumn: share_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 3945f138-f6b3-49fe-9f8c-2fc633805b2b
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Sma' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("sma.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"period", type date}, {"sma_class", type text}, {"upb", type number}, {"upb_lo", type number}, {"upb_hi", type number}, {"upb_n", Int64.Type}, {"upb_method", type text}, {"share", type number}, {"share_lo", type number}, {"share_hi", type number}, {"share_n", Int64.Type}, {"share_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

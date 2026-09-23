@@ -1,0 +1,120 @@
+table 'Default Definition Effect'
+	lineageTag: ad14494e-502e-49c6-9d28-270b6ad788e9
+
+	column 'Vintage Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: de282df8-59fb-4841-aeb1-e54fa64c7471
+		summarizeBy: none
+		sourceColumn: vintage_year
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Primary'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: f80ad9ae-ee9c-43cd-97a0-22e70ed35cfe
+		summarizeBy: none
+		sourceColumn: defaults_12m_primary
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Primary Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: a7a38fac-0fbd-4584-98a7-9643e9e59af7
+		summarizeBy: none
+		sourceColumn: defaults_12m_primary_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Primary Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e36b8b20-3256-4479-9f62-91d5f2fb711e
+		summarizeBy: none
+		sourceColumn: defaults_12m_primary_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Primary N'
+		dataType: int64
+		formatString: 0
+		lineageTag: e4c87a78-99c5-4de9-b477-8a177638d9d8
+		summarizeBy: none
+		sourceColumn: defaults_12m_primary_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Primary Method'
+		dataType: string
+		lineageTag: f954c4ed-4406-4c62-a1f3-b85553fcdc43
+		summarizeBy: none
+		sourceColumn: defaults_12m_primary_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Naive'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: c910b199-8094-45b9-85f8-b79bdaf14f1b
+		summarizeBy: none
+		sourceColumn: defaults_12m_naive
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Naive Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 3cf92999-1036-44fa-a756-a71520e2bb4c
+		summarizeBy: none
+		sourceColumn: defaults_12m_naive_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Naive Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: c8ff1cd3-4027-44e9-98ef-ec18b4a20d28
+		summarizeBy: none
+		sourceColumn: defaults_12m_naive_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Naive N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c12b075-1502-423d-b7ec-e127fb3c31f4
+		summarizeBy: none
+		sourceColumn: defaults_12m_naive_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Defaults 12m Naive Method'
+		dataType: string
+		lineageTag: f02b8516-f8b8-4e40-9b44-43fe3c2cd17c
+		summarizeBy: none
+		sourceColumn: defaults_12m_naive_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 15b8a9d2-b337-4c4c-8641-8d596ec3d370
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Default Definition Effect' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("default_definition_effect.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"vintage_year", Int64.Type}, {"defaults_12m_primary", type number}, {"defaults_12m_primary_lo", type number}, {"defaults_12m_primary_hi", type number}, {"defaults_12m_primary_n", Int64.Type}, {"defaults_12m_primary_method", type text}, {"defaults_12m_naive", type number}, {"defaults_12m_naive_lo", type number}, {"defaults_12m_naive_hi", type number}, {"defaults_12m_naive_n", Int64.Type}, {"defaults_12m_naive_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

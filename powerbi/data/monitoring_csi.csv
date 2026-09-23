@@ -1,0 +1,4 @@
+feature,comparison,csi,csi_lo,csi_hi,csi_n,csi_method,rag,synthetic
+fico,dev_train_vs_oot,0.18,0.16,0.19999999999999998,1000,synthetic fixture interval,amber,True
+ltv_pct,dev_train_vs_oot,0.04,0.02,0.06,1000,synthetic fixture interval,green,True
+dti_pct,dev_train_vs_oot,0.27,0.25,0.29000000000000004,1000,synthetic fixture interval,red,True

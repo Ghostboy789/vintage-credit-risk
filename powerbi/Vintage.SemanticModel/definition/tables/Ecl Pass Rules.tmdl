@@ -1,0 +1,47 @@
+table 'Ecl Pass Rules'
+	lineageTag: e76f754f-505c-4f36-9f02-f8f6a0cf45bc
+
+	column 'Rule ID'
+		dataType: string
+		lineageTag: f922ba85-fe3b-49d7-ab83-ae73b0131588
+		summarizeBy: none
+		sourceColumn: rule_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Result'
+		dataType: string
+		lineageTag: bb444fa9-d63b-49e9-9e37-b19209fe46fd
+		summarizeBy: none
+		sourceColumn: result
+
+		annotation SummarizationSetBy = User
+
+	column 'Evidence'
+		dataType: string
+		lineageTag: e0de38db-42a7-422c-8246-9d6ade063b32
+		summarizeBy: none
+		sourceColumn: evidence
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 1f37f277-8d29-4d75-b06b-fd859d2c7822
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl Pass Rules' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_pass_rules.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"rule_id", type text}, {"result", type text}, {"evidence", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

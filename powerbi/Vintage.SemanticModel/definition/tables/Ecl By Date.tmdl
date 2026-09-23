@@ -1,0 +1,198 @@
+table 'Ecl By Date'
+	lineageTag: d587f629-aafb-4644-99d5-a7a843521510
+
+	column 'Reporting Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 32106bbb-3b21-4c37-ac9f-fc247c7f13dc
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = User
+
+	column 'In Sample'
+		dataType: boolean
+		lineageTag: 4e48c2d6-2b79-474e-9c98-59bd13c1d7c7
+		summarizeBy: none
+		sourceColumn: in_sample
+
+		annotation SummarizationSetBy = User
+
+	column 'Stage'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ab0d372-2584-4080-88dd-3b62b8be6c4c
+		summarizeBy: none
+		sourceColumn: stage
+
+		annotation SummarizationSetBy = User
+
+	column 'Grade'
+		dataType: string
+		lineageTag: 44f0c0e3-8c79-4622-b008-b7590d15dbf7
+		summarizeBy: none
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = User
+
+	column 'N Loans'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4aff903e-56d7-4000-a90d-8f4f30f47798
+		summarizeBy: none
+		sourceColumn: n_loans
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD'
+		dataType: double
+		formatString: #,0
+		lineageTag: 0496005f-6d35-4662-adf3-cd895ba685f2
+		summarizeBy: none
+		sourceColumn: ead
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: 06e4f6ee-7d7b-438f-b2dc-ab715f995b03
+		summarizeBy: none
+		sourceColumn: ead_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 4f0aa530-9274-45be-ac3a-e0e9b601739f
+		summarizeBy: none
+		sourceColumn: ead_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: a39b391b-50f1-4a31-bfb9-db63605c106e
+		summarizeBy: none
+		sourceColumn: ead_n
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Method'
+		dataType: string
+		lineageTag: e86138cd-d91b-4c83-9545-fc2e02c8e2c0
+		summarizeBy: none
+		sourceColumn: ead_method
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 3a3fb956-c7c0-408c-8ca8-d7362edd98b4
+		summarizeBy: none
+		sourceColumn: ecl
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: b10fe7b0-fe1b-49f2-8346-f1c7c1e66047
+		summarizeBy: none
+		sourceColumn: ecl_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 75573f42-45f5-48a3-ab61-ced5686c2853
+		summarizeBy: none
+		sourceColumn: ecl_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2effb6a3-e7b9-4c7e-832c-f2c876281593
+		summarizeBy: none
+		sourceColumn: ecl_n
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Method'
+		dataType: string
+		lineageTag: 21911543-a359-40b9-b9ab-3efe1ab681ce
+		summarizeBy: none
+		sourceColumn: ecl_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Coverage'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: b9af5994-7a9f-4181-b727-eed9019d4090
+		summarizeBy: none
+		sourceColumn: coverage
+
+		annotation SummarizationSetBy = User
+
+	column 'Coverage Lo'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1fdfe091-c9d7-4333-9aa0-f973306af002
+		summarizeBy: none
+		sourceColumn: coverage_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Coverage Hi'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8e3ee96d-1389-4163-ad6e-ec9a9c030ae0
+		summarizeBy: none
+		sourceColumn: coverage_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Coverage N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 150b925a-3ed4-43b3-8cb7-98af66547b20
+		summarizeBy: none
+		sourceColumn: coverage_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Coverage Method'
+		dataType: string
+		lineageTag: ed4c61b0-393f-46e4-ab76-6b22b753fc3b
+		summarizeBy: none
+		sourceColumn: coverage_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: 7c323835-c50c-4a7a-9cd1-5a499c417312
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ecl By Date' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("ecl_by_date.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"reporting_date", type date}, {"in_sample", type logical}, {"stage", Int64.Type}, {"grade", type text}, {"n_loans", Int64.Type}, {"ead", type number}, {"ead_lo", type number}, {"ead_hi", type number}, {"ead_n", Int64.Type}, {"ead_method", type text}, {"ecl", type number}, {"ecl_lo", type number}, {"ecl_hi", type number}, {"ecl_n", Int64.Type}, {"ecl_method", type text}, {"coverage", type number}, {"coverage_lo", type number}, {"coverage_hi", type number}, {"coverage_n", Int64.Type}, {"coverage_method", type text}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

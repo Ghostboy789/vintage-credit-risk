@@ -1,0 +1,216 @@
+table 'Capital Totals'
+	lineageTag: 86828b6d-c440-4f6e-9088-e3a0172f0bcf
+
+	column 'EAD'
+		dataType: double
+		formatString: #,0
+		lineageTag: 5dedbb24-0ba1-4e6b-accc-77e0df0a26f9
+		summarizeBy: none
+		sourceColumn: ead
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: 29c65b03-f613-41be-93e2-c8b867265f06
+		summarizeBy: none
+		sourceColumn: ead_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 3cfaa828-9b92-49bf-b704-41861b83c014
+		summarizeBy: none
+		sourceColumn: ead_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD N'
+		dataType: int64
+		formatString: 0
+		lineageTag: a96c5a9f-d7eb-483f-9c7c-9b1e46dd67fc
+		summarizeBy: none
+		sourceColumn: ead_n
+
+		annotation SummarizationSetBy = User
+
+	column 'EAD Method'
+		dataType: string
+		lineageTag: 14a27c21-7aea-4cc2-b953-18f328eb9a53
+		summarizeBy: none
+		sourceColumn: ead_method
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA'
+		dataType: double
+		formatString: #,0
+		lineageTag: eab19093-c0f9-4ef8-8995-37ee7906dbe5
+		summarizeBy: none
+		sourceColumn: rwa
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: eab90e60-5ad4-4dd8-93b8-2f8c217b6d6a
+		summarizeBy: none
+		sourceColumn: rwa_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 0244ab07-84bb-46a2-a3c3-b0c75ce90ba0
+		summarizeBy: none
+		sourceColumn: rwa_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA N'
+		dataType: int64
+		formatString: 0
+		lineageTag: f6c386a3-9585-4224-beeb-ce0418c48bd1
+		summarizeBy: none
+		sourceColumn: rwa_n
+
+		annotation SummarizationSetBy = User
+
+	column 'RWA Method'
+		dataType: string
+		lineageTag: cddb732b-0074-4561-a877-e846dd81424e
+		summarizeBy: none
+		sourceColumn: rwa_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital'
+		dataType: double
+		formatString: #,0
+		lineageTag: 1396606e-cfbb-4703-8122-25583349d981
+		summarizeBy: none
+		sourceColumn: capital
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Lo'
+		dataType: double
+		formatString: #,0
+		lineageTag: 7af8a35d-af77-4253-a178-6864b1ce0d6b
+		summarizeBy: none
+		sourceColumn: capital_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Hi'
+		dataType: double
+		formatString: #,0
+		lineageTag: 038788fa-f20a-4a5c-9a81-e4a4b063fae9
+		summarizeBy: none
+		sourceColumn: capital_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital N'
+		dataType: int64
+		formatString: 0
+		lineageTag: 71dfebfa-858a-450d-8224-18553e73c843
+		summarizeBy: none
+		sourceColumn: capital_n
+
+		annotation SummarizationSetBy = User
+
+	column 'Capital Method'
+		dataType: string
+		lineageTag: beb6f774-49d3-4b6e-ae89-c18126323a1a
+		summarizeBy: none
+		sourceColumn: capital_method
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: c806d352-940e-489e-b4fd-268af4046a5d
+		summarizeBy: none
+		sourceColumn: ecl
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Lo'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 6042593f-ca14-4850-acc2-4ee52b141d4e
+		summarizeBy: none
+		sourceColumn: ecl_lo
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Hi'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 814c1b23-773d-49a6-9ffd-39943cdf23c8
+		summarizeBy: none
+		sourceColumn: ecl_hi
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL N'
+		dataType: int64
+		formatString: 0
+		lineageTag: f77bcbf2-072c-4dc0-9577-d820ba5632dc
+		summarizeBy: none
+		sourceColumn: ecl_n
+
+		annotation SummarizationSetBy = User
+
+	column 'ECL Method'
+		dataType: string
+		lineageTag: 0fb2cb6d-cc4f-45af-87e4-2be608aa8b8f
+		summarizeBy: none
+		sourceColumn: ecl_method
+
+		annotation SummarizationSetBy = User
+
+	column 'Status'
+		dataType: string
+		lineageTag: 36b629bc-b245-4236-a134-1f7a1a0b9733
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = User
+
+	column 'Reporting Date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 1463363a-29f1-413a-8596-31ba4edba6da
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = User
+
+	column 'Synthetic'
+		dataType: boolean
+		lineageTag: c3ce8f91-f9eb-4c56-b468-15e12754e0aa
+		summarizeBy: none
+		sourceColumn: synthetic
+
+		annotation SummarizationSetBy = User
+
+	partition 'Capital Totals' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(VintageFile("capital_totals.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Blanks = Table.ReplaceValue(Promoted, "", null, Replacer.ReplaceValue, Table.ColumnNames(Promoted)),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"ead", type number}, {"ead_lo", type number}, {"ead_hi", type number}, {"ead_n", Int64.Type}, {"ead_method", type text}, {"rwa", type number}, {"rwa_lo", type number}, {"rwa_hi", type number}, {"rwa_n", Int64.Type}, {"rwa_method", type text}, {"capital", type number}, {"capital_lo", type number}, {"capital_hi", type number}, {"capital_n", Int64.Type}, {"capital_method", type text}, {"ecl", type number}, {"ecl_lo", type number}, {"ecl_hi", type number}, {"ecl_n", Int64.Type}, {"ecl_method", type text}, {"status", type text}, {"reporting_date", type date}, {"synthetic", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
