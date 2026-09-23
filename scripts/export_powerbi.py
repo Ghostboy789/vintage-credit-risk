@@ -14,8 +14,8 @@ never reach ``powerbi/data`` (CONTRACTS.md publication rule).
 ``--source fixtures`` reads ``tests/fixtures/{artefacts,marts}`` (synthetic;
 every row's ``synthetic`` column is ``True``). ``--source real`` reads
 ``artefacts/`` and ``marts_out/`` under ``VINTAGE_DATA_ROOT``. Real export
-happens once those exist; until then the fixtures export is what chat E
-built and validated against, and ``powerbi/README.md`` says so.
+happens once those exist; until then the fixtures export is what the report
+was built and validated against, and ``powerbi/README.md`` says so.
 """
 
 from __future__ import annotations
@@ -175,7 +175,7 @@ def main() -> int:
         if not (artefacts_dir / "portfolio.json").exists():
             raise SystemExit(
                 "No real artefacts yet under VINTAGE_DATA_ROOT/artefacts. "
-                "Run with --source fixtures until chat R2/D2/G have merged real outputs."
+                "Run with --source fixtures until the real model and portfolio outputs exist."
             )
 
     OUT.mkdir(parents=True, exist_ok=True)

@@ -3,7 +3,7 @@
 A six-page Power BI report over the portfolio, scorecard, loss and ECL results, built as PBIP
 (TMDL model + PBIR report) so every table, measure and visual is a readable text file that diffs
 in git. **Built and validated on the project's synthetic fixtures** (see "Synthetic data" below);
-chat E2 points it at the real Freddie Mac marts once chat D2/R2/G have merged.
+It is pointed at the real Freddie Mac marts once the scorecard, loss/ECL and portfolio results exist.
 
 ## Open it
 
@@ -53,20 +53,22 @@ Every row in `powerbi/data/` right now comes from `tests/fixtures/`, which
 `scripts/make_fixtures.py` invents with a fixed seed — none of it is a real Freddie Mac loan.
 Every table carries a `Synthetic` column, and the `Key Measures[Synthetic Data Warning]` measure
 shows a banner on every page while it is `true`. `scripts/export_powerbi.py --source real` reads
-the real marts and artefacts instead, once chat D2 (scorecard), R2 (LGD/ECL/capital) and G
-(portfolio analytics) have merged; chat E2 reruns the export, re-checks every KPI against the
+the real marts and artefacts instead, once the scorecard, LGD/ECL/capital and portfolio analytics
+results exist; the real export is then re-run, every KPI re-checked against the
 marts with DAX, and turns this banner off.
 
 ## How it was checked
 
 - `pbir validate Vintage.Report` and `powerbi-report-author validate Vintage.pbip`: **0 errors**
   (a handful of Best-Practice-Analyzer sizing warnings on the smaller KPI cards remain; noted in
-  the handover, not blocking).
+  the build notes, not blocking).
 - `tests/test_powerbi.py`: the export never carries a `loan_id` column, every fixture row is
   flagged synthetic, and a spot-checked metric value matches the source artefact exactly.
-- Rendered in Power BI Desktop against a local `DataFolder`; screenshots in `docs/powerbi/`.
+- Not yet rendered in Power BI Desktop: the Desktop automation bridge did not start on the build
+  machine, so the pages have been validated as files only. Rendering, DAX checks against the
+  marts and screenshots (`docs/powerbi/`) come with the real-data export.
 
-## Known simplifications (ponytail: revisit with chat E2)
+## Known simplifications (to revisit with the real-data export)
 
 - **No global state slicer.** The published aggregates carry `property_state` only inside two
   segment tables (`lgd_segments`, `loss_drivers`), not as a column on every fact, so a
