@@ -5,6 +5,7 @@
  "generated_at": "2026-09-23T00:00:00Z",
  "data_cutoff": "2026-03-01",
  "code_version": "fixture",
+ "suppressed_cells": 0,
  "status": "run",
  "parameters": {
   "correlation": 0.15,

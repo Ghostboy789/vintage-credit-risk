@@ -419,8 +419,11 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
         exit_type(z, m, t) for z, m, t in zip(lm["zbc"], lm["months_on_book"], lm["term"])
     ]
 
-    # Market rate: median note rate of >240-month loans by first-payment month.
-    mkt = loans[loans["term"] > 240].groupby("fpd")["rate"].median()
+    # Market rate: median note rate of >240-month loans by first-payment month, with the last
+    # available value carried forward (L1).
+    months = list(range(DATA_START, CUTOFF + 1))
+    mkt_obs = loans[loans["term"] > 240].groupby("fpd")["rate"].median().reindex(months)
+    mkt = mkt_obs.ffill()
     lm["rate_incentive_pct"] = lm["current_rate"] - lm["period"].map(mkt)
 
     parts = []
@@ -432,9 +435,10 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
         )
         first = next((i for i, t in enumerate(trig) if t), None)
         g["is_first_default_month"] = [i == first for i in range(len(g))]
-        prev_in = g["in_default"].shift(1)
-        prev_exit = g["zbc"].shift(1)
-        g["performing_at_start"] = prev_in.notna() & (prev_in == False) & prev_exit.isna()  # noqa: E712
+        prev_exit = g["zbc"].shift(1).tolist()
+        g["at_risk_at_start"] = [
+            i > 0 and pd.isna(prev_exit[i]) and (first is None or first >= i) for i in range(len(g))
+        ]
         late = (pd.to_numeric(g["status"], errors="coerce") >= 1) | (g["status"] == "RA")
         g["recent_dpd30_12m"] = (
             late.astype(int).shift(1).rolling(12, min_periods=1).max().fillna(0).astype(bool)
@@ -446,7 +450,6 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
     lm = pd.concat(parts, ignore_index=True)
 
     # ---- dim_date
-    months = list(range(DATA_START, CUTOFF + 1))
     dim_date = pd.DataFrame({"month": months})
     dim_date["year"] = dim_date["month"] // 12
     dim_date["quarter"] = (dim_date["month"] % 12) // 3 + 1
@@ -454,6 +457,7 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
     dim_date["is_quarter_end"] = dim_date["month"] % 3 == 2
     dim_date["economic_period"] = dim_date["month"].map(economic_period)
     dim_date["market_rate_pct"] = dim_date["month"].map(mkt)
+    dim_date["market_rate_carried_forward"] = dim_date["month"].map(mkt_obs.isna() & mkt.notna())
 
     # ---- dim_loan
     last = lm.groupby("loan_id").tail(1).set_index("loan_id")
@@ -495,6 +499,8 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
     dim_loan["last_period"] = dim_loan["loan_id"].map(last["period"])
     dim_loan["terminal_zero_balance_code"] = dim_loan["loan_id"].map(last["zbc"])
     dim_loan["exit_type"] = dim_loan["loan_id"].map(last["exit_type"])
+    defect = lm.dropna(subset=["defect_date"]).groupby("loan_id")["defect_date"].min()
+    dim_loan["defect_settlement_date"] = dim_loan["loan_id"].map(defect)
 
     # ---- fct_loan_month
     fct_loan_month = lm.rename(
@@ -515,7 +521,9 @@ def derive(loans: pd.DataFrame, panel: pd.DataFrame) -> dict[str, pd.DataFrame]:
     events = []
     for definition, col in [("primary", "default_trigger"), ("naive", "naive_trigger")]:
         for loan_id, g in lm[lm[col]].groupby("loan_id"):
-            events.append(default_event(loan_id, definition, g.iloc[0], lm, last, L))
+            events.append(
+                default_event(loan_id, definition, g.iloc[0], lm, last, L, defect.get(loan_id))
+            )
     fct_default_events = pd.DataFrame(events)
 
     # ---- fct_loss_events
@@ -549,7 +557,7 @@ def economic_period(m: int) -> str:
     return "recent"
 
 
-def default_event(loan_id, definition, row, lm, last, L) -> dict:
+def default_event(loan_id, definition, row, lm, last, L, defect_date) -> dict:
     g = lm[lm["loan_id"] == loan_id].sort_values("period")
     p0 = int(row["period"])
     before = g[(g["period"] < p0) & (g["period"] >= p0 - 12)]
@@ -569,7 +577,9 @@ def default_event(loan_id, definition, row, lm, last, L) -> dict:
     cure = int(cures.iloc[0]) if len(cures) else None
     end = last.loc[loan_id]
     z = end["zbc"]
-    if z in CREDIT_EVENT_ZBC:
+    if z in CREDIT_EVENT_ZBC and defect_date is not None:
+        res = "defect_settlement"
+    elif z in CREDIT_EVENT_ZBC:
         res = (
             "open"
             if end["actual_loss"] is None or pd.isna(end["actual_loss"])
@@ -593,8 +603,9 @@ def default_event(loan_id, definition, row, lm, last, L) -> dict:
         "cure_period": cure,
         "resolution": res,
         "resolution_period": int(end["period"])
-        if res in ("credit_event_loss", "paid_off", "other_exit")
+        if res in ("defect_settlement", "credit_event_loss", "paid_off", "other_exit")
         else None,
+        "defect_settlement_date": defect_date,
     }
 
 
@@ -746,11 +757,16 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
 
     # ---- fct_scorecard_base
     exits = lm[lm["exit_type"].notna()].set_index("loan_id")
+    naive = d["fct_default_events"][d["fct_default_events"]["definition"] == "naive"]
+    naive_mob = naive.set_index("loan_id")["default_months_on_book"]
+    covid_fpd = (mi(2019, 4), mi(2021, 12))  # months on book 1-12 overlap 2020-03..2021-12
     rows = []
     for r in dim_loan.itertuples():
         mob_last = int(r.last_period) - int(r.first_payment_date) + 1
         fdm = first_def_mob.get(r.loan_id)
         d12 = fdm is not None and 1 <= fdm <= 12
+        ndm = naive_mob.get(r.loan_id)
+        d12_naive = ndm is not None and 1 <= ndm <= 12
         ex = exits["exit_type"].get(r.loan_id)
         ex_mob = int(exits["months_on_book"].get(r.loan_id)) if ex is not None else None
         early_exit = ex is not None and ex_mob <= 12 and not d12
@@ -762,25 +778,31 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
         elif early_exit and ex == "other_exit":
             reason = "indeterminate_exit"
         y = r.vintage_year
-        if reason:
-            sample = "excluded"
-        elif y <= 2015:
+        if y <= 2015:
             h = hashlib.md5((r.loan_id + "split-v1").encode()).hexdigest()[:2]
-            sample = "dev_train" if h < "b3" else "dev_test"
+            base = "dev_train" if h < "b3" else "dev_test"
         elif y == 2016:
-            sample = "gap"
-        elif y in (2020, 2021):
-            sample = "covid"
+            base = "gap"
+        elif y == 2025:
+            base = "out_of_scope"
+        elif covid_fpd[0] <= r.first_payment_date <= covid_fpd[1]:
+            base = "covid"
         else:
-            sample = "oot"
+            base = "oot"
+        sample = "excluded" if reason else base
         rows.append(
             {
                 "loan_id": r.loan_id,
                 "vintage_year": y,
                 "vintage_quarter": r.vintage_quarter,
                 "sample": sample,
+                "sample_before_exclusion": base,
+                "exit_code_12m": r.terminal_zero_balance_code
+                if reason == "indeterminate_exit"
+                else None,
                 "exclusion_reason": reason,
                 "default_12m": None if reason else int(d12),
+                "default_12m_naive": None if reason else int(d12_naive),
                 "default_months_on_book": int(fdm) if fdm is not None else None,
                 "prepaid_12m": bool(early_exit and ex in ("prepaid", "matured")),
                 "fico": r.fico,
@@ -820,6 +842,7 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
     fd = si["loan_id"].map(first_def)
     complete = si["period"] + 12 <= CUTOFF
     already = fd.notna() & (fd <= si["period"])
+    si["defaulted_before"] = already
     si["default_next_12m"] = pd.Series(
         (fd > si["period"]) & (fd <= si["period"] + 12), index=si.index, dtype="boolean"
     )
@@ -855,7 +878,7 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
             "upb_dpd30p": act[late30].groupby("period")["current_upb"].sum(),
             "n_dpd90p": act[late90].groupby("period").size(),
             "upb_dpd90p": act[late90].groupby("period")["current_upb"].sum(),
-            "n_performing_start": lm.groupby("period")["performing_at_start"].sum(),
+            "n_at_risk_start": lm.groupby("period")["at_risk_at_start"].sum(),
             "n_new_defaults": lm.groupby("period")["is_first_default_month"].sum(),
             "n_prepaid": lm[lm["exit_type"] == "prepaid"].groupby("period").size(),
             "upb_prepaid": lm[lm["exit_type"] == "prepaid"].groupby("period")["removal_upb"].sum(),
@@ -869,7 +892,7 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
         "n_active_loans",
         "n_dpd30p",
         "n_dpd90p",
-        "n_performing_start",
+        "n_at_risk_start",
         "n_new_defaults",
         "n_prepaid",
         "n_credit_event_exits",
@@ -878,9 +901,7 @@ def derive_rest(loans: pd.DataFrame, d: dict) -> None:
     div = g["total_upb"].where(g["total_upb"] > 0)
     g["delinquency_rate_30p"] = g["upb_dpd30p"] / div
     g["delinquency_rate_90p"] = g["upb_dpd90p"] / div
-    g["default_rate"] = g["n_new_defaults"] / g["n_performing_start"].where(
-        g["n_performing_start"] > 0
-    )
+    g["default_rate"] = g["n_new_defaults"] / g["n_at_risk_start"].where(g["n_at_risk_start"] > 0)
     g["loss_rate"] = g["net_loss"] / div
     d["metrics_monthly"] = g
 
@@ -958,8 +979,17 @@ def model_outputs(loans, d, rng) -> None:
             "stage": stage,
             "ead": si["current_upb"],
             "ecl": ecl,
+            "reason": np.where(
+                (stage == 2) & (si["stage_floor"] == 1),
+                "pd_deterioration",
+                si["stage_floor_reason"],
+            ),
+            "cured": si["defaulted_before"] & ~si["in_default"],
+            "predicted_prepay": 0.08 + 0.02 * rng.random(len(si)),
+            "prepaid_next_12m": si["prepaid_next_12m"],
         }
     )
+    d["ecl_rows"] = base
     agg = (
         base.groupby(["reporting_date", "grade", "stage"])
         .agg(n_loans=("ead", "size"), ead=("ead", "sum"), ecl=("ecl", "sum"))
@@ -1003,6 +1033,17 @@ def rate_metric(k, n) -> dict:
     return C.metric(k / n, lo, hi, n, "wilson_95")
 
 
+def jeffreys_metric(k, n) -> dict:
+    from scipy.stats import beta
+
+    k, n = int(k), int(n)
+    if n == 0:
+        return C.metric(None, n=0, ci_method="none: no observations")
+    lo = 0.0 if k == 0 else float(beta.ppf(0.025, k + 0.5, n - k + 0.5))
+    hi = 1.0 if k == n else float(beta.ppf(0.975, k + 0.5, n - k + 0.5))
+    return C.metric(k / n, lo, hi, n, "jeffreys_95")
+
+
 def count_metric(v, n=None) -> dict:
     return C.metric(float(v), n=int(v if n is None else n))
 
@@ -1021,6 +1062,7 @@ def envelope(name: str) -> dict:
         "generated_at": "2026-09-23T00:00:00Z",
         "data_cutoff": str(to_date(CUTOFF)),
         "code_version": "fixture",
+        "suppressed_cells": 0,
     }
 
 
@@ -1148,15 +1190,62 @@ def artefacts(d: dict) -> dict:
         "comparable_months_on_book": comparable,
         "vintage_curves": curves,
         "roll_rates": roll,
-        "cure_rates": cure,
+        "roll_cure_rates": cure,
+        "default_cure_rates": [
+            {
+                "default_year": int(y),
+                "cure_12m": rate_metric(
+                    (g["cure_period"] - g["default_period"] <= 12).sum(), len(g)
+                ),
+                "cure_ever": rate_metric(g["cure_period"].notna().sum(), len(g)),
+            }
+            for y, g in prim.assign(y=prim["default_period"] // 12).groupby("y")
+        ],
         "sma": sma,
         "prepayment": prepay,
         "loss_drivers": drivers,
         "default_definition_effect": effect,
+        "reconciliation": [
+            {"rule_id": r, "n_checked": n, "n_outside_tolerance": 0, "max_abs_difference": 0.0}
+            for r, n in [
+                ("R1", dl["vintage_year"].nunique()),
+                ("R2", dl["vintage_year"].nunique()),
+                ("R3", lm["period"].nunique()),
+                ("R4", dl["vintage_year"].nunique()),
+                ("R7", 8 * lm["period"].nunique()),
+                ("R8", 120),
+            ]
+        ],
+        "pass_rules": [
+            {"rule_id": r, "result": "pending", "evidence": "synthetic fixture"}
+            for r in ["R1", "R2", "R3", "R4", "R7", "R8"]
+        ],
     }
 
     # pd_models: shapes only. Numbers are synthetic, not a fitted scorecard.
-    sc = d["loan_scores"].merge(sb[["loan_id", "default_12m"]], on="loan_id")
+    sc = d["loan_scores"].merge(sb[["loan_id", "default_12m", "default_12m_naive"]], on="loan_id")
+    # D1a: loans modified before (or without) a primary default, against primary defaults.
+    first_mod = lm[lm["mod_flag"].notna()].groupby("loan_id")["period"].min()
+    first_def = prim.set_index("loan_id")["default_period"]
+    mod_first = first_mod[
+        first_def.reindex(first_mod.index).isna() | (first_mod < first_def.reindex(first_mod.index))
+    ].index
+    d1a = []
+    for s, g in [("all", sb)] + list(sb.groupby("sample")):
+        k = int(g["loan_id"].isin(mod_first).sum())
+        n = int(g["loan_id"].isin(first_def.index).sum())
+        d1a.append(
+            {
+                "sample": s,
+                "modified_before_default": count_metric(k, len(g)),
+                "primary_defaults": count_metric(n, len(g)),
+                "ratio": C.metric(
+                    k / n if n else None,
+                    n=n,
+                    ci_method="none: ratio of counts, not a proportion",
+                ),
+            }
+        )
     samples = []
     for s, g in sb.groupby("sample"):
         k = g["default_12m"].fillna(0).sum()
@@ -1234,32 +1323,74 @@ def artefacts(d: dict) -> dict:
         smin = None if hi_pd >= 1 else math.ceil(OFFSET + FACTOR * math.log((1 - hi_pd) / hi_pd))
         smax = None if lo_pd <= 0 else math.floor(OFFSET + FACTOR * math.log((1 - lo_pd) / lo_pd))
         grades.append(
-            {"grade": gr, "pd_low": lo_pd, "pd_high": hi_pd, "score_min": smin, "score_max": smax}
+            {
+                "grade": gr,
+                "pd_low": lo_pd,
+                "pd_high": hi_pd,
+                "score_min": smin,
+                "score_max": smax,
+                "merged_into": None,
+            }
         )
-    calib = []
-    for s in ["dev_test", "oot", "covid"]:
-        g = sc[sc["sample"] == s]
+    calib, citl = [], []
+    combos = [
+        ("dev_test", "primary"),
+        ("oot", "primary"),
+        ("covid", "primary"),
+        ("oot_and_covid", "primary"),
+        ("oot", "naive"),
+    ]
+    for s, definition in combos:
+        g = sc[sc["sample"].isin(["oot", "covid"] if s == "oot_and_covid" else [s])]
+        target = "default_12m" if definition == "primary" else "default_12m_naive"
         for gr, gg in g.groupby("grade"):
-            k, n = int(gg["default_12m"].sum()), len(gg)
+            k, n = int(gg[target].sum()), len(gg)
             calib.append(
                 {
                     "sample": s,
+                    "definition": definition,
                     "grade": gr,
                     "n": n,
                     "mean_pd": float(gg["pd_12m"].mean()),
-                    "realised_rate": rate_metric(k, n),
+                    "realised_rate": jeffreys_metric(k, n),
                     "result": "INSUFFICIENT" if k < 20 else "FAIL",
                 }
             )
+        mean_pd = float(g["pd_12m"].mean())
+        real = jeffreys_metric(g[target].sum(), len(g))
+        citl.append(
+            {
+                "sample": s,
+                "definition": definition,
+                "mean_pd": mean_pd,
+                "realised_rate": real,
+                "ratio": C.metric(
+                    real["value"] / mean_pd,
+                    real["ci_low"] / mean_pd,
+                    real["ci_high"] / mean_pd,
+                    len(g),
+                    "jeffreys_95_over_mean_pd",
+                ),
+            }
+        )
     disc = [
         {
             "sample": s,
+            "definition": definition,
             "model": "champion",
             "auc": synth_metric(0.78, 0.03, 500),
             "gini": synth_metric(0.56, 0.06, 500),
             "ks": synth_metric(0.42, 0.05, 500),
         }
-        for s in ["dev_train", "dev_test", "oot", "covid"]
+        for s, definition in [
+            ("dev_train", "primary"),
+            ("dev_test", "primary"),
+            ("oot", "primary"),
+            ("covid", "primary"),
+            ("oot_and_covid", "primary"),
+            ("dev_test", "naive"),
+            ("oot", "naive"),
+        ]
     ]
     feats = [
         {
@@ -1280,16 +1411,24 @@ def artefacts(d: dict) -> dict:
     ]
     rules = [
         {"rule_id": r, "result": "pending", "evidence": "synthetic fixture"}
-        for r in ["S1", "S2", "S3", "S4a", "S4b", "S5", "C1"]
+        for r in ["D1a", "S1", "S2", "S3", "S4a", "S4b", "S5", "C1"]
     ]
     pd_models = {
         **envelope("pd_models"),
         "model_id": "fixture-scorecard",
         "samples": samples,
         "exclusions": [
-            {"reason": r, "n_loans": count_metric((sb["exclusion_reason"] == r).sum())}
-            for r in C.EXCLUSION_REASONS
+            {
+                "reason": r,
+                "sample_before_exclusion": s,
+                "zero_balance_code": None if pd.isna(z) else int(z),
+                "n_loans": count_metric(len(g)),
+            }
+            for (r, s, z), g in sb[sb["exclusion_reason"].notna()].groupby(
+                ["exclusion_reason", "sample_before_exclusion", "exit_code_12m"], dropna=False
+            )
         ],
+        "d1a": d1a,
         "scaling": {
             "base_score": 600,
             "base_odds": 50.0,
@@ -1297,19 +1436,44 @@ def artefacts(d: dict) -> dict:
             "factor": FACTOR,
             "offset": OFFSET,
             "intercept": -4.5,
+            "pd_label": "12-month PD, development average (synthetic fixture)",
         },
         "features": feats,
         "points_table": points,
         "grades": grades,
         "discrimination": disc,
         "calibration": calib,
-        "gini_drop": {
-            "relative": synth_metric(0.08, 0.05, 500),
-            "absolute": synth_metric(0.045, 0.03, 500),
-            "rag": "green",
-        },
+        "calibration_in_the_large": citl,
+        "gini_drop": [
+            {
+                "definition": "primary",
+                "relative": synth_metric(0.08, 0.05, 500),
+                "absolute": synth_metric(0.045, 0.03, 500),
+                "rag": "green",
+            },
+            {
+                "definition": "naive",
+                "relative": synth_metric(0.12, 0.05, 500),
+                "absolute": synth_metric(0.065, 0.03, 500),
+                "rag": "amber",
+            },
+        ],
+        "fairness_sensitivity": [
+            {
+                "feature": f,
+                "in_model": in_model,
+                "iv": synth_metric(iv, 0.01, 2000),
+                "gini_dev_test_with": synth_metric(0.57, 0.06, 500),
+                "gini_dev_test_without": synth_metric(0.56, 0.06, 500),
+            }
+            for f, in_model, iv in [
+                ("number_of_borrowers", False, 0.06),
+                ("first_time_homebuyer", True, 0.03),
+            ]
+        ],
         "challenger": {
             "status": "not_run",
+            "confirm_passed": None,
             "delta_gini_oot": None,
             "promotion_recommended": None,
             "criteria": [],
@@ -1326,6 +1490,7 @@ def artefacts(d: dict) -> dict:
         "score_psi": [
             {
                 "comparison": "dev_train_vs_oot",
+                "n_bins": 10,
                 "psi": synth_metric(0.14, 0.03, 1000),
                 "rag": "amber",
             }
@@ -1333,6 +1498,7 @@ def artefacts(d: dict) -> dict:
         + [
             {
                 "comparison": f"dev_train_vs_{y}",
+                "n_bins": 10,
                 "psi": synth_metric(0.05 + 0.01 * i, 0.02, 150),
                 "rag": "green",
             }
@@ -1354,6 +1520,35 @@ def artefacts(d: dict) -> dict:
     }
 
     ls = le[le["in_lgd_sample"]]
+    # D8 sensitivities on the 36-month sample.
+    base_lgd = float(ls["lgd_economic"].mean())
+    old = prim[prim["default_period"] <= CUTOFF - 36]
+    zero = old["resolution"].eq("cured_active") | (
+        old["resolution"].eq("other_exit")
+        & old["loan_id"].map(dl.set_index("loan_id")["terminal_zero_balance_code"]).eq(16)
+    )
+    with_zero = pd.concat([ls["lgd_economic"], pd.Series(0.0, index=range(int(zero.sum())))])
+    n_open = int(old["resolution"].eq("open").sum())
+    p90 = ls.groupby("ltv_band")["lgd_economic"].quantile(0.9)
+    open_ltv = old[old["resolution"].eq("open")]["loan_id"].map(dl.set_index("loan_id")["ltv_band"])
+    with_open = pd.concat([ls["lgd_economic"], open_ltv.map(p90).fillna(p90.max())])
+    run_open = n_open > 0.1 * (len(ls) + n_open)
+    sensitivities = [
+        {
+            "name": "zero_loss_exclusions",
+            "status": "run",
+            "lgd_economic": synth_metric(float(with_zero.mean()), 0.02, len(with_zero)),
+            "delta_vs_primary": float(with_zero.mean()) - base_lgd,
+        },
+        {
+            "name": "open_workouts_p90",
+            "status": "run" if run_open else "not_needed",
+            "lgd_economic": synth_metric(float(with_open.mean()), 0.02, len(with_open))
+            if run_open
+            else None,
+            "delta_vs_primary": float(with_open.mean()) - base_lgd if run_open else None,
+        },
+    ]
 
     def lgd_row(dim, seg, g):
         n = len(g)
@@ -1381,13 +1576,18 @@ def artefacts(d: dict) -> dict:
         "downturn_lgd": [
             {"ltv_band": s["segment"], "lgd_gross_of_mi": s["lgd_gross_of_mi"]} for s in segs[1:]
         ],
-        "open_workouts": [
+        "resolution_mix": [
             {
                 "default_year": int(y),
-                "share_open": rate_metric((g["resolution"] == "open").sum(), len(g)),
+                "resolution": res,
+                "n_defaults": int((g["resolution"] == res).sum()),
+                "share": rate_metric((g["resolution"] == res).sum(), len(g)),
             }
             for y, g in prim.assign(y=prim["default_period"] // 12).groupby("y")
+            for res in C.RESOLUTIONS
+            if (g["resolution"] == res).any()
         ],
+        "sensitivities": sensitivities,
         "lgd_distribution": {
             "share_above_1": rate_metric((ls["lgd_economic"] > 1).sum(), len(ls)),
             "share_below_0": rate_metric((ls["lgd_economic"] < 0).sum(), len(ls)),
@@ -1427,12 +1627,19 @@ def artefacts(d: dict) -> dict:
         for r in fin.itertuples()
     ]
     totals = (
-        er[er["reporting_date"] % 12 == 11].groupby(["reporting_date", "scenario"])["ecl"].sum()
+        er[er["reporting_date"] % 12 == 11]
+        .groupby(["reporting_date", "scenario"])[["ecl", "n_loans"]]
+        .sum()
     )
     scen = [
-        {"reporting_date": str(to_date(p)), "scenario": s, "ecl": synth_metric(v, v * 0.1, 1)}
-        for (p, s), v in totals.items()
+        {
+            "reporting_date": str(to_date(p)),
+            "scenario": s,
+            "ecl": synth_metric(float(r.ecl), float(r.ecl) * 0.1, int(r.n_loans)),
+        }
+        for (p, s), r in totals.iterrows()
     ]
+    rows = d["ecl_rows"]
     term = []
     for i, gr in enumerate(C.GRADES):
         cum = 0.0
@@ -1499,6 +1706,52 @@ def artefacts(d: dict) -> dict:
         "stage_migration": migration,
         "pd_term_structure": term,
         "backtest": backtest,
+        "prepayment_backtest": [
+            {
+                "reporting_date": str(to_date(p)),
+                "grade": gr,
+                "n": len(g),
+                "predicted_rate": float(g["predicted_prepay"].mean()),
+                "realised_rate": rate_metric(g["prepaid_next_12m"].astype(bool).sum(), len(g)),
+            }
+            for (p, gr), g in rows[
+                (rows["reporting_date"] % 12 == 11)
+                & (rows["reporting_date"] >= mi(2016, 12))
+                & rows["prepaid_next_12m"].notna()
+            ].groupby(["reporting_date", "grade"])
+        ],
+        "stage2_drivers": [
+            {
+                "reporting_date": str(to_date(p)),
+                "reason": reason,
+                "n_loans": len(g),
+                "share_of_stage2": rate_metric(len(g), n2),
+            }
+            for p, s2 in rows[(rows["stage"] == 2) & (rows["reporting_date"] % 12 == 11)].groupby(
+                "reporting_date"
+            )
+            for n2 in [len(s2)]
+            for reason, g in s2.groupby("reason")
+        ],
+        "cured_population": [
+            {
+                "reporting_date": str(to_date(p)),
+                "n_loans": len(g),
+                "ead": C.metric(float(g["ead"].sum()), n=len(g)),
+                "ecl": synth_metric(float(g["ecl"].sum()), float(g["ecl"].sum()) * 0.2, len(g)),
+            }
+            for p, g in rows[rows["cured"] & (rows["reporting_date"] % 12 == 11)].groupby(
+                "reporting_date"
+            )
+        ],
+        "hazard_inputs": {
+            "market_rate_carried_forward_months": int(
+                d["dim_date"]["market_rate_carried_forward"].sum()
+            ),
+            "loan_months_without_market_rate": int(
+                ((lm["months_on_book"] >= 1) & lm["rate_incentive_pct"].isna()).sum()
+            ),
+        },
         "pass_rules": [
             {"rule_id": r, "result": "pending", "evidence": "synthetic fixture"}
             for r in ["E3", "E4a", "E4b", "E4c"]
@@ -1618,11 +1871,13 @@ def write_raw(loans: pd.DataFrame, panel: pd.DataFrame, rng) -> None:
     ends = panel.groupby("loan_id").tail(1).set_index("loan_id")
     forborne = set(panel[panel["bap"].notna() | panel["disaster"].notna()]["loan_id"])
     modified = set(panel[panel["mod_flag"].notna()]["loan_id"])
+    settled = set(panel[panel["defect_date"].notna()]["loan_id"])
     for y in RAW_VINTAGES:
         pool = loans[loans["vintage_year"] == y]["loan_id"].tolist()
         z = ends["zbc"].reindex(pool)
         pick = (
-            [i for i in pool if z[i] in CREDIT_EVENT_ZBC][:4]
+            [i for i in pool if i in settled][:1]
+            + [i for i in pool if z[i] in CREDIT_EVENT_ZBC and i not in settled][:3]
             + [i for i in pool if i in forborne][:2]
             + [i for i in pool if i in modified][:1]
             + [i for i in pool if z[i] in (16, 96)][:1]
@@ -1674,7 +1929,7 @@ def write_raw(loans: pd.DataFrame, panel: pd.DataFrame, rng) -> None:
                 "current_loan_delinquency_status": r.status,
                 "loan_age": r.loan_age,
                 "remaining_months_to_legal_maturity": r.remaining,
-                "underwriting_defect_settlement_date": "",
+                "underwriting_defect_settlement_date": raw_value(r.defect_date, "date"),
                 "modification_flag": raw_value(r.mod_flag),
                 "zero_balance_code": "" if pd.isna(r.zbc) else f"{int(r.zbc):02d}",
                 "zero_balance_effective_date": raw_value(r.zb_date, "date"),
@@ -1732,6 +1987,15 @@ def main() -> None:
             panel[col] = None
     panel = panel.astype({"actual_loss": "object"})
     panel["actual_loss"] = panel["actual_loss"].where(panel["actual_loss"].notna(), None)
+    # Some credit-event exits are settled as underwriting or servicing defects: the settlement
+    # date is set and Freddie Mac reports no actual loss (D8, resolution defect_settlement).
+    settled = (
+        panel["zbc"].isin(list(CREDIT_EVENT_ZBC))
+        & panel["actual_loss"].notna()
+        & panel["loan_id"].map(lambda i: int(hashlib.md5(i.encode()).hexdigest()[:2], 16) < 24)
+    )
+    panel["defect_date"] = panel["period"].astype(object).where(settled, None)
+    panel.loc[settled, "actual_loss"] = None
 
     d = derive(loans, panel)
     derive_rest(loans, d)
@@ -1744,6 +2008,7 @@ def main() -> None:
     art_dir = OUT / "artefacts"
     art_dir.mkdir(parents=True, exist_ok=True)
     for name, obj in artefacts(d).items():
+        obj["suppressed_cells"] = C.suppress_small_cells(obj)
         (art_dir / f"{name}.json").write_text(json.dumps(obj, indent=1) + "\n", encoding="utf-8")
     write_raw(loans, panel, rng)
     print(f"{len(loans)} synthetic loans, {len(panel)} synthetic loan-months -> {OUT}")

@@ -18,6 +18,11 @@ match it exactly, and everything that reads one may rely on it.
   not why.
 - **Changing a contract** means editing this file, `tests/contracts.py` and the fixtures
   together, in one commit, and telling every reader of the changed file.
+- **Publication** (VALIDATION_PLAN section 12): the marts and model outputs are loan-level and
+  are never committed or published. Only the artefacts, and data files built from them, are
+  published: aggregates only, no loan identifier, and no cell describing fewer than 10 loans
+  (see "Small cells" under the artefact rules). Non-commercial; Freddie Mac is credited as the
+  source wherever results are shown.
 
 ## Conventions
 
@@ -65,7 +70,8 @@ One row per calendar month from 1999-01 to the data cut-off. Key: `month`.
 | `year_quarter` | string | no | `2007Q3` |
 | `is_quarter_end` | bool | no | March, June, September, December |
 | `economic_period` | string | no | Economic period enum |
-| `market_rate_pct` | float | yes | Median `note_rate_pct` of loans with term over 240 months whose first payment is in this month. The market rate for the rate incentive (L1); null if no such loan |
+| `market_rate_pct` | float | yes | Median `note_rate_pct` of loans with original term over 240 months whose first payment month is this month (L1). A month with no such loan carries the last available value forward; null only before the first available value |
+| `market_rate_carried_forward` | bool | no | `market_rate_pct` was carried forward from an earlier month |
 
 ### `dim_loan`
 One row per loan (origination file). Key: `loan_id`.
@@ -102,6 +108,7 @@ One row per loan (origination file). Key: `loan_id`.
 | `last_period` | date | no | Last reporting month in the performance file |
 | `terminal_zero_balance_code` | int | yes | Zero Balance Code on the last record; null while active |
 | `exit_type` | string | yes | Exit type enum (D5); null while active |
+| `defect_settlement_date` | date | yes | Earliest Underwriting Defect and Major Servicing Defect Settlement Date on any of the loan's records (month); null if none |
 
 ### `fct_loan_month`
 One row per loan per reporting month (the performance file). Key: `loan_id`, `period`.
@@ -131,7 +138,7 @@ One row per loan per reporting month (the performance file). Key: `loan_id`, `pe
 | `is_first_default_month` | bool | no | First month with `default_trigger` for this loan (D1, first occurrence) |
 | `in_default` | bool | no | A default episode is open: from any trigger month until the cure month (D4). Re-defaults open a new episode. Used for staging |
 | `is_cure_month` | bool | no | The month the loan completes three consecutive `00` months after a trigger (D4) |
-| `performing_at_start` | bool | no | The loan has a record for the previous month, was not `in_default` then, and had not exited |
+| `at_risk_at_start` | bool | no | At risk of a first default at the start of the month: the loan has a record for the previous month, had not exited, and had no primary default in or before the previous month (so a cured loan is not at risk) |
 | `recent_dpd30_12m` | bool | no | Status 30+ (or `RA`) in any of the previous 12 months, not counting this one |
 | `zero_balance_code` | int | yes | As reported, on the terminal record only |
 | `exit_type` | string | yes | Exit type enum on the terminal record, else null |
@@ -153,12 +160,14 @@ D2 sensitivity.
 | `ead` | float | no | D7: `current_upb` in the default month; else Removal UPB; else the last positive `current_upb` |
 | `forbearance_before_default` | bool | no | `forbearance_flag` in any of the 12 months before `default_period` |
 | `cure_period` | date | yes | First cure month (D4) after `default_period` |
-| `resolution` | string | no | `credit_event_loss` (Zero Balance Code 2, 3, 9 or 15 with actual loss populated), `paid_off` (code 1), `other_exit` (16 or 96), `cured_active` (cured, no terminal record), `open` (no terminal record and not cured, or a credit event whose actual loss is still null under Freddie Mac's three-month rule) |
-| `resolution_period` | date | yes | Terminal month for `credit_event_loss`, `paid_off`, `other_exit`; else null |
+| `resolution` | string | no | D8, first that applies: `defect_settlement` (terminal Zero Balance Code 2, 3, 9 or 15 and `defect_settlement_date` set), `credit_event_loss` (code 2, 3, 9 or 15 with actual loss populated), `paid_off` (code 1), `other_exit` (16 or 96), `cured_active` (cured, no terminal record), `open` (anything else: no terminal record and not cured, or a credit event whose actual loss is still null under Freddie Mac's three-month rule) |
+| `resolution_period` | date | yes | Disposition month for `defect_settlement`, `credit_event_loss`, `paid_off`, `other_exit`: the month of the Zero Balance Effective Date on the terminal record (the terminal reporting month if that date is missing); else null |
+| `defect_settlement_date` | date | yes | From `dim_loan` |
 
 ### `fct_loss_events`
 One row per resolved primary default: `resolution` in (`credit_event_loss`, `paid_off`). This
-is the LGD sample frame (D8). Key: `loan_id`. Loss components are signed as Freddie Mac
+is the LGD sample frame (D8); `defect_settlement`, `other_exit`, `cured_active` and `open`
+defaults are not in it. Key: `loan_id`. Loss components are signed as Freddie Mac
 discloses them (recoveries negative, expenses positive) and are 0 where absent.
 
 | Column | Type | Null | Meaning |
@@ -166,7 +175,7 @@ discloses them (recoveries negative, expenses positive) and are 0 where absent.
 | `loan_id` | string | no | |
 | `vintage_year` | int | no | |
 | `default_period` | date | no | From `fct_default_events` (primary) |
-| `disposition_period` | date | no | Terminal month |
+| `disposition_period` | date | no | `resolution_period` from `fct_default_events` (the Zero Balance Effective Date's month) |
 | `months_to_resolution` | int | no | Months from `default_period` to `disposition_period` |
 | `zero_balance_code` | int | no | 1, 2, 3, 9 or 15 |
 | `disposition_type` | string | no | `third_party_sale` (2), `short_sale_chargeoff` (3), `reo_disposition` (9), `whole_loan_sale` (15), `paid_off` (1) |
@@ -188,9 +197,9 @@ discloses them (recoveries negative, expenses positive) and are 0 where absent.
 | `computed_loss` | float | no | `removal_upb + net_sales_proceeds + delinquent_accrued_interest + total_expenses + mi_recoveries + non_mi_recoveries`; 0 for `paid_off` (R5 checks it against `freddie_actual_loss`) |
 | `net_recovery` | float | no | `-(net_sales_proceeds + mi_recoveries + non_mi_recoveries + total_expenses)`; equal to `ead` for `paid_off` |
 | `discount_factor` | float | no | `(1 + note_rate_pct / 1200) ^ -months_to_resolution` |
-| `lgd_economic` | float | no | `(ead - net_recovery * discount_factor) / ead`; 0 for `paid_off`. Primary LGD |
-| `lgd_undiscounted` | float | no | `computed_loss / ead`; 0 for `paid_off` |
-| `lgd_gross_of_mi` | float | no | As `lgd_economic`, with `mi_recoveries` removed from `net_recovery`; 0 for `paid_off` |
+| `lgd_economic` | float | no | `(ead - net_recovery * discount_factor) / ead`; 0 by definition for `paid_off` (not the formula, D8). Primary LGD |
+| `lgd_undiscounted` | float | no | `computed_loss / ead`; 0 by definition for `paid_off` |
+| `lgd_gross_of_mi` | float | no | As `lgd_economic`, with `mi_recoveries` removed from `net_recovery`; 0 by definition for `paid_off` |
 | `in_lgd_sample` | bool | no | `default_period` at least 36 months before the data cut-off (D8) |
 
 ### `fct_vintage_curve`
@@ -246,9 +255,10 @@ One row per loan at origination, with its 12-month outcome and sample label (D6,
 | `loan_id` | string | no | |
 | `vintage_year` | int | no | |
 | `vintage_quarter` | string | no | |
-| `sample` | string | no | `dev_train`, `dev_test`, `gap`, `oot`, `covid`, `excluded` (P1). `dev_train` when the first two characters of the lowercase hex `md5(loan_id \|\| 'split-v1')` are below `b3` |
+| `sample` | string | no | P1, first that applies: `excluded` (`exclusion_reason` set); `dev_train` / `dev_test` (vintage 1999-2015; `dev_train` when the first two characters of the lowercase hex `md5(loan_id \|\| 'split-v1')` are below `b3`); `gap` (2016); `covid` (vintage 2017-2024 and first payment date from 2019-04 to 2021-12, so months on book 1-12 overlap 2020-03 to 2021-12); `oot` (other 2017-2024 loans) |
 | `exclusion_reason` | string | yes | Set exactly when `sample = excluded`. First that applies: `harp` (P2), `window_incomplete` (vintage 2025, or not observed through months on book 12 while still active), `indeterminate_exit` (Zero Balance Code 16 or 96 at months on book 12 or earlier without an earlier default) |
 | `default_12m` | int | yes | 1 if the first primary default is at months on book 1 to 12, else 0; null when excluded |
+| `default_12m_naive` | int | yes | As `default_12m` under the naive definition (D2); null when excluded. Secondary results only |
 | `default_months_on_book` | int | yes | Months on book of the first primary default, whenever it happened |
 | `prepaid_12m` | bool | no | Exit `prepaid` or `matured` at months on book 12 or earlier, with no earlier default |
 | `fico` | int | yes | Candidate feature |
@@ -303,7 +313,8 @@ to the behavioural PD (L2), the ECL and the backtest (E3). Key: `loan_id`, `repo
 | `ltv_band` | string | no | |
 | `eltv_pct` | int | yes | |
 | `property_state` | string | no | |
-| `default_next_12m` | bool | yes | The loan's first primary default falls in the 12 months after `reporting_date`. Null if those 12 months pass the cut-off, or the loan has already had its first default |
+| `defaulted_before` | bool | no | The loan's first primary default is on or before `reporting_date` (includes cured loans; these are outside the L2 population, VALIDATION_PLAN L2) |
+| `default_next_12m` | bool | yes | The loan's first primary default falls in the 12 months after `reporting_date`. Null if those 12 months pass the cut-off, or `defaulted_before` |
 | `prepaid_next_12m` | bool | yes | Exit `prepaid` or `matured` in the 12 months after `reporting_date`; null if those months pass the cut-off |
 
 ### `metrics_monthly`
@@ -319,7 +330,7 @@ tested against (R7). "Active" means a loan-month with no Zero Balance Code.
 | `upb_dpd30p` | float | no | Their `current_upb` |
 | `n_dpd90p` | int | no | Active loan-months in `dpd_90p` or `reo` |
 | `upb_dpd90p` | float | no | Their `current_upb` |
-| `n_performing_start` | int | no | Loan-months with `performing_at_start` |
+| `n_at_risk_start` | int | no | Loan-months with `at_risk_at_start` |
 | `n_new_defaults` | int | no | Loan-months with `is_first_default_month` |
 | `n_prepaid` | int | no | Loan-months with `exit_type = prepaid` |
 | `upb_prepaid` | float | no | Their `removal_upb` |
@@ -327,7 +338,7 @@ tested against (R7). "Active" means a loan-month with no Zero Balance Code.
 | `net_loss` | float | no | Sum of `fct_loss_events.computed_loss` for credit-event dispositions with `disposition_period` in this month |
 | `delinquency_rate_30p` | float | yes | `upb_dpd30p / total_upb` |
 | `delinquency_rate_90p` | float | yes | `upb_dpd90p / total_upb` |
-| `default_rate` | float | yes | `n_new_defaults / n_performing_start` (monthly, not annualised) |
+| `default_rate` | float | yes | `n_new_defaults / n_at_risk_start` (monthly, not annualised) |
 | `loss_rate` | float | yes | `net_loss / total_upb` (monthly, not annualised) |
 
 ### `fct_ecl`
@@ -396,7 +407,7 @@ month (R7).
 | `total_upb` | simple | sum of `current_upb` | `zero_balance_code` is null | Balance of active loans | `total_upb` |
 | `delinquency_rate_30p` | ratio | sum of `current_upb` where `dpd_bucket` in (`dpd_30`, `dpd_60`, `dpd_90p`, `reo`) over `total_upb` | active | UPB-weighted share of active balance 30 or more days past due, including REO acquisition, as reported (not adjusted for forbearance) | `delinquency_rate_30p` |
 | `delinquency_rate_90p` | ratio | sum of `current_upb` where `dpd_bucket` in (`dpd_90p`, `reo`) over `total_upb` | active | UPB-weighted share of active balance 90 or more days past due, including REO acquisition, as reported | `delinquency_rate_90p` |
-| `default_rate` | ratio | count where `is_first_default_month` over count where `performing_at_start` | none | Monthly rate of first defaults (primary definition D1, first occurrence) among loans performing at the start of the month | `default_rate` |
+| `default_rate` | ratio | count where `is_first_default_month` over count where `at_risk_at_start` | none | Monthly rate of first defaults (primary definition D1, first occurrence) among loans at risk of a first default at the start of the month (active, and no earlier primary default) | `default_rate` |
 | `loss_rate` | ratio | sum of `fct_loss_events.computed_loss` over `total_upb` | `disposition_type` is not `paid_off` | Monthly realised net loss (Freddie Mac actual-loss formula, net of MI and all recoveries, undiscounted, dated at disposition) over active balance | `loss_rate` |
 | `ecl_total` | simple | sum of `fct_ecl.ecl` | `scenario = 'final'` | Published ECL | sum of `ecl` by `reporting_date` |
 | `coverage_ratio` | ratio | sum of `ecl` over sum of `ead` | `scenario = 'final'` | ECL as a share of exposure | `sum(ecl) / sum(ead)` by `reporting_date` |
@@ -420,6 +431,7 @@ Every artefact is one JSON object with these envelope fields first:
 | `generated_at` | string | ISO 8601 UTC timestamp |
 | `data_cutoff` | date string | `"2026-03-01"` |
 | `code_version` | string | Git commit of the code that produced it |
+| `suppressed_cells` | int | Cells suppressed under the small-cell rule below (metrics nulled plus list rows removed); 0 if none |
 
 Every published number is a **metric object**:
 
@@ -431,9 +443,22 @@ Every published number is a **metric object**:
 - `ci_low`, `ci_high`: the 95% interval, both set or both null. If set, `ci_low <= value <= ci_high`.
 - `n`: the number of observations behind the value (loans, loan-months or defaults, as the
   field says).
-- `ci_method`: how the interval was made (`wilson_95`, `jeffreys_95`, `bootstrap_1000`,
-  `paired_bootstrap_1000` and so on). With no interval it starts with `none:` and gives the
-  reason, for example `none: population count, not an estimate`.
+- `ci_method`: how the interval was made, using the methods fixed in VALIDATION_PLAN section 4
+  (`wilson_95`, `wilson_95_loan_months`, `jeffreys_95`, `bootstrap_1000`,
+  `paired_bootstrap_1000`, `jeffreys_95_over_mean_pd`, `parameter_draws_1000`, `t_interval_years`
+  and so on). With no interval it starts with `none:` and gives the reason, for example
+  `none: population count, not an estimate`.
+
+**Small cells** (VALIDATION_PLAN section 12). No published value may describe fewer than 10
+loans. The checker enforces it on every metric's `n` and on every integer field named `n`,
+`n_loans` or `n_defaults`: each must be 0 or at least 10. A producer either merges small
+segments before writing (and says so in the evidence text or the field's documentation), or
+calls `contracts.suppress_small_cells(artefact)`. That replaces a metric with fewer than 10
+loans by `{"value": null, "ci_low": null, "ci_high": null, "n": 0, "ci_method": "none:
+suppressed, fewer than 10 loans"}`, removes list rows whose `n`, `n_loans` or `n_defaults` is
+below 10, and returns the number of cells it suppressed, which goes in `suppressed_cells`. A
+metric's `n` counts loans; where it counts loan-months or defaults, the producer must still
+make sure the cell covers at least 10 distinct loans.
 
 Dates inside artefacts are `YYYY-MM-DD` strings. Keys are exact: the checker rejects missing
 and unexpected keys. Lists may be empty. `pass_rules` entries are
@@ -452,11 +477,14 @@ Portfolio analytics.
 | `comparable_months_on_book` | int | The largest months on book that every compared vintage has fully observed |
 | `vintage_curves` | list | `vintage_year`, `vintage_quarter`, `months_on_book`, `fully_observed`, `cum_default_rate` (metric), `cum_loss_rate` (metric) |
 | `roll_rates` | list | `period_group` (`all` or an economic period), `from_bucket`, `to_state`, `rate` (metric) |
-| `cure_rates` | list | `period_group`, `from_bucket` (`dpd_30`, `dpd_60`, `dpd_90p`), `rate` (metric, share moving to `current` next month) |
+| `roll_cure_rates` | list | `period_group`, `from_bucket` (`dpd_30`, `dpd_60`, `dpd_90p`), `rate` (metric, share moving to `current` next month; the roll-rate cure, not D4) |
+| `default_cure_rates` | list | `default_year`, `cure_12m`, `cure_ever` (metrics): share of that year's primary defaults that cure under D4 within 12 months of the default month, and by the cut-off |
 | `sma` | list | `period`, `sma_class`, `upb` (metric), `share` (metric) |
 | `prepayment` | list | `period`, `cpr` (metric; `1 - (1 - SMM)^12`) |
 | `loss_drivers` | list | `dimension`, `segment`, `default_rate` (metric), `loss_rate` (metric) |
 | `default_definition_effect` | list | `vintage_year`, `defaults_12m_primary` (metric), `defaults_12m_naive` (metric): D2 against D1 |
+| `reconciliation` | list | `rule_id` (`R1`, `R2`, `R3`, `R4`, `R7`, `R8`), `n_checked` (rows compared), `n_outside_tolerance`, `max_abs_difference` (float, in the rule's unit) |
+| `pass_rules` | list | R1, R2, R3, R4, R7, R8 |
 
 ```json
 {"schema_version": "1.0", "artefact": "portfolio", "synthetic": false, "...": "...",
@@ -475,23 +503,27 @@ and the Excel workbook use.
 |---|---|---|
 | `model_id` | string | As in `loan_scores` |
 | `samples` | list | `sample`, `vintages` (list of int), `n_loans` (metric), `default_rate` (metric) |
-| `exclusions` | list | `reason`, `n_loans` (metric) |
-| `scaling` | object | `base_score` (600), `base_odds` (50.0), `pdo` (20), `factor`, `offset`, `intercept` (the logistic intercept) |
+| `exclusions` | list | `reason`, `sample_before_exclusion` (`dev_train`, `dev_test`, `gap`, `oot`, `covid`, or `out_of_scope` for vintage 2025), `zero_balance_code` (16 or 96 for `indeterminate_exit`, else null), `n_loans` (metric) |
+| `d1a` | list | `sample` (`all` or a P1 sample), `modified_before_default` (metric: loans modified before, or without, a primary default), `primary_defaults` (metric), `ratio` (metric, no interval) |
+| `scaling` | object | `base_score` (600), `base_odds` (50.0), `pdo` (20), `factor`, `offset`, `intercept` (the logistic intercept), `pd_label` (the label every display of the scorecard PD must carry, for example "12-month PD, 1999-2015 development average") |
 | `features` | list | `feature`, `iv` (metric), `selected`, `drop_reason` (string or null), `coefficient` (float or null) |
 | `points_table` | list | `feature`, `bin` (label), `lower` and `upper` (numeric bin edges, lower inclusive, upper exclusive, null if open or categorical), `categories` (list of category codes; empty for numeric bins), `is_missing_bin`, `woe`, `points` (int), `default_rate_dev_train` (metric) |
-| `grades` | list | `grade`, `pd_low` (inclusive), `pd_high` (exclusive), `score_min`, `score_max` (int or null at the open ends) |
-| `discrimination` | list | `sample` (`dev_train`, `dev_test`, `oot`, `covid`), `model` (`champion`, `challenger`), `auc`, `gini`, `ks` (metrics) |
-| `calibration` | list | `sample` (`dev_test`, `oot`, `covid`), `grade`, `n`, `mean_pd`, `realised_rate` (metric, Jeffreys), `result` (`PASS`, `FAIL`, `INSUFFICIENT`) |
-| `gini_drop` | object | `relative` (metric), `absolute` (metric), `rag` (`green`, `amber`, `red`), per S2 |
-| `challenger` | object | `status` (`not_run`, `run`), `delta_gini_oot` (metric or null), `promotion_recommended` (bool or null), `criteria` (list of `criterion`, `met`), `shap_global` (list of `feature`, `mean_abs_shap`) |
+| `grades` | list | `grade`, `pd_low` (inclusive), `pd_high` (exclusive), `score_min`, `score_max` (int or null at the open ends), `merged_into` (grade letter, or null if the grade survives; section 3 merge rule) |
+| `discrimination` | list | `sample` (`dev_train`, `dev_test`, `oot`, `covid`, `oot_and_covid`), `definition` (`primary`, `naive`), `model` (`champion`, `challenger`), `auc`, `gini`, `ks` (metrics) |
+| `calibration` | list | `sample` (`dev_test`, `oot`, `covid`, `oot_and_covid`), `definition` (`primary`, `naive`), `grade`, `n`, `mean_pd`, `realised_rate` (metric, Jeffreys), `result` (`PASS`, `FAIL`, `INSUFFICIENT`; `naive` rows and `oot_and_covid` are secondary) |
+| `calibration_in_the_large` | list | `sample` (as `calibration`), `definition`, `mean_pd` (float), `realised_rate` (metric, Jeffreys), `ratio` (metric: realised over `mean_pd`, `jeffreys_95_over_mean_pd`) |
+| `gini_drop` | list | `definition` (`primary` decides S2; `naive` is secondary), `relative` (metric), `absolute` (metric), `rag` (`green`, `amber`, `red`), per S2 |
+| `fairness_sensitivity` | list | `feature` (`number_of_borrowers`, `first_time_homebuyer`), `in_model` (bool), `iv` (metric), `gini_dev_test_with`, `gini_dev_test_without` (metrics) |
+| `challenger` | object | `status` (`not_run`, `run`), `confirm_passed` (bool or null; the `dev_test` confirm step, section 5), `delta_gini_oot` (metric or null), `promotion_recommended` (bool or null), `criteria` (list of `criterion`, `met`), `shap_global` (list of `feature`, `mean_abs_shap`) |
 | `oot_scoring` | object | `calls` (int; must be 1 once scored), `scored_at` (timestamp or null) |
-| `pass_rules` | list | S1 to S5 and C1 |
+| `pass_rules` | list | D1a, S1 to S5 (S4a and S4b separately) and C1 |
 
 ```json
 {"points_table": [{"feature": "fico", "bin": "[700, 740)", "lower": 700, "upper": 740,
    "categories": [], "is_missing_bin": false, "woe": 0.21, "points": 31,
    "default_rate_dev_train": {"value": 0.006, "ci_low": 0.005, "ci_high": 0.007, "n": 98000, "ci_method": "wilson_95"}}],
- "grades": [{"grade": "A", "pd_low": 0.0, "pd_high": 0.001, "score_min": 687, "score_max": null}]}
+ "grades": [{"grade": "A", "pd_low": 0.0, "pd_high": 0.001, "score_min": 687, "score_max": null,
+   "merged_into": null}]}
 ```
 
 ### `artefacts/monitoring.json`
@@ -501,11 +533,11 @@ Population stability (S5).
 |---|---|---|
 | `model_id` | string | |
 | `thresholds` | object | `stable_below` (0.10), `red_above` (0.25) |
-| `score_psi` | list | `comparison` (`dev_train_vs_oot`, or `dev_train_vs_<year>`), `psi` (metric), `rag` |
-| `csi` | list | `feature`, `comparison`, `csi` (metric), `rag` |
+| `score_psi` | list | `comparison` (`dev_train_vs_oot`, or `dev_train_vs_<year>`), `n_bins` (int: bins left after repeated decile edges are dropped, S5), `psi` (metric), `rag` |
+| `csi` | list | `feature`, `comparison`, `csi` (metric, on the feature's scorecard bins), `rag` |
 
 ```json
-{"score_psi": [{"comparison": "dev_train_vs_oot",
+{"score_psi": [{"comparison": "dev_train_vs_oot", "n_bins": 10,
    "psi": {"value": 0.14, "ci_low": 0.12, "ci_high": 0.16, "n": 300000, "ci_method": "bootstrap_1000"},
    "rag": "amber"}]}
 ```
@@ -518,7 +550,8 @@ Realised LGD and EAD (D7, D8, G1, G2).
 | `ead` | object | `ccf_applied` (always false: no undrawn limit), `mean_ead` (metric) |
 | `lgd_segments` | list | `dimension` (`overall`, `ltv_band`, `property_state`, `disposition_type`, `default_year`), `segment`, `lgd_economic`, `lgd_gross_of_mi`, `lgd_undiscounted` (metrics) |
 | `downturn_lgd` | list | `ltv_band`, `lgd_gross_of_mi` (metric; defaults dated 2008-01 to 2011-12) |
-| `open_workouts` | list | `default_year`, `share_open` (metric) |
+| `resolution_mix` | list | `default_year`, `resolution` (the `fct_default_events.resolution` values), `n_defaults` (int), `share` (metric: of that year's primary defaults) |
+| `sensitivities` | list | `name` (`zero_loss_exclusions`, `open_workouts_p90`; D8), `status` (`run`, `not_needed`), `lgd_economic` (metric or null: the overall estimate under the sensitivity), `delta_vs_primary` (float or null) |
 | `lgd_distribution` | object | `share_above_1`, `share_below_0` (metrics, of `lgd_economic`) |
 | `reconciliation` | object | `computed_vs_actual_within_1usd` (R5), `expenses_within_1usd` (R6), metrics |
 | `lgd_model` | object | `status` (`not_run`, `run`), `used_in_ecl`, `delta_mae` (metric or null; G2) |
@@ -542,7 +575,11 @@ IFRS 9 / Ind AS 109 staging, ECL and backtest (L1 to L3, E1 to E6).
 | `scenario_totals` | list | `reporting_date`, `scenario`, `ecl` (metric) |
 | `stage_migration` | list | `from_date`, `to_date`, `from_stage`, `to_stage` (`"1"`, `"2"`, `"3"`, `"exited"`), `n`, `share` (metric) |
 | `pd_term_structure` | list | `grade`, `year` (1, 2, ...), `marginal_pd`, `cumulative_pd` (metrics), for a newly originated loan |
-| `backtest` | list | `reporting_date`, `grade`, `n`, `predicted_pd`, `realised_rate` (metric), `binomial_low`, `binomial_high`, `vasicek_low`, `vasicek_high`, `rag`, `covid_affected` (E3) |
+| `backtest` | list | `reporting_date`, `grade`, `n`, `predicted_pd`, `realised_rate` (metric, Jeffreys), `binomial_low`, `binomial_high` (2.5% and 97.5% quantiles of `Binomial(n, predicted_pd) / n`), `vasicek_low`, `vasicek_high` (the same quantiles of the Vasicek distribution with rho 0.15), `rag`, `covid_affected` (E3) |
+| `prepayment_backtest` | list | `reporting_date`, `grade`, `n`, `predicted_rate` (float, L1), `realised_rate` (metric, Wilson): the L1a diagnostic |
+| `stage2_drivers` | list | `reporting_date`, `reason` (a stage 2 `stage_floor_reason`, or `pd_deterioration` when only the Python PD rule puts the loan in stage 2), `n_loans`, `share_of_stage2` (metric) |
+| `cured_population` | list | `reporting_date`, `n_loans`, `ead`, `ecl` (metrics): loans with `defaulted_before` and not in default, outside the L2 population (VALIDATION_PLAN L2) |
+| `hazard_inputs` | object | `market_rate_carried_forward_months` (int), `loan_months_without_market_rate` (int; given the middle incentive band, L1) |
 | `pass_rules` | list | E3, E4a, E4b, E4c |
 
 ```json
@@ -580,7 +617,7 @@ null, `by_grade` empty, `totals` values null.
 
 | Path | What |
 |---|---|
-| `tests/fixtures/raw/sample_orig_YYYY.txt`, `sample_perf_YYYY.txt` | Raw pipe-delimited files in the official 31 and 35 field layout, for 4 vintages (2005, 2007, 2019, 2022), including REO, short sale, forbearance, deferral, modification, `XX` and code 16/96 cases. The extractor turns them into Parquet; the dbt CI build runs on that |
+| `tests/fixtures/raw/sample_orig_YYYY.txt`, `sample_perf_YYYY.txt` | Raw pipe-delimited files in the official 31 and 35 field layout, for 4 vintages (2005, 2007, 2019, 2022), including REO, short sale, defect settlement, forbearance, deferral, modification, `XX` and code 16/96 cases. The extractor turns them into Parquet; the dbt CI build runs on that |
 | `tests/fixtures/marts/<mart>.parquet` | Every mart above |
 | `tests/fixtures/models_out/<name>.parquet` | `loan_scores`, `ecl_results` |
 | `tests/fixtures/artefacts/<name>.json` | Every artefact above |

@@ -55,6 +55,12 @@ def test_raw_fixtures_extract_with_official_layout(tmp_path):
     assert ids and all(i[0][5] == "S" for i in ids), "synthetic loan ids carry an S marker"
     cols = pq.read_schema(tmp_path / "perf_2007.parquet").names
     assert len(cols) == 35
+    settled = duckdb.sql(
+        f"SELECT count(*) FROM '{tmp_path.as_posix()}/perf_*.parquet' "
+        "WHERE underwriting_defect_settlement_date IS NOT NULL AND actual_loss IS NULL "
+        "AND zero_balance_code IN (2, 3, 9, 15)"
+    ).fetchone()[0]
+    assert settled > 0, "the raw fixtures include a defect-settled credit event (D8)"
 
 
 def test_synthetic_marker_on_every_fixture_loan_id():
@@ -144,8 +150,25 @@ def test_checker_flags_bad_artefacts():
 def test_metric_helper():
     m = C.metric(0.1, 0.05, 0.2, 100, "wilson_95")
     assert C._check_metric(m, "m") == []
-    assert C._check_metric(C.metric(3.0, n=3), "m") == []  # count: no interval, reason given
+    assert C._check_metric(C.metric(30.0, n=30), "m") == []  # count: no interval, reason given
     assert C._check_metric({"value": 1}, "m")
+
+
+def test_small_cells_flagged_and_suppressed():
+    good = json.loads((FIX / "artefacts" / "capital.json").read_text(encoding="utf-8"))
+    small = copy.deepcopy(good)
+    small["by_grade"][0]["pd"]["n"] = 7
+    small["by_grade"][1]["n_loans"] = 3
+    errors = C.check_artefact("capital", small)
+    assert any("pd.n: 7 describes fewer than 10" in e for e in errors)
+    assert any("n_loans: 3 describes fewer than 10" in e for e in errors)
+    n_rows = len(small["by_grade"])
+    small["suppressed_cells"] = C.suppress_small_cells(small)
+    assert small["suppressed_cells"] == 2
+    assert len(small["by_grade"]) == n_rows - 1  # the 3-loan row is removed
+    assert small["by_grade"][0]["pd"]["value"] is None
+    assert small["by_grade"][0]["pd"]["ci_method"] == C.SUPPRESSED
+    assert C.check_artefact("capital", small) == []
 
 
 # ---- CONTRACTS.md and the specs agree --------------------------------------------------------
