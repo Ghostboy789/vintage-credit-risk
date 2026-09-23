@@ -16,7 +16,7 @@ against Freddie Mac's own release-47 official sample files:
     field which is "Numeric - 12,2" -- kept as VARCHAR/string rather than parsed as a number.
 
 The raw files are pipe-delimited with no header row. The naming convention this module looks for
-(sample_orig_YYYY.txt / sample_svcg_YYYY.txt, from each year's sample_YYYY.zip) is Freddie Mac's
+(sample_orig_YYYY.txt / sample_perf_YYYY.txt, from each year's sample_YYYY.zip) is Freddie Mac's
 historical sample-file naming. detect_source_file() is the one place that maps a filename to
 (kind, year) -- adjust the patterns there if the files actually downloaded are named differently.
 
@@ -128,11 +128,10 @@ assert len(PERFORMANCE_COLUMNS) == 35, "performance layout has 35 fields"
 PRIMARY_DATE_COLUMN = {"orig": "first_payment_date", "perf": "period"}
 
 # The one place that maps a raw filename to (kind, year). Freddie Mac's historical sample
-# naming only -- extend/adjust here, not elsewhere, if the real
-# downloads use a different name.
+# naming only -- extend/adjust here, not elsewhere, if the real downloads use a different name.
 FILENAME_PATTERNS = {
     "orig": re.compile(r"^sample_orig_(\d{4})\.txt$", re.IGNORECASE),
-    "perf": re.compile(r"^sample_svcg_(\d{4})\.txt$", re.IGNORECASE),
+    "perf": re.compile(r"^sample_perf_(\d{4})\.txt$", re.IGNORECASE),
 }
 
 
