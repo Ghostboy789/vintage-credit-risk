@@ -50,7 +50,7 @@ it.
   "fixing" values to make results look better -- also barred by this project's own no-fabrication
   rule).
 
-## Publishing aggregates, charts, or model outputs -- UNCLEAR, decide later
+## Publishing aggregates, charts, or model outputs -- decided: publish aggregates only
 
 The terms and conditions have one clause that allows public distribution of results:
 
@@ -71,11 +71,16 @@ that phrase, and this isn't a university/institutional research use, but it also
 commercial product or service. This is a judgement call on wording Freddie Mac doesn't spell out
 further.
 
-**Decision needed from Medhansh, at the end of the project (per his own standing decision), on
-whether to publish anything derived from this dataset** (README numbers, dashboard charts,
-notebook outputs, etc.) publicly on GitHub / a portfolio site. Until that decision, nothing
-derived from the dataset is published anywhere public -- everything stays in the private repo
-and the private BigQuery sandbox project.
+**Decision (Medhansh, 24 Sep 2026):** this project is published as non-commercial research
+results under the clause above. He accepts the residual ambiguity in "academic or research
+purposes". What that means in practice:
+
+- Only aggregates, charts, model parameters and model outputs are published. No loan-level rows,
+  no loan identifiers, no full re-listing of any Freddie Mac table.
+- No published table or chart describes fewer than 10 loans in a cell; smaller cells are merged
+  or suppressed, so no individual loan (or borrower) can be picked out.
+- Nothing is sold or used commercially, and the data source is credited wherever results appear.
+- The raw files, Parquet and BigQuery tables stay private.
 
 ## Sources
 
