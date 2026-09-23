@@ -500,6 +500,7 @@ A logistic regression on loan-quarter rows (`fct_stage_inputs`) for loans not in
 but 30+ days past due at some point in the previous 12 months, `dpd_30`, `dpd_60p` = 60-89 days
 past due or 90+ and exempt under D3); `modified`. Stretch: the macro covariate in E6.
 
+A month with status `XX` takes the `dpd_30` state (conservative; 0.02% of loan-months).
 Forborne 90+ loans are pooled with `dpd_60p` because forbearance flags exist only from 2014, so
 the fitting window holds too few forborne loans to estimate them separately. The 2020-12
 backtest date shows whether that was too harsh.
@@ -521,6 +522,7 @@ contractual term.
 |---|---|---|
 | 3 | In default under D1 and not yet cured (D4) | dbt (`stage_floor`) |
 | 2 | 30+ days past due (the IFRS 9 backstop) | dbt |
+| 2 | Status `XX` (not available), treated conservatively | dbt |
 | 2 | Forbearance or disaster flag active, or on a trial or repayment plan (qualitative indicator) | dbt |
 | 2 | Cured within the last 6 months (probation) | dbt |
 | 2 | **PD deterioration**: `PD12_now / PD12_ref >= 2.0` **and** `PD12_now - PD12_ref >= 0.20` percentage points | Python |
