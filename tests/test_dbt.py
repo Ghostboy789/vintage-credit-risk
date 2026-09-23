@@ -4,6 +4,7 @@ output marts against tests/contracts.py. No real data and no BigQuery: this is t
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -19,9 +20,26 @@ from scripts.export_marts import MART_NAMES, export_from_duckdb  # noqa: E402
 from tests import contracts  # noqa: E402
 
 CI_YEARS = [2005, 2007, 2019, 2022]
-# No machine-path default (standing rule 12): DBT_PROFILES_DIR is set by every shell command
-# per the project's D-drive env file, which lives outside this repo.
-PROFILES_DIR = os.environ["DBT_PROFILES_DIR"]
+# The repo ships its own profiles.yml (dbt/profiles.yml, env-var only, no secrets or machine
+# paths), so these tests work from a plain checkout with no external dbt config. An env var
+# still wins if one happens to be set (a real dev machine may point DBT_PROFILES_DIR elsewhere).
+PROFILES_DIR = os.environ.get("DBT_PROFILES_DIR") or str(REPO_ROOT / "dbt")
+
+
+def _dbt_executable() -> str:
+    """Resolves the `dbt` console script next to the running interpreter first, so this works
+    whether or not a venv is activated (activation only changes PATH, not sys.executable).
+    Falls back to PATH, then skips with a clear reason if dbt isn't installed at all."""
+    candidate = Path(sys.executable).parent / ("dbt.exe" if os.name == "nt" else "dbt")
+    if candidate.exists():
+        return str(candidate)
+    found = shutil.which("dbt")
+    if found:
+        return found
+    pytest.skip("dbt is not installed for this interpreter", allow_module_level=True)
+
+
+DBT_BIN = _dbt_executable()
 
 
 @pytest.fixture(scope="session")
@@ -40,7 +58,7 @@ def ci_build(tmp_path_factory):
 
     result = subprocess.run(
         [
-            "dbt",
+            DBT_BIN,
             "build",
             "--target",
             "ci",

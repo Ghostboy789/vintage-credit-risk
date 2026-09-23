@@ -16,6 +16,7 @@ __pycache__/
 
 # dbt
 /dbt/target/
+/dbt/.user.yml
 logs/
 
 # Never in the repo (standing rule 3 / 5).

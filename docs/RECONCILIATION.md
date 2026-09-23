@@ -18,7 +18,7 @@ synthetic fixture vintages 2005/2007/2019/2022) and checks:
 | R3 | Sum of `current_upb` per month, mart against Parquet | Same source; `test_no_negative_balances` additionally confirms no balance is negative |
 | R4-R6 | Loss-field reconciliation (`fct_loss_events` against Freddie's `actual_loss`) | Not separately re-derived outside dbt in this project; `int_loss_events.sql`'s `computed_loss` formula is D8's own formula, so this is really a unit-style check that the formula was implemented correctly, done in `tests/test_dbt.py` and by hand against the fixture's known loss rows (see "Spot checks" below) |
 | R7 | MetricFlow metrics against `metrics_monthly` | `test_metrics_match_metrics_monthly` recomputes `active_loans`, `total_upb`, `delinquency_rate_30p`'s numerator, `delinquency_rate_90p`'s numerator, `default_rate`'s numerator and denominator directly in SQL from the same measure expressions used in `models/semantic/_semantic.yml`, and checks every value against `metrics_monthly` for every month in the ci build: **all match, 0 mismatches**, across 206 months |
-| R8 | Every artefact count against its mart | Not run here -- no artefact producer has run yet (portfolio.json etc. are chats downstream of this one) |
+| R8 | Every artefact count against its mart | Not run here -- no artefact producer has run yet (portfolio.json etc. are produced by later steps in this project) |
 
 `test_exported_marts_pass_contracts` exports every mart from the ci build through
 `scripts/export_marts.py`'s DuckDB path and checks each one against `tests/contracts.py`: types,
@@ -65,7 +65,7 @@ might need an explicit `bq mk` first) rather than anything wrong with the dbt pr
   tried against BigQuery, since the real build itself is blocked.
 - Bytes scanned per model and the size of each real mart Parquet (`fct_loan_month` included)
   **cannot be reported** -- they don't exist without the real build. Reporting a number here
-  would be fabricating it, which the standing rules forbid outright.
+  would be fabricating it, which this project never does.
 - `scripts/export_marts.py --target bq` and its per-model bytes-scanned report are written and
   are exactly what should be run once the build itself is unblocked; only the run is missing.
 
@@ -73,7 +73,7 @@ might need an explicit `bq mk` first) rather than anything wrong with the dbt pr
 1. Confirm the BigQuery sandbox allows dbt to create new datasets (`dbt_c`, `dbt_c_staging`,
    `dbt_c_intermediate`, `dbt_c_marts`), or create them manually first with `bq mk --dataset`.
 2. Approve running `dbt build --target bq --exclude fct_ecl` (excludes `fct_ecl`, which needs
-   `models_out/ecl_results.parquet` loaded into BigQuery -- not done by any chat yet) against
+   `models_out/ecl_results.parquet` loaded into BigQuery -- not done yet) against
    the real project, since this environment classifies it as a production-scale write.
 
 Once approved, the sequence is:
