@@ -5,9 +5,9 @@ Single-Family Loan-Level Dataset, sample files): loan-month panel, vintage curve
 WoE/IV application scorecard, LGD/EAD, IFRS 9 / Ind AS 109 staging and ECL, and (stretch) Basel IRB
 capital.
 
-Status: setup in progress. See the project plan (outside this repo) for the full scope, build
-order and standing rules. This README will be replaced with the full write-up in the final QA
-pass.
+Status: work in progress. The validation plan (`VALIDATION_PLAN.md`) and the data contracts
+(`CONTRACTS.md`) were committed before any model result. This README becomes the full write-up
+once the results are in.
 
 ## Layout
 - `extract/` -- turns the raw Freddie Mac text files into typed Parquet
@@ -24,5 +24,12 @@ pass.
 
 ## Data
 Raw files, Parquet and model outputs live under `data/`, `marts_out/` and `models_out/`, all
-gitignored -- see `docs/DATA_LICENCE.md` (once written) for why. Every script reads them by
+gitignored and never published -- see `docs/DATA_LICENCE.md` for why. Every script reads them by
 absolute path through `VINTAGE_DATA_ROOT` (see `config.py`), not a relative path.
+
+## Data source and terms
+Source: Freddie Mac Single-Family Loan-Level Dataset (sample files, 1999–2025 vintages), used
+under Freddie Mac's terms for non-commercial research. The raw data is not redistributed here;
+to reproduce the results, register with Freddie Mac and download the sample files yourself.
+Only aggregates are published, with no cell describing fewer than 10 loans. Details in
+`docs/DATA_LICENCE.md`.
