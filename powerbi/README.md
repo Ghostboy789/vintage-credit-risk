@@ -64,7 +64,9 @@ marts with DAX, and turns this banner off.
   the build notes, not blocking).
 - `tests/test_powerbi.py`: the export never carries a `loan_id` column, every fixture row is
   flagged synthetic, and a spot-checked metric value matches the source artefact exactly.
-- Rendered in Power BI Desktop against a local `DataFolder`; screenshots in `docs/powerbi/`.
+- Not yet rendered in Power BI Desktop: the Desktop automation bridge did not start on the build
+  machine, so the pages have been validated as files only. Rendering, DAX checks against the
+  marts and screenshots (`docs/powerbi/`) come with the real-data export.
 
 ## Known simplifications (to revisit with the real-data export)
 
