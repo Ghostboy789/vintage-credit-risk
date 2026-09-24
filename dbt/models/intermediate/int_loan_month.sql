@@ -45,7 +45,16 @@ base as (
         p.zero_balance_code,
         p.zero_balance_effective_date,
         p.zero_balance_removal_upb,
-        p.remaining_months_to_legal_maturity,
+        -- A tiny share of real servicer records (0.0004%) omit this field; fall back to the
+        -- same definition computed from the term and months on book rather than leave a gap.
+        coalesce(
+            p.remaining_months_to_legal_maturity,
+            o.original_loan_term - (
+                (extract(year from p.period) - extract(year from o.first_payment_date)) * 12
+                + (extract(month from p.period) - extract(month from o.first_payment_date))
+                + 1
+            ) + 1
+        ) as remaining_months_to_legal_maturity,
         coalesce(p.modification_flag in ('Y', 'P'), false) as modified,
         o.original_loan_term,
         r.market_rate_pct,

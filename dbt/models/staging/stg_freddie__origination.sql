@@ -34,7 +34,7 @@ select
     number_of_units,
     case when occupancy_status = '9' then null else occupancy_status end as occupancy_status,
     case when channel = '9' then null else channel end as channel,
-    loan_purpose,
+    case when loan_purpose = '9' then null else loan_purpose end as loan_purpose,
     case when property_type = '99' then null else property_type end as property_type,
     property_state,
     case

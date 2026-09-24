@@ -75,4 +75,7 @@ from orig o
 left join rate_groups rg on rg.loan_id = o.loan_id
 left join medians m
     on m.first_payment_date = rg.first_payment_date and m.rate_term_group = rg.rate_term_group
-left join res r on r.loan_id = o.loan_id
+-- inner join: a handful of the newest originations (first payment right at the data cutoff)
+-- have not reported a single performance month yet, so they have no last_period at all -- they
+-- carry no loan-month observations, so they don't belong in a mart keyed off performance history
+inner join res r on r.loan_id = o.loan_id
