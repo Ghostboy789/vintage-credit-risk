@@ -102,10 +102,11 @@ select
         else 0
     end as default_12m_naive,
     default_mob_primary as default_months_on_book,
-    (
+    coalesce(
         exit_type in ('prepaid', 'matured')
         and coalesce(last_months_on_book, 999) <= 12
-        and (default_mob_primary is null or default_mob_primary > last_months_on_book)
+        and (default_mob_primary is null or default_mob_primary > last_months_on_book),
+        false
     ) as prepaid_12m,
     fico,
     ltv_pct,
