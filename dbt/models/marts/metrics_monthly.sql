@@ -46,7 +46,7 @@ select
     coalesce(l.net_loss, 0) as net_loss,
     case when p.total_upb > 0 then p.upb_dpd30p / p.total_upb end as delinquency_rate_30p,
     case when p.total_upb > 0 then p.upb_dpd90p / p.total_upb end as delinquency_rate_90p,
-    case when p.n_at_risk_start > 0 then cast(p.n_new_defaults as double) / p.n_at_risk_start end as default_rate,
+    case when p.n_at_risk_start > 0 then cast(p.n_new_defaults as {{ dbt.type_float() }}) / p.n_at_risk_start end as default_rate,
     case when p.total_upb > 0 then coalesce(l.net_loss, 0) / p.total_upb end as loss_rate
 from per_month p
 left join losses l on l.period = p.period

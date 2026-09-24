@@ -60,8 +60,8 @@ select
     to_state,
     n_loans,
     upb,
-    cast(sum(n_loans) over (partition by period, vintage_year, from_bucket, from_forbearance) as bigint)
+    cast(sum(n_loans) over (partition by period, vintage_year, from_bucket, from_forbearance) as {{ dbt.type_bigint() }})
         as n_from,
-    cast(n_loans as double)
+    cast(n_loans as {{ dbt.type_float() }})
         / sum(n_loans) over (partition by period, vintage_year, from_bucket, from_forbearance) as roll_rate
 from agg

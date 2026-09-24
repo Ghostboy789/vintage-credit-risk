@@ -15,7 +15,7 @@ with unioned as (
 select
     loan_id,
     vintage_year,
-    cast(vintage_year as varchar) || 'Q' || substr(loan_id, 5, 1) as vintage_quarter,
+    cast(vintage_year as {{ dbt.type_string() }}) || 'Q' || substr(loan_id, 5, 1) as vintage_quarter,
     first_payment_date,
     maturity_date,
     original_upb,

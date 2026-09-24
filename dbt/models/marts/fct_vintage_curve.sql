@@ -134,16 +134,16 @@ select
     cast(sum(n_defaults) over (
         partition by vintage_quarter order by months_on_book
         rows between unbounded preceding and current row
-    ) as bigint) as cum_defaults,
+    ) as {{ dbt.type_bigint() }}) as cum_defaults,
     sum(n_defaults) over (
         partition by vintage_quarter order by months_on_book
         rows between unbounded preceding and current row
-    ) / cast(n_loans as double) as cum_default_rate,
+    ) / cast(n_loans as {{ dbt.type_float() }}) as cum_default_rate,
     n_prepaid,
     cast(sum(n_prepaid) over (
         partition by vintage_quarter order by months_on_book
         rows between unbounded preceding and current row
-    ) as bigint) as cum_prepaid,
+    ) as {{ dbt.type_bigint() }}) as cum_prepaid,
     net_loss,
     sum(net_loss) over (
         partition by vintage_quarter order by months_on_book
