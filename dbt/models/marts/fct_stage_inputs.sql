@@ -1,6 +1,11 @@
 {#
   E1/L2: one row per loan per quarter-end reporting date, for loans on book at month end.
 #}
+{#
+  View on BigQuery: same free-storage quota reason as fct_loan_month, and this mart
+  joins straight off int_loan_month so it's no cheaper as a table there.
+#}
+{{ config(materialized=('view' if target.type == 'bigquery' else 'table')) }}
 with lm as (
     select * from {{ ref('int_loan_month') }}
 ),

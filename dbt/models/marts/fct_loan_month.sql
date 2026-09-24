@@ -1,3 +1,10 @@
+{#
+  View on BigQuery: as a table this mart alone exceeds the sandbox's free storage quota
+  (it's the loan-month grain across the full 27-year panel); a table everywhere else,
+  since local/CI builds are on the small fixture years and don't hit that limit.
+#}
+{{ config(materialized=('view' if target.type == 'bigquery' else 'table')) }}
+
 select
     loan_id,
     period,
