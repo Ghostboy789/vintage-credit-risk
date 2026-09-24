@@ -46,24 +46,50 @@ def export_from_duckdb(duckdb_path: str, out_dir: Path, marts: list[str]) -> Non
 
 
 def export_from_bigquery(project: str, dataset: str, out_dir: Path, marts: list[str]) -> int:
-    """Returns total bytes billed/scanned across every export query."""
+    """Returns total bytes billed/scanned across every export query.
+
+    Streams each mart page-by-page (RowIterator.to_arrow_iterable, no bqstorage client
+    needed) into a ParquetWriter instead of materializing the whole result as one Arrow
+    table, so peak memory stays bounded even for the loan-month-level marts.
+    """
+    import time
+
     import pyarrow.parquet as pq
-    from google.cloud import bigquery
+    from google.cloud import bigquery, bigquery_storage
 
     client = bigquery.Client(project=project)
+    bqstorage_client = bigquery_storage.BigQueryReadClient(
+        credentials=client._credentials
+    )
     total_bytes = 0
     for name in marts:
         table = f"{project}.{dataset}_marts.{name}"
+        start = time.monotonic()
         job = client.query(f"SELECT * FROM `{table}`")
         result = job.result()
-        arrow_table = result.to_arrow(create_bqstorage_client=False)
         out_path = out_dir / f"{name}.parquet"
-        pq.write_table(arrow_table, out_path)
+        writer = None
+        rows = 0
+        try:
+            for batch in result.to_arrow_iterable(bqstorage_client=bqstorage_client):
+                if writer is None:
+                    writer = pq.ParquetWriter(out_path, batch.schema)
+                writer.write_batch(batch)
+                rows += batch.num_rows
+        finally:
+            if writer is not None:
+                writer.close()
+        if writer is None:
+            # Zero-row result: no pages were yielded, write an empty file with the
+            # right schema (cheap at 0 rows).
+            pq.write_table(result.to_arrow(create_bqstorage_client=False), out_path)
+        elapsed = time.monotonic() - start
         scanned = job.total_bytes_processed or 0
         total_bytes += scanned
+        size = out_path.stat().st_size
         print(
-            f"wrote {out_path} from {table} "
-            f"({scanned:,} bytes scanned, {arrow_table.num_rows:,} rows)"
+            f"wrote {out_path} from {table} ({scanned:,} bytes scanned, {rows:,} rows, "
+            f"{size:,} bytes on disk, {elapsed:.1f}s)"
         )
     return total_bytes
 
