@@ -14,14 +14,18 @@ vintage:
       type: duckdb
       path: "{{ env_var('VINTAGE_LOCAL_DB') }}"
       threads: 4
-      settings:
+      # config_options apply once at connect time (native DuckDB config), unlike `settings`,
+      # which dbt-duckdb re-applies with a runtime SET on every new cursor -- and DuckDB refuses
+      # to SET temp_directory again once a query has already used it ("Cannot switch temporary
+      # directory after the current one has been used"), which a build this long always hits.
+      config_options:
         memory_limit: "{{ env_var('VINTAGE_LOCAL_DUCKDB_MEMORY', '8GB') }}"
         temp_directory: "{{ env_var('VINTAGE_DUCKDB_TEMP') }}"
     bq:
       type: bigquery
       method: oauth
       project: "{{ env_var('VINTAGE_GCP_PROJECT') }}"
-      dataset: dbt_c
+      dataset: vintage
       location: US
       threads: 4
       priority: interactive
