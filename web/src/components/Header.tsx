@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
-import { CommandPalette } from "./CommandPalette";
+// The palette loads on first open, keeping it out of the initial bundle.
+const CommandPalette = lazy(() => import("./CommandPalette").then((mod) => ({ default: mod.CommandPalette })));
 
 const NAV = [
   { to: "/", label: "Overview" },
@@ -13,19 +14,31 @@ const NAV = [
   { to: "/methods", label: "Methods" },
 ];
 
-// Text-roll nav (skiper58) simplified to a colour/underline change (also the reduced-motion and
-// touch fallback the brief specifies) — CSS-only, no letter-stagger JS, one less dependency path.
+// Text-roll navigation adapted from skiper-ui.com (skiper58): on hover or keyboard focus each letter
+// rolls up to reveal its copy, 12 ms apart. CSS only; touch screens and reduced motion get a plain
+// colour change (see .roll in index.css).
 function NavItem({ to, label }: { to: string; label: string }) {
   return (
     <NavLink
       to={to}
-      className="relative py-1 text-sm transition-colors hover:opacity-100"
+      end={to === "/"}
+      className="nav-roll relative py-1 text-sm"
       style={({ isActive }: { isActive: boolean }) => ({
         color: isActive ? "var(--ink)" : "var(--ink-2)",
         borderBottom: isActive ? "2px solid var(--accent)" : "2px solid transparent",
       })}
     >
-      {label}
+      <span className="sr-only">{label}</span>
+      <span className="roll" aria-hidden>
+        {[...label].map((ch, i) => {
+          const c = ch === " " ? " " : ch;
+          return (
+            <span key={i} className="roll-ch" data-ch={c} style={{ transitionDelay: `${i * 12}ms` }}>
+              {c}
+            </span>
+          );
+        })}
+      </span>
     </NavLink>
   );
 }
@@ -33,6 +46,10 @@ function NavItem({ to, label }: { to: string; label: string }) {
 export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [paletteLoaded, setPaletteLoaded] = useState(false);
+  useEffect(() => {
+    if (paletteOpen) setPaletteLoaded(true);
+  }, [paletteOpen]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -85,7 +102,7 @@ export function Header() {
           className="flex h-10 w-10 items-center justify-center rounded-md border md:hidden"
           style={{ borderColor: "var(--border)" }}
         >
-          ⌕
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
         </button>
         <a
           href="https://github.com/Ghostboy789"
@@ -95,7 +112,7 @@ export function Header() {
           className="hidden h-10 w-10 items-center justify-center rounded-md border md:flex"
           style={{ borderColor: "var(--border)" }}
         >
-          GH
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg>
         </a>
         <a
           href="https://linkedin.com/in/medhansh-shekhawat"
@@ -105,7 +122,7 @@ export function Header() {
           className="hidden h-10 w-10 items-center justify-center rounded-md border md:flex"
           style={{ borderColor: "var(--border)" }}
         >
-          in
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden><circle cx="3.2" cy="3.2" r="1.7" /><rect x="1.7" y="6" width="3" height="8.5" /><path d="M6.6 6h2.9v1.2c.4-.8 1.4-1.4 2.7-1.4 2.4 0 2.9 1.6 2.9 3.6v5.1h-3V10c0-1 0-2-1.2-2s-1.4.9-1.4 1.9v4.6H6.6z" /></svg>
         </a>
         <ThemeToggle />
         <button
@@ -115,11 +132,15 @@ export function Header() {
           className="flex h-10 w-10 items-center justify-center rounded-md border lg:hidden"
           style={{ borderColor: "var(--border)" }}
         >
-          ☰
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
       </div>
 
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+      {paletteLoaded && (
+        <Suspense fallback={null}>
+          <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+        </Suspense>
+      )}
 
       {menuOpen && (
         <div

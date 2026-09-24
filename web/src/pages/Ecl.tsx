@@ -1,6 +1,22 @@
 import { useMemo, useState } from "react";
 import type { Artefacts } from "../lib/artefacts";
 import { ResultBadge } from "../components/ResultBadge";
+import {
+  Backtest,
+  PdTermStructure,
+  ScenarioTotals,
+  Stage2Drivers,
+  StageMigration,
+} from "../components/EclCharts";
+import type {
+  BacktestRow,
+  CuredRow,
+  PdTsRow,
+  Scenarios,
+  ScenarioTotalsRow,
+  Stage2DriverRow,
+  StageMigRow,
+} from "../components/EclCharts";
 import { fmtMoney, fmtInt, fmtPct } from "../lib/format";
 
 interface EclRow {
@@ -13,7 +29,17 @@ interface EclRow {
 }
 
 export function Ecl({ data }: { data: Artefacts }) {
-  const ecl = data.ecl as unknown as { by_date: EclRow[]; pass_rules?: { rule_id?: string; result: string }[] };
+  const ecl = data.ecl as unknown as {
+    by_date: EclRow[];
+    pass_rules?: { rule_id?: string; result: string }[];
+    stage_migration?: StageMigRow[];
+    scenarios?: Scenarios;
+    scenario_totals?: ScenarioTotalsRow[];
+    pd_term_structure?: PdTsRow[];
+    backtest?: BacktestRow[];
+    stage2_drivers?: Stage2DriverRow[];
+    cured_population?: CuredRow[];
+  };
   const dates = useMemo(() => [...new Set(ecl.by_date.map((r) => r.reporting_date))].sort(), [ecl]);
   const [date, setDate] = useState(dates[dates.length - 1]);
   const rows = ecl.by_date.filter((r) => r.reporting_date === date);
@@ -47,7 +73,7 @@ export function Ecl({ data }: { data: Artefacts }) {
           {stageTotals.map((t, i) => (
             <div
               key={t.stage}
-              style={{ width: `${(t.n / totalN) * 100}%`, background: ["#1B1530", "#9C3A63", "#F9BE4A"][i] }}
+              style={{ width: `${(t.n / totalN) * 100}%`, background: ["var(--stage-1)", "var(--stage-2)", "var(--stage-3)"][i] }}
               title={`Stage ${t.stage}`}
             />
           ))}
@@ -63,30 +89,103 @@ export function Ecl({ data }: { data: Artefacts }) {
 
       <section className="mt-10">
         <h2 className="font-display text-2xl">ECL by stage × grade</h2>
-        <table className="mt-4 w-full text-sm">
-          <thead>
-            <tr style={{ color: "var(--ink-3)" }}>
-              <th className="text-left">Stage</th>
-              <th className="text-left">Grade</th>
-              <th className="text-right">n</th>
-              <th className="text-right">EAD</th>
-              <th className="text-right">ECL</th>
-              <th className="text-right">Coverage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={`${r.stage}-${r.grade}`} className="border-t" style={{ borderColor: "var(--border)" }}>
-                <td className="py-1">{r.stage}</td>
-                <td className="font-mono py-1">{r.grade}</td>
-                <td className="tabular text-right">{fmtInt(r.n_loans)}</td>
-                <td className="tabular text-right">{r.ead.value !== null ? fmtMoney(r.ead.value) : "—"}</td>
-                <td className="tabular text-right">{r.ecl.value !== null ? fmtMoney(r.ecl.value) : "—"}</td>
-                <td className="tabular text-right">{r.ead.value ? fmtPct((r.ecl.value ?? 0) / r.ead.value) : "—"}</td>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{ color: "var(--ink-3)" }}>
+                <th className="text-left">Stage</th>
+                <th className="text-left">Grade</th>
+                <th className="text-right">n</th>
+                <th className="text-right">EAD</th>
+                <th className="text-right">ECL</th>
+                <th className="text-right">Coverage</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={`${r.stage}-${r.grade}`} className="border-t" style={{ borderColor: "var(--border)" }}>
+                  <td className="py-1">{r.stage}</td>
+                  <td className="font-mono py-1">{r.grade}</td>
+                  <td className="tabular text-right">{fmtInt(r.n_loans)}</td>
+                  <td className="tabular text-right">{r.ead.value !== null ? fmtMoney(r.ead.value) : "—"}</td>
+                  <td className="tabular text-right">{r.ecl.value !== null ? fmtMoney(r.ecl.value) : "—"}</td>
+                  <td className="tabular text-right">{r.ead.value ? fmtPct((r.ecl.value ?? 0) / r.ead.value) : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">Stage migration</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          How accounts moved between stages over the migration window.
+        </p>
+        <div className="mt-6">
+          <StageMigration rows={ecl.stage_migration ?? []} />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">Scenarios</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          ECL under each macro scenario and the probability-weighted view.
+        </p>
+        <div className="mt-6">
+          {ecl.scenarios?.used ? (
+            <ScenarioTotals scenarios={ecl.scenarios} rows={ecl.scenario_totals ?? []} date={date} />
+          ) : (
+            <p style={{ color: "var(--ink-2)" }}>Scenarios not used in this run.</p>
+          )}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">PD term structure</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          Cumulative lifetime PD by grade and year.
+        </p>
+        <div className="mt-6">
+          <PdTermStructure rows={ecl.pd_term_structure ?? []} />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">Backtest</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          Realised default rate against the predicted PD, inside the binomial and Vasicek bands.
+        </p>
+        <div className="mt-6">
+          <Backtest rows={ecl.backtest ?? []} />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">Stage 2 drivers</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          What moved accounts into stage 2 at the current date, ranked by share.
+        </p>
+        <div className="mt-6">
+          <Stage2Drivers rows={ecl.stage2_drivers ?? []} date={date} />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-2xl">Cured population</h2>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          Loans that cured and are still in their probation period.
+        </p>
+        <div className="mt-6">
+          <p style={{ color: "var(--ink-2)" }}>
+            {(() => {
+              const c = (ecl.cured_population ?? []).find((r) => r.reporting_date === date);
+              return c && c.ecl.value !== null
+                ? `${fmtInt(c.n_loans)} cured loans carry ${fmtMoney(c.ecl.value)} of ECL at this date, held in their probation stage.`
+                : "No cured loans at this date.";
+            })()}
+          </p>
+        </div>
       </section>
 
       {ecl.pass_rules && ecl.pass_rules.length > 0 && (

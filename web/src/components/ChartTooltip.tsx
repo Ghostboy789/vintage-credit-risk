@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import type { Estimate } from "../lib/types";
 import { fmtInt } from "../lib/format";
 
@@ -21,7 +21,7 @@ export function ChartTooltip({
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -47,7 +47,7 @@ export function ChartTooltip({
           <div className="font-mono" style={{ color: "var(--ink-3)" }}>
             n = {fmtInt(estimate.n)} · {estimate.ci_method}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

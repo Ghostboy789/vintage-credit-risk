@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion as useFramerReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { m, useInView } from "framer-motion";
+import { useReducedMotion } from "../lib/theme";
 import type { Estimate } from "../lib/types";
 import { fmtInt, fmtPct } from "../lib/format";
 
@@ -10,16 +11,22 @@ export function KpiTile({
   estimate,
   isPct = true,
   unit = "",
+  format,
+  badge,
 }: {
   label: string;
   estimate: Estimate;
   isPct?: boolean;
   unit?: string;
+  format?: (v: number) => string;
+  badge?: ReactNode;
 }) {
-  const reduced = useFramerReducedMotion();
-  const [display, setDisplay] = useState(estimate.value ?? 0);
+  const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const fmt = (v: number) => (isPct ? fmtPct(v) : `${fmtInt(v)}${unit}`);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  // Frame 0 shows the interval's low end, never 0; the value settles inside its interval.
+  const [display, setDisplay] = useState(reduced ? (estimate.value ?? 0) : (estimate.ci_low ?? estimate.value ?? 0));
+  const fmt = format ?? ((v: number) => (isPct ? fmtPct(v) : `${fmtInt(v)}${unit}`));
 
   useEffect(() => {
     if (estimate.value === null) return;
@@ -29,6 +36,7 @@ export function KpiTile({
       setDisplay(to);
       return;
     }
+    if (!inView) return;
     const start = performance.now();
     const duration = 700;
     let raf = 0;
@@ -40,7 +48,7 @@ export function KpiTile({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [estimate.value, estimate.ci_low, reduced]);
+  }, [estimate.value, estimate.ci_low, reduced, inView]);
 
   const noEstimate = estimate.ci_method.startsWith("none:");
   const track = estimate.value !== null && estimate.ci_low !== null && estimate.ci_high !== null;
@@ -53,17 +61,18 @@ export function KpiTile({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 8 }}
+      initial={reduced ? false : { opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="rounded-lg border p-4"
       style={{ borderColor: "var(--border)", background: "var(--surface)" }}
     >
-      <div className="text-[13px]" style={{ color: "var(--ink-2)" }}>
-        {label}
+      <div className="flex items-center justify-between gap-2 text-[13px]" style={{ color: "var(--ink-2)" }}>
+        <span>{label}</span>
+        {badge}
       </div>
       <div className="tabular font-semibold" style={{ fontSize: "clamp(28px,4vw,48px)", color: "var(--ink)" }}>
         {estimate.value === null ? "—" : fmt(display)}
@@ -96,6 +105,6 @@ export function KpiTile({
       <div className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
         n = {fmtInt(estimate.n)} loans{noEstimate ? "" : ` · ${estimate.ci_method}`}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

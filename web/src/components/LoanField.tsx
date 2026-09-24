@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { VintageCurveRow } from "../lib/types";
-import { useReducedMotion } from "../lib/theme";
+import { useReducedMotion, useTheme } from "../lib/theme";
 
 interface Dot {
   x0: number;
@@ -18,8 +18,10 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const played = useRef(false);
   const [showTable, setShowTable] = useState(false);
   const reduced = useReducedMotion();
+  const { choice } = useTheme();
 
   // Per vintage year: n_loans approximated from the earliest observed row's at-risk count
   // (almost the whole cohort at month 6), defaulted share from the latest observed row.
@@ -38,7 +40,13 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.4 });
+    // Plays once: after the first sort the field stays sorted.
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        obs.disconnect();
+      }
+    }, { threshold: 0.4 });
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -83,25 +91,30 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
 
     let raf = 0;
     const start = performance.now();
-    const duration = reduced ? 0 : 1400;
+    const instant = reduced || played.current;
+    const duration = 1400;
 
     const draw = (t: number) => {
+      // Read the theme colours at draw time (the theme attribute is set after this effect runs).
+      const css = getComputedStyle(document.documentElement);
+      const crisis = css.getPropertyValue("--crisis").trim();
+      const muted = css.getPropertyValue("--ink-3").trim();
       ctx.clearRect(0, 0, cssWidth, cssHeight);
-      const globalT = visible ? Math.min(1, (t - start) / duration) : 0;
+      const globalT = instant ? 1 : visible ? Math.min(1, (t - start) / duration) : 0;
+      if (globalT >= 1) played.current = true;
       for (const d of dots) {
-        const colDelay = reduced ? 1 : Math.min(1, Math.max(0, (globalT - d.column * 0.015) / 0.6));
+        const colDelay = instant ? 1 : Math.min(1, Math.max(0, (globalT - d.column * 0.015) / 0.6));
         const eased = 1 - Math.pow(1 - colDelay, 3);
         const x = d.x0 + (d.x1 - d.x0) * eased;
         const y = d.y0 + (d.y1 - d.y0) * eased;
-        ctx.fillStyle = d.defaulted ? "#ff7849" : "#7d8591";
+        ctx.fillStyle = d.defaulted ? crisis : muted;
         ctx.fillRect(x, y, 3, 3);
       }
-      if (globalT < 1 && visible && !reduced) raf = requestAnimationFrame(draw);
+      if (globalT < 1 && visible) raf = requestAnimationFrame(draw);
     };
-    if (reduced) draw(start + duration);
-    else raf = requestAnimationFrame(draw);
+    raf = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(raf);
-  }, [visible, years.length, reduced]);
+  }, [visible, years.length, reduced, choice]);
 
   return (
     <div ref={containerRef}>
