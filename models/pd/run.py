@@ -387,6 +387,51 @@ def fairness(model, train, test) -> list:
 # ---------------------------------------------------------------------------------------------
 # Pipeline
 # ---------------------------------------------------------------------------------------------
+def s1_rule(model) -> tuple[str, str]:
+    """S1: every numeric model feature has monotonic WoE in its expected direction."""
+    num_feats = [f for f in model["features"] if f in sc.NUMERIC_TREND]
+    bad = [
+        f
+        for f in num_feats
+        if not sc._is_monotonic(
+            [b["woe"] for b in model["binnings"][f]["bins"][:-1]], sc.NUMERIC_TREND[f]
+        )
+    ]
+    return (
+        "FAIL" if bad else "PASS",
+        f"numeric model features {num_feats}; non-monotonic: {bad or 'none'}",
+    )
+
+
+def dry_run_summary(model, ch, dev_scored, train, test, s1, models_out) -> dict:
+    """Everything that uses development data only, printed, so the fit can be checked before the
+    single out-of-time scoring. Writes only the binning report."""
+    models_out.mkdir(parents=True, exist_ok=True)
+    binning_report(model, models_out / "binning_report.csv")
+    boot, disc, calib = {}, [], []
+    for name in DEV:
+        frame = dev_scored[dev_scored["sample"] == name]
+        risks = {"champion": frame["pd_12m"]}
+        if ch:
+            risks["challenger"] = frame["challenger_pd"]
+        disc += discrimination(frame, risks, name, boot)
+    test_scored = dev_scored[dev_scored["sample"] == "dev_test"]
+    calib = calibration(test_scored, "pd_12m", "grade", model["grades"], "dev_test", "primary")
+    return dict(
+        model_id=model["model_id"],
+        challenger_id=ch["model_id"] if ch else None,
+        challenger_confirm={k: ch[k] for k in ("confirm_passed", "dev_test_auc", "chosen")}
+        if ch
+        else None,
+        features=model["features"],
+        grades=[(g["grade"], g["merged_into"]) for g in model["grades"]],
+        discrimination=disc,
+        s1=s1,
+        s4a=calibration_rule(calib),
+        fairness=fairness(model, train, test),
+    )
+
+
 def jsonable(o):
     return o.item() if hasattr(o, "item") else str(o)
 
@@ -408,6 +453,7 @@ def run(
     models_out,
     with_challenger=True,
     reuse_scores=False,
+    dry_run=False,
 ) -> dict:
     base_path, artefacts_dir, models_out = Path(base_path), Path(artefacts_dir), Path(models_out)
     synthetic = contracts.parquet_is_synthetic(base_path)
@@ -431,6 +477,9 @@ def run(
     if ch:
         dev_scored["challenger_pd"] = chal.predict(ch, dev)
     dev_scored = dev_scored.join(dev[list(DEFS.values())])
+    s1 = s1_rule(model)
+    if dry_run:
+        return dry_run_summary(model, ch, dev_scored, train, test, s1, models_out)
 
     # 3. The single out-of-time scoring, or its saved result.
     models_out.mkdir(parents=True, exist_ok=True)
@@ -477,6 +526,11 @@ def run(
         "covid": scored[scored["sample"] == "covid"].copy(),
         "oot_and_covid": scored[scored["sample"].isin(["oot", "covid"])].copy(),
     }
+    # Secondary out-of-time windows (pre- and post-COVID), never pass or fail on their own.
+    for lo, hi in ((2017, 2019), (2022, 2024)):
+        frame = samples["oot"][samples["oot"]["vintage_year"].between(lo, hi)]
+        if len(frame):
+            samples[f"oot_{lo}_{hi}"] = frame.copy()
     if ch:
         for s in samples.values():
             s["challenger_grade"] = sc.grade_of(s["challenger_pd"].to_numpy(), model["grades"])
@@ -625,19 +679,6 @@ def run(
             if ratio is not None and ratio > D1A_LIMIT
             else ""
         ),
-    )
-    s1_bad = [
-        f
-        for f in model["features"]
-        if f in sc.NUMERIC_TREND
-        and not sc._is_monotonic(
-            [b["woe"] for b in model["binnings"][f]["bins"][:-1]], sc.NUMERIC_TREND[f]
-        )
-    ]
-    num_feats = [f for f in model["features"] if f in sc.NUMERIC_TREND]
-    s1 = (
-        "FAIL" if s1_bad else "PASS",
-        f"numeric model features {num_feats}; non-monotonic: {s1_bad or 'none'}",
     )
     prim = next((g for g in gini_drop if g["definition"] == "primary"), None)
     s2 = (
@@ -847,6 +888,11 @@ def main():
         action="store_true",
         help="rebuild artefacts from the saved out-of-time scoring",
     )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="fit and report on development data only; no out-of-time scoring, no artefacts",
+    )
     a = p.parse_args()
     if a.fixtures:
         marts, out = REPO / "tests" / "fixtures" / "marts", Path(a.fixtures)
@@ -862,7 +908,11 @@ def main():
         models_out,
         with_challenger=not a.no_challenger,
         reuse_scores=a.reuse_scores,
+        dry_run=a.dry_run,
     )
+    if a.dry_run:
+        print(json.dumps(res, indent=1, default=jsonable))
+        return
     for r in res["pd_models"]["pass_rules"]:
         print(f"{r['rule_id']:4} {r['result']:12} {r['evidence']}")
 

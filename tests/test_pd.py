@@ -357,3 +357,30 @@ def test_reason_codes_are_largest_shortfalls(fixture_run):
         short = max_pts - pts[i]
         first = model["features"][int(np.argmax(short))] if short.max() > 0 else None
         assert scored["reason_1"].iloc[i] == first
+
+
+def test_dry_run_never_scores_out_of_time(tmp_path):
+    res = pdrun.run(
+        MARTS / "fct_scorecard_base.parquet",
+        MARTS / "dim_loan.parquet",
+        MARTS / "fct_loan_month.parquet",
+        tmp_path / "artefacts",
+        tmp_path / "models_out",
+        with_challenger=False,
+        dry_run=True,
+    )
+    assert pdrun.read_oot_log(tmp_path / "models_out") == []
+    assert not (tmp_path / "artefacts").exists()
+    assert not (tmp_path / "models_out" / "loan_scores.parquet").exists()
+    assert {r["sample"] for r in res["discrimination"]} == {"dev_train", "dev_test"}
+
+
+def test_secondary_oot_windows_split_the_oot_sample(fixture_run):
+    _, res = fixture_run
+    rows = {
+        r["sample"]: r["gini"]["n"]
+        for r in res["pd_models"]["discrimination"]
+        if r["model"] == "champion" and r["definition"] == "primary"
+    }
+    # Late-2021 originations paying first in 2022 are oot but in neither vintage window.
+    assert 0 < rows["oot_2017_2019"] + rows["oot_2022_2024"] <= rows["oot"]
