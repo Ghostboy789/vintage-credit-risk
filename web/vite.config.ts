@@ -14,8 +14,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks(id: string) {
           if (id.includes('node_modules')) {
             if (id.includes('react-router') || id.includes('/react/') || id.includes('/react-dom/')) return 'vendor'
-            if (id.includes('framer-motion')) return 'motion'
-            if (id.includes('/d3-')) return 'd3'
           }
         },
       },

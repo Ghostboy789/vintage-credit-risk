@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
 // Skiper87 "Scroll with fade": the one generic reveal, reserved for prose blocks only. Charts use
@@ -6,13 +6,13 @@ import type { ReactNode } from "react";
 // row fill).
 export function Prose({ children }: { children: ReactNode }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

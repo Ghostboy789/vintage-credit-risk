@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useArtefacts } from "../lib/artefacts";
 
 // Rebuild of Skiper92 "Vercel Command Search" (Pro tier — rebuilt from the brief's spec, no
@@ -83,7 +83,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-50 flex justify-center" style={{ paddingTop: "18vh" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -91,7 +91,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
             style={{ background: "rgba(0,0,0,.5)" }}
             onClick={onClose}
           />
-          <motion.div
+          <m.div
             role="dialog"
             aria-label="Search"
             initial={{ opacity: 0, scale: 0.98 }}
@@ -157,7 +157,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

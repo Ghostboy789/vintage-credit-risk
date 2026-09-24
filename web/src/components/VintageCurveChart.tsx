@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { line, curveMonotoneX } from "d3-shape";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { VintageCurveRow } from "../lib/types";
 import { useReducedMotion } from "../lib/theme";
 import { ChartTooltip } from "./ChartTooltip";
@@ -66,7 +66,7 @@ export function VintageCurveChart({ rows, comparableMonths }: { rows: VintageCur
         {[...byYear.entries()].map(([year, yearRows]) => {
           const isCrisis = CRISIS.has(year);
           return (
-            <motion.path
+            <m.path
               key={year}
               d={gen(yearRows) ?? undefined}
               fill="none"

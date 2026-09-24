@@ -11,10 +11,10 @@ export function ThemeToggle() {
       type="button"
       aria-label={`Theme: ${choice}. Click to change.`}
       onClick={() => setChoice(NEXT[choice])}
-      className="flex h-10 w-10 items-center justify-center rounded-md border text-lg transition-transform duration-200 hover:scale-105"
+      className="flex h-10 w-10 items-center justify-center rounded-md border text-lg"
       style={{ borderColor: "var(--border)", color: "var(--ink)" }}
     >
-      <span aria-hidden>{ICONS[choice]}</span>
+      <span key={choice} className="icon-swap" aria-hidden>{ICONS[choice]}</span>
     </button>
   );
 }
