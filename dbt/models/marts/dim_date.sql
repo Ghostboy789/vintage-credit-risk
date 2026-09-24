@@ -2,7 +2,7 @@ select
     month,
     extract(year from month) as year,
     extract(quarter from month) as quarter,
-    cast(extract(year from month) as varchar) || 'Q' || cast(extract(quarter from month) as varchar)
+    cast(extract(year from month) as {{ dbt.type_string() }}) || 'Q' || cast(extract(quarter from month) as {{ dbt.type_string() }})
         as year_quarter,
     (extract(month from month) in (3, 6, 9, 12)) as is_quarter_end,
     case
