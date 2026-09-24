@@ -74,7 +74,7 @@ def main() -> None:
     parser.add_argument("--duckdb-path", help="Required for --target ci/local")
     parser.add_argument("--project", help="GCP project; defaults to VINTAGE_GCP_PROJECT")
     parser.add_argument(
-        "--dataset", default="dbt_c", help="dbt output dataset (matches profiles.yml)"
+        "--dataset", default="vintage", help="dbt output dataset (matches profiles.yml)"
     )
     parser.add_argument("--marts", nargs="*", default=MART_NAMES)
     args = parser.parse_args()
