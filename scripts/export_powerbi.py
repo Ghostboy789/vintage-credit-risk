@@ -172,9 +172,11 @@ def main() -> int:
     else:
         artefacts_dir = VINTAGE_DATA_ROOT / "artefacts"
         marts_dir = VINTAGE_DATA_ROOT / "marts_out"
-        if not (artefacts_dir / "portfolio.json").exists():
+        missing = [n for n in ARTEFACT_NAMES if not (artefacts_dir / f"{n}.json").exists()]
+        if missing:
             raise SystemExit(
-                "No real artefacts yet under VINTAGE_DATA_ROOT/artefacts. "
+                "No real artefacts yet under VINTAGE_DATA_ROOT/artefacts "
+                f"(missing: {', '.join(missing)}). "
                 "Run with --source fixtures until the real model and portfolio outputs exist."
             )
 
