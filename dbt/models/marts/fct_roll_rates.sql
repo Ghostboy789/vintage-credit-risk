@@ -12,15 +12,16 @@ pairs as (
         period,
         vintage_year,
         dpd_bucket,
+        zero_balance_code,
         forbearance_flag,
         current_upb,
+        -- Look ahead over every record, including the terminal (exit) record and unknown-status
+        -- months; filtering them out first would make every exit look like a missing record.
         lead(dpd_bucket) over (partition by loan_id order by period) as next_dpd_bucket,
         lead(exit_type) over (partition by loan_id order by period) as next_exit_type,
         lead(zero_balance_code) over (partition by loan_id order by period) as next_zero_balance_code,
         lead(period) over (partition by loan_id order by period) as next_period
     from lm
-    where zero_balance_code is null
-      and dpd_bucket != 'unknown'
 ),
 
 classified as (
@@ -36,7 +37,8 @@ classified as (
             else next_dpd_bucket
         end as to_state
     from pairs
-    where dpd_bucket in ('current', 'dpd_30', 'dpd_60', 'dpd_90p', 'reo')
+    where zero_balance_code is null
+      and dpd_bucket in ('current', 'dpd_30', 'dpd_60', 'dpd_90p', 'reo')
 ),
 
 agg as (
