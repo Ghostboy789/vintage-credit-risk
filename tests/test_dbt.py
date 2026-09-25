@@ -223,3 +223,15 @@ def test_roll_rates_sum_to_one(ci_build):
         assert bad == 0
     finally:
         con.close()
+
+
+def test_roll_rates_record_exits(ci_build):
+    """A loan's terminal (zero-balance) record must show up as its exit state, not `missing`."""
+    con = duckdb.connect(str(ci_build), read_only=True)
+    states = {r[0] for r in con.execute("select distinct to_state from main_marts.fct_roll_rates").fetchall()}
+    exits = con.execute(
+        "select count(*) from main_marts.fct_loan_month where zero_balance_code is not null"
+    ).fetchone()[0]
+    con.close()
+    if exits:
+        assert states & {"prepaid", "matured", "credit_event", "other_exit"}, states
