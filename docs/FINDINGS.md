@@ -94,18 +94,16 @@ inner-joins its resolution table). Reported as a FAIL, not tuned away, because i
   matches `fct_scorecard_base.default_12m` exactly). The plan's own caveat ("final counts may
   differ slightly") undersold how much they differ; a factor of ~2 for the crisis vintages is
   the kind of gap a validator should be told about explicitly, not left to a footnote.
-- **`fct_roll_rates.to_state` does not carry exit types on the real build.** Of 1,349,995
-  loans, 1,348,739 month-to-month transitions that should show `prepaid`, `matured`,
-  `credit_event` or `other_exit` are instead recorded as `to_state = "missing"` --
-  `dim_loan.exit_type` and `fct_loan_month.exit_type` are both correct (970,705 prepaid, 5,505
-  matured, 21,156 credit_event, 10,042 other_exit), so this is a defect isolated to the roll-rate
-  mart's own derivation, not the underlying data. `prepayment` in this artefact was computed
-  directly from `fct_loan_month` to route around it (finding 5 above). `roll_rates` and
-  `roll_cure_rates` in this artefact are unaffected for their published `to_state` values
-  (`current`, `dpd_30`, `dpd_60`, `dpd_90p`, `reo`), but any reading of `fct_roll_rates.to_state
-  = "missing"` elsewhere in this project should not be taken as "no next-month record" until the
-  mart is fixed; flagged separately for a dbt fix, not patched here (outside this file's
-  ownership).
+- **A roll-rate defect was found and fixed during this analysis.** The first real build of
+  `fct_roll_rates` recorded almost every exit as `to_state = "missing"`: the model dropped each
+  loan's terminal (zero-balance) record and its unknown-status months before looking ahead to the
+  next month. After the fix (a regression test now covers it), exits carry their type: 969,467
+  `prepaid`, 21,156 `credit_event`, 10,025 `other_exit` and 5,505 `matured` transitions; the
+  remaining 342,586 `missing` are loans still active at the data cut-off. These are close to, but
+  not identical with, `dim_loan.exit_type` (970,705 prepaid, 10,042 other exits), because a
+  roll-rate transition needs an active, known-status month before the exit. `prepayment` in this
+  artefact is computed directly from `fct_loan_month` (finding 5 above), so it never depended on
+  the defect.
 
 ## What this does not establish
 
