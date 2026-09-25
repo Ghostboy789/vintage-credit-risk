@@ -20,6 +20,7 @@ IN_SAMPLE_END = pd.Timestamp("2016-12-01")
 BACKTEST_DATES = [pd.Timestamp(f"{y}-12-01") for y in range(2016, 2025)]
 COVID_DATES = {pd.Timestamp("2019-12-01"), pd.Timestamp("2020-12-01")}
 RHO = 0.15
+CHUNK = 20_000  # loan rows per exposure block in Engine.date
 
 
 def month_int(ts) -> np.ndarray:
@@ -116,18 +117,6 @@ class Engine:
         rem = np.maximum(r["remaining_term"].to_numpy(), 1)
         horizon = np.where(r["stage"].to_numpy() == 1, np.minimum(12, rem), rem)
         months = int(max(12, horizon.max())) if len(r) else 12
-        W = (
-            weights(
-                r["current_upb"],
-                r["non_interest_bearing_upb"],
-                r["current_rate_pct"].fillna(r["note_rate_pct"]),
-                r["note_rate_pct"],
-                rem,
-                horizon,
-                months,
-            )
-            * r["lgd_row"].to_numpy()[:, None]
-        )
         mob = np.clip(r["months_on_book"].to_numpy(), 0, LT.MOB_CAP)
         k1 = pd.DataFrame(
             {"grade": r["grade"].to_numpy(), "mob": mob, "inc": r["inc_band"].to_numpy()}
@@ -140,8 +129,25 @@ class Engine:
         uk = pd.DataFrame({"f": f_id, "seg": seg[nd], "g": group[nd], "c": cured[nd]})
         u_id = uk.groupby(list(uk), sort=False).ngroup().to_numpy()
         u_keys = uk.groupby(u_id).first()
-        agg = sp.csr_matrix((np.ones(len(r)), (u_id, np.arange(len(r)))))
-        WU = np.asarray(agg @ W)
+        # Exposure x discount x LGD scale by unit, summed over loans in row chunks: the full
+        # loans x months matrix does not fit in memory on the real book.
+        agg = sp.csc_matrix((np.ones(len(r)), (u_id, np.arange(len(r)))))
+        cols = [
+            r["current_upb"].to_numpy(float),
+            r["non_interest_bearing_upb"].to_numpy(float),
+            r["current_rate_pct"].fillna(r["note_rate_pct"]).to_numpy(float),
+            r["note_rate_pct"].to_numpy(float),
+            rem,
+            horizon,
+        ]
+        lgd_row = r["lgd_row"].to_numpy(float)
+        WU = np.zeros((len(u_keys), months))
+        order = np.argsort(horizon, kind="stable")  # stage 1 chunks need only 12 months
+        for a in range(0, len(r), CHUNK):
+            sl = order[a : a + CHUNK]
+            mk = int(horizon[sl].max())
+            w = weights(*(c[sl] for c in cols), mk) * lgd_row[sl, None]
+            WU[:, :mk] += np.asarray(agg[:, sl] @ w)
         u_f, u_seg = u_keys["f"].to_numpy(), u_keys["seg"].to_numpy()
         u_l1 = f_keys["l1"].to_numpy()[u_f]
         s3 = rows[~nd]
@@ -168,6 +174,9 @@ class Engine:
         long_l1 = np.unique(u_l1[long_u])
         pos = np.searchsorted(long_l1, u_l1[long_u])
         WL, uf_long = WU[long_u, 12:], u_f[long_u]
+        gl, il = g1[long_l1], i1[long_l1]
+        age_l = LT.age_index(m1[long_l1][:, None] + np.arange(13, months + 1)[None, :])
+        xl = [None if x is None else x[12:] for x in xp]
 
         def run(d):
             lg = self.p3[d]
@@ -178,13 +187,12 @@ class Engine:
                 pd12 = self.l2.pd12(x=xb[s], coefs=self.c2[d], fcodes=fcodes)
                 md12, mp12, s12 = LT.paths(pd12, hd[f_l1], hp[f_l1])
                 e = np.einsum("um,um->u", md12[u_f], WU[:, :12])
-                if len(long_u):
-                    hd, hp = self.l1.hazards(
-                        g1[long_l1], m1[long_l1], i1[long_l1], months, xp[s], coefs=self.c1[d]
-                    )
-                    live = np.cumprod(1 - hd[:, 12:] - hp[:, 12:], axis=1)
-                    g = hd[:, 12:] * np.column_stack([np.ones(len(hd)), live[:, :-1]])
-                    e[long_u] += s12[uf_long] * np.einsum("um,um->u", g[pos], WL)
+                if len(long_u):  # months 13 onwards
+                    hd, hp = self.l1.hazards(gl, None, il, None, xl[s], coefs=self.c1[d], age=age_l)
+                    live = np.ones_like(hd)  # survival from month 13 to the start of each month
+                    np.cumprod(1 - hd[:, :-1] - hp[:, :-1], axis=1, out=live[:, 1:])
+                    live *= hd
+                    e[long_u] += s12[uf_long] * np.einsum("um,um->u", live[pos], WL)
                 e = e * lg[u_seg]
                 e3 = lg[s3k["seg"].to_numpy()] * s3k["upb"].to_numpy()
                 by_group = np.bincount(g_code, e, 21) + np.bincount(s3k["g"], e3, 21)
@@ -316,12 +324,15 @@ def prepayment_backtest(staged: pd.DataFrame) -> list[dict]:
 
 def migration(staged: pd.DataFrame) -> list[dict]:
     """Stage moves between consecutive quarter-ends (to 'exited' if the loan left the book)."""
-    dates = sorted(staged.reporting_date.unique())
-    st = staged.set_index(["reporting_date", "loan_id"])["stage"]
+    by = {
+        d: g.set_index("loan_id")["stage"]
+        for d, g in staged[["reporting_date", "loan_id", "stage"]].groupby("reporting_date")
+    }
+    dates = sorted(by)
     out = []
     for a, b in zip(dates, dates[1:]):
-        fr = st.loc[a]
-        to = st.loc[b].reindex(fr.index)
+        fr = by[a]
+        to = by[b].reindex(fr.index)
         to = to.map(lambda v: "exited" if pd.isna(v) else str(int(v)))
         tab = pd.crosstab(fr, to)
         for s_from, row in tab.iterrows():

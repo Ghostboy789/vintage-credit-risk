@@ -12,6 +12,7 @@ import argparse
 import json
 import os
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -80,15 +81,20 @@ def load(marts: Path, models_out: Path):
         "dim_loan": rd(marts / "dim_loan.parquet"),
         "defaults": rd(marts / "fct_default_events.parquet"),
         "loss": rd(marts / "fct_loss_events.parquet"),
-        "si": rd(marts / "fct_stage_inputs.parquet", SI_COLS),
         "dim_date": rd(marts / "dim_date.parquet"),
         "scores": rd(models_out / "loan_scores.parquet", ["loan_id", "grade"]),
     }
     d["defaults"] = d["defaults"][d["defaults"].definition == "primary"]
-    si = d["si"]
+    # ~25M rows on the real book: loan_id as a categorical, dates as datetime64, small ints.
+    si = pq.read_table(
+        marts / "fct_stage_inputs.parquet", columns=SI_COLS, read_dictionary=["loan_id"]
+    ).to_pandas(date_as_object=False, split_blocks=True, self_destruct=True)
     si["reporting_date"] = pd.to_datetime(si["reporting_date"])
+    for col in ("months_on_book", "remaining_term", "stage_floor"):
+        si[col] = si[col].astype(np.int32)
     for col in ("default_next_12m", "prepaid_next_12m"):
-        si[col] = si[col].map({True: 1.0, False: 0.0}).astype(float)
+        si[col] = si[col].map({True: 1.0, False: 0.0}).astype(np.float32)
+    d["si"] = si
     return d
 
 
@@ -110,30 +116,29 @@ def prepare(marts: Path, models_out: Path, n_draws=1000, hpi=None) -> dict:
     cells, l1_loans = LT.l1_cells(paths, macro is not None, os.environ.get("VINTAGE_DUCKDB_TEMP"))
     l1 = LT.L1(cells, macro)
 
-    si = d["si"].merge(d["scores"], on="loan_id", how="left")
+    si = d.pop("si")
+    si["grade"] = np.asarray(si["loan_id"].map(d["scores"].set_index("loan_id")["grade"]), object)
     notes["stage_rows_without_grade"] = int(si["grade"].isna().sum())
-    si = si[si["grade"].notna()].reset_index(drop=True)
-    month = ecl.month_int(si["reporting_date"])
+    if notes["stage_rows_without_grade"]:
+        si = si[si["grade"].notna()].reset_index(drop=True)
     xbar = None
     if macro is not None:
-        fwd = np.column_stack([macro.x(month + k) for k in range(1, 13)])
-        xbar = pd.Series(fwd.mean(1), index=si.index)
+        month = ecl.month_int(si["reporting_date"])
+        um = np.unique(month)  # the 12-month-ahead mean depends on the month only
+        fwd = np.column_stack([macro.x(um + k) for k in range(1, 13)]).mean(1)
+        xbar = pd.Series(fwd[np.searchsorted(um, month)], index=si.index)
         fp = d["dim_loan"].set_index("loan_id")["first_payment_date"]
-        si["x_orig"] = macro.x(ecl.month_int(si["loan_id"].map(fp)))
+        x_loan = pd.Series(macro.x(ecl.month_int(fp)), index=fp.index)
+        si["x_orig"] = np.asarray(si["loan_id"].map(x_loan), float)
     l2 = LT.L2(si, xbar)
 
     si["inc_band"] = LT.inc_band(si["rate_incentive_pct"])
     if seg.model is not None:  # G2 passed: loan-level LGD from the two-stage model
-        cols = [
-            "loan_id",
-            "original_upb",
-            "mi_pct",
-            "occupancy_status",
-            "property_type",
-            "property_state",
-        ]
-        attrs = si[["loan_id", "ltv_band"]].merge(d["dim_loan"][cols], on="loan_id", how="left")
-        si["lgd_seg"], si["lgd_row"] = "g2", seg.model.predict(attrs)
+        # Predicted once per loan (origination attributes only), then mapped onto the rows.
+        dl = d["dim_loan"]
+        lgd_loan = pd.Series(seg.model.predict(dl), index=dl["loan_id"])
+        si["lgd_seg"] = "g2"
+        si["lgd_row"] = np.asarray(si["loan_id"].map(lgd_loan), float)
     else:
         si["lgd_seg"], si["lgd_row"] = seg.segment_of(si["ltv_band"]), 1.0
 
@@ -163,16 +168,30 @@ def run(marts: Path, models_out: Path, n_draws=1000, hpi=None):
     cells, l1, l1_loans, l2, si, eng = (
         ctx[k] for k in ("cells", "l1", "l1_loans", "l2", "si", "eng")
     )
-    staged, point, draws = [], {}, {}
-    for dt, rows in si.groupby("reporting_date"):
+    # Stage columns are written back into si (no second copy of the book).
+    n = len(si)
+    out = {
+        "pd12": np.full(n, np.nan),
+        "pd12_ref": np.full(n, np.nan),
+        "sicr": np.zeros(n, bool),
+        "stage": np.zeros(n, np.int8),
+        "prepay12": np.full(n, np.nan),
+    }
+    point, draws = {}, {}
+    t0 = time.perf_counter()
+    for dt, idx in sorted(si.groupby("reporting_date").indices.items()):
+        dt = pd.Timestamp(dt)
         m = int(ecl.month_int(dt)[0])
-        st = eng.stage(rows, m)
+        st = eng.stage(si.iloc[idx], m)
         p, dr, prepay12 = eng.date(st, m)
-        st = st.reset_index(drop=True)
-        st["prepay12"] = prepay12.reindex(st.index)
-        staged.append(st.drop(columns=["x_orig"], errors="ignore"))
+        for col in ("pd12", "pd12_ref", "sicr", "stage"):
+            out[col][idx] = st[col].to_numpy()
+        out["prepay12"][idx[prepay12.index.to_numpy()]] = prepay12.to_numpy()
         point[dt], draws[dt] = p, dr
-    staged = pd.concat(staged, ignore_index=True)
+        print(f"{dt:%Y-%m}: {len(idx)} rows, {time.perf_counter() - t0:.0f} s", flush=True)
+    for col, v in out.items():
+        si[col] = v
+    staged = si
 
     ecl_body, ecl_results, ecl_by_grade = assemble(
         eng, staged, point, draws, l1, l1_loans, cells, d["dim_date"], macro

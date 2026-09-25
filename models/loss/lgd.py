@@ -255,9 +255,13 @@ class G2Model:
         self.converged = ok1 and ok2
 
     def predict(self, df: pd.DataFrame) -> np.ndarray:
-        X, _ = S.design(_apply_levels(g2_features(df), self.cats), self.cats)
+        f = _apply_levels(g2_features(df), self.cats)
+        key = (
+            f.groupby(list(f), sort=False, dropna=False).ngroup().to_numpy()
+        )  # score each combination once
+        X, _ = S.design(f.groupby(key, dropna=False).first(), self.cats)
         X = X[:, self.keep]
-        return S.probs(X, self.b1)[:, 1] * S.probs(X, self.b2)[:, 1]
+        return (S.probs(X, self.b1)[:, 1] * S.probs(X, self.b2)[:, 1])[key]
 
 
 def g2(sample: pd.DataFrame, dim_loan: pd.DataFrame):

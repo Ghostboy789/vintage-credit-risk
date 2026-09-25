@@ -216,21 +216,27 @@ class L1:
             for k in range(2)
         ]
 
-    def hazards(self, grade, mob0, inc, months, x=None, beta=None, coefs=None):
+    def hazards(self, grade, mob0, inc, months, x=None, beta=None, coefs=None, age=None):
         """Monthly default and prepayment probabilities (n x months) for loans starting at
-        months on book mob0 (the incentive band is held at its current value)."""
+        months on book mob0 (the incentive band is held at its current value). `age` may pass
+        the age-band index of each cell precomputed (then it sets the months, e.g. 13 onwards)."""
         coefs = self.coefs(beta) if coefs is None else coefs
         gi, ii = codes(grade, GRADES), codes(inc, INC_BANDS)
-        age = age_index(np.asarray(mob0)[:, None] + np.arange(1, months + 1)[None, :])
-        etas = []
-        for a0, cg, ca, ci, bx in coefs:
-            e = (a0 + cg[gi] + ci[ii])[:, None] + ca[age]
+        if age is None:
+            age = age_index(np.asarray(mob0)[:, None] + np.arange(1, months + 1)[None, :])
+        ex = []
+        for a0, cg, ca, ci, bx in coefs:  # exp(eta) as a product of its separable factors
+            e = np.exp(ca)[age]
+            e *= np.exp(a0 + cg[gi] + ci[ii])[:, None]
             if x is not None:
-                e = e + bx * x
-            etas.append(e)
-        ed, ep = np.exp(np.minimum(etas[0], 50)), np.exp(np.minimum(etas[1], 50))
-        den = 1 + ed + ep
-        return ed / den, ep / den
+                e *= np.exp(bx * np.asarray(x, float))
+            ex.append(e)
+        ed, ep = ex
+        den = ed + ep
+        den += 1
+        ed /= den
+        ep /= den
+        return ed, ep
 
 
 def codes(values, order) -> np.ndarray:
