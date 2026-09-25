@@ -99,7 +99,11 @@ the case an independent review pointed out: a forborne loan that was 90+ but exe
 and then modified was "90+ before modification" and yet never defaulted under D1. The ratio is
 not a proportion (the numerator is not a subset of the denominator), so it is reported without
 an interval.
-Result: pending
+Result: PASS, below the 10% trigger (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). 2,185 loans modified before or without a primary
+default, against 54,615 loans with a primary default at any time: 4.0% (a ratio, no interval).
+By sample: `dev_train` 838 / 29,300 (2.9%), `dev_test` 362 / 12,710 (2.8%), `gap` 147 / 863
+(17.0%), `oot` 407 / 5,475 (7.4%), `covid` 178 / 1,988 (9.0%), `excluded` 253 / 4,279 (5.9%).
+The rule is on the overall ratio, so the modification-trigger sensitivity is not added.
 
 ### D2. Default sensitivity ("naive") definition
 
@@ -527,7 +531,8 @@ Every bootstrap resamples loans, never loan-months.
 
 ### S1. Monotonic WoE
 Every numeric feature in the final model has monotonic WoE in its expected direction. PASS or FAIL.
-Result: pending
+Result: PASS (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). The numeric model features `fico`, `ltv_pct`, `dti_pct` and
+`rate_spread_pct` all have monotonic WoE in their expected direction.
 
 ### S2. Discrimination holds out of time
 `relative Gini drop = (Gini_dev_test - Gini_oot) / Gini_dev_test`, on the point estimate.
@@ -537,7 +542,13 @@ fitting optimism is not mistaken for decay. The bootstrap interval of the drop i
 it, as are Gini, AUC and KS with intervals on every sample. Secondary, not pass or fail: the same
 drop with `default_12m_naive` (D2) as the outcome on both samples, and the pooled
 `oot` plus `covid` view.
-Result: pending
+Result: AMBER, PASS with finding (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). Gini `dev_test` 0.7109 [0.6855, 0.7354], `oot` 0.5336
+[0.5055, 0.5625]; relative drop 0.2494 [0.2010, 0.2951], absolute drop 0.1773 [0.1390, 0.2127]
+(bootstrap_1000). The point estimate is 0.0006 below the Red line and its interval crosses it.
+Secondary: under D2 on both samples the drop is 0.2711 [0.2268, 0.3162] (Red on that
+definition); pooled `oot` plus `covid` Gini 0.4995 [0.4717, 0.5288], a relative drop of 0.297
+(point only; the drop's bootstrap was run for `oot` only); 2017-2019 vintages Gini 0.5054
+[0.4441, 0.5727], 2022-2024 vintages 0.5327 [0.4995, 0.5679].
 
 ### S3. Rank ordering out of time
 The realised default rate on `oot` does not decrease from grade A to grade G. Only **adjacent**
@@ -545,7 +556,10 @@ surviving grades are compared (A with B, B with C and so on, after any merge), e
 Jeffreys 95% interval. An inversion (the riskier grade has the lower realised rate) where the two
 intervals do not overlap is a FAIL; an inversion inside overlapping intervals is Amber. A grade
 with no `oot` loans is skipped and the comparison runs to the next grade.
-Result: pending
+Result: PASS (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). Realised `oot` default rates (Jeffreys): A 0.0008 [0.0006, 0.0010]
+n 102,921; B 0.0019 [0.0015, 0.0023] n 57,575; C 0.0043 [0.0037, 0.0049] n 45,140; D 0.0071
+[0.0062, 0.0082] n 28,098; E 0.0105 [0.0090, 0.0121] n 15,944; F 0.0164 [0.0136, 0.0197] n 6,645;
+G 0.0184 [0.0132, 0.0249] n 2,014. No inversion; no grade was merged on `dev_train`.
 
 ### S4. Calibration by grade
 For each grade, the mean predicted `pd_12m` lies inside the Jeffreys 95% interval of that
@@ -562,8 +576,17 @@ calibration-in-the-large ratio (realised over mean predicted PD) and its interva
 table) are published for `dev_test`, `oot` and `covid` under both D1 and D2 (D2 secondary). The
 scorecard is **not** recalibrated on out-of-time data. The provisioning PD comes from L2, which
 conditions on the reporting date; it is not the scorecard's intercept.
-Result S4a: pending
-Result S4b: pending
+Result S4a: FAIL (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). Six grades pass; grade C fails: mean PD 0.0028 against a realised
+0.0022 [0.0017, 0.0027], n 33,480. Calibration in the large on `dev_test`: realised over mean
+PD 0.975 [0.912, 1.041].
+Result S4b: FAIL. Six of seven grades fail; only E passes. The scorecard under-predicts the
+low-risk grades (A: mean PD 0.0005, realised 0.0008 [0.0006, 0.0010]; B 0.0014 vs 0.0019
+[0.0015, 0.0023]; C 0.0028 vs 0.0043 [0.0037, 0.0049]; D 0.0055 vs 0.0071 [0.0062, 0.0082]) and
+over-predicts the high-risk ones (F 0.0221 vs 0.0164 [0.0136, 0.0197]; G 0.0448 vs 0.0184
+[0.0132, 0.0249]); E 0.0111 vs 0.0105 [0.0090, 0.0121] passes. Calibration in the large on
+`oot`: 1.076 [1.007, 1.148] (D2: 1.526 [1.444, 1.612]). The over-prediction expected above did
+not happen overall; the expectation rested on Appendix A counts that overstate the development
+default rate (see Deviations, 2026-09-25, item 4).
 
 ### S5. Population stability
 PSI of the score, `dev_train` against `oot`, on the ten `dev_train` score deciles (empty bins
@@ -577,7 +600,12 @@ each origination year against `dev_train`, descriptive. Expectation, stated now:
 underwriting is tighter than 1999-2008, so the FICO and DTI distributions will have shifted and
 a Red PSI is plausible. That would be a finding about the population, not a coding error, and it
 would not trigger a model rebuild.
-Result: pending
+Result: PASS, green (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). Score PSI `dev_train` against `oot` 0.0446 [0.0426, 0.0467] on 10
+bins. CSI (flagged, no pass or fail): `fico` 0.062 green, `ltv_pct` 0.199 amber, `dti_pct` 0.654
+red, `rate_spread_pct` 0.117 amber, `term_band` 0.182 amber, `property_type` 0.115 amber,
+`channel` 2.750 red (Freddie Mac's `T`, third party not specified, covers 31% of `dev_train`
+and no out-of-time loan; see `docs/PD_MODELS.md`). PSI by origination year is red for 2010,
+2011 and 2012 (0.42 to 0.59) and amber for seven other years.
 
 ### R1-R8. Reconciliation (hard stop)
 
@@ -634,7 +662,12 @@ Whatever the outcome, the scorecard remains the model used downstream in this re
 hazard, ECL, calculator, workbook). Swapping models after seeing out-of-time results would be a
 result-driven change. A challenger that passes C1 is recorded as a recommendation for the next
 release.
-Result: pending
+Result: FAIL, not recommended for promotion (run of 2026-09-25, scorecard `scorecard-5abfae854ca0`, challenger `lgbm-3482af42e41c`; out-of-time scored once, 2026-09-24T23:57:05Z). Confirm step passed (`dev_test` AUC
+0.8688 against a mean fold AUC of 0.8720). Criterion 1 not met: the `oot` Gini gain is -0.0124
+[-0.0249, -0.0001] (paired bootstrap_1000), so the challenger is worse out of time. Criteria 2
+(calibration fails in 6 grades, the same as the champion), 3 (score PSI 0.0429) and 4 (SHAP for
+every `oot` and `covid` loan, every monotone constraint holds) are met. The scorecard stays the
+model used downstream.
 
 ---
 
@@ -986,5 +1019,49 @@ committed files (LF line endings):
 
 ## Deviations
 
-None yet. Each entry gives the date, the rule, what changed, why, and the result under both the
+Each entry gives the date, the rule, what changed, why, and the result under both the
 original and the changed rule.
+
+### 2026-09-25, the scorecard run on the real data
+
+No rule was changed and nothing was rescored: the out-of-time and COVID samples were scored once
+(2026-09-24T23:57:05Z, one line in the scoring log). Every binning solver ended `OPTIMAL`, so the
+600-second limit was never reached. The entries below record interpretations and a correction.
+
+1. **Section 4, bootstrap intervals that exclude their estimate.** A percentile bootstrap
+   interval can miss its own point estimate for a statistic that resampling biases (PSI near
+   zero, sometimes KS). The contract does not allow a published interval that excludes its
+   value. Handling: the value is published, `ci_low` and `ci_high` are null, and the computed
+   percentile bounds and the reason are written in `ci_method`; nothing is recomputed with
+   another method. Result under the original and the changed rule: identical on the real data,
+   because no published AUC, Gini, KS, Gini drop, PSI or CSI interval excluded its estimate
+   (zero cases in `pd_models.json` and `monitoring.json`).
+2. **S-method Binning, WoE sign remark.** The plan says the WoE convention is "the opposite
+   sign to optbinning's own". In optbinning 1.0.0 the binning table already uses
+   ln(non-default share / default share), the plan's formula, so no sign change is applied. The
+   code follows the formula (computed once, and tested equal to optbinning's table). A factual
+   correction to a remark; no effect on any result.
+3. **Cases the plan does not define** (engine interpretations, documented in
+   `docs/PD_MODELS.md`): S3 and S4 report `INSUFFICIENT` when too few grades or events remain
+   (no primary `oot` grade had fewer than 20 defaults, so this did not arise for S3, S4a or S4b);
+   D1a above 10% would be reported AMBER (it was 4.0%); a category unseen in `dev_train` is
+   scored in the grouped rare-category bin, else the missing bin (no out-of-time category was
+   unseen); a reason-code slot is empty when the feature is already at its maximum points; the
+   fairness Gini with and without a feature uses a logistic refit's unrounded linear predictor;
+   PSI by origination year uses every loan of that year in the scorecard population; the
+   2017-2019 and 2022-2024 out-of-time views filter `oot` by vintage year, so the 7,941
+   `oot` loans of the 2021 vintage (first payment in 2022) are in neither window. Results were
+   not computed under any alternative.
+4. **Appendix A overstates the development default rate, so the S4 expectation was wrong.**
+   Appendix A counted defaults by Freddie Mac's `loan_age`, which restarts at a modification's
+   first payment date (the reason D0 does not use it), so a modified loan that defaulted years
+   later could count as a 12-month default. Under D0 the development rate is 0.39% (`dev_train`
+   2,101 of 539,519 loans, Wilson 95% [0.37%, 0.41%]), not about 0.76%. The difference was found
+   when the development binning was first run, and checked with one aggregate query on the
+   raw Parquet for three development vintages only (no 2016+ vintage): 12-month primary
+   defaults by `loan_age` against months on book, before the HARP exclusion, were 571 against
+   186 (2005), 1,214 against 556 (2007) and 121 against 59 (2015). The S4b sentence "expected
+   to over-predict out of time" therefore rested on inflated counts; S4b is still reported
+   exactly as the rule says (FAIL), and the out-of-time sample holds fewer defaults than sized.
+   No rule, threshold or sample changed.
+
