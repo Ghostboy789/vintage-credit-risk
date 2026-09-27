@@ -23,8 +23,10 @@ technique below was re-implemented from the component's public description, not 
 - **Scroll progress** (skiper89) — `src/components/ScrollProgress.tsx`, on the Methods page.
 - **Scroll with fade** (skiper87) — `src/components/Prose.tsx`, used for the Methods "what these
   results do not establish" section.
-- **ExpandOnHover** (skiper53) — not built yet (planned).
-- **Dynamic Island** (skiper2) — not built yet as the calculator's mobile result pill (planned).
+- **ExpandOnHover** (skiper53) — the scorecard feature list, `src/components/FeatureList.tsx`
+  (rebuilt; a real button with `aria-expanded`).
+- **Dynamic Island** (skiper2) — the calculator's mobile result pill,
+  `src/components/ResultIsland.tsx` (rebuilt).
 
 ## Rebuilt from a written spec (Pro-tier reference only, no source copied)
 
@@ -38,6 +40,19 @@ technique below was re-implemented from the component's public description, not 
 - **The Loan Field** — `src/components/LoanField.tsx`. Inspired by ThreeUI's Structure Flow
   "Data Field" (Community, MIT), reimplemented from scratch in Canvas2D. No three.js or WebGL is
   used anywhere on this site, and no ThreeUI source was copied.
+
+## Ideas taken from published data journalism (no code copied)
+
+- **Stepped scrollytelling** — the Vintages page's crisis walk-through
+  (`src/components/CrisisStory.tsx`) follows the sticky-graphic, one-state-per-step pattern The
+  Pudding describes in its public write-ups on scrollytelling and responsive scrollytelling
+  (pudding.cool/process). Each step only changes which vintages are highlighted; the data never
+  depends on scroll position.
+- **Nearest-line hover** — snapping the pointer to the nearest point of any line with a Voronoi
+  (d3-delaunay) and dimming the other lines is the common d3 multi-line chart technique
+  (d3 examples, ISC licence); rewritten for this site's chart.
+- **Natural frequencies** — the calculator states its PD as "about 1 in N loans", a standard
+  risk-communication device.
 
 ## Data
 

@@ -39,7 +39,7 @@ export interface VintageCurveRow {
 export interface PortfolioArtefact extends ArtefactBase {
   summary: Record<string, Estimate>;
   comparable_months_on_book: number;
-  vintage_curves: VintageCurveRow[];
+  vintage_curves?: VintageCurveRow[];
   vintage_curves_annual: VintageCurveRow[];
   roll_rates?: unknown[];
   at_risk_at_start?: unknown[];

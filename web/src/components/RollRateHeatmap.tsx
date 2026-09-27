@@ -112,7 +112,12 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
         )}
       </div>
       <p className="mt-2 text-sm font-mono" style={{ color: "var(--ink-3)" }}>
-        Row-sum column checks 100%. n = {fmtInt(rows.filter((r) => r.period_group === period).reduce((s, r) => s + r.rate.n, 0))}
+        Row-sum column checks 100%. n ={" "}
+        {fmtInt(
+          // each from-bucket's denominator once, not once per destination cell
+          [...new Map(rows.filter((r) => r.period_group === period).map((r) => [r.from_bucket, r.rate.n])).values()].reduce((s, n) => s + n, 0)
+        )}{" "}
+        loan-months · 95% Wilson intervals
       </p>
     </div>
   );

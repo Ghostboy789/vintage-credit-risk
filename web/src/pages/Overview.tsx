@@ -8,6 +8,7 @@ import { Prose } from "../components/Prose";
 import { Scoreboard } from "../components/Scoreboard";
 import { collectRules } from "../lib/rules";
 import { fmtInt, fmtMoney, fmtPct } from "../lib/format";
+import { COMPARE_MOB, countWord, rowsAt } from "../lib/vintage";
 
 interface Finding {
   to: string;
@@ -35,15 +36,13 @@ function IntervalBar({ est }: { est: Estimate }) {
 function findings(data: Artefacts): Finding[] {
   const out: Finding[] = [];
   const { portfolio, pd_models } = data;
-  const N = portfolio.comparable_months_on_book;
-  const top = portfolio.vintage_curves_annual
-    .filter((r) => r.months_on_book === N && r.cum_default_rate.value !== null)
-    .sort((a, b) => (b.cum_default_rate.value ?? 0) - (a.cum_default_rate.value ?? 0))[0];
+  const compared = rowsAt(portfolio.vintage_curves_annual);
+  const top = [...compared].sort((a, b) => (b.cum_default_rate.value ?? 0) - (a.cum_default_rate.value ?? 0))[0];
   if (top)
     out.push({
       to: "/vintages",
       page: "Vintages",
-      text: `At month ${N}, the ${top.vintage_year} vintage has the highest cumulative default rate`,
+      text: `At month ${COMPARE_MOB}, the ${top.vintage_year} vintage has the highest cumulative default rate of the ${compared.length} vintages observed that long`,
       est: top.cum_default_rate,
       fmt: (v) => fmtPct(v, 1),
     });
@@ -89,20 +88,23 @@ export function Overview({ data }: { data: Artefacts }) {
   const y0 = Math.min(...years);
   const y1 = Math.max(...years);
   const nVintages = new Set(years).size;
+  const perVintage = new Set(portfolio.vintage_curves_annual.filter((r) => r.months_on_book === 1).map((r) => r.cum_default_rate.n));
 
   return (
     <>
       <section className="hero relative overflow-hidden">
         <div className="relative z-10 mx-auto max-w-[1200px] px-4 pt-12 md:px-8 md:pt-20">
           <h1
-            className="font-display max-w-[15ch]"
-            style={{ fontSize: "clamp(44px,7vw,104px)", lineHeight: 0.95, letterSpacing: "-0.02em" }}
+            className="font-display max-w-[17ch]"
+            style={{ fontSize: "clamp(44px,6vw,88px)", lineHeight: 0.95, letterSpacing: "-0.02em" }}
           >
-            Twenty-seven vintages of US mortgages. Watch 2006 and 2007.
+            {countWord(nVintages)} vintages of US mortgages. Watch 2006 and 2007.
           </h1>
           <p className="mt-6 max-w-[52ch] text-lg" style={{ color: "var(--ink-2)" }}>
             {fmtInt(portfolio.summary.n_loans.value ?? 0)} loans and {fmtInt(portfolio.summary.n_loan_months.value ?? 0)}{" "}
-            loan-months, originated {y0}–{y1}. Each ridge is one vintage's cumulative default rate as it ages.
+            loan-months, originated {y0}–{y1}
+            {perVintage.size === 1 ? ` (a sample of ${fmtInt([...perVintage][0])} per year)` : ""}. Each ridge is one vintage's
+            cumulative default rate over its first ten years on book.
           </p>
         </div>
         <div className="relative z-0 mx-auto mt-6 max-w-[1600px] px-2 md:px-4 lg:-mt-24">
@@ -117,9 +119,9 @@ export function Overview({ data }: { data: Artefacts }) {
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <section className="grid grid-cols-1 gap-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <KpiTile label="Loans" estimate={portfolio.summary.n_loans} isPct={false} />
-          <KpiTile label="Loan-months" estimate={portfolio.summary.n_loan_months} isPct={false} />
+          <KpiTile label="Loan-months" estimate={portfolio.summary.n_loan_months} format={(v) => `${(v / 1e6).toFixed(1)}M`} />
           <KpiTile label="Primary defaults" estimate={portfolio.summary.n_defaults_primary} isPct={false} />
-          <KpiTile label="Net loss ($)" estimate={portfolio.summary.net_loss_total} isPct={false} />
+          <KpiTile label="Net loss" estimate={portfolio.summary.net_loss_total} format={(v) => `$${(v / 1e9).toFixed(2)}B`} />
         </section>
 
         <section className="py-16 md:py-24">
@@ -147,7 +149,7 @@ export function Overview({ data }: { data: Artefacts }) {
               <Link
                 key={f.to}
                 to={f.to}
-                className="group flex flex-col rounded-xl border p-6 transition-colors"
+                className="finding-card group flex flex-col rounded-xl border p-6 transition-colors"
                 style={{ borderColor: "var(--border)", background: "var(--surface)", textDecoration: "none" }}
               >
                 <span className="font-mono text-xs uppercase" style={{ color: "var(--ink-3)" }}>

@@ -2,7 +2,7 @@ import { useId, useMemo, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { m } from "framer-motion";
 import { useReducedMotion } from "../lib/theme";
-import { fmtInt } from "../lib/format";
+import { fmtInt, fmtPct } from "../lib/format";
 import type { Estimate } from "../lib/types";
 
 const CRISIS = new Set([2006, 2007]);
@@ -23,19 +23,20 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
 
   const maxVal = useMemo(() =>
     Math.max(
-      1,
+      0.001,
       ...sorted.flatMap((r) => [
-        r.defaults_12m_primary.value ?? 0,
-        r.defaults_12m_naive.value ?? 0,
+        r.defaults_12m_primary.ci_high ?? r.defaults_12m_primary.value ?? 0,
+        r.defaults_12m_naive.ci_high ?? r.defaults_12m_naive.value ?? 0,
       ])
     ),
     [sorted]
   );
 
-  const totalN = useMemo(() =>
-    sorted.reduce((s, r) => s + (r.defaults_12m_primary.n ?? 0), 0),
-    [sorted]
-  );
+  // Both definitions are rates on the same loans; n is per vintage, never summed across vintages.
+  const ns = sorted.map((r) => r.defaults_12m_primary.n);
+  const nText = ns.length && Math.min(...ns) === Math.max(...ns) ? fmtInt(ns[0]) : `${fmtInt(Math.min(...ns))}–${fmtInt(Math.max(...ns))}`;
+  const pp = (d: number) => `${d > 0 ? "+" : d < 0 ? "−" : "±"}${Math.abs(d * 100).toFixed(2)} pp`;
+  const ci = (e: Estimate) => (e.ci_low !== null && e.ci_high !== null ? ` [${fmtPct(e.ci_low)}–${fmtPct(e.ci_high)}]` : "");
 
   const width = 700;
   const height = Math.max(200, sorted.length * 18 + 60);
@@ -74,16 +75,14 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
               <tr key={r.vintage_year} style={{ borderBottom: "1px solid var(--border)" }}>
                 <td className="font-mono py-2 px-2">{r.vintage_year}</td>
                 <td className="tabular py-2 px-2 text-right">
-                  {r.defaults_12m_primary.value === null ? "—" : fmtInt(r.defaults_12m_primary.value)}
+                  {r.defaults_12m_primary.value === null ? "—" : fmtPct(r.defaults_12m_primary.value) + ci(r.defaults_12m_primary)}
                 </td>
                 <td className="tabular py-2 px-2 text-right">
-                  {r.defaults_12m_naive.value === null ? "—" : fmtInt(r.defaults_12m_naive.value)}
+                  {r.defaults_12m_naive.value === null ? "—" : fmtPct(r.defaults_12m_naive.value) + ci(r.defaults_12m_naive)}
                 </td>
                 <td className="tabular py-2 px-2 text-right" style={{ color: "var(--ink-3)" }}>
                   {r.defaults_12m_primary.value !== null && r.defaults_12m_naive.value !== null
-                    ? `${r.defaults_12m_naive.value - r.defaults_12m_primary.value > 0 ? "+" : ""}${
-                        r.defaults_12m_naive.value - r.defaults_12m_primary.value
-                      }`
+                    ? pp(r.defaults_12m_naive.value - r.defaults_12m_primary.value)
                     : "—"}
                 </td>
                 <td className="tabular py-2 px-2 text-right">{fmtInt(r.defaults_12m_primary.n)}</td>
@@ -92,7 +91,7 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
           </tbody>
         </table>
         <p className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-          n = {fmtInt(totalN)} loans · counts, no interval (population counts)
+          n = {nText} loans per vintage · 12-month default rate · 95% Wilson intervals
         </p>
       </div>
     );
@@ -126,7 +125,7 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
           {sorted.length} vintages.
         </desc>
         <text x={margin.left} y={margin.top - 8} className="font-mono" fontSize={11} fill="var(--ink-3)">
-          ● primary   ○ naive
+          ● primary   ○ naive   — 95% interval
         </text>
         {sorted.map((r, i) => {
           const y = margin.top + i * 18;
@@ -156,6 +155,11 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: i * 0.02 }}
               />
+              {[r.defaults_12m_primary, r.defaults_12m_naive].map((e, k) =>
+                e.ci_low !== null && e.ci_high !== null ? (
+                  <line key={k} x1={margin.left + x(e.ci_low)} x2={margin.left + x(e.ci_high)} y1={y + (k ? 3 : -3)} y2={y + (k ? 3 : -3)} stroke="var(--ink-3)" strokeWidth={1} />
+                ) : null
+              )}
               <circle
                 cx={margin.left + primaryX}
                 cy={y}
@@ -179,7 +183,7 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
                   fill="var(--ink-3)"
                   textAnchor="start"
                 >
-                  {diff > 0 ? "+" : ""}{diff}
+                  {pp(diff)}
                 </text>
               )}
             </g>
@@ -187,7 +191,7 @@ export function DefinitionDumbbell({ rows }: { rows: Row[] }) {
         })}
       </svg></div>
       <p className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-        n = {fmtInt(totalN)} loans · counts, no interval (population counts)
+        n = {nText} loans per vintage · 12-month default rate · 95% Wilson intervals
       </p>
     </div>
   );

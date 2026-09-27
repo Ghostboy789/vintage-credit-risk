@@ -187,3 +187,23 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+/* Small details: balanced headings, no orphans in prose, selection in the accent colour. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.finding-card:hover,
+.finding-card:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--border)) !important;
+}

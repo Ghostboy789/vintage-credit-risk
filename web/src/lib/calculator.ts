@@ -1,6 +1,6 @@
 // Client-side scorecard calculator. Exact port of models/pd/scorecard.py's score()/pd_from_score()/
-// grade_of() — same formulas, same tie-breaks — so it must agree with the Python scorecard (tested
-// in the real-data release against the real points table; here it's tested against the fixture points table).
+// grade_of() — same formulas, same tie-breaks. tests/test_web.py checks score, grade, PD and reason
+// codes against the Python scorecard on 60 synthetic attribute combinations.
 import type { PdModelsArtefact, PointsBin, Grade } from "./types";
 
 export interface CalcInput {

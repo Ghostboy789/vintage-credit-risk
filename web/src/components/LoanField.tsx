@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { VintageCurveRow } from "../lib/types";
 import { useReducedMotion, useTheme } from "../lib/theme";
+import { fmtInt, fmtPct } from "../lib/format";
+
+const AXIS = 18; // px under the field for the year labels
 
 interface Dot {
   x0: number;
@@ -12,14 +15,17 @@ interface Dot {
 }
 
 // Rebuild of ThreeUI's Structure Flow "Data Field" (MIT, Community tier) in Canvas2D per the
-// brief — no three.js/WebGL anywhere on this site. ~1 dot per 1,000 loans, sorted into 27 vintage
-// columns on view, defaulted share stacked at the top of each column in the crisis colour.
+// brief — no three.js/WebGL anywhere on this site. one dot per 250 loans (1,000 on phones), sorted into one column
+// per vintage on view, defaulted share stacked at the top of each column in the crisis colour.
 export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const played = useRef(false);
   const [showTable, setShowTable] = useState(false);
+  // Column under the pointer, once the field has sorted: that vintage is brightened and read out.
+  const [hoverCol, setHoverCol] = useState<number | null>(null);
+  const [perDot, setPerDot] = useState(250);
   const reduced = useReducedMotion();
   const { choice } = useTheme();
 
@@ -55,7 +61,7 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
     const canvas = canvasRef.current;
     if (!canvas || !years.length) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const cssHeight = window.innerWidth < 768 ? 360 : 480;
+    const cssHeight = (window.innerWidth < 768 ? 360 : 480) + AXIS;
     const cssWidth = canvas.parentElement?.clientWidth ?? 1200;
     canvas.width = cssWidth * dpr;
     canvas.height = cssHeight * dpr;
@@ -66,6 +72,8 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
     ctx.scale(dpr, dpr);
 
     const grid = 6;
+    setPerDot(cssWidth < 700 ? 1000 : 250);
+    const perDot = cssWidth < 700 ? 1000 : 250;
     const colWidth = cssWidth / years.length;
     const dots: Dot[] = [];
     let seed = 42;
@@ -74,17 +82,21 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
       return seed / 0x7fffffff;
     };
 
+    const perCol = Math.floor((cssHeight - AXIS - 20) / grid);
     years.forEach((year, colIdx) => {
       const row = byYear.get(year)!;
-      const nDots = Math.max(1, Math.round(nLoansOf(year) / 1000));
+      const nDots = Math.max(1, Math.round(nLoansOf(year) / perDot));
       const nDefaulted = Math.round(nDots * (row.cum_default_rate.value ?? 0));
+      // Dots fill rows of `sub` across each column: defaulted from the top, the rest from the bottom.
+      const sub = Math.max(Math.ceil(nDots / perCol), Math.floor((colWidth - grid) / grid), 1);
+      const baseX = colIdx * colWidth + (colWidth - (sub - 1) * grid - 3) / 2;
+      const floorY = cssHeight - AXIS - 10;
       for (let i = 0; i < nDots; i++) {
         const x0 = rand() * cssWidth;
-        const y0 = rand() * cssHeight;
-        const perCol = Math.floor((cssHeight - 20) / grid);
-        const localIdx = i % perCol;
-        const x1 = colIdx * colWidth + grid + (Math.floor(i / perCol) * grid);
-        const y1 = i < nDefaulted ? 10 + localIdx * grid : cssHeight - 10 - localIdx * grid;
+        const y0 = rand() * (cssHeight - AXIS);
+        const j = i < nDefaulted ? i : i - nDefaulted;
+        const x1 = baseX + (j % sub) * grid;
+        const y1 = i < nDefaulted ? 10 + Math.floor(j / sub) * grid : floorY - Math.floor(j / sub) * grid;
         dots.push({ x0, y0, x1, y1, defaulted: i < nDefaulted, column: colIdx });
       }
     });
@@ -107,20 +119,47 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
         const eased = 1 - Math.pow(1 - colDelay, 3);
         const x = d.x0 + (d.x1 - d.x0) * eased;
         const y = d.y0 + (d.y1 - d.y0) * eased;
+        ctx.globalAlpha = hoverCol === null || hoverCol === d.column ? 1 : 0.3;
         ctx.fillStyle = d.defaulted ? crisis : muted;
         ctx.fillRect(x, y, 3, 3);
+      }
+      ctx.globalAlpha = 1;
+      if (globalT >= 1) {
+        // Year labels under the columns: every fifth year, the crisis years and the hovered one.
+        ctx.font = "11px 'IBM Plex Mono', monospace";
+        ctx.textAlign = "center";
+        years.forEach((year, i) => {
+          const show = hoverCol === null ? year % 5 === 0 || year === 2006 || year === 2007 : i === hoverCol;
+          if (!show || (hoverCol !== null && i !== hoverCol)) return;
+          ctx.fillStyle = year === 2006 || year === 2007 ? crisis : css.getPropertyValue("--ink-3").trim();
+          ctx.fillText(String(year), i * colWidth + colWidth / 2, cssHeight - 4);
+        });
       }
       if (globalT < 1 && visible) raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(raf);
-  }, [visible, years.length, reduced, choice]);
+  }, [visible, years.length, reduced, choice, hoverCol]);
+
+  const hovered = hoverCol === null ? null : years[hoverCol];
+  const hoveredRow = hovered === null ? null : byYear.get(hovered)!;
+  const onMove = (e: PointerEvent<HTMLCanvasElement>) => {
+    if (!played.current || e.pointerType === "touch") return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const col = Math.floor(((e.clientX - rect.left) / rect.width) * years.length);
+    setHoverCol(col >= 0 && col < years.length ? col : null);
+  };
 
   return (
-    <div ref={containerRef}>
-      <canvas ref={canvasRef} className="w-full" />
+    <div ref={containerRef} className="relative">
+      <canvas ref={canvasRef} className="w-full" onPointerMove={onMove} onPointerLeave={() => setHoverCol(null)} aria-hidden />
+      <p className="font-mono mt-1 h-5 text-xs" style={{ color: "var(--ink-2)" }} aria-live="polite">
+        {hoveredRow
+          ? `${hovered} · ${fmtInt(nLoansOf(hovered!))} loans · ${fmtPct(hoveredRow.cum_default_rate.value ?? 0, 1)} defaulted by month ${hoveredRow.months_on_book}`
+          : ""}
+      </p>
       <p className="mt-2 text-sm" style={{ color: "var(--ink-3)" }}>
-        1 dot ≈ 1,000 loans (rounded, from the earliest observed cohort size). Highlighted: defaulted
+        1 dot ≈ {fmtInt(perDot)} loans (rounded, from the earliest observed cohort size). Highlighted: defaulted
         under the primary definition, as observed by the latest months on book reached.
       </p>
       <button
@@ -146,7 +185,7 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
               return (
                 <tr key={y} className="border-t" style={{ borderColor: "var(--border)" }}>
                   <td>{y}</td>
-                  <td className="tabular text-right">{nLoansOf(y)}</td>
+                  <td className="tabular text-right">{fmtInt(nLoansOf(y))}</td>
                   <td className="tabular text-right">{((row.cum_default_rate.value ?? 0) * 100).toFixed(2)}%</td>
                 </tr>
               );

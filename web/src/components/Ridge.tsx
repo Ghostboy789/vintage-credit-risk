@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type PointerEvent } from "react";
 import { scaleLinear } from "d3-scale";
 import { area, line, curveMonotoneX } from "d3-shape";
 import { m } from "framer-motion";
@@ -66,8 +66,40 @@ export function Ridge({ rows }: { rows: VintageCurveRow[] }) {
   const crisisLast = series.filter((s) => CRISIS.has(s.year)).at(-1);
   const annotate = crisisLast?.last;
 
+  // Hover: the frontmost ridge under the pointer lights up and reads out its rate at that month.
+  const [hover, setHover] = useState<{ i: number; mob: number } | null>(null);
+  const rateAt = (pts: Pt[], mob: number) => {
+    const j = pts.findIndex((p) => p.mob >= mob);
+    if (j <= 0) return j === 0 ? pts[0].rate : null;
+    const a = pts[j - 1], b = pts[j];
+    return a.rate + ((b.rate - a.rate) * (mob - a.mob)) / (b.mob - a.mob);
+  };
+  const onMove = (e: PointerEvent<SVGSVGElement>) => {
+    if (e.pointerType === "touch") return;
+    const ctm = e.currentTarget.getScreenCTM();
+    if (!ctm) return;
+    const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
+    const mob = Math.round(x.invert(pt.x));
+    if (mob < 1 || mob > maxMob) return setHover(null);
+    for (let i = series.length - 1; i >= 0; i--) {
+      const base = top + i * gap;
+      const r = rateAt(series[i].pts, mob);
+      if (r !== null && pt.y <= base + 2 && pt.y >= base - h(r) - 6) return setHover({ i, mob });
+    }
+    setHover(null);
+  };
+  const hs = hover && series[hover.i];
+  const hRate = hs ? rateAt(hs.pts, hover.mob) : null;
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="ridge-title ridge-desc" className="block h-auto w-full">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-labelledby="ridge-title ridge-desc"
+      className="block h-auto w-full"
+      onPointerMove={onMove}
+      onPointerLeave={() => setHover(null)}
+    >
       <title id="ridge-title">Cumulative default rate by months on book, one ridge per vintage year</title>
       <desc id="ridge-desc">
         A ridgeline of {series.length} annual vintages, oldest at the back. Height is the cumulative default rate
@@ -105,9 +137,10 @@ export function Ridge({ rows }: { rows: VintageCurveRow[] }) {
             <m.path
               d={lineD}
               fill="none"
-              stroke={crisis ? "var(--crisis)" : "var(--ink-3)"}
-              strokeOpacity={crisis ? 1 : 0.55}
-              strokeWidth={crisis ? 2.5 : 1.25}
+              stroke={hover?.i === i ? "var(--accent)" : crisis ? "var(--crisis)" : "var(--ink-3)"}
+              strokeOpacity={hover?.i === i || crisis ? 1 : 0.55}
+              strokeWidth={crisis || hover?.i === i ? 2.5 : 1.25}
+              style={{ transition: reduced ? undefined : "stroke 160ms, stroke-width 160ms" }}
               strokeLinejoin="round"
               initial={reduced ? false : { pathLength: 0 }}
               animate={{ pathLength: 1 }}
@@ -121,7 +154,7 @@ export function Ridge({ rows }: { rows: VintageCurveRow[] }) {
                 className="font-mono"
                 fontSize={labelSize}
                 fontWeight={crisis ? 600 : 400}
-                fill={crisis ? "var(--crisis)" : "var(--ink-3)"}
+                fill={hover?.i === i ? "var(--accent)" : crisis ? "var(--crisis)" : "var(--ink-3)"}
               >
                 {year}
               </text>
@@ -140,9 +173,9 @@ export function Ridge({ rows }: { rows: VintageCurveRow[] }) {
             const px = x(annotate.months_on_book);
             const py = top + i * gap - h(annotate.cum_default_rate.value ?? 0);
             const e = annotate.cum_default_rate;
-            const tx = narrow ? px - 8 : px + 14;
-            const anchor = narrow ? "end" : "start";
-            const ty = narrow ? py - 40 : py - 6;
+            const tx = px - 8;
+            const anchor = "end";
+            const ty = py - (narrow ? 64 : 56);
             return (
               <>
                 <circle cx={px} cy={py} r={narrow ? 5 : 4} fill="var(--crisis)" />
@@ -159,6 +192,25 @@ export function Ridge({ rows }: { rows: VintageCurveRow[] }) {
             );
           })()}
         </m.g>
+      )}
+      {hs && hRate !== null && (
+        <g pointerEvents="none">
+          <line x1={x(hover!.mob)} x2={x(hover!.mob)} y1={top + hover!.i * gap} y2={top + hover!.i * gap - h(hRate)} stroke="var(--accent)" strokeOpacity={0.5} />
+          <circle cx={x(hover!.mob)} cy={top + hover!.i * gap - h(hRate)} r={4} fill="var(--accent)" stroke="var(--bg)" strokeWidth={2} />
+          <text
+            x={x(hover!.mob) + (x(hover!.mob) > W - 360 ? -10 : 10)}
+            y={top + hover!.i * gap - h(hRate) - 10}
+            textAnchor={x(hover!.mob) > W - 360 ? "end" : "start"}
+            className="font-mono"
+            fontSize={labelSize}
+            fill="var(--ink)"
+            stroke="var(--bg)"
+            strokeWidth={4}
+            paintOrder="stroke"
+          >
+            {hs.year} · {fmtPct(hRate, 1)} defaulted by month {hover!.mob}
+          </text>
+        </g>
       )}
       <text x={x(maxMob)} y={H - 4} textAnchor="end" className="font-mono" fontSize={labelSize - 2} fill="var(--ink-3)">
         months on book →

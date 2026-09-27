@@ -16,7 +16,6 @@ const NOT_ESTABLISHED = [
   "Reject inference: the data has no rejected applicants, so acceptance-population bias cannot be measured.",
   "Selection: conforming loans only, bought by Freddie Mac — not the whole mortgage market.",
   "Geography: US mortgages, not Indian loans. Methods map to Ind AS 109 / RBI SMA; the numbers do not.",
-  "This is a synthetic-fixture build. No number on this site is a real result until the real-data release replaces these fixtures.",
 ];
 
 export function Methods({ data }: { data: Artefacts }) {

@@ -1,4 +1,5 @@
 import { useState, useMemo, useId } from "react";
+import { featureLabel, binText } from "../lib/labels";
 import { AnimatePresence, m } from "framer-motion";
 import type { PointsBin, Estimate } from "../lib/types";
 import { fmtPct, fmtInt } from "../lib/format";
@@ -72,7 +73,7 @@ export function FeatureList({
               }}
             >
               <div className="flex items-center gap-3">
-                <span className="font-mono">{f.feature}</span>
+                <span className="min-w-[9rem]">{featureLabel(f.feature)}</span>
                 <div className="flex-1 max-w-[120px] h-2 rounded overflow-hidden" style={{ background: "var(--ink-muted)" }}>
                   <div
                     className="h-full"
@@ -104,7 +105,7 @@ export function FeatureList({
                     {thisBins.map((bin) => (
                       <div key={bin.bin} className="space-y-2 p-3 rounded border" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
                         <div className="flex items-center gap-2">
-                          <span className="font-mono">{bin.is_missing_bin ? "Unknown" : bin.bin}</span>
+                          <span className="font-mono">{binText(f.feature, bin)}</span>
                         </div>
                         <div className="flex items-center gap-2">
                         <div className="relative h-3 flex-1" style={{ background: "var(--surface-2)", borderRadius: 4 }}>

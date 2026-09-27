@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { featureLabel, binText } from "../lib/labels";
 import { m } from "framer-motion";
 import type { CalcResult } from "../lib/calculator";
 import { fmtPct } from "../lib/format";
@@ -73,7 +74,7 @@ export function ResultIsland({ result }: { result: CalcResult }) {
               {result.reasonCodes.length === 0 && <li>No shortfall: every feature is in its best bin.</li>}
               {result.reasonCodes.map((c, i) => (
                 <li key={c.feature}>
-                  {i + 1}. {c.feature} <span className="font-mono text-xs">{c.bin.is_missing_bin ? "Unknown" : c.bin.bin}</span>: −{c.shortfall} points vs
+                  {i + 1}. {featureLabel(c.feature)} <span className="font-mono text-xs">{binText(c.feature, c.bin)}</span>: −{c.shortfall} points vs
                   best bin
                 </li>
               ))}

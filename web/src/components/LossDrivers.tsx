@@ -17,7 +17,8 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
   const [showTable, setShowTable] = useState(false);
 
   const dimensions = useMemo(() => [...new Set(rows.map((r) => r.dimension))], [rows]);
-  const totalN = useMemo(() => rows.reduce((s, r) => s + (r.default_rate.n ?? 0), 0), [rows]);
+  // Every dimension splits the same loans, so n is one dimension's total, not the sum over all of them.
+  const totalN = useMemo(() => rows.filter((r) => r.dimension === rows[0]?.dimension).reduce((s, r) => s + (r.default_rate.n ?? 0), 0), [rows]);
   const ciMethod = rows[0]?.default_rate.ci_method ?? "";
 
 
@@ -49,7 +50,9 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
           </thead>
           <tbody>
             {dimensions.map((dim) => {
-              const dimRows = rows.filter((r) => r.dimension === dim);
+              // Ordered bands keep their order; unordered segments (states) are ranked by default rate.
+          const dimRows = rows.filter((r) => r.dimension === dim);
+          if (!/band/.test(dim)) dimRows.sort((a, b) => (b.default_rate.value ?? -1) - (a.default_rate.value ?? -1));
               return dimRows.map((r, i) => (
                 <tr key={`${r.dimension}-${r.segment}`} style={{ borderBottom: "1px solid var(--border)" }}>
                   <td className="font-mono py-2 px-2">{i === 0 ? dim.replace(/_/g, " ") : ""}</td>
@@ -97,15 +100,17 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))" }}
       >
         {dimensions.map((dim) => {
+          // Ordered bands keep their order; unordered segments (states) are ranked by default rate.
           const dimRows = rows.filter((r) => r.dimension === dim);
+          if (!/band/.test(dim)) dimRows.sort((a, b) => (b.default_rate.value ?? -1) - (a.default_rate.value ?? -1));
           const maxCiHigh = Math.max(
             0.01,
             ...dimRows.map((r) => r.default_rate.ci_high ?? r.default_rate.value ?? 0)
           );
-          const panelWidth = 400;
+          const panelWidth = 460;
           const rowHeight = 28;
           const panelHeight = Math.max(180, dimRows.length * rowHeight + 60);
-          const margin = { top: 36, right: 150, bottom: 20, left: 64 };
+          const margin = { top: 36, right: 200, bottom: 20, left: 64 };
           const innerWidth = panelWidth - margin.left - margin.right;
 
           const x = scaleLinear().domain([0, maxCiHigh]).range([0, innerWidth]);

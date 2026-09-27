@@ -26,7 +26,7 @@ function Shell() {
   return (
     <>
       <Header />
-      {state.status === "ready" && state.anySynthetic && <SyntheticBanner />}
+      {state.status === "ready" && <SyntheticBanner data={state.data} />}
       <main>
         {state.status === "loading" && (
           <div className="px-8 py-24 text-center" style={{ color: "var(--ink-2)" }}>
