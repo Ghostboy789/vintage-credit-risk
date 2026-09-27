@@ -28,22 +28,57 @@ const tickLabel = (t: number) => (t >= 0.01 ? `${t * 100}%` : `${+(t * 100).toFi
 
 // The master scale as a ladder: each grade's PD band on a log axis, with the predicted (diamond)
 // and realised (dot + Jeffreys whisker) default rate. The calculator's grade is highlighted.
-export function PdLadder({ grades, calibration, activeGrade }: { grades: Grade[]; calibration: Cal[]; activeGrade?: string }) {
+export function PdLadder({
+  grades,
+  calibration,
+  calibrationOot,
+  activeGrade,
+}: {
+  grades: Grade[];
+  calibration: Cal[];
+  calibrationOot?: Cal[];
+  activeGrade?: string;
+}) {
   const reduced = useReducedMotion();
   const [table, setTable] = useState(false);
+  // V-01: default view is in-time so "Try it" still lines up, but out-of-time (where S4b fails
+  // 6 of 7 grades) is one click away, not hidden behind a badge.
+  const [sample, setSample] = useState<"dev_test" | "oot">("dev_test");
   const id = useId();
   const row = 44;
   const top = 24;
   const W = 720;
   const H = grades.length * row + top + 32;
   const x = scaleLog().domain([1e-4, 1]).range([48, W - 190]).clamp(true);
-  const cal = new Map(calibration.map((c) => [c.grade, c]));
+  const active_calibration = sample === "oot" ? (calibrationOot ?? []) : calibration;
+  const cal = new Map(active_calibration.map((c) => [c.grade, c]));
   const active = grades.findIndex((g) => g.grade === activeGrade || g.merged_into === activeGrade);
-  const flagged = calibration.filter((c) => c.result === "FAIL").map((c) => c.grade);
+  const flagged = active_calibration.filter((c) => c.result === "FAIL").map((c) => c.grade);
 
   return (
     <div>
-      <div className="mb-2 flex justify-end">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        {calibrationOot && calibrationOot.length > 0 ? (
+          <div className="flex gap-2">
+            {(["dev_test", "oot"] as const).map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setSample(s)}
+                className="min-h-[32px] rounded-full border px-3 text-xs"
+                style={{
+                  borderColor: "var(--border)",
+                  background: sample === s ? "var(--accent)" : "transparent",
+                  color: sample === s ? "var(--bg)" : "var(--ink-2)",
+                }}
+              >
+                {s === "dev_test" ? "Test sample (in time)" : "Out of time"}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <span />
+        )}
         <button
           type="button"
           onClick={() => setTable((t) => !t)}
@@ -53,6 +88,11 @@ export function PdLadder({ grades, calibration, activeGrade }: { grades: Grade[]
           {table ? "Chart" : "Table"}
         </button>
       </div>
+      {sample === "oot" && (
+        <p className="mb-2 text-xs" style={{ color: "var(--ink-2)" }}>
+          Out-of-time calibration (S4b): fails in 6 of the 7 grades tested. The PD is not calibrated out of time.
+        </p>
+      )}
       {table ? (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -98,7 +138,8 @@ export function PdLadder({ grades, calibration, activeGrade }: { grades: Grade[]
           <title id={`${id}-t`}>PD master scale by grade, with predicted and realised default rates</title>
           <desc id={`${id}-d`}>
             {grades.length} grades from {grades[0]?.grade} (lowest PD) to {grades.at(-1)?.grade} (highest). Calibration is shown for{" "}
-            {calibration.length} grades on the test sample{flagged.length ? `; grades ${flagged.join(", ")} fail the calibration rule` : ""}.
+            {active_calibration.length} grades on the {sample === "oot" ? "out-of-time" : "test"} sample
+            {flagged.length ? `; grades ${flagged.join(", ")} fail the calibration rule` : ""}.
             {activeGrade ? ` The calculator's loan is in grade ${activeGrade}.` : ""}
           </desc>
           {active >= 0 && (
@@ -179,7 +220,8 @@ export function PdLadder({ grades, calibration, activeGrade }: { grades: Grade[]
         </svg></div>
       )}
       <p className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-        Log scale. Diamond: mean predicted PD. Dot and whisker: realised rate with its 95% Jeffreys interval, development test sample. Grades with
+        Log scale. Diamond: mean predicted PD. Dot and whisker: realised rate with its 95% Jeffreys interval,{" "}
+        {sample === "oot" ? "out-of-time sample" : "development test sample"}. Grades with
         no marker have no test-sample calibration row.
       </p>
     </div>

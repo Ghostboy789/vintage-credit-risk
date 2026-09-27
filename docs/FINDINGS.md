@@ -20,13 +20,13 @@ now exists (`scorecard-5abfae854ca0`, scored 2026-09-24), so this run covers the
 population. Reconciliation (R1-R4) does not depend on that gate: it is counts, loan-month
 counts, balances and loss sums, never a default rate by vintage.
 
-## 1. The 2005-2008 crisis vintages defaulted 6-8x more than the vintages around them
+## 1. The 2005-2008 crisis vintages defaulted 5.6-7.9x more than the vintages around them
 
 At 72 months on book (6 years; all three vintages `fully_observed = true` there), the 2007
 vintage's cumulative primary default rate is **14.41% (95% CI 14.11-14.72%, n=50,000)**, against
 **1.83% (1.71-1.95%, n=50,000)** for 2003 and **2.57% (2.43-2.71%, n=50,000)** for 1999. Its
 cumulative loss rate is **2.65% (2.54-2.77%) of original UPB**, against 0.05% and 0.05% for those
-two benign years -- roughly 50x, not just 6-8x, because loss severity also rose in the crisis
+two benign years -- roughly 50x, not just 5.6-7.9x, because loss severity also rose in the crisis
 (the LGD-by-LTV finding below). *Caveat:* this is the whole cohort's realised outcome, not a
 model; it says what happened to 2007 originations, not what a similar loan would do today.
 
@@ -38,9 +38,12 @@ default rate of **0.208% (n=50,000)** against a naive (D2, no exemption) rate of
 **2.324% (n=50,000)** -- both counted on exactly the same 50,000 loans. Every other pre-2018
 vintage checked (1999-2008) has primary and naive rates equal to 3 decimal places, because the
 forbearance and disaster flags Freddie Mac reports do not exist before 2014 (VALIDATION_PLAN
-D3), so the exemption cannot have fired retroactively. This is the single largest reason two
-credible analysts could publish different "2019 default rate" numbers from the same data, and it
-is a measurement artefact of forbearance reporting, not a change in borrower behaviour.
+D3), so the exemption cannot have fired retroactively. The 2017 vintage, also pre-2018, is an
+exception: 0.230% (D1) against 0.382% (D2), because it carries disaster forbearance. This is the
+single largest reason two credible analysts could publish different "2019 default rate" numbers
+from the same data. It is a definitional choice about what counts as default, not only a
+measurement artefact: forborne borrowers did in fact stop paying, and D1 exempts that from the
+primary default count.
 
 ## 3. Severely delinquent loans cured *faster* under COVID-era forbearance than they did in 2008
 
@@ -55,15 +58,16 @@ them, while COVID-era forbearance and modification programmes moved severely del
 back to current at a rate the housing crash never matched. *Caveat:* roll rates here are pooled
 across every vintage and forbearance status in the period; they are not one vintage's experience.
 
-## 4. Loan-to-value at origination is the strongest loss driver measured here
+## 4. Loan-to-value at origination is a strong loss driver, compared here against state only
 
-`loss_drivers` (dimension `ltv_band`, whole 1999-2024 population): default rate rises from
-**2.14% (n=321,605)** for LTV <= 60 to **8.52% (8.26-8.78%, n=45,712)** for LTV > 95, and loss
-rate (of original UPB) rises from **0.11% (0.10-0.12%)** to **1.05% (0.98-1.12%)** over the same
-bands -- about a 4x rise in default incidence and a 9-10x rise in loss rate, since higher-LTV
-defaults also lose more per dollar of exposure. *Caveat:* LTV band alone; this is not a
-multivariate loss model, and MI coverage (excluded here) tracks LTV and mitigates part of the
-gap for the highest bands.
+`loss_drivers` (dimensions `ltv_band` and `property_state`, whole 1999-2024 population): default
+rate rises from **2.14% (n=321,605)** for LTV <= 60 to **8.52% (8.26-8.78%, n=45,712)** for LTV >
+95, and loss rate (of original UPB) rises from **0.11% (0.10-0.12%)** to **1.05% (0.98-1.12%)**
+over the same bands -- about a 4x rise in default incidence and a 9-10x rise in loss rate, since
+higher-LTV defaults also lose more per dollar of exposure. *Caveat:* `loss_drivers` measures only
+`ltv_band` and `property_state`, so "strongest" is not established against other candidates such
+as FICO or DTI; this is not a multivariate loss model, and MI coverage (excluded here) tracks LTV
+and mitigates part of the gap for the highest bands.
 
 ## 5. Prepayment speeds trace the real refinancing cycles, which is itself a check on the pipeline
 
@@ -71,9 +75,11 @@ gap for the highest bands.
 hundreds of thousands per month): CPR reaches **21-23%** through the 2010-2012 refinancing wave,
 **16-18%** in 2002-2004, and peaks at **30.6% in September 2020** during the pandemic refinancing
 boom, against **5-10%** in slow years either side. These numbers were not fit to anything --
-they fall out of the raw exit flags -- and they land exactly where the historical mortgage
-market record says they should, which is independent evidence the panel and its exit-type
-handling are correct (see the "did not hold up" section for the one place they weren't).
+they fall out of the raw exit flags -- and the pattern (elevated CPR in the known refinancing
+and pandemic-refinancing waves, low CPR elsewhere) matches the general shape of the historical
+mortgage market record, though no external benchmark series is cited here for a direct
+comparison. That match is still useful evidence the panel and its exit-type handling are broadly
+correct (see the "did not hold up" section for the one place they weren't).
 
 ## 6. Reconciliation (R1-R8) passes, with one exact, already-explained exception
 

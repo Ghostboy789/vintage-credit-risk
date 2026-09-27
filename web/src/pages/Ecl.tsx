@@ -160,6 +160,10 @@ export function Ecl({ data }: { data: Artefacts }) {
         <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
           Realised default rate against the predicted PD, inside the binomial and Vasicek bands.
         </p>
+        <p className="mt-2 max-w-[68ch] text-sm" style={{ color: "var(--ink-2)" }}>
+          The pass comes from a wide band: the model over-predicts realised defaults in 48 of the 49 grade-dates
+          tested. A pass here is not evidence the PD is calibrated.
+        </p>
         <div className="mt-6">
           <Backtest rows={ecl.backtest ?? []} />
         </div>

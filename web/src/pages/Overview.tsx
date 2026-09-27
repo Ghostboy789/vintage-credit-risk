@@ -7,7 +7,7 @@ import { KpiTile } from "../components/KpiTile";
 import { Prose } from "../components/Prose";
 import { Scoreboard } from "../components/Scoreboard";
 import { collectRules } from "../lib/rules";
-import { fmtInt, fmtMoney, fmtPct } from "../lib/format";
+import { ciMethodLabel, fmtInt, fmtMoney, fmtPct } from "../lib/format";
 import { COMPARE_MOB, countWord, rowsAt } from "../lib/vintage";
 
 interface Finding {
@@ -168,7 +168,7 @@ export function Overview({ data }: { data: Artefacts }) {
                 </span>
                 <IntervalBar est={f.est} />
                 <span className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-                  n = {fmtInt(f.est.n)} · {f.est.ci_method}
+                  n = {fmtInt(f.est.n)} · {ciMethodLabel(f.est.ci_method)}
                 </span>
                 <span className="mt-5 text-sm" style={{ color: "var(--accent)" }}>
                   See the evidence <span className="inline-block transition-transform group-hover:translate-x-1">→</span>

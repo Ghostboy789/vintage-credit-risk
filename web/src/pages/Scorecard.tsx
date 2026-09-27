@@ -46,7 +46,7 @@ export function Scorecard({ data }: { data: Artefacts }) {
     (p) => p.comparison === "dev_train_vs_oot"
   );
   const features = (pd_models.features ?? []) as { feature: string; iv: Estimate; selected: boolean; drop_reason: string | null }[];
-  const calibration = ((pd_models.calibration ?? []) as {
+  const allCalibration = (pd_models.calibration ?? []) as {
     sample: string;
     definition: string;
     grade: string;
@@ -54,7 +54,11 @@ export function Scorecard({ data }: { data: Artefacts }) {
     mean_pd: number;
     realised_rate: Estimate;
     result: string;
-  }[]).filter((c) => c.sample === "dev_test" && c.definition === "primary");
+  }[];
+  const calibration = allCalibration.filter((c) => c.sample === "dev_test" && c.definition === "primary");
+  // V-01: the site showed only the in-time (dev_test) calibration. S4b fails on 6 of 7 grades
+  // out of time, so the ladder needs that sample too, not just a pass/fail badge for it.
+  const calibrationOot = allCalibration.filter((c) => c.sample === "oot" && c.definition === "primary");
   const challengerStatus = pd_models.challenger?.status ?? "not_run";
   const two = (v: number) => v.toFixed(2);
 
@@ -86,9 +90,9 @@ export function Scorecard({ data }: { data: Artefacts }) {
 
       <Section
         title="PD ladder"
-        intro="Each grade's PD band on a log scale, with the predicted and realised default rate on the test sample. Your calculator result is highlighted."
+        intro="Each grade's PD band on a log scale, with the predicted and realised default rate. Switch samples: the development test sample is in time, the out-of-time sample (2017-2019, 2021-2024 originations) is where S4b fails in 6 of 7 grades. Your calculator result is highlighted."
       >
-        <PdLadder grades={pd_models.grades} calibration={calibration} activeGrade={result?.grade} />
+        <PdLadder grades={pd_models.grades} calibration={calibration} calibrationOot={calibrationOot} activeGrade={result?.grade} />
       </Section>
 
       <Section title="Features" intro="Information value per selected feature. Open a row to see its bins: weight of evidence, points and the default rate in each bin.">

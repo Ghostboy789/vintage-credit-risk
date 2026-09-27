@@ -17,6 +17,13 @@ export const fmtMoneyCompact = (n: number) => {
 
 export const fmtPct = (n: number, digits = 2) => `${(n * 100).toFixed(digits)}%`;
 
+// V-01: the ECL draws are parameter uncertainty only (LGD, scenario, staging and model
+// uncertainty are excluded), which makes the interval far too narrow. Every place that shows
+// this ci_method routes through here so the caveat can't be shown in one spot and missed in
+// another.
+export const ciMethodLabel = (method: string) =>
+  method === "parameter_draws_1000" ? `${method} (parameter uncertainty only, too narrow)` : method;
+
 export const fmtDate = (iso: string) =>
   new Date(iso + (iso.length === 10 ? "T00:00:00Z" : "")).toLocaleDateString("en-US", {
     year: "numeric",

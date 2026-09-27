@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { m, useInView } from "framer-motion";
 import { useReducedMotion } from "../lib/theme";
 import type { Estimate } from "../lib/types";
-import { fmtInt, fmtPct } from "../lib/format";
+import { ciMethodLabel, fmtInt, fmtPct } from "../lib/format";
 
 // Skiper37 "animated number" adapted: counts from ci_low to value (never from 0), so the estimate
 // visibly settles inside its own interval. Interval text/bar/n are static and visible from frame 0.
@@ -103,7 +103,7 @@ export function KpiTile({
         </>
       )}
       <div className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-        n = {fmtInt(estimate.n)} loans{noEstimate ? "" : ` · ${estimate.ci_method}`}
+        n = {fmtInt(estimate.n)} loans{noEstimate ? "" : ` · ${ciMethodLabel(estimate.ci_method)}`}
       </div>
     </m.div>
   );

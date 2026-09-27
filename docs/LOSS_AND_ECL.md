@@ -222,8 +222,11 @@ Dates to 2016-12 are in-sample for L1 or L2.
 - *COVID.* ECL more than doubled in one quarter (2020-03 to 2020-06) through the 30-days-past-due
   backstop and forbearance flags (the PD rule explains only 36% of stage 2 at 2020-06), while
   stage 3 hardly moved because forborne 90+ loans are stage 2 by design (D3). Realised defaults
-  stayed low, so this was over-provisioning: at 2020-12 the model predicted 1.8x to 5.5x the
-  realised 12-month default rate by grade.
+  stayed low under the primary (D1, forbearance-exempt) default definition, so this was
+  over-provisioning under that definition: at 2020-12 the model predicted 1.8x to 5.5x the
+  realised 12-month default rate by grade. That comparison is partly circular, since D1 is the
+  definition that exempts forbearance from counting as default in the first place; under the
+  naive (D2) definition the realised rate is higher and the over-provisioning smaller.
 - *2022-23.* Stage 2 rose again to 17% with almost no delinquency change: 93% of stage 2 at
   2023-03 is the PD rule alone, when house-price growth slowed. Because `PD12_ref` carries the
   house-price value at origination, loans originated in the 2020-22 boom look deteriorated when
