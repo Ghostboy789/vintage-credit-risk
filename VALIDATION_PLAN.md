@@ -625,7 +625,7 @@ Nothing downstream is published until these pass. They are tests, not judgement 
 The Excel workbook recalculates to `ecl.json` totals within 0.01% (rounding only).
 Each rule's result (rows checked, rows outside tolerance, largest difference) is published:
 R1-R4, R7 and R8 in `portfolio.json`, R5 and R6 in `lgd_ead.json`.
-Result: pending
+Result: R5 PASS, R6 PASS (loss run of 2026-09-28 on the real marts and the final scorecard grades; 1,000 parameter draws; FHFA house-price scenarios on). R5: 19,639 events with `actual_loss` populated, 0 outside $1 (share 1.0000 against >= 0.995), largest difference $0.00. R6: 36,723 events, 0 outside $1, largest difference $0.00. Both in `lgd_ead.json`. R1-R4, R7 and R8 are recorded by the portfolio run in `portfolio.json`, not here.
 
 ---
 
@@ -705,7 +705,7 @@ L1a. Diagnostic: predicted against realised 12-month prepayment rate by grade at
 year-ends (2016-12 to 2024-12, `prepaid_next_12m`), published in `ecl.json`. Described, not a
 pass rule. The model has no house-price or burnout effect on
 prepayment, a stated limitation.
-Result: pending
+Result: described, no pass rule (loss run of 2026-09-28 on the real marts and the final scorecard grades; 1,000 parameter draws; FHFA house-price scenarios on). Predicted against realised 12-month prepayment (`prepayment_backtest`, unweighted mean over the seven grades): 2016-12 0.171 vs 0.119, 2017-12 0.138 vs 0.101, 2018-12 0.092 vs 0.128, 2019-12 0.167 vs 0.235, 2020-12 0.229 vs 0.270, 2021-12 0.208 vs 0.126, 2022-12 0.058 vs 0.065, 2023-12 0.056 vs 0.073, 2024-12 0.102 vs 0.090. The model follows the direction of the refinancing cycle through the rate incentive but misses its size in both directions, over-predicting after the 2020-21 boom (burnout, not modelled) and under-predicting the 2019-20 boom. Per-grade rates with Wilson intervals are in `ecl.json`.
 
 ### L2. Behavioural 12-month PD (first year and SICR)
 
@@ -810,7 +810,7 @@ dates 2019-12 and 2020-12, whose outcome windows cover the forbearance period, a
 excluded from the count, as decided now. If the backtest fails, the failure is reported with its
 direction (cycle or ranking); the PD model is **not** refitted on held-out periods and no
 management overlay is added to make it pass.
-Result: pending
+Result: PASS (loss run of 2026-09-28 on the real marts and the final scorecard grades; 1,000 parameter draws; FHFA house-price scenarios on). No Red grade at any of the seven counted dates (2016-12, 2017-12, 2018-12, 2021-12, 2022-12, 2023-12, 2024-12); 2019-12 and 2020-12 shown, not counted, also no Red. The pass rests entirely on the Vasicek band: of the 49 counted grade-date cells, 4 are Green and 45 Amber, and the prediction exceeds the realised rate in 48 of 49 (in all 63 cells but one, grade A at 2024-12). Pooled over the counted cells, predicted 0.766% against realised 0.529% (n = 2,008,959 loan-dates). Direction: cycle, not ranking; realised rates rise from A to G at every date except 2023-12 (F above G), while the model over-predicts almost every grade (predicted over realised 0.99x to 2.41x at the counted dates; 1.76x to 5.55x at 2020-12, when forbearance held defaults down). The PD model was not refitted and no overlay was added.
 
 ### E4. Pass rules for the loss engine
 - E4a. Hand-worked loan: ECL = PD x LGD x EAD x discount factor within $0.01 (unit test).
@@ -818,7 +818,7 @@ Result: pending
   90+ loan (Stage 2, not 3), a credit-event exit.
 - E4c. Marginal default plus marginal prepay plus final survival sum to 1 for every grade (unit
   test, 1e-12).
-Result: pending
+Result: PASS (E4a, E4b, E4c) (loss run of 2026-09-28 on the real marts and the final scorecard grades; 1,000 parameter draws; FHFA house-price scenarios on). E4a: largest difference $0.000000 against an independent month-by-month calculation for stage 1, 2 and 3 loans (tolerance $0.01). E4b: 29 against 30 days past due, cure probation, a forborne 90+ loan (stage 2), a credit-event exit, all as specified. E4c: largest deviation 2.2e-15 over every grade, scenario and parameter draw across 30 years (tolerance 1e-12). No grade or band merges were needed in L1 or L2 on the real data.
 
 ### E5. What ECL here is not
 It is not a regulatory or audited provision. The minimum version has no forward-looking
@@ -839,6 +839,7 @@ mortgages, not an Indian book.
   average of the three scenario ECLs (not the ECL of an average scenario, which would miss the
   non-linearity). Staging uses the probability-weighted `PD12`. The ECL under 100% adverse is
   published as a sensitivity.
+Result: run, no pass rule (loss run of 2026-09-28 on the real marts). At 2026-03 the probability-weighted ECL is $272.4m [269.6, 275.0] (parameter draws); base $261.5m [259.0, 264.0], 100% adverse $320.4m [316.9, 323.8], upside $235.7m [233.3, 238.1], on an exposure of $80.0bn (342,587 loans). At 2008-12: weighted $374.3m, adverse $437.1m.
 
 ---
 
@@ -857,7 +858,7 @@ Two stages: the probability of a positive loss (logistic), then severity given a
 state group. It is fitted on defaults up to 2010-12 and compared on defaults from 2011-01 (P4).
 It is used in ECL only if the paired bootstrap interval of `MAE_model - MAE_segment_mean` on the
 held-out defaults lies **entirely below 0**. Otherwise G1 stays.
-Result: pending
+Result: PASS (loss run of 2026-09-28 on the real marts and the final scorecard grades; 1,000 parameter draws; FHFA house-price scenarios on). MAE(model) - MAE(LTV-band mean) on 16,168 held-out defaults (2011-01 to 2023-03) = -0.0134, 95% paired bootstrap [-0.0150, -0.0116], entirely below 0; fitted on 19,520 defaults to 2010-12. The ECL therefore uses the two-stage model, refitted on the whole LGD sample and applied loan by loan, and the ECL intervals do not include LGD uncertainty. For reference, G1 overall `lgd_economic` 0.249 [0.246, 0.252], n = 35,688 resolved defaults.
 
 ---
 
@@ -882,6 +883,7 @@ Result: pending
   factor and no output floor against the standardised approach. US banks hold these loans under
   the standardised approach, and RBI has not implemented IRB for Indian banks. Capital is shown
   next to ECL to compare expected and unexpected loss, nothing more.
+Result: run, illustrative, no pass rule (loss run of 2026-09-28 on the real marts). At 2026-03, non-defaulted exposure $79.27bn (339,542 loans): RWA $31.45bn (39.7% average risk weight), capital $2.516bn (3.17% of exposure), against an ECL of $165.3m [162.6, 167.9] on the same loans (stage 1 and 2, the published scenario-weighted ECL). Long-run PD by grade (t interval over the 17 year-ends): A 0.196% [0.116, 0.277], B 0.686% [0.392, 0.979], C 1.23% [0.73, 1.73], D 2.05% [1.29, 2.82], E 3.06% [2.04, 4.07], F 4.38% [3.10, 5.66], G 6.72% [4.95, 8.48]. Downturn LGD gross of MI by LTV band: up to 60 0.195 [0.181, 0.210], 60-80 0.373 [0.367, 0.380], 80-90 0.449 [0.434, 0.463], 90-95 0.445 [0.428, 0.462], over 95 0.464 [0.442, 0.487].
 
 ---
 
@@ -1065,3 +1067,27 @@ No rule was changed and nothing was rescored: the out-of-time and COVID samples 
    exactly as the rule says (FAIL), and the out-of-time sample holds fewer defaults than sized.
    No rule, threshold or sample changed.
 
+### 2026-09-28, the loss and provisioning run on the real data
+
+No rule was changed. The entries below record where the plan was silent and the engine had to
+choose; each was decided on the synthetic fixtures before the real-data run.
+
+1. **No-event merges for ordered bands (L1, L2).** Section 10 says an L1 or L2 cell with no
+   events merges its grade with a neighbour; it names grades only. The same rule is applied to
+   the ordered bands (loan-age band, rate-incentive band, behaviour state, `modified`): a band
+   with no events pools into the band before it. Result under both readings: identical on the
+   real data, because no grade and no band needed a merge in L1 or L2 (every level had defaults
+   and non-defaults; smallest L2 cell count: 800 defaults among modified loan-quarters).
+2. **Which house-price value L2 uses (E6).** The plan adds the 12-month HPI change to L2 without
+   saying at which month. L2 predicts defaults over the next 12 months, so it uses the mean of the
+   lagged covariate over those 12 months (realised values when fitting, the scenario's values when
+   projecting); `PD12_ref` uses the value at the loan's first payment month. With the
+   reporting-date value instead, the scenarios could not move the first-year PD or the staging.
+   Not computed under the alternative. Consequence visible in the results: most stage 2 loans
+   are there through the PD rule alone (89.7% at 2026-03, 88.9% at 2008-12, `stage2_drivers`),
+   and because `PD12_ref` carries the house-price value at origination, a loan originated in a
+   strong housing market can move to stage 2 when house-price growth slows without any change in
+   its own behaviour. How much of the PD-rule stage 2 comes from that alone was not measured.
+3. **G2 passed, so the ECL LGD is loan-level and not drawn.** As pre-registered, the two-stage
+   model replaced the G1 segment means in ECL. The ECL intervals then cover the L1 and L2
+   coefficients only, not LGD uncertainty (E2 intervals were already stated to be too narrow).

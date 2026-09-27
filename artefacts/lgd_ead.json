@@ -1,0 +1,3851 @@
+{
+ "schema_version": "1.0",
+ "artefact": "lgd_ead",
+ "synthetic": false,
+ "generated_at": "2026-09-27T22:00:58Z",
+ "data_cutoff": "2026-03-01",
+ "code_version": "ac3c1a9",
+ "suppressed_cells": 24,
+ "ead": {
+  "ccf_applied": false,
+  "mean_ead": {
+   "value": 171862.10962977205,
+   "ci_low": 170894.05710043485,
+   "ci_high": 172760.75088912807,
+   "n": 54615,
+   "ci_method": "bootstrap_1000"
+  }
+ },
+ "lgd_segments": [
+  {
+   "dimension": "overall",
+   "segment": "all",
+   "lgd_economic": {
+    "value": 0.24910645817755833,
+    "ci_low": 0.24589182516398533,
+    "ci_high": 0.25221046934265406,
+    "n": 35688,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.28023725070905287,
+    "ci_low": 0.2770224631135613,
+    "ci_high": 0.28353044569748465,
+    "n": 35688,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2645819647793522,
+    "ci_low": 0.260820463617872,
+    "ci_high": 0.26811768969783917,
+    "n": 35688,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "60_80",
+   "lgd_economic": {
+    "value": 0.2889671840405931,
+    "ci_low": 0.2842814625552607,
+    "ci_high": 0.2936416467595137,
+    "n": 20017,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2891500434537875,
+    "ci_low": 0.284389917641992,
+    "ci_high": 0.2938133632169879,
+    "n": 20017,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.30884202566567276,
+    "ci_low": 0.3035955705525223,
+    "ci_high": 0.314101537328257,
+    "n": 20017,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "80_90",
+   "lgd_economic": {
+    "value": 0.2554293393153668,
+    "ci_low": 0.24646051884639592,
+    "ci_high": 0.2647674412204148,
+    "n": 5081,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3372449414397668,
+    "ci_low": 0.3267474629499354,
+    "ci_high": 0.3476030508284653,
+    "n": 5081,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2711695682890562,
+    "ci_low": 0.2614127930762058,
+    "ci_high": 0.281494122483261,
+    "n": 5081,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "90_95",
+   "lgd_economic": {
+    "value": 0.17396190746261603,
+    "ci_low": 0.1660234060568415,
+    "ci_high": 0.18191129451700688,
+    "n": 3813,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2904827543413721,
+    "ci_low": 0.28002052283195666,
+    "ci_high": 0.3005268605469057,
+    "n": 3813,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.18114830015236105,
+    "ci_low": 0.17212775717703502,
+    "ci_high": 0.1903567988377037,
+    "n": 3813,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "gt_95",
+   "lgd_economic": {
+    "value": 0.23589383359031665,
+    "ci_low": 0.22491933295172284,
+    "ci_high": 0.246539281072293,
+    "n": 2408,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3384431580642376,
+    "ci_low": 0.3251043209621643,
+    "ci_high": 0.3506249796928184,
+    "n": 2408,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.24773896890830416,
+    "ci_low": 0.23523008149903393,
+    "ci_high": 0.259524128775024,
+    "n": 2408,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "ltv_band",
+   "segment": "le_60",
+   "lgd_economic": {
+    "value": 0.13199120599641428,
+    "ci_low": 0.12351968306653434,
+    "ci_high": 0.14076914784542996,
+    "n": 4369,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.13208220854026592,
+    "ci_low": 0.12359542138148986,
+    "ci_high": 0.1408896393685068,
+    "n": 4369,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.13623800622726187,
+    "ci_low": 0.1266716189211692,
+    "ci_high": 0.14601571926399437,
+    "n": 4369,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "AL",
+   "lgd_economic": {
+    "value": 0.20989471854305694,
+    "ci_low": 0.18187406136462075,
+    "ci_high": 0.23639082953875368,
+    "n": 476,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2485554488650477,
+    "ci_low": 0.21728257309776666,
+    "ci_high": 0.2775326097630004,
+    "n": 476,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.21224022640186155,
+    "ci_low": 0.18261404654159424,
+    "ci_high": 0.2398685308913118,
+    "n": 476,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "AR",
+   "lgd_economic": {
+    "value": 0.19713695015216434,
+    "ci_low": 0.16255459933230054,
+    "ci_high": 0.23343722056660013,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2534550020518997,
+    "ci_low": 0.2141022448971178,
+    "ci_high": 0.2900956119579367,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1983719568700464,
+    "ci_low": 0.16217276263217853,
+    "ci_high": 0.23510041350377486,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "AZ",
+   "lgd_economic": {
+    "value": 0.3063193347585919,
+    "ci_low": 0.29268327322280474,
+    "ci_high": 0.32133652373649496,
+    "n": 1504,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.33866921012208945,
+    "ci_low": 0.3241742892875561,
+    "ci_high": 0.3537546198249193,
+    "n": 1504,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3211597331388504,
+    "ci_low": 0.30648975344537993,
+    "ci_high": 0.33659115593084354,
+    "n": 1504,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "CA",
+   "lgd_economic": {
+    "value": 0.20382252265363607,
+    "ci_low": 0.19508040900014434,
+    "ci_high": 0.21263046558171872,
+    "n": 3273,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.21638921286542942,
+    "ci_low": 0.20703624955688896,
+    "ci_high": 0.22514030180406464,
+    "n": 3273,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.21112668650504726,
+    "ci_low": 0.20180263590526257,
+    "ci_high": 0.22054486573910756,
+    "n": 3273,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "CO",
+   "lgd_economic": {
+    "value": 0.11097333837877313,
+    "ci_low": 0.0953318914816591,
+    "ci_high": 0.12662627338379986,
+    "n": 565,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.14126067655006475,
+    "ci_low": 0.12292071527335165,
+    "ci_high": 0.15826864940537763,
+    "n": 565,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.11308719057853216,
+    "ci_low": 0.09659688482374905,
+    "ci_high": 0.12929785314302336,
+    "n": 565,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "CT",
+   "lgd_economic": {
+    "value": 0.2395544946587629,
+    "ci_low": 0.2081374844998811,
+    "ci_high": 0.2711034947030572,
+    "n": 367,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.26544161306986835,
+    "ci_low": 0.23194624405270803,
+    "ci_high": 0.2999698119138009,
+    "n": 367,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2553264930720875,
+    "ci_low": 0.21947433055128587,
+    "ci_high": 0.2918579659806882,
+    "n": 367,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "DE",
+   "lgd_economic": {
+    "value": 0.21724245872847106,
+    "ci_low": 0.16141005996179522,
+    "ci_high": 0.2727646758631713,
+    "n": 101,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.24408684453443352,
+    "ci_low": 0.18430289499259753,
+    "ci_high": 0.30366461446974535,
+    "n": 101,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.22468574427814214,
+    "ci_low": 0.15858723530052193,
+    "ci_high": 0.28960267874853174,
+    "n": 101,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "FL",
+   "lgd_economic": {
+    "value": 0.3199716147708669,
+    "ci_low": 0.30943832575095637,
+    "ci_high": 0.3303753566738299,
+    "n": 3809,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3512663466701849,
+    "ci_low": 0.34055070199742904,
+    "ci_high": 0.3624864600262468,
+    "n": 3809,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3553227758250783,
+    "ci_low": 0.3432928976465981,
+    "ci_high": 0.3674724024752101,
+    "n": 3809,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "GA",
+   "lgd_economic": {
+    "value": 0.2445593598772805,
+    "ci_low": 0.229701084584425,
+    "ci_high": 0.2593956133974869,
+    "n": 1465,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.287199173573799,
+    "ci_low": 0.27106461535839543,
+    "ci_high": 0.3038424135839387,
+    "n": 1465,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.24776827389846998,
+    "ci_low": 0.23101541515531812,
+    "ci_high": 0.2638555664575988,
+    "n": 1465,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "HI",
+   "lgd_economic": {
+    "value": 0.1901221262164041,
+    "ci_low": 0.14338048878401816,
+    "ci_high": 0.24487128572256936,
+    "n": 88,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.1962625020220922,
+    "ci_low": 0.14781063301151492,
+    "ci_high": 0.2544990783841795,
+    "n": 88,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.21092001811585206,
+    "ci_low": 0.149691240043098,
+    "ci_high": 0.2790534562660508,
+    "n": 88,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "IA",
+   "lgd_economic": {
+    "value": 0.2239633290618005,
+    "ci_low": 0.185203491214431,
+    "ci_high": 0.2610615634268166,
+    "n": 252,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2747055518031342,
+    "ci_low": 0.23104342840235956,
+    "ci_high": 0.3162609574001265,
+    "n": 252,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.23952177291868812,
+    "ci_low": 0.19694171619108447,
+    "ci_high": 0.2813188360179334,
+    "n": 252,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "ID",
+   "lgd_economic": {
+    "value": 0.18659921025300377,
+    "ci_low": 0.15926353560493806,
+    "ci_high": 0.21413711443484654,
+    "n": 275,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.21578047734968314,
+    "ci_low": 0.18664678426157763,
+    "ci_high": 0.24483408397688206,
+    "n": 275,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.19849938981159432,
+    "ci_low": 0.16793475261669438,
+    "ci_high": 0.22890770963323118,
+    "n": 275,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "IL",
+   "lgd_economic": {
+    "value": 0.35116046250851635,
+    "ci_low": 0.3331178958574737,
+    "ci_high": 0.3675977171364399,
+    "n": 1945,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3914228340382577,
+    "ci_low": 0.3724997251685388,
+    "ci_high": 0.4081893651934189,
+    "n": 1945,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.384352702597683,
+    "ci_low": 0.36367963382690455,
+    "ci_high": 0.40401460461981703,
+    "n": 1945,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "IN",
+   "lgd_economic": {
+    "value": 0.29429176077478647,
+    "ci_low": 0.27105306073664015,
+    "ci_high": 0.3218954226300785,
+    "n": 855,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.33936829317695205,
+    "ci_low": 0.3140028369494291,
+    "ci_high": 0.3670646420921596,
+    "n": 855,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.30888295228878027,
+    "ci_low": 0.2841515923250496,
+    "ci_high": 0.33733480747673295,
+    "n": 855,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "KS",
+   "lgd_economic": {
+    "value": 0.2250454561018045,
+    "ci_low": 0.19013554155176043,
+    "ci_high": 0.260857060013151,
+    "n": 268,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.28341148010414347,
+    "ci_low": 0.24509656691559334,
+    "ci_high": 0.3228392410244143,
+    "n": 268,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2259434250314172,
+    "ci_low": 0.18776017410367704,
+    "ci_high": 0.26345844968974663,
+    "n": 268,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "KY",
+   "lgd_economic": {
+    "value": 0.20629446413252622,
+    "ci_low": 0.17729081913525627,
+    "ci_high": 0.2398466456856843,
+    "n": 444,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.23502652538246716,
+    "ci_low": 0.2044917457192302,
+    "ci_high": 0.2699615244561578,
+    "n": 444,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.21905128545778066,
+    "ci_low": 0.1863978293654687,
+    "ci_high": 0.2567351424363467,
+    "n": 444,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "LA",
+   "lgd_economic": {
+    "value": 0.12902961068133784,
+    "ci_low": 0.10407011422019591,
+    "ci_high": 0.1561461216374936,
+    "n": 423,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.15582798174026707,
+    "ci_low": 0.12999261280414215,
+    "ci_high": 0.18474431926618162,
+    "n": 423,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.128381206703596,
+    "ci_low": 0.10180234577398804,
+    "ci_high": 0.15826586783906843,
+    "n": 423,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MA",
+   "lgd_economic": {
+    "value": 0.1715761439654849,
+    "ci_low": 0.15203151482680866,
+    "ci_high": 0.19222319831793117,
+    "n": 621,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.18582303794269636,
+    "ci_low": 0.16553926554219803,
+    "ci_high": 0.20749975971052861,
+    "n": 621,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.17782276309484937,
+    "ci_low": 0.1561273152351284,
+    "ci_high": 0.20074676833186886,
+    "n": 621,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MD",
+   "lgd_economic": {
+    "value": 0.2383037357284256,
+    "ci_low": 0.21746664552710462,
+    "ci_high": 0.26037784265756675,
+    "n": 754,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2572448397491557,
+    "ci_low": 0.23527891041651602,
+    "ci_high": 0.28080985231917177,
+    "n": 754,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.24572203432635867,
+    "ci_low": 0.22325471421130927,
+    "ci_high": 0.27128429958804995,
+    "n": 754,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "ME",
+   "lgd_economic": {
+    "value": 0.2328122168977037,
+    "ci_low": 0.18445062469330692,
+    "ci_high": 0.2857042087946327,
+    "n": 133,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2636675655716234,
+    "ci_low": 0.2114987365812557,
+    "ci_high": 0.31834333167564943,
+    "n": 133,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2578056358434813,
+    "ci_low": 0.20085299480049454,
+    "ci_high": 0.3211733029730481,
+    "n": 133,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MI",
+   "lgd_economic": {
+    "value": 0.4061018821096711,
+    "ci_low": 0.3877519364756512,
+    "ci_high": 0.4242002438934516,
+    "n": 1780,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.43694955316274153,
+    "ci_low": 0.418367990764419,
+    "ci_high": 0.45566418846842743,
+    "n": 1780,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.4331721484756597,
+    "ci_low": 0.41241061649474187,
+    "ci_high": 0.4528031294143614,
+    "n": 1780,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MN",
+   "lgd_economic": {
+    "value": 0.23524832353538697,
+    "ci_low": 0.21640947484066886,
+    "ci_high": 0.2538612051561008,
+    "n": 871,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2669970265251671,
+    "ci_low": 0.24726140657975307,
+    "ci_high": 0.2861518039681999,
+    "n": 871,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.24861224159849638,
+    "ci_low": 0.22834712673943872,
+    "ci_high": 0.2682172183925567,
+    "n": 871,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MO",
+   "lgd_economic": {
+    "value": 0.27423511944629136,
+    "ci_low": 0.2513735518313425,
+    "ci_high": 0.2979128040902987,
+    "n": 779,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3130922103067205,
+    "ci_low": 0.28960487482519087,
+    "ci_high": 0.3375385855037148,
+    "n": 779,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.284686041829683,
+    "ci_low": 0.25954356552658464,
+    "ci_high": 0.309785909377072,
+    "n": 779,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MS",
+   "lgd_economic": {
+    "value": 0.22291085666268018,
+    "ci_low": 0.17751184432767741,
+    "ci_high": 0.269805257758751,
+    "n": 207,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.26277791345517565,
+    "ci_low": 0.21414205408199843,
+    "ci_high": 0.3131215308435593,
+    "n": 207,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.22651293772053294,
+    "ci_low": 0.17254941818893396,
+    "ci_high": 0.2822303891289272,
+    "n": 207,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "MT",
+   "lgd_economic": {
+    "value": 0.10610028976104183,
+    "ci_low": 0.06651397768527847,
+    "ci_high": 0.14998917993543934,
+    "n": 93,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.1356196487817483,
+    "ci_low": 0.08730520788370143,
+    "ci_high": 0.1851514615001633,
+    "n": 93,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.09438841636743522,
+    "ci_low": 0.05436960223404662,
+    "ci_high": 0.13789188121818424,
+    "n": 93,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NC",
+   "lgd_economic": {
+    "value": 0.1883423477342141,
+    "ci_low": 0.17238563023465975,
+    "ci_high": 0.20474694376010713,
+    "n": 1021,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.22233745320620568,
+    "ci_low": 0.2046194541004447,
+    "ci_high": 0.24030603532190317,
+    "n": 1021,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.19233495715757268,
+    "ci_low": 0.17462766368065713,
+    "ci_high": 0.20990227798787814,
+    "n": 1021,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NE",
+   "lgd_economic": {
+    "value": 0.1699533553668843,
+    "ci_low": 0.12716536128175196,
+    "ci_high": 0.21603076602849813,
+    "n": 125,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2236548166459047,
+    "ci_low": 0.16925669891705236,
+    "ci_high": 0.2800310378224049,
+    "n": 125,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1801118223916688,
+    "ci_low": 0.13236815613478994,
+    "ci_high": 0.23068536246452534,
+    "n": 125,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NH",
+   "lgd_economic": {
+    "value": 0.2157485107569823,
+    "ci_low": 0.17789062486277077,
+    "ci_high": 0.25936090158972,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.24316454246385558,
+    "ci_low": 0.2040675364333727,
+    "ci_high": 0.2848562979939801,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2187200551597388,
+    "ci_low": 0.17841330567333835,
+    "ci_high": 0.2622765050643459,
+    "n": 208,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NJ",
+   "lgd_economic": {
+    "value": 0.26671254600171573,
+    "ci_low": 0.24612578747231323,
+    "ci_high": 0.2888837939558159,
+    "n": 1004,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.28814801772028775,
+    "ci_low": 0.26622582656863025,
+    "ci_high": 0.3111051463137209,
+    "n": 1004,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.307908881255274,
+    "ci_low": 0.2814229743956442,
+    "ci_high": 0.33488785449317815,
+    "n": 1004,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NM",
+   "lgd_economic": {
+    "value": 0.2023030640896931,
+    "ci_low": 0.16631613396785985,
+    "ci_high": 0.23566734017952332,
+    "n": 220,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.24406728798503582,
+    "ci_low": 0.20577501575906176,
+    "ci_high": 0.28236963042389623,
+    "n": 220,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.21707414908780368,
+    "ci_low": 0.1754073789465407,
+    "ci_high": 0.2585646661723938,
+    "n": 220,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NV",
+   "lgd_economic": {
+    "value": 0.33402778713087167,
+    "ci_low": 0.3133155868301731,
+    "ci_high": 0.3550747417722826,
+    "n": 675,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.367124236804763,
+    "ci_low": 0.34527150925372296,
+    "ci_high": 0.3877655073697111,
+    "n": 675,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.355438576713301,
+    "ci_low": 0.3332242412642101,
+    "ci_high": 0.37777244526988357,
+    "n": 675,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "NY",
+   "lgd_economic": {
+    "value": 0.2049250434332561,
+    "ci_low": 0.18445583449397576,
+    "ci_high": 0.2265889352820899,
+    "n": 1229,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.22053802850269774,
+    "ci_low": 0.19852624807563296,
+    "ci_high": 0.24258211822875198,
+    "n": 1229,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2321835905308782,
+    "ci_low": 0.20770785262936306,
+    "ci_high": 0.25728575516487295,
+    "n": 1229,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "OH",
+   "lgd_economic": {
+    "value": 0.37252535153301436,
+    "ci_low": 0.3537530728177055,
+    "ci_high": 0.39172562244310805,
+    "n": 1570,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.41255549334836866,
+    "ci_low": 0.3925952919336259,
+    "ci_high": 0.4330403019085603,
+    "n": 1570,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.4039625798608485,
+    "ci_low": 0.38229819847357305,
+    "ci_high": 0.4258184662615325,
+    "n": 1570,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "OK",
+   "lgd_economic": {
+    "value": 0.17880100938670387,
+    "ci_low": 0.1457693700653222,
+    "ci_high": 0.20993387179693607,
+    "n": 282,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.21503310469337647,
+    "ci_low": 0.1793975663040445,
+    "ci_high": 0.25111054557781853,
+    "n": 282,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.18509898439678857,
+    "ci_low": 0.1497381277946824,
+    "ci_high": 0.22131700700753235,
+    "n": 282,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "OR",
+   "lgd_economic": {
+    "value": 0.16620466327341385,
+    "ci_low": 0.14741104984911707,
+    "ci_high": 0.1855216807776609,
+    "n": 559,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.18935607596374962,
+    "ci_low": 0.1702306917362253,
+    "ci_high": 0.21021430802369603,
+    "n": 559,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1788120515117862,
+    "ci_low": 0.158588310659952,
+    "ci_high": 0.20106725572519155,
+    "n": 559,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "PA",
+   "lgd_economic": {
+    "value": 0.26225471656395377,
+    "ci_low": 0.23794895137733044,
+    "ci_high": 0.2890251568158836,
+    "n": 1096,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.29507494416547486,
+    "ci_low": 0.2702370039868089,
+    "ci_high": 0.32239551035093844,
+    "n": 1096,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.27470079561192196,
+    "ci_low": 0.24827074497492574,
+    "ci_high": 0.3035651004146434,
+    "n": 1096,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "PR",
+   "lgd_economic": {
+    "value": 0.11378853173561711,
+    "ci_low": 0.07422096110433064,
+    "ci_high": 0.15830341923550156,
+    "n": 171,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.11838889538073044,
+    "ci_low": 0.07875367050313353,
+    "ci_high": 0.16445508490680075,
+    "n": 171,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.10570683354619631,
+    "ci_low": 0.06833141972120055,
+    "ci_high": 0.15022722165822916,
+    "n": 171,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "RI",
+   "lgd_economic": {
+    "value": 0.3251534177497659,
+    "ci_low": 0.263375150453365,
+    "ci_high": 0.3842275201319802,
+    "n": 116,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3434362797562837,
+    "ci_low": 0.2785231313159437,
+    "ci_high": 0.40502815136786224,
+    "n": 116,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.34985704999038064,
+    "ci_low": 0.2817689445241316,
+    "ci_high": 0.41923137381668846,
+    "n": 116,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "SC",
+   "lgd_economic": {
+    "value": 0.22389441226451956,
+    "ci_low": 0.19933935984744178,
+    "ci_high": 0.2501708190686423,
+    "n": 560,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2767858329695994,
+    "ci_low": 0.2501651750783486,
+    "ci_high": 0.304959118426133,
+    "n": 560,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.23296336365707251,
+    "ci_low": 0.20588550846117934,
+    "ci_high": 0.2625585314187713,
+    "n": 560,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "TN",
+   "lgd_economic": {
+    "value": 0.16297508887128964,
+    "ci_low": 0.1415503343947583,
+    "ci_high": 0.1844201760269727,
+    "n": 583,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.20519222413554603,
+    "ci_low": 0.18010289697434712,
+    "ci_high": 0.22900016182950317,
+    "n": 583,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.16156904077201723,
+    "ci_low": 0.13934641678858406,
+    "ci_high": 0.18533721036403492,
+    "n": 583,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "TX",
+   "lgd_economic": {
+    "value": 0.0969666816958841,
+    "ci_low": 0.08794327341500842,
+    "ci_high": 0.10659761601812989,
+    "n": 1641,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.131971596231191,
+    "ci_low": 0.12076245429850463,
+    "ci_high": 0.14256008939527504,
+    "n": 1641,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.09265485721048344,
+    "ci_low": 0.08300481095486509,
+    "ci_high": 0.10360805539176256,
+    "n": 1641,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "UT",
+   "lgd_economic": {
+    "value": 0.12346229838024343,
+    "ci_low": 0.10230078970639865,
+    "ci_high": 0.1459708747146596,
+    "n": 336,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.15510520929258945,
+    "ci_low": 0.1322121595262483,
+    "ci_high": 0.18136061531167885,
+    "n": 336,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.12529609180720688,
+    "ci_low": 0.10317690680809724,
+    "ci_high": 0.14939675473706263,
+    "n": 336,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "VA",
+   "lgd_economic": {
+    "value": 0.1923554189675952,
+    "ci_low": 0.17436609412082396,
+    "ci_high": 0.20968831755182576,
+    "n": 762,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.21497336521282856,
+    "ci_low": 0.19594428723814877,
+    "ci_high": 0.23444562525093546,
+    "n": 762,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.19568492679606828,
+    "ci_low": 0.17622251025925872,
+    "ci_high": 0.21501070968745442,
+    "n": 762,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "VT",
+   "lgd_economic": {
+    "value": 0.19094012304424055,
+    "ci_low": 0.1185747162155013,
+    "ci_high": 0.2693122509301809,
+    "n": 62,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.19427984180418148,
+    "ci_low": 0.12190365664518801,
+    "ci_high": 0.27479302272590894,
+    "n": 62,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.22244800931837955,
+    "ci_low": 0.13814377790211907,
+    "ci_high": 0.3173957843620832,
+    "n": 62,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "WA",
+   "lgd_economic": {
+    "value": 0.15731028816005838,
+    "ci_low": 0.14322286250786764,
+    "ci_high": 0.17154681337977667,
+    "n": 897,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.1868571391296356,
+    "ci_low": 0.1719749900085615,
+    "ci_high": 0.20311600157023835,
+    "n": 897,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.15987173448487677,
+    "ci_low": 0.14445666086184386,
+    "ci_high": 0.17534862124033845,
+    "n": 897,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "WI",
+   "lgd_economic": {
+    "value": 0.28230543080780396,
+    "ci_low": 0.2570878498996152,
+    "ci_high": 0.30946539169553633,
+    "n": 671,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.32486730490557364,
+    "ci_low": 0.2988392214161287,
+    "ci_high": 0.35327722251095944,
+    "n": 671,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2977921328973592,
+    "ci_low": 0.27062902270743766,
+    "ci_high": 0.3273222883057697,
+    "n": 671,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "WV",
+   "lgd_economic": {
+    "value": 0.28753956157612587,
+    "ci_low": 0.22549880643951645,
+    "ci_high": 0.35383451504634345,
+    "n": 139,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.32489188685064135,
+    "ci_low": 0.26075807972266374,
+    "ci_high": 0.3898597253848672,
+    "n": 139,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.28435325028080716,
+    "ci_low": 0.2191686066211602,
+    "ci_high": 0.34837192791495336,
+    "n": 139,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "property_state",
+   "segment": "other",
+   "lgd_economic": {
+    "value": 0.10163931270626107,
+    "ci_low": 0.07278941182486279,
+    "ci_high": 0.1315998312931415,
+    "n": 205,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.13505770767761052,
+    "ci_low": 0.10153757607562276,
+    "ci_high": 0.16965963438230403,
+    "n": 205,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.09737294544135427,
+    "ci_low": 0.06625287685697437,
+    "ci_high": 0.12977258141738746,
+    "n": 205,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "disposition_type",
+   "segment": "paid_off",
+   "lgd_economic": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "n": 16243,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "n": 16243,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "n": 16243,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "disposition_type",
+   "segment": "reo_disposition",
+   "lgd_economic": {
+    "value": 0.5064047136299122,
+    "ci_low": 0.5008342154737451,
+    "ci_high": 0.5121322382242645,
+    "n": 10750,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.580893745784164,
+    "ci_low": 0.5754785929291661,
+    "ci_high": 0.5863911032333069,
+    "n": 10750,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.5544244139367345,
+    "ci_low": 0.5475134682896337,
+    "ci_high": 0.5611324341339533,
+    "n": 10750,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "disposition_type",
+   "segment": "short_sale_chargeoff",
+   "lgd_economic": {
+    "value": 0.39184937268121134,
+    "ci_low": 0.3826804116189733,
+    "ci_high": 0.40140148624791494,
+    "n": 4315,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.4460733333571257,
+    "ci_low": 0.43756251305941257,
+    "ci_high": 0.45518746519970693,
+    "n": 4315,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.4068684713095431,
+    "ci_low": 0.3969064749913882,
+    "ci_high": 0.41723588513144033,
+    "n": 4315,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "disposition_type",
+   "segment": "third_party_sale",
+   "lgd_economic": {
+    "value": 0.3700977035176321,
+    "ci_low": 0.3604745593473632,
+    "ci_high": 0.38094931125203085,
+    "n": 3211,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.39375989031858866,
+    "ci_low": 0.384017583821748,
+    "ci_high": 0.4049917006667898,
+    "n": 3211,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.37520919192476754,
+    "ci_low": 0.36431765784042314,
+    "ci_high": 0.3876154999429936,
+    "n": 3211,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "disposition_type",
+   "segment": "whole_loan_sale",
+   "lgd_economic": {
+    "value": 0.4850700075317376,
+    "ci_low": 0.46967033527963137,
+    "ci_high": 0.500284359763143,
+    "n": 1169,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.4853120572078078,
+    "ci_low": 0.4699610575801566,
+    "ci_high": 0.5005970202680918,
+    "n": 1169,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.4464538411073731,
+    "ci_low": 0.42652638960714434,
+    "ci_high": 0.4667298368451254,
+    "n": 1169,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2000",
+   "lgd_economic": {
+    "value": 0.07510859647583142,
+    "ci_low": 0.04900550657560344,
+    "ci_high": 0.1038916928088395,
+    "n": 180,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.09744202922628697,
+    "ci_low": 0.06773560195850424,
+    "ci_high": 0.12966909118865394,
+    "n": 180,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.07008301760638173,
+    "ci_low": 0.04361538479677384,
+    "ci_high": 0.09814166706477528,
+    "n": 180,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2001",
+   "lgd_economic": {
+    "value": 0.06055618964145165,
+    "ci_low": 0.047058766046975016,
+    "ci_high": 0.07505311378956915,
+    "n": 696,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.09097370241947748,
+    "ci_low": 0.0753308476547006,
+    "ci_high": 0.10678171636482309,
+    "n": 696,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.061058583200952525,
+    "ci_low": 0.045893664750492065,
+    "ci_high": 0.07707308140003409,
+    "n": 696,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2002",
+   "lgd_economic": {
+    "value": 0.09141462234022452,
+    "ci_low": 0.07636680383303901,
+    "ci_high": 0.10725498678438954,
+    "n": 798,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.12493282372409407,
+    "ci_low": 0.10766199431362021,
+    "ci_high": 0.14301401146442283,
+    "n": 798,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.09094948385787706,
+    "ci_low": 0.0746374424597972,
+    "ci_high": 0.10751388247986406,
+    "n": 798,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2003",
+   "lgd_economic": {
+    "value": 0.08811490745486221,
+    "ci_low": 0.07320894783032635,
+    "ci_high": 0.10329364533145939,
+    "n": 860,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.12020574204031448,
+    "ci_low": 0.10382458916826041,
+    "ci_high": 0.13692551732781386,
+    "n": 860,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.08433375474059474,
+    "ci_low": 0.06920156437375449,
+    "ci_high": 0.10010603128670935,
+    "n": 860,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2004",
+   "lgd_economic": {
+    "value": 0.12077262634102698,
+    "ci_low": 0.10335950920478659,
+    "ci_high": 0.13809772748221671,
+    "n": 781,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.15364416446210546,
+    "ci_low": 0.1338971591976472,
+    "ci_high": 0.17333154700736983,
+    "n": 781,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.11897214450548024,
+    "ci_low": 0.10067582494349082,
+    "ci_high": 0.1377510048711547,
+    "n": 781,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2005",
+   "lgd_economic": {
+    "value": 0.13551139262340953,
+    "ci_low": 0.11640016656833725,
+    "ci_high": 0.15570592215318715,
+    "n": 829,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.1632816803595893,
+    "ci_low": 0.14227469708608864,
+    "ci_high": 0.18500379837445832,
+    "n": 829,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1306361518274893,
+    "ci_low": 0.11038081432310967,
+    "ci_high": 0.15300751173252997,
+    "n": 829,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2006",
+   "lgd_economic": {
+    "value": 0.17682731322199016,
+    "ci_low": 0.15496413077551344,
+    "ci_high": 0.19876311561002227,
+    "n": 793,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2023893422582016,
+    "ci_low": 0.17969671994919179,
+    "ci_high": 0.22570814227821023,
+    "n": 793,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.17256767378550603,
+    "ci_low": 0.14940858644009378,
+    "ci_high": 0.19505840048692627,
+    "n": 793,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2007",
+   "lgd_economic": {
+    "value": 0.2858107537497711,
+    "ci_low": 0.2675461547295767,
+    "ci_high": 0.3043760179932619,
+    "n": 1209,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3259453353263366,
+    "ci_low": 0.3063565068777615,
+    "ci_high": 0.34602618984573624,
+    "n": 1209,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3011985349366719,
+    "ci_low": 0.28111316094404504,
+    "ci_high": 0.32250607135387394,
+    "n": 1209,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2008",
+   "lgd_economic": {
+    "value": 0.38228120784257325,
+    "ci_low": 0.3702489757413379,
+    "ci_high": 0.39539687244982086,
+    "n": 2577,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.42964535784681623,
+    "ci_low": 0.41676064956156833,
+    "ci_high": 0.44324844506549316,
+    "n": 2577,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.41178513766441394,
+    "ci_low": 0.3974327791682909,
+    "ci_high": 0.42745304577840076,
+    "n": 2577,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2009",
+   "lgd_economic": {
+    "value": 0.3436169773177194,
+    "ci_low": 0.3351640027298062,
+    "ci_high": 0.35219510798977,
+    "n": 5838,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.38177464066485234,
+    "ci_low": 0.3730568728466181,
+    "ci_high": 0.39035245422914944,
+    "n": 5838,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3679556913205851,
+    "ci_low": 0.35842974922642157,
+    "ci_high": 0.37755182543735344,
+    "n": 5838,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2010",
+   "lgd_economic": {
+    "value": 0.31395080061825686,
+    "ci_low": 0.3047962332447182,
+    "ci_high": 0.32258913978680226,
+    "n": 4947,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3485331875084928,
+    "ci_low": 0.33922252969354816,
+    "ci_high": 0.3574326206311012,
+    "n": 4947,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3358532121731341,
+    "ci_low": 0.3258013640725475,
+    "ci_high": 0.34576545440028567,
+    "n": 4947,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2011",
+   "lgd_economic": {
+    "value": 0.3222361653563705,
+    "ci_low": 0.3118168411475131,
+    "ci_high": 0.33264204422958504,
+    "n": 3595,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.35941744682676313,
+    "ci_low": 0.3492132841540715,
+    "ci_high": 0.3704758495079066,
+    "n": 3595,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.3474304212281577,
+    "ci_low": 0.33573318694112503,
+    "ci_high": 0.35948919879032226,
+    "n": 3595,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2012",
+   "lgd_economic": {
+    "value": 0.2715433320974068,
+    "ci_low": 0.26136097946641,
+    "ci_high": 0.2827021003096462,
+    "n": 2847,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.3044841290857115,
+    "ci_low": 0.29406580036255986,
+    "ci_high": 0.31531724738448713,
+    "n": 2847,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2900834214861755,
+    "ci_low": 0.27837119490028756,
+    "ci_high": 0.30194985692811066,
+    "n": 2847,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2013",
+   "lgd_economic": {
+    "value": 0.25258821666371245,
+    "ci_low": 0.2382626410858721,
+    "ci_high": 0.2681498498504976,
+    "n": 1851,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.282320216952551,
+    "ci_low": 0.26747788616379065,
+    "ci_high": 0.29759365702454366,
+    "n": 1851,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2681754664895122,
+    "ci_low": 0.252020279850733,
+    "ci_high": 0.28429888545561854,
+    "n": 1851,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2014",
+   "lgd_economic": {
+    "value": 0.23071297743288732,
+    "ci_low": 0.21469885229638896,
+    "ci_high": 0.2476499663404114,
+    "n": 1355,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.2549161016485309,
+    "ci_low": 0.23698127814421854,
+    "ci_high": 0.27280699889624693,
+    "n": 1355,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.24318896380363872,
+    "ci_low": 0.22569903546589146,
+    "ci_high": 0.2619600071868418,
+    "n": 1355,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2015",
+   "lgd_economic": {
+    "value": 0.21995686637161319,
+    "ci_low": 0.2009242569335743,
+    "ci_high": 0.2398611223500383,
+    "n": 1037,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.24422094064000163,
+    "ci_low": 0.22356398963184512,
+    "ci_high": 0.26532146603134465,
+    "n": 1037,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.2303546877771522,
+    "ci_low": 0.21000161650279597,
+    "ci_high": 0.25131281047318643,
+    "n": 1037,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2016",
+   "lgd_economic": {
+    "value": 0.18696290007091965,
+    "ci_low": 0.16671828479348708,
+    "ci_high": 0.20851714364722015,
+    "n": 888,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.20925723116212908,
+    "ci_low": 0.188081289753118,
+    "ci_high": 0.23293492440871802,
+    "n": 888,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.19742064189298789,
+    "ci_low": 0.1748541205992049,
+    "ci_high": 0.22121971577817467,
+    "n": 888,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2017",
+   "lgd_economic": {
+    "value": 0.11557175364984427,
+    "ci_low": 0.09766408443648368,
+    "ci_high": 0.13447020597737688,
+    "n": 921,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.13085459861382212,
+    "ci_low": 0.11233645659814824,
+    "ci_high": 0.15123566989529288,
+    "n": 921,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.1185177361150433,
+    "ci_low": 0.09987897465018897,
+    "ci_high": 0.13797394264837737,
+    "n": 921,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2018",
+   "lgd_economic": {
+    "value": 0.09027780047345706,
+    "ci_low": 0.0755856980527896,
+    "ci_high": 0.10632110048413976,
+    "n": 924,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.10223889687061713,
+    "ci_low": 0.08687664833733529,
+    "ci_high": 0.11916780970331504,
+    "n": 924,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.09228044910146449,
+    "ci_low": 0.07603716151564682,
+    "ci_high": 0.11046291539830082,
+    "n": 924,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2019",
+   "lgd_economic": {
+    "value": 0.07302680455371557,
+    "ci_low": 0.058520205075905454,
+    "ci_high": 0.08893435911727786,
+    "n": 789,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.08153846066276943,
+    "ci_low": 0.06661759380085126,
+    "ci_high": 0.09766393438635126,
+    "n": 789,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.07581021954158848,
+    "ci_low": 0.059433383784759916,
+    "ci_high": 0.09383247595683458,
+    "n": 789,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2020",
+   "lgd_economic": {
+    "value": 0.0366827378695745,
+    "ci_low": 0.025315194929189322,
+    "ci_high": 0.048607225468167224,
+    "n": 699,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.03886551699234855,
+    "ci_low": 0.026992040035205753,
+    "ci_high": 0.051135978517268574,
+    "n": 699,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.03842777779593285,
+    "ci_low": 0.025189388561936987,
+    "ci_high": 0.051950390568643756,
+    "n": 699,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2021",
+   "lgd_economic": {
+    "value": 0.05538494115759358,
+    "ci_low": 0.030835709100868063,
+    "ci_high": 0.09153933072567937,
+    "n": 655,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.05851365310384747,
+    "ci_low": 0.03388823843581,
+    "ci_high": 0.0944066583895883,
+    "n": 655,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.05795326666601105,
+    "ci_low": 0.03152381873696549,
+    "ci_high": 0.09721915736007622,
+    "n": 655,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2022",
+   "lgd_economic": {
+    "value": 0.05168458337772298,
+    "ci_low": 0.025731234483393386,
+    "ci_high": 0.0888192766678572,
+    "n": 498,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.05587396449813227,
+    "ci_low": 0.029891768962229146,
+    "ci_high": 0.0937377611385349,
+    "n": 498,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.05324504517716777,
+    "ci_low": 0.02580668504816963,
+    "ci_high": 0.092493694492663,
+    "n": 498,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "2023",
+   "lgd_economic": {
+    "value": 0.07433832552421481,
+    "ci_low": 0.02345146621333484,
+    "ci_high": 0.1397371440785644,
+    "n": 109,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": 0.07735439961687283,
+    "ci_low": 0.024532263909737517,
+    "ci_high": 0.14614742035869271,
+    "n": 109,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": 0.07969078029231326,
+    "ci_low": 0.02293853882157171,
+    "ci_high": 0.15433150395259834,
+    "n": 109,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "dimension": "default_year",
+   "segment": "other",
+   "lgd_economic": {
+    "value": -0.0032133332065599762,
+    "ci_low": -0.010516363221469012,
+    "ci_high": 0.0,
+    "n": 12,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_gross_of_mi": {
+    "value": -0.0032133332065599762,
+    "ci_low": -0.010516363221469012,
+    "ci_high": 0.0,
+    "n": 12,
+    "ci_method": "bootstrap_1000"
+   },
+   "lgd_undiscounted": {
+    "value": -0.0022131913613284457,
+    "ci_low": -0.007243171727984004,
+    "ci_high": 0.0,
+    "n": 12,
+    "ci_method": "bootstrap_1000"
+   }
+  }
+ ],
+ "downturn_lgd": [
+  {
+   "ltv_band": "60_80",
+   "lgd_gross_of_mi": {
+    "value": 0.3734383314049194,
+    "ci_low": 0.3674028999812905,
+    "ci_high": 0.3797207382847558,
+    "n": 10520,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "ltv_band": "80_90",
+   "lgd_gross_of_mi": {
+    "value": 0.4486436106308369,
+    "ci_low": 0.4339949998218724,
+    "ci_high": 0.46286121126904034,
+    "n": 2404,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "ltv_band": "90_95",
+   "lgd_gross_of_mi": {
+    "value": 0.44451635290770175,
+    "ci_low": 0.4282990134428514,
+    "ci_high": 0.4616370141841777,
+    "n": 1478,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "ltv_band": "gt_95",
+   "lgd_gross_of_mi": {
+    "value": 0.4635621640648642,
+    "ci_low": 0.44184976166604073,
+    "ci_high": 0.4865530439584886,
+    "n": 705,
+    "ci_method": "bootstrap_1000"
+   }
+  },
+  {
+   "ltv_band": "le_60",
+   "lgd_gross_of_mi": {
+    "value": 0.19533992309177514,
+    "ci_low": 0.18138971939806572,
+    "ci_high": 0.20952190973216833,
+    "n": 1850,
+    "ci_method": "bootstrap_1000"
+   }
+  }
+ ],
+ "resolution_mix": [
+  {
+   "default_year": 1999,
+   "resolution": "paid_off",
+   "n_defaults": 11,
+   "share": {
+    "value": 0.5789473684210527,
+    "ci_low": 0.3627590353425504,
+    "ci_high": 0.7685810871754576,
+    "n": 19,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2000,
+   "resolution": "credit_event_loss",
+   "n_defaults": 54,
+   "share": {
+    "value": 0.216,
+    "ci_low": 0.16949229589420706,
+    "ci_high": 0.2711034182192054,
+    "n": 250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2000,
+   "resolution": "defect_settlement",
+   "n_defaults": 17,
+   "share": {
+    "value": 0.068,
+    "ci_low": 0.04288591857836033,
+    "ci_high": 0.10618925218570377,
+    "n": 250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2000,
+   "resolution": "other_exit",
+   "n_defaults": 52,
+   "share": {
+    "value": 0.208,
+    "ci_low": 0.16229381886263317,
+    "ci_high": 0.26254402804270643,
+    "n": 250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2000,
+   "resolution": "paid_off",
+   "n_defaults": 126,
+   "share": {
+    "value": 0.504,
+    "ci_low": 0.4424326671345239,
+    "ci_high": 0.5654462664695125,
+    "n": 250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "resolution": "credit_event_loss",
+   "n_defaults": 205,
+   "share": {
+    "value": 0.23892773892773891,
+    "ci_low": 0.21159808400814797,
+    "ci_high": 0.2685847321991119,
+    "n": 858,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "resolution": "defect_settlement",
+   "n_defaults": 45,
+   "share": {
+    "value": 0.05244755244755245,
+    "ci_low": 0.03942603998978725,
+    "ci_high": 0.06945878779408686,
+    "n": 858,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "resolution": "other_exit",
+   "n_defaults": 114,
+   "share": {
+    "value": 0.13286713286713286,
+    "ci_low": 0.11178317385267919,
+    "ci_high": 0.15722391143878003,
+    "n": 858,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2001,
+   "resolution": "paid_off",
+   "n_defaults": 491,
+   "share": {
+    "value": 0.5722610722610723,
+    "ci_low": 0.538906478196349,
+    "ci_high": 0.6049714923177131,
+    "n": 858,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "resolution": "credit_event_loss",
+   "n_defaults": 264,
+   "share": {
+    "value": 0.2553191489361702,
+    "ci_low": 0.22968105705420092,
+    "ci_high": 0.28276856066007783,
+    "n": 1034,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "resolution": "defect_settlement",
+   "n_defaults": 67,
+   "share": {
+    "value": 0.06479690522243714,
+    "ci_low": 0.05134480013779556,
+    "ci_high": 0.08147072544096122,
+    "n": 1034,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "resolution": "other_exit",
+   "n_defaults": 166,
+   "share": {
+    "value": 0.16054158607350097,
+    "ci_low": 0.13942825494242628,
+    "ci_high": 0.184167855009004,
+    "n": 1034,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2002,
+   "resolution": "paid_off",
+   "n_defaults": 534,
+   "share": {
+    "value": 0.5164410058027079,
+    "ci_low": 0.485977003776409,
+    "ci_high": 0.5467832985906156,
+    "n": 1034,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "resolution": "credit_event_loss",
+   "n_defaults": 306,
+   "share": {
+    "value": 0.2884071630537229,
+    "ci_low": 0.2619500460839051,
+    "ci_high": 0.31639093953355485,
+    "n": 1061,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "resolution": "defect_settlement",
+   "n_defaults": 62,
+   "share": {
+    "value": 0.058435438265786996,
+    "ci_low": 0.04584999864932367,
+    "ci_high": 0.07420680207129988,
+    "n": 1061,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "resolution": "other_exit",
+   "n_defaults": 134,
+   "share": {
+    "value": 0.12629594721960416,
+    "ci_low": 0.10764678497828635,
+    "ci_high": 0.14764141456435453,
+    "n": 1061,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2003,
+   "resolution": "paid_off",
+   "n_defaults": 554,
+   "share": {
+    "value": 0.5221489161168709,
+    "ci_low": 0.49206698351926575,
+    "ci_high": 0.5520710424851427,
+    "n": 1061,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "resolution": "credit_event_loss",
+   "n_defaults": 286,
+   "share": {
+    "value": 0.3283582089552239,
+    "ci_low": 0.2979837271764698,
+    "ci_high": 0.36024006070498404,
+    "n": 871,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "resolution": "defect_settlement",
+   "n_defaults": 22,
+   "share": {
+    "value": 0.02525832376578645,
+    "ci_low": 0.016738481362555964,
+    "ci_high": 0.03794738010220073,
+    "n": 871,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "resolution": "other_exit",
+   "n_defaults": 62,
+   "share": {
+    "value": 0.0711825487944891,
+    "ci_low": 0.05592311644672981,
+    "ci_high": 0.09020788538419311,
+    "n": 871,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2004,
+   "resolution": "paid_off",
+   "n_defaults": 495,
+   "share": {
+    "value": 0.5683122847301951,
+    "ci_low": 0.5351891989551432,
+    "ci_high": 0.600835447339529,
+    "n": 871,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "resolution": "credit_event_loss",
+   "n_defaults": 291,
+   "share": {
+    "value": 0.31664853101196955,
+    "ci_low": 0.28739002614594583,
+    "ci_high": 0.347433489010542,
+    "n": 919,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "resolution": "cured_active",
+   "n_defaults": 18,
+   "share": {
+    "value": 0.01958650707290533,
+    "ci_low": 0.012424754135216497,
+    "ci_high": 0.030747838989942638,
+    "n": 919,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "resolution": "defect_settlement",
+   "n_defaults": 19,
+   "share": {
+    "value": 0.020674646354733407,
+    "ci_low": 0.013275070804795536,
+    "ci_high": 0.03206474181498386,
+    "n": 919,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "resolution": "other_exit",
+   "n_defaults": 50,
+   "share": {
+    "value": 0.0544069640914037,
+    "ci_low": 0.0415106979251953,
+    "ci_high": 0.07101291902781189,
+    "n": 919,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2005,
+   "resolution": "paid_off",
+   "n_defaults": 538,
+   "share": {
+    "value": 0.5854189336235038,
+    "ci_low": 0.5532763441367978,
+    "ci_high": 0.616850386190892,
+    "n": 919,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "resolution": "credit_event_loss",
+   "n_defaults": 320,
+   "share": {
+    "value": 0.34557235421166305,
+    "ci_low": 0.31563730846299776,
+    "ci_high": 0.37678337542140317,
+    "n": 926,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "resolution": "cured_active",
+   "n_defaults": 18,
+   "share": {
+    "value": 0.019438444924406047,
+    "ci_low": 0.012330567412682942,
+    "ci_high": 0.030517015304509003,
+    "n": 926,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "resolution": "defect_settlement",
+   "n_defaults": 33,
+   "share": {
+    "value": 0.035637149028077755,
+    "ci_low": 0.02548654276796493,
+    "ci_high": 0.04962460457673741,
+    "n": 926,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "resolution": "other_exit",
+   "n_defaults": 79,
+   "share": {
+    "value": 0.08531317494600432,
+    "ci_low": 0.068989721959471,
+    "ci_high": 0.10506302357626318,
+    "n": 926,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2006,
+   "resolution": "paid_off",
+   "n_defaults": 473,
+   "share": {
+    "value": 0.5107991360691144,
+    "ci_low": 0.47862437241186095,
+    "ci_high": 0.5428846706731459,
+    "n": 926,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "resolution": "credit_event_loss",
+   "n_defaults": 718,
+   "share": {
+    "value": 0.47424042272126815,
+    "ci_low": 0.4491850619328772,
+    "ci_high": 0.49942617177225357,
+    "n": 1514,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "resolution": "cured_active",
+   "n_defaults": 37,
+   "share": {
+    "value": 0.02443857331571995,
+    "ci_low": 0.017781628637005657,
+    "ci_high": 0.03350268591925506,
+    "n": 1514,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "resolution": "defect_settlement",
+   "n_defaults": 77,
+   "share": {
+    "value": 0.05085865257595773,
+    "ci_low": 0.0408840075397277,
+    "ci_high": 0.06310673398562966,
+    "n": 1514,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "resolution": "other_exit",
+   "n_defaults": 189,
+   "share": {
+    "value": 0.12483487450462351,
+    "ci_low": 0.10912898199943954,
+    "ci_high": 0.14243975503938833,
+    "n": 1514,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2007,
+   "resolution": "paid_off",
+   "n_defaults": 491,
+   "share": {
+    "value": 0.3243064729194188,
+    "ci_low": 0.3011971138070095,
+    "ci_high": 0.34830514684849795,
+    "n": 1514,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "credit_event_loss",
+   "n_defaults": 1911,
+   "share": {
+    "value": 0.5581191588785047,
+    "ci_low": 0.541429200693922,
+    "ci_high": 0.5746788529547807,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "cured_active",
+   "n_defaults": 97,
+   "share": {
+    "value": 0.02832943925233645,
+    "ci_low": 0.023278795109353736,
+    "ci_high": 0.03443725191248227,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "defect_settlement",
+   "n_defaults": 255,
+   "share": {
+    "value": 0.07447429906542057,
+    "ci_low": 0.06614932951369637,
+    "ci_high": 0.08375301135987334,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "open",
+   "n_defaults": 11,
+   "share": {
+    "value": 0.0032126168224299065,
+    "ci_low": 0.001794849094544338,
+    "ci_high": 0.005743848109259409,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "other_exit",
+   "n_defaults": 484,
+   "share": {
+    "value": 0.1413551401869159,
+    "ci_low": 0.130087404601229,
+    "ci_high": 0.1534267166017522,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2008,
+   "resolution": "paid_off",
+   "n_defaults": 666,
+   "share": {
+    "value": 0.19450934579439252,
+    "ci_low": 0.1815965947746538,
+    "ci_high": 0.20810680162462822,
+    "n": 3424,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "credit_event_loss",
+   "n_defaults": 3852,
+   "share": {
+    "value": 0.4961999227102924,
+    "ci_low": 0.4850823514027624,
+    "ci_high": 0.5073212530337625,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "cured_active",
+   "n_defaults": 207,
+   "share": {
+    "value": 0.026664949117609173,
+    "ci_low": 0.02330857872948551,
+    "ci_high": 0.03048953998274305,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "defect_settlement",
+   "n_defaults": 345,
+   "share": {
+    "value": 0.044441581862681954,
+    "ci_low": 0.040078370853319764,
+    "ci_high": 0.04925542879991096,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "open",
+   "n_defaults": 20,
+   "share": {
+    "value": 0.002576323586242432,
+    "ci_low": 0.0016684468546388008,
+    "ci_high": 0.003976249133188269,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "other_exit",
+   "n_defaults": 1353,
+   "share": {
+    "value": 0.17428829060930054,
+    "ci_low": 0.16601111793072457,
+    "ci_high": 0.18288765555243505,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2009,
+   "resolution": "paid_off",
+   "n_defaults": 1986,
+   "share": {
+    "value": 0.2558289321138735,
+    "ci_low": 0.24624525305154185,
+    "ci_high": 0.2656541438783885,
+    "n": 7763,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "credit_event_loss",
+   "n_defaults": 3112,
+   "share": {
+    "value": 0.4837556350069952,
+    "ci_low": 0.47155710515617116,
+    "ci_high": 0.4959735538887869,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "cured_active",
+   "n_defaults": 280,
+   "share": {
+    "value": 0.04352557127312296,
+    "ci_low": 0.03880606436413629,
+    "ci_high": 0.04878991922934446,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "defect_settlement",
+   "n_defaults": 235,
+   "share": {
+    "value": 0.03653039017565677,
+    "ci_low": 0.03221556216320413,
+    "ci_high": 0.041398408578823064,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "open",
+   "n_defaults": 19,
+   "share": {
+    "value": 0.002953520907819058,
+    "ci_low": 0.0018916904346852718,
+    "ci_high": 0.00460861862036484,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "other_exit",
+   "n_defaults": 952,
+   "share": {
+    "value": 0.14798694232861806,
+    "ci_low": 0.13951993654100653,
+    "ci_high": 0.1568741056341807,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2010,
+   "resolution": "paid_off",
+   "n_defaults": 1835,
+   "share": {
+    "value": 0.285247940307788,
+    "ci_low": 0.2743447197315149,
+    "ci_high": 0.29640748572886105,
+    "n": 6433,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "credit_event_loss",
+   "n_defaults": 2457,
+   "share": {
+    "value": 0.5295258620689656,
+    "ci_low": 0.5151458330469143,
+    "ci_high": 0.5438570425744216,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "cured_active",
+   "n_defaults": 188,
+   "share": {
+    "value": 0.04051724137931034,
+    "ci_low": 0.03521376224554491,
+    "ci_high": 0.04658090326768194,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "defect_settlement",
+   "n_defaults": 150,
+   "share": {
+    "value": 0.032327586206896554,
+    "ci_low": 0.027612780584648222,
+    "ci_high": 0.03781612380733222,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "open",
+   "n_defaults": 15,
+   "share": {
+    "value": 0.003232758620689655,
+    "ci_low": 0.0019601215940178076,
+    "ci_high": 0.00532726302511348,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "other_exit",
+   "n_defaults": 692,
+   "share": {
+    "value": 0.14913793103448275,
+    "ci_low": 0.1391785623266437,
+    "ci_high": 0.15967777700521998,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2011,
+   "resolution": "paid_off",
+   "n_defaults": 1138,
+   "share": {
+    "value": 0.24525862068965518,
+    "ci_low": 0.23309325322739274,
+    "ci_high": 0.25784544031699475,
+    "n": 4640,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "resolution": "credit_event_loss",
+   "n_defaults": 1833,
+   "share": {
+    "value": 0.5004095004095004,
+    "ci_low": 0.4842255926043857,
+    "ci_high": 0.5165925502124473,
+    "n": 3663,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "resolution": "cured_active",
+   "n_defaults": 188,
+   "share": {
+    "value": 0.05132405132405132,
+    "ci_low": 0.04463661651634975,
+    "ci_high": 0.05895157050683731,
+    "n": 3663,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "resolution": "defect_settlement",
+   "n_defaults": 82,
+   "share": {
+    "value": 0.022386022386022386,
+    "ci_low": 0.018072087418563643,
+    "ci_high": 0.027700673881750175,
+    "n": 3663,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "resolution": "other_exit",
+   "n_defaults": 537,
+   "share": {
+    "value": 0.1466011466011466,
+    "ci_low": 0.13551693860267922,
+    "ci_high": 0.1584258104703452,
+    "n": 3663,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2012,
+   "resolution": "paid_off",
+   "n_defaults": 1014,
+   "share": {
+    "value": 0.27682227682227684,
+    "ci_low": 0.26257231124148495,
+    "ci_high": 0.2915398535844691,
+    "n": 3663,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "credit_event_loss",
+   "n_defaults": 1084,
+   "share": {
+    "value": 0.44136807817589574,
+    "ci_low": 0.42183676876510967,
+    "ci_high": 0.46108251492804586,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "cured_active",
+   "n_defaults": 148,
+   "share": {
+    "value": 0.06026058631921824,
+    "ci_low": 0.051518223156361856,
+    "ci_high": 0.07037640454230501,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "defect_settlement",
+   "n_defaults": 21,
+   "share": {
+    "value": 0.008550488599348535,
+    "ci_low": 0.005599383326176408,
+    "ci_high": 0.013036557074092965,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "open",
+   "n_defaults": 10,
+   "share": {
+    "value": 0.004071661237785016,
+    "ci_low": 0.0022131710167243054,
+    "ci_high": 0.0074791035545500074,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "other_exit",
+   "n_defaults": 426,
+   "share": {
+    "value": 0.1734527687296417,
+    "ci_low": 0.15899102922914657,
+    "ci_high": 0.1889344257841227,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2013,
+   "resolution": "paid_off",
+   "n_defaults": 767,
+   "share": {
+    "value": 0.3122964169381108,
+    "ci_low": 0.2942733932329638,
+    "ci_high": 0.33090570247915235,
+    "n": 2456,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "resolution": "credit_event_loss",
+   "n_defaults": 712,
+   "share": {
+    "value": 0.39709983268265475,
+    "ci_low": 0.3746949418418486,
+    "ci_high": 0.4199447030814254,
+    "n": 1793,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "resolution": "cured_active",
+   "n_defaults": 119,
+   "share": {
+    "value": 0.06636921360847742,
+    "ci_low": 0.055749292606226984,
+    "ci_high": 0.0788432490081122,
+    "n": 1793,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "resolution": "defect_settlement",
+   "n_defaults": 14,
+   "share": {
+    "value": 0.007808142777467931,
+    "ci_low": 0.004656840594358207,
+    "ci_high": 0.013063954228348277,
+    "n": 1793,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "resolution": "other_exit",
+   "n_defaults": 300,
+   "share": {
+    "value": 0.16731734523145567,
+    "ci_low": 0.150755420513078,
+    "ci_high": 0.1853017512849327,
+    "n": 1793,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2014,
+   "resolution": "paid_off",
+   "n_defaults": 643,
+   "share": {
+    "value": 0.35861684327941995,
+    "ci_low": 0.3367418568249779,
+    "ci_high": 0.381096354492366,
+    "n": 1793,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "resolution": "credit_event_loss",
+   "n_defaults": 521,
+   "share": {
+    "value": 0.35369993211133743,
+    "ci_low": 0.32969290264261747,
+    "ci_high": 0.3784680530064964,
+    "n": 1473,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "resolution": "cured_active",
+   "n_defaults": 106,
+   "share": {
+    "value": 0.07196198234894773,
+    "ci_low": 0.05984841685351442,
+    "ci_high": 0.08630231417556336,
+    "n": 1473,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "resolution": "open",
+   "n_defaults": 11,
+   "share": {
+    "value": 0.00746775288526816,
+    "ci_low": 0.004174960089591504,
+    "ci_high": 0.013322827954176834,
+    "n": 1473,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "resolution": "other_exit",
+   "n_defaults": 314,
+   "share": {
+    "value": 0.2131704005431093,
+    "ci_low": 0.19301573442962244,
+    "ci_high": 0.23481722966202762,
+    "n": 1473,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2015,
+   "resolution": "paid_off",
+   "n_defaults": 516,
+   "share": {
+    "value": 0.35030549898167007,
+    "ci_low": 0.32636079966969506,
+    "ci_high": 0.3750289484538762,
+    "n": 1473,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "resolution": "credit_event_loss",
+   "n_defaults": 422,
+   "share": {
+    "value": 0.3302034428794992,
+    "ci_low": 0.30496224847328085,
+    "ci_high": 0.35646233955706413,
+    "n": 1278,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "resolution": "cured_active",
+   "n_defaults": 106,
+   "share": {
+    "value": 0.08294209702660407,
+    "ci_low": 0.0690423935366082,
+    "ci_high": 0.09934150240889368,
+    "n": 1278,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "resolution": "open",
+   "n_defaults": 14,
+   "share": {
+    "value": 0.010954616588419406,
+    "ci_low": 0.006536545067762907,
+    "ci_high": 0.018303858245442887,
+    "n": 1278,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "resolution": "other_exit",
+   "n_defaults": 266,
+   "share": {
+    "value": 0.2081377151799687,
+    "ci_low": 0.18677071472283685,
+    "ci_high": 0.23125403797448435,
+    "n": 1278,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2016,
+   "resolution": "paid_off",
+   "n_defaults": 466,
+   "share": {
+    "value": 0.3646322378716745,
+    "ci_low": 0.33868536955286505,
+    "ci_high": 0.3913904540842302,
+    "n": 1278,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "resolution": "credit_event_loss",
+   "n_defaults": 306,
+   "share": {
+    "value": 0.21904080171796708,
+    "ci_low": 0.19813896790038227,
+    "ci_high": 0.24148355679212902,
+    "n": 1397,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "resolution": "cured_active",
+   "n_defaults": 137,
+   "share": {
+    "value": 0.09806728704366499,
+    "ci_low": 0.08355644156088887,
+    "ci_high": 0.11478253325400303,
+    "n": 1397,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "resolution": "open",
+   "n_defaults": 23,
+   "share": {
+    "value": 0.0164638511095204,
+    "ci_low": 0.010995498772609911,
+    "ci_high": 0.024584158373355355,
+    "n": 1397,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "resolution": "other_exit",
+   "n_defaults": 314,
+   "share": {
+    "value": 0.22476735862562633,
+    "ci_low": 0.2036497896940087,
+    "ci_high": 0.24739444150158513,
+    "n": 1397,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2017,
+   "resolution": "paid_off",
+   "n_defaults": 615,
+   "share": {
+    "value": 0.44022906227630637,
+    "ci_low": 0.41439695539410615,
+    "ci_high": 0.46638898297996945,
+    "n": 1397,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "resolution": "credit_event_loss",
+   "n_defaults": 267,
+   "share": {
+    "value": 0.18842625264643614,
+    "ci_low": 0.168917798250705,
+    "ci_high": 0.2096194801217219,
+    "n": 1417,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "resolution": "cured_active",
+   "n_defaults": 202,
+   "share": {
+    "value": 0.14255469301340862,
+    "ci_low": 0.12531646168298208,
+    "ci_high": 0.1617257387601305,
+    "n": 1417,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "resolution": "open",
+   "n_defaults": 23,
+   "share": {
+    "value": 0.016231474947071278,
+    "ci_low": 0.010839965242057218,
+    "ci_high": 0.024238866749559076,
+    "n": 1417,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "resolution": "other_exit",
+   "n_defaults": 265,
+   "share": {
+    "value": 0.187014820042343,
+    "ci_low": 0.16756866343076388,
+    "ci_high": 0.20815338177460718,
+    "n": 1417,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2018,
+   "resolution": "paid_off",
+   "n_defaults": 657,
+   "share": {
+    "value": 0.4636556104446013,
+    "ci_low": 0.4378241408796967,
+    "ci_high": 0.48968360506861586,
+    "n": 1417,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "resolution": "credit_event_loss",
+   "n_defaults": 210,
+   "share": {
+    "value": 0.16104294478527606,
+    "ci_low": 0.1420926778420819,
+    "ci_high": 0.1819844157246568,
+    "n": 1304,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "resolution": "cured_active",
+   "n_defaults": 283,
+   "share": {
+    "value": 0.2170245398773006,
+    "ci_low": 0.19549943741749826,
+    "ci_high": 0.24021198232486957,
+    "n": 1304,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "resolution": "open",
+   "n_defaults": 59,
+   "share": {
+    "value": 0.04524539877300614,
+    "ci_low": 0.0352379227780352,
+    "ci_high": 0.057924331713087085,
+    "n": 1304,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "resolution": "other_exit",
+   "n_defaults": 171,
+   "share": {
+    "value": 0.13113496932515337,
+    "ci_low": 0.1138924775588238,
+    "ci_high": 0.15054435955792123,
+    "n": 1304,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2019,
+   "resolution": "paid_off",
+   "n_defaults": 579,
+   "share": {
+    "value": 0.44401840490797545,
+    "ci_low": 0.4172545124576607,
+    "ci_high": 0.4711111613667102,
+    "n": 1304,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "resolution": "credit_event_loss",
+   "n_defaults": 106,
+   "share": {
+    "value": 0.0848,
+    "ci_low": 0.07059974795838707,
+    "ci_high": 0.10154439140011261,
+    "n": 1250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "resolution": "cured_active",
+   "n_defaults": 414,
+   "share": {
+    "value": 0.3312,
+    "ci_low": 0.30566128782387364,
+    "ci_high": 0.35777303472842575,
+    "n": 1250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "resolution": "open",
+   "n_defaults": 42,
+   "share": {
+    "value": 0.0336,
+    "ci_low": 0.02495296960962405,
+    "ci_high": 0.045104897916397754,
+    "n": 1250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "resolution": "other_exit",
+   "n_defaults": 92,
+   "share": {
+    "value": 0.0736,
+    "ci_low": 0.060394232281952384,
+    "ci_high": 0.08941853511319277,
+    "n": 1250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2020,
+   "resolution": "paid_off",
+   "n_defaults": 593,
+   "share": {
+    "value": 0.4744,
+    "ci_low": 0.4468390362398264,
+    "ci_high": 0.5021178278439345,
+    "n": 1250,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "resolution": "credit_event_loss",
+   "n_defaults": 94,
+   "share": {
+    "value": 0.06752873563218391,
+    "ci_low": 0.05550110668660568,
+    "ci_high": 0.08193675031957279,
+    "n": 1392,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "resolution": "cured_active",
+   "n_defaults": 572,
+   "share": {
+    "value": 0.4109195402298851,
+    "ci_low": 0.38535307168660166,
+    "ci_high": 0.43697632078643184,
+    "n": 1392,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "resolution": "open",
+   "n_defaults": 73,
+   "share": {
+    "value": 0.05244252873563218,
+    "ci_low": 0.041915242524531104,
+    "ci_high": 0.06543323740046755,
+    "n": 1392,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "resolution": "other_exit",
+   "n_defaults": 92,
+   "share": {
+    "value": 0.06609195402298851,
+    "ci_low": 0.05419814985092755,
+    "ci_high": 0.08037405219513857,
+    "n": 1392,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2021,
+   "resolution": "paid_off",
+   "n_defaults": 561,
+   "share": {
+    "value": 0.40301724137931033,
+    "ci_low": 0.37755080778703587,
+    "ci_high": 0.4290174824053795,
+    "n": 1392,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "resolution": "credit_event_loss",
+   "n_defaults": 89,
+   "share": {
+    "value": 0.06671664167916042,
+    "ci_low": 0.05453183387915411,
+    "ci_high": 0.0813896967489871,
+    "n": 1334,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "resolution": "cured_active",
+   "n_defaults": 601,
+   "share": {
+    "value": 0.4505247376311844,
+    "ci_low": 0.42400525443953313,
+    "ci_high": 0.477328345943611,
+    "n": 1334,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "resolution": "open",
+   "n_defaults": 141,
+   "share": {
+    "value": 0.10569715142428786,
+    "ci_low": 0.09031570546701052,
+    "ci_high": 0.12334298849562321,
+    "n": 1334,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "resolution": "other_exit",
+   "n_defaults": 93,
+   "share": {
+    "value": 0.06971514242878561,
+    "ci_low": 0.05724846496971503,
+    "ci_high": 0.08465284745338716,
+    "n": 1334,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2022,
+   "resolution": "paid_off",
+   "n_defaults": 409,
+   "share": {
+    "value": 0.3065967016491754,
+    "ci_low": 0.2824386579477348,
+    "ci_high": 0.3318654162772833,
+    "n": 1334,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "resolution": "credit_event_loss",
+   "n_defaults": 102,
+   "share": {
+    "value": 0.07391304347826087,
+    "ci_low": 0.06126067205346929,
+    "ci_high": 0.08893099729990885,
+    "n": 1380,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "resolution": "cured_active",
+   "n_defaults": 594,
+   "share": {
+    "value": 0.43043478260869567,
+    "ci_low": 0.4045398046432571,
+    "ci_high": 0.4567159781083149,
+    "n": 1380,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "resolution": "open",
+   "n_defaults": 254,
+   "share": {
+    "value": 0.18405797101449275,
+    "ci_low": 0.1644982407677431,
+    "ci_high": 0.20537177256231282,
+    "n": 1380,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "resolution": "other_exit",
+   "n_defaults": 84,
+   "share": {
+    "value": 0.06086956521739131,
+    "ci_low": 0.049432696534776464,
+    "ci_high": 0.07474443208452139,
+    "n": 1380,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2023,
+   "resolution": "paid_off",
+   "n_defaults": 346,
+   "share": {
+    "value": 0.25072463768115943,
+    "ci_low": 0.2285699125832257,
+    "ci_high": 0.2742633089432404,
+    "n": 1380,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "resolution": "credit_event_loss",
+   "n_defaults": 98,
+   "share": {
+    "value": 0.04919678714859438,
+    "ci_low": 0.040536346505058427,
+    "ci_high": 0.05959257803325475,
+    "n": 1992,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "resolution": "cured_active",
+   "n_defaults": 889,
+   "share": {
+    "value": 0.446285140562249,
+    "ci_low": 0.42457935142422304,
+    "ci_high": 0.46819770305862723,
+    "n": 1992,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "resolution": "open",
+   "n_defaults": 582,
+   "share": {
+    "value": 0.2921686746987952,
+    "ci_low": 0.272613587138751,
+    "ci_high": 0.3125238012341463,
+    "n": 1992,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "resolution": "other_exit",
+   "n_defaults": 64,
+   "share": {
+    "value": 0.0321285140562249,
+    "ci_low": 0.02524040040101362,
+    "ci_high": 0.04081768163652298,
+    "n": 1992,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2024,
+   "resolution": "paid_off",
+   "n_defaults": 356,
+   "share": {
+    "value": 0.178714859437751,
+    "ci_low": 0.1625140165759337,
+    "ci_high": 0.19615247752709578,
+    "n": 1992,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "resolution": "credit_event_loss",
+   "n_defaults": 18,
+   "share": {
+    "value": 0.008260670032124828,
+    "ci_low": 0.005231662721162366,
+    "ci_high": 0.013020445630407494,
+    "n": 2179,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "resolution": "cured_active",
+   "n_defaults": 742,
+   "share": {
+    "value": 0.3405231757687012,
+    "ci_low": 0.3209221364392361,
+    "ci_high": 0.36068552352545863,
+    "n": 2179,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "resolution": "open",
+   "n_defaults": 1195,
+   "share": {
+    "value": 0.5484167049105094,
+    "ci_low": 0.5274546533254874,
+    "ci_high": 0.5692083448722816,
+    "n": 2179,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "resolution": "other_exit",
+   "n_defaults": 15,
+   "share": {
+    "value": 0.006883891693437357,
+    "ci_low": 0.004176189826234418,
+    "ci_high": 0.011327207676109783,
+    "n": 2179,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2025,
+   "resolution": "paid_off",
+   "n_defaults": 209,
+   "share": {
+    "value": 0.09591555759522717,
+    "ci_low": 0.08425284553262845,
+    "ci_high": 0.1090005202196415,
+    "n": 2179,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2026,
+   "resolution": "open",
+   "n_defaults": 576,
+   "share": {
+    "value": 0.9680672268907563,
+    "ci_low": 0.9506661499124858,
+    "ci_high": 0.9794631719566229,
+    "n": 595,
+    "ci_method": "wilson_95"
+   }
+  },
+  {
+   "default_year": 2026,
+   "resolution": "paid_off",
+   "n_defaults": 15,
+   "share": {
+    "value": 0.025210084033613446,
+    "ci_low": 0.015336123110341673,
+    "ci_high": 0.041175426519736595,
+    "n": 595,
+    "ci_method": "wilson_95"
+   }
+  }
+ ],
+ "sensitivities": [
+  {
+   "name": "zero_loss_exclusions",
+   "status": "run",
+   "lgd_economic": {
+    "value": 0.19738695973357984,
+    "ci_low": 0.19467407095475855,
+    "ci_high": 0.19996280095558244,
+    "n": 45039,
+    "ci_method": "bootstrap_1000"
+   },
+   "delta_vs_primary": -0.051719498443978495
+  },
+  {
+   "name": "open_workouts_p90",
+   "status": "not_needed",
+   "lgd_economic": null,
+   "delta_vs_primary": null
+  }
+ ],
+ "lgd_distribution": {
+  "share_above_1": {
+   "value": 0.021715982963461108,
+   "ci_low": 0.02025446544571403,
+   "ci_high": 0.023280454449451145,
+   "n": 35688,
+   "ci_method": "wilson_95"
+  },
+  "share_below_0": {
+   "value": 0.02827280878726743,
+   "ci_low": 0.026603259087449968,
+   "ci_high": 0.030043901052869068,
+   "n": 35688,
+   "ci_method": "wilson_95"
+  }
+ },
+ "reconciliation": {
+  "computed_vs_actual_within_1usd": {
+   "value": 1.0,
+   "ci_low": null,
+   "ci_high": null,
+   "n": 19639,
+   "ci_method": "none: population check, not an estimate"
+  },
+  "expenses_within_1usd": {
+   "value": 1.0,
+   "ci_low": null,
+   "ci_high": null,
+   "n": 36723,
+   "ci_method": "none: population check, not an estimate"
+  }
+ },
+ "lgd_model": {
+  "status": "run",
+  "used_in_ecl": true,
+  "delta_mae": {
+   "value": -0.01336146922306598,
+   "ci_low": -0.014962672746970508,
+   "ci_high": -0.011629344276307182,
+   "n": 16168,
+   "ci_method": "paired_bootstrap_1000"
+  }
+ },
+ "pass_rules": [
+  {
+   "rule_id": "R5",
+   "result": "PASS",
+   "evidence": "19639 events checked, 0 outside $1 (share within 1.0000, rule >= 0.995), largest difference $0.00"
+  },
+  {
+   "rule_id": "R6",
+   "result": "PASS",
+   "evidence": "36723 events checked, 0 outside $1 (share within 1.0000, rule >= 0.995), largest difference $0.00"
+  },
+  {
+   "rule_id": "G2",
+   "result": "PASS",
+   "evidence": "MAE(model) - MAE(LTV-band mean) on 16168 held-out defaults (2011-01 to 2023-03) = -0.0134, 95% paired bootstrap [-0.0150, -0.0116]; the model is used only if the whole interval is below 0. Fitted on 19520 defaults to 2010-12."
+  }
+ ]
+}

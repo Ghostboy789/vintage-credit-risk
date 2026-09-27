@@ -156,18 +156,19 @@ from rs group by all
 
 def l1_cells(paths: dict, by_month: bool, temp_dir=None) -> tuple[pd.DataFrame, pd.Series]:
     """Cell counts for L1 and the distinct loans per grade in its risk set."""
-    con = duckdb.connect()
-    if temp_dir:
-        con.execute(f"set temp_directory = '{temp_dir}'")
-    month = "year(period) * 12 + month(period) - 1" if by_month else "0"
-    fmt = {k: str(v).replace("\\", "/") for k, v in paths.items()}
-    cells = con.execute(L1_SQL.format(**fmt, end=L1_FIT_END, month_expr=month)).df()
-    loans = con.execute(
-        f"""select s.grade, count(distinct m.loan_id) n from '{fmt["flm"]}' m
-        join '{fmt["scores"]}' s on s.loan_id = m.loan_id
-        where m.months_on_book >= 1 and m.period <= DATE '{L1_FIT_END}' and s.grade is not null
-        group by 1"""
-    ).df()
+    with duckdb.connect() as con:  # closing the connection removes its spill files
+        con.execute("set memory_limit = '4GB'")
+        if temp_dir:
+            con.execute(f"set temp_directory = '{temp_dir}'")
+        month = "year(period) * 12 + month(period) - 1" if by_month else "0"
+        fmt = {k: str(v).replace("\\", "/") for k, v in paths.items()}
+        cells = con.execute(L1_SQL.format(**fmt, end=L1_FIT_END, month_expr=month)).df()
+        loans = con.execute(
+            f"""select s.grade, count(distinct m.loan_id) n from '{fmt["flm"]}' m
+            join '{fmt["scores"]}' s on s.loan_id = m.loan_id
+            where m.months_on_book >= 1 and m.period <= DATE '{L1_FIT_END}' and s.grade is not null
+            group by 1"""
+        ).df()
     return cells, loans.set_index("grade")["n"]
 
 

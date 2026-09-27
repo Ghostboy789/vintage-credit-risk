@@ -5,8 +5,8 @@ The code in `models/loss/` turns the dbt marts into three published artefacts
 (`models_out/ecl_results.parquet`, the source of the `fct_ecl` mart). It implements
 `VALIDATION_PLAN.md` sections 1 (D7, D8), 4 (intervals), 6 (L1 to L3), 7 (E1 to E6), 8 (G1, G2)
 and 9 (Basel), which were frozen before any result (tag `plan-freeze`). This page says how each
-rule was implemented and which details the plan left open. It contains no results: those are in
-the artefacts, each with its interval and `n`.
+rule was implemented, which details the plan left open, and the results of the run on the
+Freddie Mac data (full tables, each with its interval and `n`, are in the artefacts).
 
 ```
 python -m models.loss.run                         # real marts under VINTAGE_DATA_ROOT
@@ -82,7 +82,8 @@ forward-looking information and `ecl.json` says `scenarios.used = false` (E5).
   per model. A grade with no loans at all takes its nearest grade towards D. The plan names only
   grades; the same "no events, pool with the neighbour" rule is applied to the ordered bands
   (age, incentive, behaviour state, modified), pooling a failing band into the band before it.
-  Every merge is printed by the run and listed in the E4c evidence in `ecl.json`.
+  Grade merges are listed in the E4c evidence in `ecl.json`; band merges are not published. On
+  the real data no grade or band needed a merge in L1 or L2.
 - **L3.** Months 1-12: default `PD12 / 12` a month and prepayment from L1 applied to survivors;
   the monthly default is capped at the survivors left after prepayment, so survival never goes
   negative. From month 13, default and prepayment both from L1 applied to survivors. The
@@ -165,12 +166,124 @@ LGD: the downturn `lgd_gross_of_mi` (defaults dated 2008-01 to 2011-12) of the l
 floored at 5%, folded like G1. Applied loan by loan to non-defaulted exposures at the latest
 reporting date and summed by grade. Not a regulatory number: see `limits` in `capital.json`.
 
+## Results on the Freddie Mac data
+
+Run of 2026-09-28: 109 quarter-ends from 1999-03 to 2026-03 (24.7 million loan-quarters), final
+scorecard grades, 1,000 parameter draws, the three house-price scenarios. Intervals on ECL are
+the parameter-draw percentiles described above (too narrow; LGD not drawn, because G2 passed).
+Coverage = ECL / exposure; its interval divides the ECL interval by the fixed exposure.
+
+**Headline, 2026-03.** Exposure $80.0bn on 342,587 loans. Probability-weighted ECL $272.4m
+[269.6, 275.0]; coverage 34.0 bp [33.7, 34.4]. By stage: stage 1 $41.0m (292,874 loans), stage 2
+$124.3m (46,668), stage 3 $107.1m (3,045). Scenarios: base $261.5m [259.0, 264.0], 100% adverse
+$320.4m [316.9, 323.8], upside $235.7m [233.3, 238.1].
+
+**LGD and EAD.** Overall realised economic LGD 0.249 [0.246, 0.252], gross of MI 0.280
+[0.277, 0.284], undiscounted 0.265 [0.261, 0.268], n = 35,688 resolved primary defaults (bootstrap
+1,000). By origination LTV band (economic): up to 60 0.132 [0.124, 0.141], 60-80 0.289
+[0.284, 0.294], 80-90 0.255 [0.247, 0.265], 90-95 0.174 [0.166, 0.182], over 95 0.236
+[0.225, 0.247]. The high-LTV bands are not the worst on the economic basis, which is consistent
+with mortgage insurance paying part of their loss (not tested separately here). Adding the zero-loss exclusions (D8a)
+lowers the overall LGD to 0.197 [0.195, 0.200]; open workouts are 1.1% of primary defaults, so the
+D8b sensitivity was not needed. Mean EAD $171,862 [170,894, 172,761], n = 54,615. R5 and R6 pass
+with no event outside $1. **G2 passes** (MAE difference -0.0134 [-0.0150, -0.0116] on 16,168
+held-out defaults), so the ECL uses the two-stage LGD model loan by loan.
+
+**Over time, through 2008 and COVID** (probability-weighted ECL; stage mix as a share of loans):
+
+| Quarter-end | ECL $m [95%] | Coverage bp | Stage 1 / 2 / 3 % | Stage 2 from the PD rule alone |
+|---|---|---|---|---|
+| 2006-12 | 97.4 [96.9, 97.8] | 36.2 | 94.8 / 4.6 / 0.6 | 67% |
+| 2007-06 | 112.5 [112.0, 113.0] | 37.9 | 94.8 / 4.6 / 0.6 | 70% |
+| 2007-12 | 156.6 [155.9, 157.1] | 48.1 | 94.3 / 4.9 / 0.7 | 66% |
+| 2008-03 | 204.3 [203.1, 205.4] | 60.4 | 86.1 / 13.0 / 0.9 | 89% |
+| 2008-12 | 374.3 [372.1, 376.4] | 97.4 | 77.8 / 20.7 / 1.5 | 89% |
+| 2009-06 | 479.7 [478.1, 481.1] | 125.8 | 79.3 / 18.2 / 2.5 | 87% |
+| 2009-12 | 578.6 [577.8, 579.4] | 147.0 | 89.9 / 6.4 / 3.7 | 55% |
+| 2010-03 (peak) | 610.5 [609.7, 611.3] | 151.9 | 89.6 / 6.4 / 4.1 | 63% |
+| 2011-12 | 535.0 [533.8, 536.2] | 131.0 | 90.0 / 6.3 / 3.7 | 61% |
+| 2016-12 | 202.3 [201.1, 203.3] | 42.0 | 94.7 / 4.2 / 1.1 | 66% |
+| 2020-03 | 175.8 [174.9, 176.6] | 30.2 | 94.8 / 4.4 / 0.7 | 69% |
+| 2020-06 | 388.8 [386.3, 391.2] | 69.5 | 90.6 / 8.7 / 0.8 | 36% |
+| 2020-12 | 299.8 [298.0, 301.5] | 59.4 | 90.2 / 9.0 / 0.8 | 52% |
+| 2021-12 | 190.0 [188.9, 191.0] | 40.3 | 90.0 / 9.2 / 0.8 | 78% |
+| 2023-03 | 210.3 [206.8, 213.6] | 36.7 | 82.4 / 17.0 / 0.6 | 93% |
+| 2026-03 | 272.4 [269.6, 275.0] | 34.0 | 85.5 / 13.6 / 0.9 | 90% |
+
+Dates to 2016-12 are in-sample for L1 or L2.
+
+**Where the lag shows.**
+- *2008.* Coverage was 36-38 bp through mid-2007 and only 48 bp at 2007-12. Stage 2 jumped in
+  one quarter (4.9% to 13.0% at 2008-03), almost all of it through the PD rule, whose only moving
+  input for a clean loan is the lagged house-price covariate. Coverage peaked at 2010-03
+  (152 bp), after the peak in defaults, when 4.1% of loans were in stage 3. The model provisions as
+  delinquencies and the lagged index arrive, a few quarters behind the start of the crisis; from
+  2006 data it does not anticipate it.
+- *COVID.* ECL more than doubled in one quarter (2020-03 to 2020-06) through the 30-days-past-due
+  backstop and forbearance flags (the PD rule explains only 36% of stage 2 at 2020-06), while
+  stage 3 hardly moved because forborne 90+ loans are stage 2 by design (D3). Realised defaults
+  stayed low, so this was over-provisioning: at 2020-12 the model predicted 1.8x to 5.5x the
+  realised 12-month default rate by grade.
+- *2022-23.* Stage 2 rose again to 17% with almost no delinquency change: 93% of stage 2 at
+  2023-03 is the PD rule alone, when house-price growth slowed. Because `PD12_ref` carries the
+  house-price value at origination, loans originated in the 2020-22 boom look deteriorated when
+  growth slows; how much of stage 2 this explains was not measured (see the deviation log).
+
+**Backtest (E3): PASS, with a clear bias.** No Red grade at any date. Of the 49 counted
+grade-dates, 4 are Green and 45 Amber: the model over-predicts in 48 of 49 (pooled predicted
+0.766% against realised 0.529%, 2,008,959 loan-dates; predicted over realised 0.99x to 2.41x).
+It passes only because the Vasicek band allows for systematic cycle error. Ranking holds (realised
+rates rise from A to G at every date except 2023-12, where F is above G). The PD model was not
+refitted and no overlay was added.
+
+**Prepayment (L1a, described).** The rate incentive follows the refinancing cycle but misses its
+size: mean predicted against realised 12-month prepayment 0.229 vs 0.270 at 2020-12, 0.208 vs 0.126
+at 2021-12 (no burnout in the model), 0.056 vs 0.073 at 2023-12.
+
+**Basel IRB (illustrative).** At 2026-03, non-defaulted exposure $79.27bn: RWA $31.45bn (average
+risk weight 39.7%), capital $2.516bn (3.17% of exposure), against an ECL of $165.3m
+[162.6, 167.9] on the same loans (stages 1 and 2), so unexpected loss capital is about 15 times
+expected loss. Long-run PD (t interval over 17 year-ends) runs from 0.196% [0.116, 0.277] for
+grade A to 6.72% [4.95, 8.48] for G; downturn LGD gross of MI from 0.195 [0.181, 0.210] (LTV up to
+60) to 0.464 [0.442, 0.487] (over 95).
+
+**Runtime.** 3 h 49 min on a 16 GB laptop (peak working set 9.2 GB), 1,000 draws and three
+scenarios; 26 min with 50 draws.
+
+## Ind AS 109 and RBI mapping
+
+Ind AS 109 is converged with IFRS 9 on impairment, so each step above has a direct counterpart.
+The numbers are US mortgage numbers and do not carry over; the method does.
+
+| Step here | Ind AS 109 / IFRS 9 | Indian practice |
+|---|---|---|
+| Stage 3 = primary default (D1: 90+ days past due, or a credit event) | Credit-impaired; 90 days past due is the rebuttable default presumption (B5.5.37) | RBI NPA: overdue more than 90 days under the IRAC norms (D9 maps the buckets) |
+| Stage 2 backstop at 30+ days past due | 30 days past due is the rebuttable SICR presumption (5.5.11) | SMA-1 (31-60 days) and SMA-2 (61-90 days) sit in stage 2; SMA-0 cannot be separated in this data (D9) |
+| PD-deterioration rule against the PD expected at origination | SICR compares lifetime default risk now with that at initial recognition (5.5.9) | Indian lenders under Ind AS usually combine dpd backstops with a PD or rating-notch test; the 2.0x and +0.20 point thresholds are this project's, not a regulatory number |
+| Forbearance, repayment plans, cure probation in stage 2 | Qualitative SICR indicators; a modified asset is assessed against its original recognition (5.5.12) | RBI restructuring rules keep a restructured account downgraded through a specified period; here probation is 6 months after a cure |
+| 12-month ECL (stage 1), lifetime ECL (stages 2 and 3) | 5.5.3, 5.5.5 | Same under Ind AS 109 |
+| Discounting at the original note rate | Effective interest rate (B5.5.44) | Same |
+| Three house-price scenarios weighted 60/25/15 | Unbiased, probability-weighted, with forward-looking information (5.5.17) | Same; Indian lenders typically use GDP and sector indicators rather than house prices |
+| Illustrative IRB capital | Basel II/III retail mortgage formula | RBI has not implemented IRB for Indian banks; they use the standardised approach |
+
+Indian scheduled commercial banks provision under RBI's IRAC norms rather than Ind AS 109 ECL;
+RBI proposed an ECL framework for banks in a discussion paper in January 2023. NBFCs that follow
+Ind AS already apply Ind AS 109 ECL. Nothing here is a view on how any Indian lender should
+provision.
+
 ## What this does not establish
 
 - No result here is an audited or regulatory provision or capital figure.
 - The ECL intervals cover parameter uncertainty only, and are too narrow (above).
 - Re-default risk after a cure is not modelled separately; cured loans use an extrapolated L2 PD.
 - The prepayment model has no house-price or burnout effect.
+- The backtest pass does not show the PD is calibrated: it over-predicts almost everywhere and
+  passes only against the wide Vasicek band. The ECL is therefore likely conservative outside a
+  crisis, and it rose late into 2008.
+- The house-price scenarios are one national index with fixed weights and a replayed 2007-11
+  path; they are not a forecast, and the base scenario uses the index's full history (hindsight at
+  historical dates).
+- Loan-level LGD comes from origination attributes only; current LTV is not used.
 - Everything is US conforming mortgage data; the methods carry over to Ind AS 109, the numbers
   do not.
 

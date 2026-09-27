@@ -1,0 +1,428 @@
+{
+ "schema_version": "1.0",
+ "artefact": "capital",
+ "synthetic": false,
+ "generated_at": "2026-09-27T22:00:58Z",
+ "data_cutoff": "2026-03-01",
+ "code_version": "ac3c1a9",
+ "suppressed_cells": 0,
+ "status": "run",
+ "parameters": {
+  "correlation": 0.15,
+  "confidence": 0.999,
+  "pd_floor": 0.0005,
+  "lgd_floor": 0.05,
+  "lgd_basis": "downturn_gross_of_mi"
+ },
+ "reporting_date": "2026-03-01",
+ "by_grade": [
+  {
+   "grade": "A",
+   "n_loans": 155251,
+   "ead": {
+    "value": 34839301323.479996,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 155251,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.001961970468983054,
+    "ci_low": 0.001158478637732445,
+    "ci_high": 0.0027654623002336632,
+    "n": 356073,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.33261438236938456,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 155251,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.010526340774988237,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 155251,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 4584129476.168114,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 155251,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 366730358.0934491,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 155251,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 9131005.235337531,
+    "ci_low": 8970775.673613887,
+    "ci_high": 9294952.78577233,
+    "n": 155251,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "B",
+   "n_loans": 71309,
+   "ead": {
+    "value": 17966710068.280003,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71309,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.006857236847281456,
+    "ci_low": 0.003922973037134413,
+    "ci_high": 0.009791500657428499,
+    "n": 150189,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.3840797797225396,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71309,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.029838050783189577,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71309,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 6701145092.802278,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71309,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 536091607.4241822,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 71309,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 27762823.111124665,
+    "ci_low": 27099804.995514907,
+    "ci_high": 28433885.015420817,
+    "n": 71309,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "C",
+   "n_loans": 52873,
+   "ead": {
+    "value": 12839292201.75,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 52873,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.012325732968747616,
+    "ci_low": 0.007320191428143536,
+    "ci_high": 0.017331274509351697,
+    "n": 119673,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.3949042272454808,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 52873,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.04543552766008593,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 52873,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 7292000199.606721,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 52873,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 583360015.9685377,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 52873,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 38109437.74989877,
+    "ci_low": 37276902.302222975,
+    "ci_high": 38888417.22933711,
+    "n": 52873,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "D",
+   "n_loans": 32086,
+   "ead": {
+    "value": 7476727106.41,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 32086,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.020513752475380898,
+    "ci_low": 0.012870310266854467,
+    "ci_high": 0.02815719468390733,
+    "n": 86529,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.39880978435081665,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 32086,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.06332293834908165,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 32086,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 5918104120.151351,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 32086,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 473448329.61210805,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 32086,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 35854808.75451798,
+    "ci_low": 35174337.32418932,
+    "ci_high": 36490560.63430139,
+    "n": 32086,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "E",
+   "n_loans": 17661,
+   "ead": {
+    "value": 3926612486.8899994,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17661,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.03056526556611061,
+    "ci_low": 0.02044099096756865,
+    "ci_high": 0.04068954016465257,
+    "n": 57239,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.4015092330016494,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17661,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.08080045298476503,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17661,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 3965900845.454334,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17661,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 317272067.6363467,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 17661,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 28463660.896359645,
+    "ci_low": 27965968.809419997,
+    "ci_high": 28969410.022876505,
+    "n": 17661,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "F",
+   "n_loans": 7582,
+   "ead": {
+    "value": 1641668153.02,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 7582,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.043824050575494766,
+    "ci_low": 0.031034106310556676,
+    "ci_high": 0.056613994840432856,
+    "n": 26279,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.4077249748223891,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 7582,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.1002359824964332,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 7582,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 2056927753.1383066,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 7582,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 164554220.25106454,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 7582,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 18048505.2724629,
+    "ci_low": 17722136.99566879,
+    "ci_high": 18356028.010828093,
+    "n": 7582,
+    "ci_method": "parameter_draws_1000"
+   }
+  },
+  {
+   "grade": "G",
+   "n_loans": 2780,
+   "ead": {
+    "value": 575451288.0600001,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 2780,
+    "ci_method": "none: population total"
+   },
+   "pd": {
+    "value": 0.06717543303966522,
+    "ci_low": 0.049513806045965184,
+    "ci_high": 0.08483706003336526,
+    "n": 14707,
+    "ci_method": "t_interval_years"
+   },
+   "lgd": {
+    "value": 0.4227106293096906,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 2780,
+    "ci_method": "none: EAD-weighted downturn segment means; intervals in lgd_ead.json"
+   },
+   "k": {
+    "value": 0.12898321561663093,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 2780,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "rwa": {
+    "value": 927794469.5588872,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 2780,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "capital": {
+    "value": 74223557.56471097,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 2780,
+    "ci_method": "none: illustrative, computed from point estimates"
+   },
+   "ecl": {
+    "value": 7915515.056029684,
+    "ci_low": 7770276.347720882,
+    "ci_high": 8062534.343624295,
+    "n": 2780,
+    "ci_method": "parameter_draws_1000"
+   }
+  }
+ ],
+ "totals": {
+  "ead": {
+   "value": 79265762627.89,
+   "ci_low": null,
+   "ci_high": null,
+   "n": 339542,
+   "ci_method": "none: population total"
+  },
+  "rwa": {
+   "value": 31446001956.879986,
+   "ci_low": null,
+   "ci_high": null,
+   "n": 339542,
+   "ci_method": "none: illustrative, computed from point estimates"
+  },
+  "capital": {
+   "value": 2515680156.550399,
+   "ci_low": null,
+   "ci_high": null,
+   "n": 339542,
+   "ci_method": "none: illustrative, computed from point estimates"
+  },
+  "ecl": {
+   "value": 165285756.0757312,
+   "ci_low": 162561040.61525193,
+   "ci_high": 167938973.2300273,
+   "n": 339542,
+   "ci_method": "parameter_draws_1000"
+  }
+ },
+ "limits": [
+  "Illustrative only; not a regulatory capital calculation.",
+  "No 1.06 scaling factor and no output floor against the standardised approach.",
+  "US banks hold these loans under the standardised approach, and RBI has not implemented IRB for Indian banks.",
+  "Defaulted exposures are not given a K; their exposure and ECL are in ecl.json (stage 3).",
+  "Shown next to ECL to compare expected and unexpected loss, nothing more."
+ ]
+}
