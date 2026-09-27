@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import type { Artefacts } from "../lib/artefacts";
 import { ResultBadge } from "../components/ResultBadge";
+import { KpiTile } from "../components/KpiTile";
+import { eclDates, stageTotals as computeStageTotals, type EclRow } from "../lib/ecl";
+import { selectLgdEad } from "../lib/lgd";
 import {
   Backtest,
   PdTermStructure,
@@ -17,16 +20,7 @@ import type {
   Stage2DriverRow,
   StageMigRow,
 } from "../components/EclCharts";
-import { fmtMoney, fmtInt, fmtPct } from "../lib/format";
-
-interface EclRow {
-  reporting_date: string;
-  stage: string;
-  grade: string;
-  n_loans: number;
-  ead: { value: number | null; n: number };
-  ecl: { value: number | null; ci_low: number | null; ci_high: number | null; n: number; ci_method: string };
-}
+import { fmtMoney, fmtInt, fmtPct, fmtDate } from "../lib/format";
 
 export function Ecl({ data }: { data: Artefacts }) {
   const ecl = data.ecl as unknown as {
@@ -40,32 +34,40 @@ export function Ecl({ data }: { data: Artefacts }) {
     stage2_drivers?: Stage2DriverRow[];
     cured_population?: CuredRow[];
   };
-  const dates = useMemo(() => [...new Set(ecl.by_date.map((r) => r.reporting_date))].sort(), [ecl]);
+  const lgdEad = useMemo(() => selectLgdEad(data.lgd_ead), [data.lgd_ead]);
+  const dates = useMemo(() => eclDates(ecl.by_date), [ecl]);
   const [date, setDate] = useState(dates[dates.length - 1]);
   const rows = ecl.by_date.filter((r) => r.reporting_date === date);
-  const stageTotals = ["1", "2", "3"].map((s) => ({
-    stage: s,
-    n: rows.filter((r) => r.stage === s).reduce((sum, r) => sum + r.n_loans, 0),
-    ecl: rows.filter((r) => r.stage === s).reduce((sum, r) => sum + (r.ecl.value ?? 0), 0),
-  }));
+  const stageTotals = computeStageTotals(ecl.by_date, date);
   const totalN = stageTotals.reduce((s, t) => s + t.n, 0) || 1;
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <h1 className="font-display text-4xl">IFRS 9 ECL</h1>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        {dates.map((d) => (
-          <button
-            key={d}
-            onClick={() => setDate(d)}
-            className="rounded-full border px-3 py-1 text-xs"
-            style={{ borderColor: "var(--border)", background: d === date ? "var(--accent)" : "transparent", color: d === date ? "var(--bg)" : "var(--ink-2)" }}
-          >
-            {d}
-          </button>
-        ))}
-      </div>
+      <label className="mt-6 flex max-w-xs flex-col gap-1 text-sm" style={{ color: "var(--ink-2)" }}>
+        Reporting date ({dates.length} available)
+        <input
+          type="range"
+          min={0}
+          max={dates.length - 1}
+          value={dates.indexOf(date)}
+          onChange={(e) => setDate(dates[Number(e.target.value)])}
+          aria-label="Reporting date scrubber"
+        />
+        <select
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="font-mono rounded border px-3 py-2 text-sm"
+          style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)" }}
+        >
+          {dates.map((d) => (
+            <option key={d} value={d}>
+              {fmtDate(d)}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <section className="mt-8">
         <h2 className="font-display text-2xl">Stage mix</h2>
@@ -86,6 +88,8 @@ export function Ecl({ data }: { data: Artefacts }) {
           ))}
         </div>
       </section>
+
+      <LgdEadSection lgdEad={lgdEad} />
 
       <section className="mt-10">
         <h2 className="font-display text-2xl">ECL by stage × grade</h2>
@@ -201,5 +205,104 @@ export function Ecl({ data }: { data: Artefacts }) {
         </section>
       )}
     </div>
+  );
+}
+
+function LgdEadSection({ lgdEad }: { lgdEad: ReturnType<typeof selectLgdEad> }) {
+  const [dim, setDim] = useState(lgdEad.dimensions[0] ?? "ltv_band");
+  const rows = lgdEad.segments.filter((s) => s.dimension === dim);
+
+  return (
+    <section className="mt-16">
+      <h2 className="font-display text-2xl">LGD &amp; EAD</h2>
+      <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+        Realised loss given default and exposure at default, the inputs to the ECL above.
+        {lgdEad.modelUsed ? " An LGD model is used, having beaten the segment means out of sample." : ""}
+      </p>
+
+      <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <KpiTile label="Mean EAD" estimate={lgdEad.meanEad} isPct={false} format={fmtMoney} />
+        {lgdEad.overall && <KpiTile label="Overall LGD (economic)" estimate={lgdEad.overall.lgd_economic} />}
+      </div>
+
+      {lgdEad.dimensions.length > 0 && (
+        <div className="mt-8">
+          <label className="flex max-w-xs flex-col gap-1 text-sm" style={{ color: "var(--ink-2)" }}>
+            Segment by
+            <select
+              value={dim}
+              onChange={(e) => setDim(e.target.value)}
+              className="font-mono rounded border px-3 py-2 text-sm"
+              style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)" }}
+            >
+              {lgdEad.dimensions.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ color: "var(--ink-3)" }}>
+                  <th className="text-left">Segment</th>
+                  <th className="text-right">LGD (economic)</th>
+                  <th className="text-right">LGD (gross of MI)</th>
+                  <th className="text-right">n</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.segment} className="border-t" style={{ borderColor: "var(--border)" }}>
+                    <td className="font-mono py-1">{r.segment}</td>
+                    <td className="tabular text-right">
+                      {r.lgd_economic.value !== null ? fmtPct(r.lgd_economic.value) : "—"}
+                    </td>
+                    <td className="tabular text-right">
+                      {r.lgd_gross_of_mi.value !== null ? fmtPct(r.lgd_gross_of_mi.value) : "—"}
+                    </td>
+                    <td className="tabular text-right">{fmtInt(r.lgd_economic.n)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {lgdEad.downturn.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-lg" style={{ color: "var(--ink)" }}>
+            Downturn LGD by LTV band
+          </h3>
+          <p className="mt-1 text-sm" style={{ color: "var(--ink-3)" }}>
+            Basis for the capital calculation.
+          </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ color: "var(--ink-3)" }}>
+                  <th className="text-left">LTV band</th>
+                  <th className="text-right">Downturn LGD (gross of MI)</th>
+                  <th className="text-right">n</th>
+                </tr>
+              </thead>
+              <tbody>
+                {lgdEad.downturn.map((r) => (
+                  <tr key={r.ltv_band} className="border-t" style={{ borderColor: "var(--border)" }}>
+                    <td className="font-mono py-1">{r.ltv_band}</td>
+                    <td className="tabular text-right">
+                      {r.lgd_gross_of_mi.value !== null ? fmtPct(r.lgd_gross_of_mi.value) : "—"}
+                    </td>
+                    <td className="tabular text-right">{fmtInt(r.lgd_gross_of_mi.n)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }

@@ -1,25 +1,12 @@
 import type { Artefacts } from "../lib/artefacts";
-import { fmtMoney, fmtInt, fmtPct } from "../lib/format";
-
-interface GradeRow {
-  grade: string;
-  n_loans: number;
-  ead: { value: number };
-  pd: { value: number };
-  lgd: { value: number };
-  rwa: { value: number };
-  capital: { value: number };
-}
+import { selectCapital } from "../lib/capital";
+import { KpiTile } from "../components/KpiTile";
+import { fmtMoney, fmtMoneyCompact, fmtInt, fmtPct } from "../lib/format";
 
 export function Capital({ data }: { data: Artefacts }) {
-  const capital = data.capital as unknown as {
-    status?: string;
-    parameters: Record<string, number | string>;
-    by_grade?: GradeRow[];
-    limits?: string[];
-  };
+  const capital = selectCapital(data.capital);
 
-  if (capital.status === "not_run" || !capital.by_grade) {
+  if (capital.status === "not_run" || capital.byGrade.length === 0) {
     return (
       <div className="mx-auto max-w-[1200px] px-4 py-24 text-center">
         <h1 className="font-display text-4xl">Capital</h1>
@@ -30,14 +17,11 @@ export function Capital({ data }: { data: Artefacts }) {
     );
   }
 
-  const totalRwa = capital.by_grade.reduce((s, g) => s + g.rwa.value, 0);
-  const totalCapital = capital.by_grade.reduce((s, g) => s + g.capital.value, 0);
-
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <div className="rounded-md p-3 text-sm" style={{ background: "color-mix(in srgb, var(--amber) 14%, transparent)", color: "var(--amber)" }}>
         Illustrative only — not a regulatory capital calculation.
-        {(capital.limits ?? []).map((l) => (
+        {capital.limits.map((l) => (
           <div key={l}>{l}</div>
         ))}
       </div>
@@ -51,47 +35,43 @@ export function Capital({ data }: { data: Artefacts }) {
         ))}
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-2">
-        <div className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
-          <div className="text-sm" style={{ color: "var(--ink-2)" }}>
-            Total RWA
-          </div>
-          <div className="tabular text-3xl font-semibold">{fmtMoney(totalRwa)}</div>
+      {capital.totals && (
+        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <KpiTile label="Total EAD" estimate={capital.totals.ead} isPct={false} format={fmtMoneyCompact} />
+          <KpiTile label="Total RWA" estimate={capital.totals.rwa} isPct={false} format={fmtMoneyCompact} />
+          <KpiTile label="Total capital" estimate={capital.totals.capital} isPct={false} format={fmtMoneyCompact} />
+          <KpiTile label="Total ECL" estimate={capital.totals.ecl} isPct={false} format={fmtMoneyCompact} />
         </div>
-        <div className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
-          <div className="text-sm" style={{ color: "var(--ink-2)" }}>
-            Total capital
-          </div>
-          <div className="tabular text-3xl font-semibold">{fmtMoney(totalCapital)}</div>
-        </div>
-      </div>
+      )}
 
-      <table className="mt-8 w-full text-sm">
-        <thead>
-          <tr style={{ color: "var(--ink-3)" }}>
-            <th className="text-left">Grade</th>
-            <th className="text-right">n</th>
-            <th className="text-right">EAD</th>
-            <th className="text-right">PD</th>
-            <th className="text-right">LGD</th>
-            <th className="text-right">RWA</th>
-            <th className="text-right">Capital</th>
-          </tr>
-        </thead>
-        <tbody>
-          {capital.by_grade.map((g) => (
-            <tr key={g.grade} className="border-t" style={{ borderColor: "var(--border)" }}>
-              <td className="font-mono py-1">{g.grade}</td>
-              <td className="tabular text-right">{fmtInt(g.n_loans)}</td>
-              <td className="tabular text-right">{fmtMoney(g.ead.value)}</td>
-              <td className="tabular text-right">{fmtPct(g.pd.value)}</td>
-              <td className="tabular text-right">{fmtPct(g.lgd.value)}</td>
-              <td className="tabular text-right">{fmtMoney(g.rwa.value)}</td>
-              <td className="tabular text-right">{fmtMoney(g.capital.value)}</td>
+      <div className="mt-8 overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr style={{ color: "var(--ink-3)" }}>
+              <th className="text-left">Grade</th>
+              <th className="text-right">n</th>
+              <th className="text-right">EAD</th>
+              <th className="text-right">PD</th>
+              <th className="text-right">LGD</th>
+              <th className="text-right">RWA</th>
+              <th className="text-right">Capital</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {capital.byGrade.map((g) => (
+              <tr key={g.grade} className="border-t" style={{ borderColor: "var(--border)" }}>
+                <td className="font-mono py-1">{g.grade}</td>
+                <td className="tabular text-right">{fmtInt(g.n_loans)}</td>
+                <td className="tabular text-right">{g.ead.value !== null ? fmtMoney(g.ead.value) : "—"}</td>
+                <td className="tabular text-right">{g.pd.value !== null ? fmtPct(g.pd.value) : "—"}</td>
+                <td className="tabular text-right">{g.lgd.value !== null ? fmtPct(g.lgd.value) : "—"}</td>
+                <td className="tabular text-right">{g.rwa.value !== null ? fmtMoney(g.rwa.value) : "—"}</td>
+                <td className="tabular text-right">{g.capital.value !== null ? fmtMoney(g.capital.value) : "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

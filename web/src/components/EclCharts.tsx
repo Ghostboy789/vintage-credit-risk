@@ -307,7 +307,10 @@ export function PdTermStructure({ rows }: { rows: PdTsRow[] }) {
     .domain([0, Math.max(0.01, ...valid.map((r) => r.cumulative_pd.value as number))])
     .nice()
     .range([h - margin.bottom, margin.top]);
-  const x = scaleLinear().domain([1, 10]).range([margin.left, w - margin.right]);
+  // The term structure runs to a loan's full amortising life (30 years for a mortgage), not a
+  // fixed 10 — read the domain from the data so end labels never land off the chart.
+  const maxYear = Math.max(1, ...valid.map((r) => r.year));
+  const x = scaleLinear().domain([1, maxYear]).range([margin.left, w - margin.right]);
 
   return (
     <div>
@@ -328,7 +331,7 @@ export function PdTermStructure({ rows }: { rows: PdTsRow[] }) {
               </text>
             </g>
           ))}
-          {x.ticks(9).filter((t) => Number.isInteger(t)).map((t) => (
+          {x.ticks(Math.min(9, maxYear)).filter((t) => Number.isInteger(t)).map((t) => (
             <text
               key={t}
               x={x(t)}

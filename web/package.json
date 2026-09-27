@@ -8,6 +8,7 @@
     "dev": "npm run sync-artefacts && vite",
     "build": "npm run sync-artefacts && tsc -b && vite build",
     "build:release": "node scripts/sync-artefacts.mjs --check-release && tsc -b && vite build --mode production",
+    "pretest": "npm run sync-artefacts",
     "test": "node --experimental-strip-types --test src/lib/*.test.ts",
     "lint": "oxlint",
     "preview": "vite preview"

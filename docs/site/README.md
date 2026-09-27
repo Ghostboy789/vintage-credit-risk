@@ -1,8 +1,7 @@
 # Website
 
-A React + Vite + Tailwind + Framer Motion static site in `web/`, built against the artefacts in
-`tests/fixtures/artefacts/` (synthetic) until the real-data release points it at the real
-`artefacts/` folder.
+A React + Vite + Tailwind + Framer Motion static site in `web/`, built against the real
+`artefacts/` folder (the six contract artefacts from the Freddie Mac run).
 
 ## Run it
 
@@ -26,12 +25,24 @@ Methods & limits, and a Credits page for third-party component attribution
 
 ## Screenshots
 
-QA screenshots (light/dark, 1440/390, every page) are captured outside the repo during review and
-are added to this folder for the README once real data replaces the fixtures.
+On the real portfolio, dark theme:
+
+- Overview desktop: `overview_dark_desktop.png`, mobile: `overview_dark_mobile.png`
+- Vintages desktop: `vintages_dark_desktop.png`
+- Scorecard desktop: `scorecard_dark_desktop.png`
+- IFRS 9 ECL desktop: `ecl_dark_desktop.png`
+
+The full QA set (every page, light and dark, 1440 and 390, plus reduced-motion captures) is kept
+outside the repo in the design review folder; this is the curated subset for the README.
+
+## Performance
+
+Initial JS is measured at each release: about 115 KB gzip (React, router, the hero route and the
+shared motion core), under the 120 KB budget. Route chunks stay under 30 KB gzip each.
 
 ## Known gaps against the design brief
 
-Still to build: the ExpandOnHover scorecard feature list and the
-Dynamic Island mobile calculator result pill are not built; the vintage-year command-palette
-index is built at runtime from the loaded artefacts rather than at build time; performance-budget
-numbers (initial JS gzip) have not been measured against the brief's 120 KB target.
+Not built: the hero series precomputed at build time into inline JSON (Overview still waits on the
+artefact fetch before its first paint), the roll-rate cure panel and SMA stacked area, the
+calibration sample switch and discrimination table, the Methods sticky table of contents, and an
+axe or screen-reader audit.
