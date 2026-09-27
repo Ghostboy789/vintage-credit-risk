@@ -73,7 +73,7 @@ def test_real_mode_refuses_without_artefacts():
         result = subprocess.run(
             [sys.executable, "-m", "scripts.export_powerbi", "--source", "real"],
             cwd=REPO_ROOT,
-            env={"VINTAGE_DATA_ROOT": empty_root, **os.environ},
+            env={**os.environ, "VINTAGE_DATA_ROOT": empty_root},
             capture_output=True,
             text=True,
         )
