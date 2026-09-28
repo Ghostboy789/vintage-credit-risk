@@ -29,3 +29,4 @@ dbt-metricflow==0.15.0
 metricflow==0.213.0
 google-cloud-bigquery==3.45.2  # scripts/export_marts.py's --target bq path only
 google-cloud-bigquery-storage==2.41.0  # fast paged Arrow streaming for the same path
+formulas==1.3.4  # tests/test_workbook.py: recalculates the Excel workbook
