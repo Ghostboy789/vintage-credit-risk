@@ -20,14 +20,12 @@ table 'Dim Grade'
 
 		annotation SummarizationSetBy = User
 
-	partition 'Dim Grade' = calculated
+	partition 'Dim Grade' = m
 		mode: import
 		source =
-				DATATABLE (
-				    "Grade", STRING, "Grade Order", INT64,
-				    {
-				        {"A", 1}, {"B", 2}, {"C", 3}, {"D", 4}, {"E", 5}, {"F", 6}, {"G", 7}
-				    }
-				)
+				let
+				    Source = #table(type table [Grade = text, #"Grade Order" = Int64.Type], {{"A", 1}, {"B", 2}, {"C", 3}, {"D", 4}, {"E", 5}, {"F", 6}, {"G", 7}})
+				in
+				    Source
 
 	annotation PBI_ResultType = Table

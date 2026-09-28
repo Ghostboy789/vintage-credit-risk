@@ -10,8 +10,13 @@ table 'Dim Vintage Year'
 
 		annotation SummarizationSetBy = User
 
-	partition 'Dim Vintage Year' = calculated
+	partition 'Dim Vintage Year' = m
 		mode: import
-		source = DISTINCT ( UNION ( VALUES ( 'Vintage Curves'[Vintage Year] ), VALUES ( 'Default Definition Effect'[Vintage Year] ) ) )
+		source =
+				let
+				    Years = Table.Combine({Table.RenameColumns(Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(Csv.Document(VintageFile("vintage_curves.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv])), {"vintage_year"}), {{"vintage_year", Int64.Type}}), {{"vintage_year", "vintage_year"}}), Table.RenameColumns(Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(Csv.Document(VintageFile("default_definition_effect.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv])), {"vintage_year"}), {{"vintage_year", Int64.Type}}), {{"vintage_year", "vintage_year"}}), Table.RenameColumns(Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(Csv.Document(VintageFile("default_cure_rates.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv])), {"default_year"}), {{"default_year", Int64.Type}}), {{"default_year", "vintage_year"}}), Table.RenameColumns(Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(Csv.Document(VintageFile("lgd_resolution_mix.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv])), {"default_year"}), {{"default_year", Int64.Type}}), {{"default_year", "vintage_year"}})}),
+				    Distinct = Table.Distinct(Table.RenameColumns(Table.SelectRows(Years, each [vintage_year] <> null), {{"vintage_year", "Year"}}))
+				in
+				    Distinct
 
 	annotation PBI_ResultType = Table

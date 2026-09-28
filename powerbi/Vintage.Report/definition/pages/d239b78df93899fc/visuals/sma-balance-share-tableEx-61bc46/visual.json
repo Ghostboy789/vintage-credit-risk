@@ -21,18 +21,18 @@
               "nativeQueryRef": "SMA Class"
             },
             {
-              "queryRef": "Sma.Share",
+              "queryRef": "Key Measures.SMA Share (Latest)",
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sma"
+                      "Entity": "Key Measures"
                     }
                   },
-                  "Property": "Share"
+                  "Property": "SMA Share (Latest)"
                 }
               },
-              "nativeQueryRef": "Share"
+              "nativeQueryRef": "Share, latest month"
             }
           ]
         }

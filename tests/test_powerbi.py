@@ -102,3 +102,17 @@ def test_committed_export_matches_the_published_artefacts_and_marts():
             ok = np.allclose(got[col].fillna(-1), df[col].fillna(-1), rtol=1e-9, atol=0)
             assert ok, (name, col)
     assert not any(t["synthetic"].any() for n, t in tables.items() if "synthetic" in t)
+
+
+def test_semantic_model_loads_in_desktop():
+    """Guards the three shapes Desktop refuses to load: tables without an import
+    partition, DAX-calculated dimension tables, and relationships whose
+    one-side (toColumn) is not a dimension."""
+    model = REPO_ROOT / "powerbi" / "Vintage.SemanticModel" / "definition"
+    for tmdl in (model / "tables").glob("*.tmdl"):
+        text = tmdl.read_text(encoding="utf-8")
+        assert "= m\n\t\tmode: import" in text, f"{tmdl.stem} has no import partition"
+        assert "= calculated" not in text, f"{tmdl.stem} is a calculated table"
+    for line in (model / "relationships.tmdl").read_text(encoding="utf-8").splitlines():
+        if "toColumn:" in line:
+            assert line.split("toColumn:")[1].strip().startswith("'Dim "), line

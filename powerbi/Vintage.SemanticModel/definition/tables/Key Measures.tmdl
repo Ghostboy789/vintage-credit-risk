@@ -2,27 +2,27 @@ table 'Key Measures'
 	lineageTag: 3636e13e-9d3c-4df8-ae49-d348ec0fbfbc
 
 	/// Latest month's active balance; filter Dim Date to one period for a snapshot.
-	measure 'Total UPB' = SUM ( 'Metrics Monthly'[Total Upb] )
-		formatString: $#,0,,"M"
+	measure 'Total UPB' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( SUM ( 'Metrics Monthly'[Total Upb] ), 'Metrics Monthly'[Period] = d )
+		formatString: $#,0,,,.0"bn"
 		displayFolder: Portfolio overview
 		lineageTag: c1572e00-57d6-47b0-a40a-0bd3a3f46262
 
-	measure 'Delinquency Rate 30+' = AVERAGE ( 'Metrics Monthly'[Delinquency Rate 30p] )
+	measure 'Delinquency Rate 30+' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( AVERAGE ( 'Metrics Monthly'[Delinquency Rate 30p] ), 'Metrics Monthly'[Period] = d )
 		formatString: 0.00%
 		displayFolder: Portfolio overview
 		lineageTag: d6cbbe7a-3987-4abd-8858-a1b8c39cbab1
 
-	measure 'Delinquency Rate 90+' = AVERAGE ( 'Metrics Monthly'[Delinquency Rate 90p] )
+	measure 'Delinquency Rate 90+' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( AVERAGE ( 'Metrics Monthly'[Delinquency Rate 90p] ), 'Metrics Monthly'[Period] = d )
 		formatString: 0.00%
 		displayFolder: Portfolio overview
 		lineageTag: b74c448b-2f28-4d59-a648-b8a40e9c5dcc
 
-	measure 'Monthly Default Rate' = AVERAGE ( 'Metrics Monthly'[Default Rate] )
+	measure 'Monthly Default Rate' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( AVERAGE ( 'Metrics Monthly'[Default Rate] ), 'Metrics Monthly'[Period] = d )
 		formatString: 0.000%
 		displayFolder: Portfolio overview
 		lineageTag: 5d9b94f6-0aed-409e-9365-1cbc2a0b3ec8
 
-	measure 'Monthly Loss Rate' = AVERAGE ( 'Metrics Monthly'[Loss Rate] )
+	measure 'Monthly Loss Rate' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( AVERAGE ( 'Metrics Monthly'[Loss Rate] ), 'Metrics Monthly'[Period] = d )
 		formatString: 0.000%
 		displayFolder: Portfolio overview
 		lineageTag: 75ed0c27-cbc5-46d6-89f2-2b2f2d959119
@@ -68,28 +68,59 @@ table 'Key Measures'
 		displayFolder: Loss engine
 		lineageTag: 3048de07-ca6d-4e42-8e2b-60e0f079947f
 
-	measure 'ECL Total' = SUM ( 'Ecl By Date'[Ecl] )
-		formatString: $#,0,,"M"
+	measure 'ECL Total' = VAR d = MAX ( 'Ecl By Date'[Reporting Date] ) RETURN CALCULATE ( SUM ( 'Ecl By Date'[Ecl] ), 'Ecl By Date'[Reporting Date] = d )
+		formatString: $#,0,,.0"m"
 		displayFolder: IFRS 9 ECL
 		lineageTag: 8837ab5f-577d-4e17-9d3b-684df908df0e
 
-	measure 'Coverage Ratio' = DIVIDE ( SUM ( 'Ecl By Date'[Ecl] ), SUM ( 'Ecl By Date'[Ead] ) )
+	measure 'Coverage Ratio' = VAR d = MAX ( 'Ecl By Date'[Reporting Date] ) RETURN CALCULATE ( DIVIDE ( SUM ( 'Ecl By Date'[Ecl] ), SUM ( 'Ecl By Date'[Ead] ) ), 'Ecl By Date'[Reporting Date] = d )
 		formatString: 0.00%
 		displayFolder: IFRS 9 ECL
 		lineageTag: ad04e570-f1e9-4eb5-9341-41b134fd23fa
 
 	measure 'Capital' = SUM ( 'Capital By Grade'[Capital] )
-		formatString: $#,0,,"M"
+		formatString: $#,0,,.0"m"
 		displayFolder: Capital
 		lineageTag: e2f02eb2-5378-4cf4-a85b-83f14946ad6b
 
 	measure 'RWA' = SUM ( 'Capital By Grade'[Rwa] )
-		formatString: $#,0,,"M"
+		formatString: $#,0,,,.0"bn"
 		displayFolder: Capital
 		lineageTag: a089553f-33c8-4aed-9bb1-f5f4f539580b
 
 	/// Every page must show this; it is blank once real artefacts are exported.
-	measure 'Synthetic Data Warning' = IF ( MAX ( 'Artefact Metadata'[Synthetic] ), "SYNTHETIC FIXTURES — not the real Freddie Mac portfolio", "" )
+	/// Share of balance in each SMA class at the latest reporting month.
+	measure 'SMA Share (Latest)' = VAR d = CALCULATE ( MAX ( 'Sma'[Period] ), ALL ( 'Sma' ) ) RETURN CALCULATE ( SUM ( 'Sma'[Share] ), 'Sma'[Period] = d )
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: 338ed2b3-74b5-4a60-95fd-4baa456e7b8e
+
+	/// Average monthly loss rate over the 12 months to the latest period. Losses post months after default, so the latest single month often reads zero.
+	measure 'Loss Rate (12m Avg)' = VAR d = MAX ( 'Metrics Monthly'[Period] ) RETURN CALCULATE ( AVERAGE ( 'Metrics Monthly'[Loss Rate] ), 'Metrics Monthly'[Period] > EDATE ( d, -12 ), 'Metrics Monthly'[Period] <= d )
+		formatString: 0.0000%
+		displayFolder: Portfolio
+		lineageTag: d59a7eb5-85ef-4e1a-a070-fbe505d466ec
+
+	measure 'Synthetic Data Warning' = IF ( NOT ISEMPTY ( FILTER ( 'Artefact Metadata', 'Artefact Metadata'[Synthetic] ) ), "SYNTHETIC FIXTURES — not the real Freddie Mac portfolio", "" )
 		formatString: General
 		displayFolder: General
 		lineageTag: c0be4de4-69d7-41ce-9505-ec3891f125c7
+
+	column Placeholder
+		dataType: string
+		isHidden
+		lineageTag: 460e997a-f246-4678-852d-7600a5eb8a2d
+		summarizeBy: none
+		sourceColumn: Placeholder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Key Measures' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Placeholder = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -3,8 +3,10 @@
 A six-page Power BI report over the portfolio, scorecard, loss and ECL results, built as PBIP
 (TMDL model + PBIR report) so every table, measure and visual is a readable text file that diffs
 in git. The data in `powerbi/data/` is exported from the real Freddie Mac aggregates (marts and
-published artefacts). **The report has not yet been rendered or DAX-checked in Power BI Desktop**;
-see "How it was checked".
+published artefacts). It has been opened, refreshed and checked in Power BI Desktop; see
+"How it was checked".
+
+![Portfolio Overview](../docs/powerbi/portfolio-overview-light.png)
 
 ## Open it
 
@@ -43,7 +45,12 @@ and every list field of the six published artefacts (`portfolio.json`, `pd_model
 builds `powerbi/data/*.csv` from them; nothing in the model re-derives a number.
 
 - **`Key Measures`**: DAX measures in display folders, one per page.
-- **`Dim Vintage Year`, `Dim Grade`**: small calculated dimensions the fact tables relate to.
+- **`Dim Vintage Year`, `Dim Grade`**: small Power Query dimensions the fact tables relate to
+  (vintage and default years from the four year-keyed tables; the seven grades A-G).
+- **Headline cards show the latest month.** Balance, delinquency, default rate, ECL and coverage
+  take the latest period in their table; the line charts plot every month. Loss rate is a
+  12-month average, because losses post months after default and the latest single month reads
+  zero.
 - **No loan-level table.** `fct_loan_month`, `fct_scorecard_base` and `fct_stage_inputs` are
   loan-level and never leave the warehouse (CONTRACTS.md publication rule); this report is
   aggregates only, same as every other published artefact.
@@ -58,17 +65,30 @@ non-commercial use; no loan-level rows are included.
 
 ## How it was checked
 
-- `pbir validate Vintage.Report` and `powerbi-report-author validate Vintage.pbip`: 0 errors
-  (a handful of Best-Practice-Analyzer sizing warnings on the smaller KPI cards remain).
-- `tests/test_powerbi.py`: the export never carries a `loan_id` column, the fixture export is
-  flagged synthetic, and the committed `powerbi/data/*.csv` match a fresh build from the
-  artefacts and marts (same tables, columns and values).
-- **Not done:** rendering in Power BI Desktop, DAX checks of each KPI against the marts, and the
-  light/dark screenshots. The Desktop automation bridge could not open the project on the build
-  machine, so the pages have been validated as files only. Do not read this pack as
-  visually verified.
+- Opened from `Vintage.pbip` in Power BI Desktop (August 2026, 2.157) with a local `DataFolder`,
+  refreshed, and every page captured in both themes (`docs/powerbi/`, `*-light.png` and
+  `*-dark.png`).
+- Each headline card was compared with the value it reports in the published artefacts and marts:
 
-## Known simplifications (to revisit with the real-data export)
+  | Card | Report | Source |
+  |---|---|---|
+  | Active balance | $80.0bn | `metrics_monthly.total_upb`, 2026-03: 79,999,360,533 |
+  | 30+ DPD share | 1.84% | `metrics_monthly.delinquency_rate_30p`, 2026-03: 0.01845 |
+  | Monthly default rate | 0.053% | `metrics_monthly.default_rate`, 2026-03: 0.000530 |
+  | ECL total | $272.4m | `ecl.json` scenario totals, 2026-03, final: 272,354,524 |
+  | Coverage ratio | 0.34% | ECL / EAD at 2026-03: 272.35m / 79,999.4m |
+  | Gini, out-of-time | 0.534 | `pd_models.json`, oot / primary / champion: 0.5336 |
+  | Total capital | $2,515.7m | `capital.json` totals: 2,515,680,157 |
+  | Total RWA | $31.4bn | `capital.json` totals: 31,446,001,957 |
+
+  All match to the rounding shown.
+- `pbir validate Vintage.Report` and `powerbi-report-author validate Vintage.pbip`: 0 errors.
+- `tests/test_powerbi.py`: the export never carries a `loan_id` column, the committed
+  `powerbi/data/*.csv` match a fresh build from the artefacts and marts, and the model keeps the
+  shape Desktop needs to load it (an import partition on every table, no calculated tables,
+  relationships pointing at the dimensions).
+
+## Known simplifications
 
 - **No global state slicer.** The published aggregates carry `property_state` only inside two
   segment tables (`lgd_segments`, `loss_drivers`), not as a column on every fact, so a
@@ -80,3 +100,6 @@ non-commercial use; no loan-level rows are included.
   environment; the per-page slicers on `Dim Vintage Year` and `Dim Grade` filter their own page
   correctly, but a selection doesn't carry across pages. Wire it in Desktop's Sync Slicers pane
   (View -> Sync slicers) if that matters more than the time it takes.
+- **Portfolio slicers do not filter the monthly metrics.** `metrics_monthly` is a portfolio-wide
+  mart with no vintage or grade column, so the Portfolio Overview cards and trend lines show the
+  whole book whatever the slicers say.

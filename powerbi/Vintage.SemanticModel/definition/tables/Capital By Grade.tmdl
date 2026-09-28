@@ -20,7 +20,7 @@ table 'Capital By Grade'
 
 	column 'EAD'
 		dataType: double
-		formatString: #,0
+		formatString: $#,0,,.0"m"
 		lineageTag: 36e9bc44-4099-4162-8a92-ead390b78000
 		summarizeBy: none
 		sourceColumn: ead
@@ -196,7 +196,7 @@ table 'Capital By Grade'
 
 	column 'RWA'
 		dataType: double
-		formatString: #,0
+		formatString: $#,0,,.0"m"
 		lineageTag: c4da3dd6-6ad3-488d-873e-4afd314ea4dc
 		summarizeBy: none
 		sourceColumn: rwa
@@ -240,7 +240,7 @@ table 'Capital By Grade'
 
 	column 'Capital'
 		dataType: double
-		formatString: #,0
+		formatString: $#,0,,.0"m"
 		lineageTag: d5124def-b151-4503-8ca8-12a03cd5b0eb
 		summarizeBy: none
 		sourceColumn: capital
@@ -284,7 +284,7 @@ table 'Capital By Grade'
 
 	column 'ECL'
 		dataType: double
-		formatString: 0.0000
+		formatString: $#,0,,.0"m"
 		lineageTag: 7dd869e7-1be2-4bf9-bce7-65274f8aa81a
 		summarizeBy: none
 		sourceColumn: ecl

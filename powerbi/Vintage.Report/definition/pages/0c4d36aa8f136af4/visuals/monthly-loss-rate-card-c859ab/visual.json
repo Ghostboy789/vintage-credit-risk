@@ -7,7 +7,7 @@
         "Values": {
           "projections": [
             {
-              "queryRef": "Key Measures.Monthly Loss Rate",
+              "queryRef": "Key Measures.Loss Rate (12m Avg)",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -15,10 +15,10 @@
                       "Entity": "Key Measures"
                     }
                   },
-                  "Property": "Monthly Loss Rate"
+                  "Property": "Loss Rate (12m Avg)"
                 }
               },
-              "nativeQueryRef": "Monthly Loss Rate"
+              "nativeQueryRef": "Loss Rate (12m Avg)"
             }
           ]
         }
@@ -33,7 +33,7 @@
                     "Entity": "Key Measures"
                   }
                 },
-                "Property": "Monthly Loss Rate"
+                "Property": "Loss Rate (12m Avg)"
               }
             },
             "direction": "Descending"
@@ -58,7 +58,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monthly loss rate'"
+                  "Value": "'Loss rate, 12-month average'"
                 }
               }
             }
