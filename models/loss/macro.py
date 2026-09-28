@@ -52,6 +52,11 @@ class Macro:
         m = np.minimum(np.asarray(month) - LAG, self.last)
         return self.chg.reindex(m).to_numpy()
 
+    def x_mean12(self, month):
+        """Mean covariate over the 12 months after each month (the L2 outcome window)."""
+        m = np.asarray(month)
+        return np.column_stack([self.x(m + k) for k in range(1, 13)]).mean(1)
+
     def path(self, scenario: str, months: int) -> np.ndarray:
         """Scenario 12-month change for months 1..months after the reporting date."""
         out = np.full(months, self.base)

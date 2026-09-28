@@ -89,11 +89,15 @@ class Engine:
     def xbar(self, month, s):
         return float(self.xpath(month, s, 12).mean()) if self.macro else None
 
-    def stage(self, rows: pd.DataFrame, month: int) -> pd.DataFrame:
-        """E1: stage = max(dbt stage floor, PD-deterioration flag); adds pd12, pd12_ref."""
+    def stage(self, rows: pd.DataFrame, month: int, hpi=True) -> pd.DataFrame:
+        """E1: stage = max(dbt stage floor, PD-deterioration flag); adds pd12, pd12_ref.
+        hpi=False drops the house-price term from both PD12_now and PD12_ref (a sensitivity)."""
         f = LT.l2_frame(rows)
-        pd12 = sum(w * self.l2.pd12(f, self.xbar(month, s)) for s, w in enumerate(self.w))
-        ref_x = rows["x_orig"].to_numpy() if self.macro else None
+        on = self.macro is not None and hpi
+        pd12 = sum(
+            w * self.l2.pd12(f, self.xbar(month, s) if on else 0.0) for s, w in enumerate(self.w)
+        )
+        ref_x = rows["x_orig"].to_numpy() if on else 0.0
         ref = self.l2.pd12(f.assign(behaviour_state="clean", modified="N"), ref_x)
         sicr = (pd12 >= RATIO * ref) & (pd12 - ref >= ABSOLUTE)
         out = rows.assign(pd12=pd12, pd12_ref=ref, sicr=sicr)

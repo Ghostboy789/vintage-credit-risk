@@ -125,7 +125,7 @@ def prepare(marts: Path, models_out: Path, n_draws=1000, hpi=None) -> dict:
     if macro is not None:
         month = ecl.month_int(si["reporting_date"])
         um = np.unique(month)  # the 12-month-ahead mean depends on the month only
-        fwd = np.column_stack([macro.x(um + k) for k in range(1, 13)]).mean(1)
+        fwd = macro.x_mean12(um)
         xbar = pd.Series(fwd[np.searchsorted(um, month)], index=si.index)
         fp = d["dim_loan"].set_index("loan_id")["first_payment_date"]
         x_loan = pd.Series(macro.x(ecl.month_int(fp)), index=fp.index)

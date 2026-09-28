@@ -72,7 +72,7 @@ def derived(ecl):
 @pytest.fixture(scope="module")
 def artefacts():
     return {n: load(n) for n in ("pd_models", "ecl", "lgd_ead", "capital", "monitoring",
-                                 "portfolio")}
+                                 "portfolio", "stage2_sensitivity")}
 
 
 @pytest.fixture(scope="module")
