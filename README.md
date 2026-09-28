@@ -139,7 +139,9 @@ Indian banks provision under RBI's IRAC norms, not Ind AS 109 ECL. The mapping s
 ### Excel and Power BI
 
 - **[`excel/vintage_ecl_workbook.xlsx`](excel/vintage_ecl_workbook.xlsx)**: a live-formula scorecard, ECL aggregation and sensitivity. `tests/test_workbook.py` recalculates it and checks it against the artefacts.
-- **[`powerbi/`](powerbi/README.md)**: a Power BI project (TMDL model, PBIR report) reading exported aggregates from `powerbi/data`. It has not been rendered or checked against the DAX queries in Power BI Desktop yet, so treat it as unverified.
+- **[`powerbi/`](powerbi/README.md)**: a Power BI project (TMDL model, PBIR report) reading exported aggregates from `powerbi/data`. Six pages, opened and refreshed in Power BI Desktop, with each headline card checked against the artefacts (ECL $272.4m, Gini 0.534, balance $80.0bn). Screenshots of every page in light and dark are in [`docs/powerbi/`](docs/powerbi/).
+
+![Power BI, IFRS 9 ECL page](docs/powerbi/ifrs-9-ecl-light.png)
 
 ---
 
