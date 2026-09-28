@@ -2,7 +2,7 @@
 
 **Decision requested: note the models as a research benchmark; do not approve them for
 origination decisions, staging or provisioning.** The scorecard ranks risk out of time but is not
-calibrated, and the ECL rests on a staging rule whose main driver has not been measured.
+calibrated, and the ECL rests on a staging rule driven mostly by a national house-price covariate.
 
 All intervals are 95%. Sources: `artefacts/*.json`; details in `docs/VALIDATION_REPORT.md` and the
 issue ledger `docs/VALIDATION_ISSUES.md`.
@@ -41,8 +41,10 @@ causal estimate. The scorecard should not set cut-offs until it is recalibrated.
 
 - The ECL interval covers parameter uncertainty only, about ±1%. The single-scenario range,
   $235.7m to $320.4m, is many times wider and is the better guide to uncertainty.
-- The stage-2 rule compares house-price growth defined two different ways; its effect on the
-  $124.3m stage-2 ECL is unmeasured. This alone rules out using the ECL.
+- The stage-2 rule is driven mostly by national house-price growth, not borrower behaviour:
+  without it, stage 2 at 2026-03 holds 15,039 loans instead of 46,668 and the ECL is $228.2m, not
+  $272.4m (point estimates). Defining it the same way on both sides moves far fewer loans
+  (42,440 remain). This alone rules out using the ECL.
 - The backtest pass comes from a wide band; the model over-predicts in benign years (pooled
   0.766% predicted against 0.529% realised) and reacted late in 2008.
 - US conforming mortgages only, no reject inference, one out-of-time period. Not an audited or
@@ -50,5 +52,6 @@ causal estimate. The scorecard should not set cut-offs until it is recalibrated.
 
 ## Next steps
 
-Measure the stage-2 effect with consistent covariates; recalibrate the PD on recent vintages;
+Redesign the stage-2 rule (one house-price definition on both sides, and a decision on whether a
+house-price move alone should trigger stage 2); recalibrate the PD on recent vintages;
 remap the `channel` era code; publish the scenario range beside every ECL figure.

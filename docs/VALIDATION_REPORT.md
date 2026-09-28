@@ -25,8 +25,9 @@ one of the six reconciliation rules fails (R1, five loans).
 
 Three results block production use:
 1. The scorecard PD is not calibrated out of time: six of seven grades fail (V-14).
-2. Stage 2 is driven mostly by a mismatch in how the house-price covariate is defined on the two
-   sides of the SICR test, and the size of that effect is not measured (V-05).
+2. Stage 2 is driven mostly by the house-price covariate in the SICR test: dropping it from both
+   sides cuts stage 2 at 2026-03 from 46,668 loans to 15,039. The mismatch in how it is defined
+   on the two sides is the smaller part (42,440 loans with one definition) (V-05).
 3. The ECL interval covers parameter uncertainty only and is far too narrow; the scenario range
    is the more honest spread (V-08).
 
@@ -55,7 +56,9 @@ V-02), code review line by line, and reproducibility from a clean environment.
 - **SICR.** The rule (PD12 ratio of at least 2.0 and an absolute rise of at least 0.20 points, plus
   a 30-days-past-due backstop and forbearance flags) is standard in form. Its inputs are not
   consistent: the current PD uses a forward mean of house-price growth and the reference PD a spot
-  value (V-05). This is the main conceptual weakness.
+  value (V-05). Aligning them moves only a minority of stage 2 loans back; the larger issue is
+  that a national house-price slowdown alone moves clean loans to stage 2. This is the main
+  conceptual weakness.
 - **Scenarios.** Three national house-price paths weighted 60/25/15, with the adverse path a
   replay of 2007-11. This is a historical replay, not a forecast, and it adds hindsight at
   historical dates (V-06).

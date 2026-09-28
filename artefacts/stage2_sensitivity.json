@@ -1,0 +1,179 @@
+{
+ "schema_version": "1.0",
+ "artefact": "stage2_sensitivity",
+ "synthetic": false,
+ "generated_at": "2026-09-28T21:03:44Z",
+ "data_cutoff": "2026-03-01",
+ "code_version": "68b7aa1",
+ "suppressed_cells": 0,
+ "variants": [
+  {
+   "reporting_date": "2023-03-01",
+   "variant": "published",
+   "n_loans": 280314,
+   "stage2_n_loans": 47641,
+   "stage2_pd_rule_only": 44179,
+   "stage2_share": {
+    "value": 0.1699558352419073,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 127346245.14597675,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 47641,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 210336862.58684754,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2023-03-01",
+   "variant": "forward_mean_ref",
+   "n_loans": 280314,
+   "stage2_n_loans": 41764,
+   "stage2_pd_rule_only": 38302,
+   "stage2_share": {
+    "value": 0.14899006114571517,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 111113177.20748352,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 41764,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 195210107.56616983,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2023-03-01",
+   "variant": "no_house_price",
+   "n_loans": 280314,
+   "stage2_n_loans": 12806,
+   "stage2_pd_rule_only": 9344,
+   "stage2_share": {
+    "value": 0.0456844824018779,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 55635692.08263469,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 12806,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 147932745.7585969,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 280314,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2026-03-01",
+   "variant": "published",
+   "n_loans": 342587,
+   "stage2_n_loans": 46668,
+   "stage2_pd_rule_only": 41855,
+   "stage2_share": {
+    "value": 0.13622233184563337,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 124315863.93863414,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 46668,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 272354523.928344,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2026-03-01",
+   "variant": "forward_mean_ref",
+   "n_loans": 342587,
+   "stage2_n_loans": 42440,
+   "stage2_pd_rule_only": 37627,
+   "stage2_share": {
+    "value": 0.12388094119158054,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 113482313.04313414,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 42440,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 263437562.4388721,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2026-03-01",
+   "variant": "no_house_price",
+   "n_loans": 342587,
+   "stage2_n_loans": 15039,
+   "stage2_pd_rule_only": 10226,
+   "stage2_share": {
+    "value": 0.043898338232332225,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 70831282.48405077,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 15039,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 228187758.85303986,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 342587,
+    "ci_method": "none: point estimate"
+   }
+  }
+ ]
+}

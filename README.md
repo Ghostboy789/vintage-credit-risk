@@ -31,7 +31,7 @@ The data is Freddie Mac's Single-Family Loan-Level Dataset: 1.3 million sampled 
 
 The overall calibration ratio is close to 1 because two windows err in opposite directions: 2017-2019 is over-predicted and 2022-2024 under-predicted. Averaged, they look fine. Grade by grade they do not.
 
-**The interval on the ECL covers parameter uncertainty only, about ±1%. The gap between the upside and adverse scenarios is many times wider and is the better guide to how uncertain the number is.** The stage-2 rule also compares house-price growth defined two different ways, and its effect on the $124.3m stage-2 ECL has not been measured. That alone rules out using the figure. The [committee memo](docs/COMMITTEE_MEMO.md) recommends noting the models as a research benchmark and not approving them for origination, staging or provisioning.
+**The interval on the ECL covers parameter uncertainty only, about ±1%. The gap between the upside and adverse scenarios is many times wider and is the better guide to how uncertain the number is.** The stage-2 rule is also driven mostly by national house-price growth rather than borrower behaviour: without the house-price term, stage 2 at 2026-03 holds 15,039 loans instead of 46,668 and the ECL is $228.2m rather than $272.4m (point estimates; the mismatch in how the term is defined on the two sides is the smaller part). That alone rules out using the figure. The [committee memo](docs/COMMITTEE_MEMO.md) recommends noting the models as a research benchmark and not approving them for origination, staging or provisioning.
 
 ---
 

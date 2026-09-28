@@ -22,7 +22,7 @@ presentation, bookkeeping, or a disclosed limit with small effect.
 | V-02 | Medium | S5 label claimed the applicant population is stable | Fixed (ab76eef) |
 | V-03 | Medium | E3 backtest PASS carries little information and is biased | Wording fixed (ab76eef); base-path backtest open |
 | V-04 | Medium | Several FINDINGS.md claims were stronger than the evidence | Fixed (ab76eef) |
-| V-05 | High | Stage 2 is driven by a house-price definition gap; the effect is not measured | Open |
+| V-05 | High | Stage 2 is driven by the house-price covariate; the definition gap is the smaller part | Open (measured) |
 | V-06 | Medium | The historical ECL series uses hindsight in LGD and the adverse path | Partly fixed (ab76eef); rerun open |
 | V-07 | Medium | Some intervals treat repeated loan observations as independent | Open |
 | V-08 | Medium | The ECL interval method is described two ways, and the interval is far too narrow | Fixed (205285c); the interval stays narrow, the scenario range is shown beside it |
@@ -81,19 +81,26 @@ all pass. The weaknesses on the loss side are in V-03, V-05, V-06, V-08 and V-13
 - **Evidence.** `portfolio.json` `loss_drivers`, `default_definition_effect`.
 - **Remediation.** Done: each claim softened or qualified in ab76eef.
 
-### V-05 · High · Open
+### V-05 · High · Open (measured)
 - **Finding.** The stage-2 PD rule compares `PD12_now`, which uses the mean house-price change
   over the next 12 months under each scenario, with `PD12_ref`, which uses the spot value at the
   first payment month. The two sides use different definitions of the same covariate. The PD rule
   alone puts 89.7% [89.4, 90.0] of stage-2 loans there at 2026-03 (41,855 of 46,668) and 92.7% at
-  2023-03. Stage 2 is $124.3m of the $272.4m ECL at 2026-03 and $127.3m of $210.3m at 2023-03. How
-  much of this the definition gap explains has not been measured.
+  2023-03. Stage 2 is $124.3m of the $272.4m ECL at 2026-03 and $127.3m of $210.3m at 2023-03.
+- **Measured (point estimates, models held fixed).** With `PD12_ref` on the same forward-mean
+  definition, stage 2 falls from 46,668 loans (13.6%) to 42,440 (12.4%) at 2026-03 and from
+  47,641 (17.0%) to 41,764 (14.9%) at 2023-03; total ECL falls from $272.4m to $263.4m and from
+  $210.3m to $195.2m. With the house-price term dropped from both sides, stage 2 is 15,039 loans
+  (4.4%) and 12,806 (4.6%), and total ECL $228.2m and $147.9m. So the definition gap is the
+  smaller part; most of the PD-rule stage 2 comes from the covariate itself, that is, from
+  national house-price growth being lower now than around origination, with no change in the
+  borrower's own behaviour. These are point estimates with no interval, at two dates only.
 - **Evidence.** `ecl.json` `stage2_drivers` (reason `pd_deterioration`), `by_date` (stage 2),
-  `scenario_totals` (scenario `final`).
-- **Remediation.** Rerun staging with `PD12_ref` on the same forward-mean definition, and again
-  with the covariate removed from the reference. Report the change in stage-2 share and in ECL,
-  and log both as deviations and sensitivities. Until then the SICR rule is not fit for any
-  production use.
+  `scenario_totals` (scenario `final`); `stage2_sensitivity.json` `variants`.
+- **Remediation.** Done: both reruns (`models/loss/stage2_sensitivity.py`, results in
+  `docs/LOSS_AND_ECL.md`). Open: the rule still needs changing. Put both sides on one definition,
+  and decide, and test against realised defaults, whether a national house-price move alone
+  should trigger stage 2. Until then the SICR rule is not fit for any production use.
 
 ### V-06 · Medium · Partly fixed (ab76eef); rerun open
 - **Finding.** The historical ECL series uses hindsight twice: the G2 LGD model is fitted on

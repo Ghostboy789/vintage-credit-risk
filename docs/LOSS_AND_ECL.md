@@ -232,7 +232,38 @@ Dates to 2016-12 are in-sample for L1 or L2.
 - *2022-23.* Stage 2 rose again to 17% with almost no delinquency change: 93% of stage 2 at
   2023-03 is the PD rule alone, when house-price growth slowed. Because `PD12_ref` carries the
   house-price value at origination, loans originated in the 2020-22 boom look deteriorated when
-  growth slows; how much of stage 2 this explains was not measured (see the deviation log).
+  growth slows. The sensitivity below measures how much of stage 2 this explains.
+
+**Stage 2 sensitivity to the house-price definition (V-05).** `PD12_now` uses the mean
+house-price covariate over the next 12 months under each scenario; `PD12_ref` uses its value at
+the first payment month. `models/loss/stage2_sensitivity.py` restages two dates three ways and
+recomputes the probability-weighted ECL, holding the fitted models fixed (point estimates, no
+parameter draws, so no intervals; `artefacts/stage2_sensitivity.json`):
+(a) as published; (b) `PD12_ref` on the same forward-mean definition as `PD12_now` (the realised
+mean over the 12 months after the first payment month, the definition L2 is fitted on);
+(c) the house-price term dropped from both sides (fitted coefficients kept, L2 not refitted).
+
+| Date | Variant | Stage 2 loans (share) | PD rule only | Stage 2 ECL $m | Total ECL $m |
+|---|---|---|---|---|---|
+| 2023-03 | (a) published | 47,641 (17.0%) | 44,179 | 127.3 | 210.3 |
+| 2023-03 | (b) forward-mean reference | 41,764 (14.9%) | 38,302 | 111.1 | 195.2 |
+| 2023-03 | (c) no house-price term | 12,806 (4.6%) | 9,344 | 55.6 | 147.9 |
+| 2026-03 | (a) published | 46,668 (13.6%) | 41,855 | 124.3 | 272.4 |
+| 2026-03 | (b) forward-mean reference | 42,440 (12.4%) | 37,627 | 113.5 | 263.4 |
+| 2026-03 | (c) no house-price term | 15,039 (4.4%) | 10,226 | 70.8 | 228.2 |
+
+Row (a) reproduces the published stage 2 counts and ECL exactly. The definition gap is a small
+part of the effect: putting both sides on the same definition removes 5,877 stage 2 loans at
+2023-03 (12% of stage 2) and 4,228 at 2026-03 (9%), and lowers total ECL by $15.1m and $8.9m.
+Most of the PD-rule stage 2 comes from the house-price covariate itself: loans look deteriorated
+because national house-price growth now is below what it was around their origination, with no
+change in the borrower's own behaviour. Dropping the term from both sides leaves stage 2 at 4.6%
+and 4.4% of loans and lowers total ECL by $62.4m and $44.2m. What this does not establish: which
+rule is right (whether a national house-price move alone should count as a significant increase
+in credit risk is a policy choice, not tested here); that stage 2 under (b) or (c) predicts
+defaults better; anything about dates other than these two. Variant (b) uses house prices
+realised after origination, carried forward past the data cut-off for loans that first paid in
+the last year.
 
 **Backtest (E3): PASS, with a clear bias.** No Red grade at any date. Of the 49 counted
 grade-dates, 4 are Green and 45 Amber: the model over-predicts in 48 of 49 (pooled predicted
