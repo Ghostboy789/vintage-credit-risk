@@ -83,7 +83,8 @@ correct (see the "did not hold up" section for the one place they weren't).
 
 ## 6. Reconciliation (R1-R8) passes, with one exact, already-explained exception
 
-R2 (loan-months), R3 (balances, off by $0.35 on a $12.6 trillion sum), R4 (loss sums, off by
+R2 (loan-months), R3 (balances: largest loan-month difference $0.06 against a $1 tolerance; the whole
+$12.6 trillion sum differs by $0.27), R4 (loss sums, off by
 $2.4e-7 on $1.39 billion), R7 (metrics-layer arithmetic, 1,635 checks, largest relative
 difference 4.9e-15) and R8 (this artefact's own counts against their marts) all **PASS**. R1
 (loan count) **FAILs** by exactly 5 loans out of 1,349,995 mart loans against 1,350,000 raw

@@ -106,7 +106,9 @@ forward-looking information and `ecl.json` says `scenarios.used = false` (E5).
   term. Stage 3: LGD x current UPB. The economic LGD is already discounted from default to
   disposition, so the two discountings do not overlap.
 - **Intervals (`parameter_draws_1000`).** 1,000 draws of the L1 and L2 coefficients from their
-  normal sampling distributions and of the LTV-band LGD means from their bootstrap; the
+  normal sampling distributions. LGD is drawn only when G2 fails and the LTV-band means are
+  used (from their bootstrap); in the published run G2 passed, so each loan's LGD comes from the
+  two-stage model and is held fixed across draws, and the intervals carry no LGD uncertainty. The
   portfolio and each loan's stage are held at their point-estimate values; 2.5% and 97.5%
   percentiles. They do not cover the scenarios or model choice, and L1's covariance treats
   loan-months as independent, so the intervals are too narrow. Where a percentile interval
@@ -175,8 +177,8 @@ Coverage = ECL / exposure; its interval divides the ECL interval by the fixed ex
 
 **Headline, 2026-03.** Exposure $80.0bn on 342,587 loans. Probability-weighted ECL $272.4m
 [269.6, 275.0]; coverage 34.0 bp [33.7, 34.4]. By stage: stage 1 $41.0m (292,874 loans), stage 2
-$124.3m (46,668), stage 3 $107.1m (3,045). Scenarios: base $261.5m [259.0, 264.0], 100% adverse
-$320.4m [316.9, 323.8], upside $235.7m [233.3, 238.1].
+$124.3m (46,668), stage 3 $107.1m (3,045). Scenarios: base $261.5m [259.0, 263.9], 100% adverse
+$320.4m [316.9, 323.8], upside $235.7m [233.2, 238.1].
 
 **LGD and EAD.** Overall realised economic LGD 0.249 [0.246, 0.252], gross of MI 0.280
 [0.277, 0.284], undiscounted 0.265 [0.261, 0.268], n = 35,688 resolved primary defaults (bootstrap
