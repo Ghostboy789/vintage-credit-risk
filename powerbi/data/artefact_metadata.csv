@@ -1,7 +1,7 @@
 artefact,synthetic,generated_at,data_cutoff,code_version,suppressed_cells
-portfolio,True,2026-09-23T00:00:00Z,2026-03-01,fixture,68
-pd_models,True,2026-09-23T00:00:00Z,2026-03-01,fixture,14
-monitoring,True,2026-09-23T00:00:00Z,2026-03-01,fixture,0
-lgd_ead,True,2026-09-23T00:00:00Z,2026-03-01,fixture,84
-ecl,True,2026-09-23T00:00:00Z,2026-03-01,fixture,228
-capital,True,2026-09-23T00:00:00Z,2026-03-01,fixture,0
+portfolio,False,2026-09-25T00:55:31Z,2026-03-01,874ac50,35
+pd_models,False,2026-09-25T00:10:09Z,2026-03-01,1b8a5f64fd93423bd7bd1ec1181187ac70ed5f88,0
+monitoring,False,2026-09-25T00:10:09Z,2026-03-01,1b8a5f64fd93423bd7bd1ec1181187ac70ed5f88,0
+lgd_ead,False,2026-09-27T22:00:58Z,2026-03-01,ac3c1a9,24
+ecl,False,2026-09-27T22:00:58Z,2026-03-01,ac3c1a9,92
+capital,False,2026-09-27T22:00:58Z,2026-03-01,ac3c1a9,0

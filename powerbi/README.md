@@ -2,8 +2,9 @@
 
 A six-page Power BI report over the portfolio, scorecard, loss and ECL results, built as PBIP
 (TMDL model + PBIR report) so every table, measure and visual is a readable text file that diffs
-in git. **Built and validated on the project's synthetic fixtures** (see "Synthetic data" below);
-It is pointed at the real Freddie Mac marts once the scorecard, loss/ECL and portfolio results exist.
+in git. The data in `powerbi/data/` is exported from the real Freddie Mac aggregates (marts and
+published artefacts). **The report has not yet been rendered or DAX-checked in Power BI Desktop**;
+see "How it was checked".
 
 ## Open it
 
@@ -47,33 +48,32 @@ builds `powerbi/data/*.csv` from them; nothing in the model re-derives a number.
   loan-level and never leave the warehouse (CONTRACTS.md publication rule); this report is
   aggregates only, same as every other published artefact.
 
-## Synthetic data
+## Data
 
-Every row in `powerbi/data/` right now comes from `tests/fixtures/`, which
-`scripts/make_fixtures.py` invents with a fixed seed — none of it is a real Freddie Mac loan.
-Every table carries a `Synthetic` column, and the `Key Measures[Synthetic Data Warning]` measure
-shows a banner on every page while it is `true`. `scripts/export_powerbi.py --source real` reads
-the real marts and artefacts instead, once the scorecard, LGD/ECL/capital and portfolio analytics
-results exist; the real export is then re-run, every KPI re-checked against the
-marts with DAX, and turns this banner off.
+`powerbi/data/` was built with `python -m scripts.export_powerbi --source real` from `artefacts/`
+and the `dim_date` / `metrics_monthly` marts. Every table carries a `synthetic` column, all
+`False`; the `Key Measures[Synthetic Data Warning]` banner only shows if any table says `True`.
+Cells describing fewer than 10 loans are already suppressed in the artefacts. Freddie Mac data,
+non-commercial use; no loan-level rows are included.
 
 ## How it was checked
 
-- `pbir validate Vintage.Report` and `powerbi-report-author validate Vintage.pbip`: **0 errors**
-  (a handful of Best-Practice-Analyzer sizing warnings on the smaller KPI cards remain; noted in
-  the build notes, not blocking).
-- `tests/test_powerbi.py`: the export never carries a `loan_id` column, every fixture row is
-  flagged synthetic, and a spot-checked metric value matches the source artefact exactly.
-- Not yet rendered in Power BI Desktop: the Desktop automation bridge did not start on the build
-  machine, so the pages have been validated as files only. Rendering, DAX checks against the
-  marts and screenshots (`docs/powerbi/`) come with the real-data export.
+- `pbir validate Vintage.Report` and `powerbi-report-author validate Vintage.pbip`: 0 errors
+  (a handful of Best-Practice-Analyzer sizing warnings on the smaller KPI cards remain).
+- `tests/test_powerbi.py`: the export never carries a `loan_id` column, the fixture export is
+  flagged synthetic, and the committed `powerbi/data/*.csv` match a fresh build from the
+  artefacts and marts (same tables, columns and values).
+- **Not done:** rendering in Power BI Desktop, DAX checks of each KPI against the marts, and the
+  light/dark screenshots. The Desktop automation bridge could not open the project on the build
+  machine, so the pages have been validated as files only. Do not read this pack as
+  visually verified.
 
 ## Known simplifications (to revisit with the real-data export)
 
 - **No global state slicer.** The published aggregates carry `property_state` only inside two
   segment tables (`lgd_segments`, `loss_drivers`), not as a column on every fact, so a
   report-wide state slicer would filter almost nothing. State appears as a category axis on the
-  tables that have it instead. Revisit once G's portfolio analytics gives a wider state
+  tables that have it instead. Revisit once the portfolio analytics has a wider state
   breakdown.
 - **No global vintage/grade slicer sync group.** `pbir`'s local PBIR editor doesn't have a
   supported way to author the Desktop "Sync Slicers" pane groups from the CLI in this

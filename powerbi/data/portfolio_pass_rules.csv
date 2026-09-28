@@ -1,7 +1,7 @@
 rule_id,result,evidence,synthetic
-R1,pending,synthetic fixture,True
-R2,pending,synthetic fixture,True
-R3,pending,synthetic fixture,True
-R4,pending,synthetic fixture,True
-R7,pending,synthetic fixture,True
-R8,pending,synthetic fixture,True
+R1,FAIL,"1350000 checked, 1 outside tolerance, largest difference 5 (tolerance 0).",False
+R2,PASS,"74919968 checked, 0 outside tolerance, largest difference 0 (tolerance 0).",False
+R3,PASS,"74919968 checked, 0 outside tolerance, largest difference 0.0644531 (tolerance 1.0).",False
+R4,PASS,"27 checked, 0 outside tolerance, largest difference 2.38419e-07 (tolerance 1.0).",False
+R7,PASS,"1635 checked, 0 outside tolerance, largest difference 4.89754e-15 (tolerance 1e-09).",False
+R8,PASS,"4 artefact counts checked against their source marts, 0 outside tolerance.",False

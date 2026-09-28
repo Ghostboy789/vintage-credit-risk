@@ -1,5 +1,5 @@
 rule_id,result,evidence,synthetic
-E3,pending,synthetic fixture,True
-E4a,pending,synthetic fixture,True
-E4b,pending,synthetic fixture,True
-E4c,pending,synthetic fixture,True
+E3,PASS,2016-12 no Red; 2017-12 no Red; 2018-12 no Red; 2021-12 no Red; 2022-12 no Red; 2023-12 no Red; 2024-12 no Red. 2019-12 and 2020-12 are shown but not counted (forbearance period).,False
+E4a,PASS,"Hand-worked loans (stage 1, 2 and 3): largest difference $0.000000 against an independent month-by-month calculation (tolerance $0.01).",False
+E4b,PASS,"Staging edge cases: 29 against 30 days past due, cure probation, a forborne 90+ loan (stage 2, not 3), a credit-event exit (leaves the book)",False
+E4c,PASS,"Marginal default + marginal prepayment + final survival = 1 for every grade, scenario and parameter draw over 30 years: largest deviation 2.2e-15 (tolerance 1e-12). Grade merges for estimation: L1 none, L2 none.",False

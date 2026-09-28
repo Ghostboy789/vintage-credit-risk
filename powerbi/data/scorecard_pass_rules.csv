@@ -1,9 +1,9 @@
 rule_id,result,evidence,synthetic
-D1a,pending,synthetic fixture,True
-S1,pending,synthetic fixture,True
-S2,pending,synthetic fixture,True
-S3,pending,synthetic fixture,True
-S4a,pending,synthetic fixture,True
-S4b,pending,synthetic fixture,True
-S5,pending,synthetic fixture,True
-C1,pending,synthetic fixture,True
+D1a,PASS,modified before or without a primary default 2185 / primary defaults 54615 = 0.0400,False
+S1,PASS,"numeric model features ['fico', 'ltv_pct', 'dti_pct', 'rate_spread_pct']; non-monotonic: none",False
+S2,AMBER,"Gini dev_test 0.7109, oot 0.5336, relative drop 0.2494 [0.2010, 0.2951], amber",False
+S3,PASS,"A 0.0008 [0.0006, 0.0010] n 102921, B 0.0019 [0.0015, 0.0023] n 57575, C 0.0043 [0.0037, 0.0049] n 45140, D 0.0071 [0.0062, 0.0082] n 28098, E 0.0105 [0.0090, 0.0121] n 15944, F 0.0164 [0.0136, 0.0197] n 6645, G 0.0184 [0.0132, 0.0249] n 2014; no inversion",False
+S4a,FAIL,"A: mean PD 0.0005, realised 0.0004 [0.0003, 0.0006], n 104414, PASS; B: mean PD 0.0014, realised 0.0016 [0.0013, 0.0020], n 42997, PASS; C: mean PD 0.0028, realised 0.0022 [0.0017, 0.0027], n 33480, FAIL; D: mean PD 0.0056, realised 0.0057 [0.0048, 0.0067], n 23987, PASS; E: mean PD 0.0112, realised 0.0126 [0.0109, 0.0144], n 15453, PASS; F: mean PD 0.0223, realised 0.0214 [0.0182, 0.0249], n 7159, PASS; G: mean PD 0.0569, realised 0.0511 [0.0445, 0.0584], n 3894, PASS",False
+S4b,FAIL,"A: mean PD 0.0005, realised 0.0008 [0.0006, 0.0010], n 102921, FAIL; B: mean PD 0.0014, realised 0.0019 [0.0015, 0.0023], n 57575, FAIL; C: mean PD 0.0028, realised 0.0043 [0.0037, 0.0049], n 45140, FAIL; D: mean PD 0.0055, realised 0.0071 [0.0062, 0.0082], n 28098, FAIL; E: mean PD 0.0111, realised 0.0105 [0.0090, 0.0121], n 15944, PASS; F: mean PD 0.0221, realised 0.0164 [0.0136, 0.0197], n 6645, FAIL; G: mean PD 0.0448, realised 0.0184 [0.0132, 0.0249], n 2014, FAIL",False
+S5,PASS,"score PSI dev_train vs oot 0.0446 [0.0426, 0.0467] on 10 bins, green",False
+C1,FAIL,"confirm step passed: dev_test AUC 0.8688 vs mean fold AUC 0.8720; paired bootstrap 95% interval of the oot Gini gain has its lower bound above +0.02 (gain -0.0124 [-0.0249, -0.0001], lower bound -0.0249): not met; oot calibration fails in no more grades than the champion (6 vs 6): met; score PSI dev_train to oot at most 0.25 (0.0429): met; SHAP reason codes for every oot and covid loan, and every monotone constraint holds: met. The scorecard stays the model used downstream in this release.",False

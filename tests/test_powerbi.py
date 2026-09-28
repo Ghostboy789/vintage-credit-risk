@@ -4,6 +4,7 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -79,3 +80,25 @@ def test_real_mode_refuses_without_artefacts():
         )
     assert result.returncode != 0
     assert "No real artefacts yet" in result.stderr
+
+
+def test_committed_export_matches_the_published_artefacts_and_marts():
+    """powerbi/data/ is exactly what the export builds from artefacts/ and marts_out/."""
+    from config import VINTAGE_DATA_ROOT
+
+    artefacts, marts = VINTAGE_DATA_ROOT / "artefacts", VINTAGE_DATA_ROOT / "marts_out"
+    if not (marts / "metrics_monthly.parquet").exists():
+        import pytest
+
+        pytest.skip("marts_out/ not present")
+    tables = build_tables(artefacts, marts)
+    data_dir = REPO_ROOT / "powerbi" / "data"
+    assert {p.stem for p in data_dir.glob("*.csv")} == set(tables)
+    for name, df in tables.items():
+        got = pd.read_csv(data_dir / f"{name}.csv")
+        assert len(got) == len(df), name
+        assert list(got.columns) == list(df.columns), name
+        for col in df.select_dtypes("number").columns:
+            ok = np.allclose(got[col].fillna(-1), df[col].fillna(-1), rtol=1e-9, atol=0)
+            assert ok, (name, col)
+    assert not any(t["synthetic"].any() for n, t in tables.items() if "synthetic" in t)

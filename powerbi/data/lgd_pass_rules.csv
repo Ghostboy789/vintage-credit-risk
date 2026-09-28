@@ -1,4 +1,4 @@
 rule_id,result,evidence,synthetic
-R5,pending,synthetic fixture,True
-R6,pending,synthetic fixture,True
-G2,pending,synthetic fixture,True
+R5,PASS,"19639 events checked, 0 outside $1 (share within 1.0000, rule >= 0.995), largest difference $0.00",False
+R6,PASS,"36723 events checked, 0 outside $1 (share within 1.0000, rule >= 0.995), largest difference $0.00",False
+G2,PASS,"MAE(model) - MAE(LTV-band mean) on 16168 held-out defaults (2011-01 to 2023-03) = -0.0134, 95% paired bootstrap [-0.0150, -0.0116]; the model is used only if the whole interval is below 0. Fitted on 19520 defaults to 2010-12.",False

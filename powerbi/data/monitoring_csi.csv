@@ -1,4 +1,8 @@
 feature,comparison,csi,csi_lo,csi_hi,csi_n,csi_method,rag,synthetic
-fico,dev_train_vs_oot,0.18,0.16,0.19999999999999998,1000,synthetic fixture interval,amber,True
-ltv_pct,dev_train_vs_oot,0.04,0.02,0.06,1000,synthetic fixture interval,green,True
-dti_pct,dev_train_vs_oot,0.27,0.25,0.29000000000000004,1000,synthetic fixture interval,red,True
+fico,dev_train_vs_oot,0.061863541763697225,0.059672584675128995,0.06462200568544914,258337,bootstrap_1000,green,False
+ltv_pct,dev_train_vs_oot,0.19899334408990987,0.19482701101481648,0.2037985545898709,258337,bootstrap_1000,amber,False
+dti_pct,dev_train_vs_oot,0.6539088017651316,0.6303206960852277,0.6881695180351436,258337,bootstrap_1000,red,False
+rate_spread_pct,dev_train_vs_oot,0.11701506793846177,0.11371405394980261,0.1203663571095509,258337,bootstrap_1000,amber,False
+term_band,dev_train_vs_oot,0.18181960094300723,0.17785661675989722,0.18597468525480887,258337,bootstrap_1000,amber,False
+property_type,dev_train_vs_oot,0.11466872648101101,0.11148922624701643,0.11791935741082507,258337,bootstrap_1000,amber,False
+channel,dev_train_vs_oot,2.7497469622713426,2.737194946964799,2.7617687660821133,258337,bootstrap_1000,red,False
