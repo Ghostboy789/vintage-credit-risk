@@ -4,5 +4,11 @@
   "installCommand": "bun install",
   "buildCommand": "bun run build:release",
   "outputDirectory": "dist",
-  "ignoreCommand": "test ! -f release.json"
+  "ignoreCommand": "test ! -f release.json",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

@@ -11,6 +11,7 @@ const NAV = [
   { to: "/scorecard", label: "Scorecard" },
   { to: "/ecl", label: "IFRS 9 ECL" },
   { to: "/capital", label: "Capital" },
+  { to: "/powerbi", label: "Power BI" },
   { to: "/methods", label: "Methods" },
 ];
 

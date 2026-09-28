@@ -21,6 +21,7 @@ const PAGES: Item[] = [
   { group: "Pages", label: "Scorecard", to: "/scorecard" },
   { group: "Pages", label: "IFRS 9 ECL", to: "/ecl" },
   { group: "Pages", label: "Capital", to: "/capital" },
+  { group: "Pages", label: "Power BI risk pack", to: "/powerbi" },
   { group: "Pages", label: "Methods & limits", to: "/methods" },
 ];
 

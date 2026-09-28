@@ -18,6 +18,7 @@ const Scorecard = lazy(() => import("./pages/Scorecard").then((m) => ({ default:
 const Ecl = lazy(() => import("./pages/Ecl").then((m) => ({ default: m.Ecl })));
 const Capital = lazy(() => import("./pages/Capital").then((m) => ({ default: m.Capital })));
 const Methods = lazy(() => import("./pages/Methods").then((m) => ({ default: m.Methods })));
+const PowerBi = lazy(() => import("./pages/PowerBi").then((m) => ({ default: m.PowerBi })));
 const Credits = lazy(() => import("./pages/Credits").then((m) => ({ default: m.Credits })));
 
 function Shell() {
@@ -44,6 +45,7 @@ function Shell() {
               <Route path="/ecl" element={<Ecl data={state.data} />} />
               <Route path="/capital" element={<Capital data={state.data} />} />
               <Route path="/methods" element={<Methods data={state.data} />} />
+              <Route path="/powerbi" element={<PowerBi />} />
               <Route path="/credits" element={<Credits />} />
             </Routes>
           </Suspense>

@@ -13,6 +13,7 @@ const PAGE_ARTEFACTS: Record<string, readonly (keyof Artefacts)[]> = {
   "/capital": ["capital"],
   "/methods": ALL,
   "/credits": [],
+  "/powerbi": [],
 };
 
 const NAMES: Record<string, string> = {

@@ -207,3 +207,12 @@ p {
 .finding-card:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 60%, var(--border)) !important;
 }
+
+/* Power BI captures follow the site theme: dark by default, light when the light theme applies. */
+.pbi-light { display: none; }
+:root[data-theme="light"] .pbi-light { display: block; }
+:root[data-theme="light"] .pbi-dark { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .pbi-light { display: block; }
+  :root:not([data-theme="dark"]) .pbi-dark { display: none; }
+}
