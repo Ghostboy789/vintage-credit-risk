@@ -25,10 +25,10 @@ presentation, bookkeeping, or a disclosed limit with small effect.
 | V-05 | High | Stage 2 is driven by a house-price definition gap; the effect is not measured | Open |
 | V-06 | Medium | The historical ECL series uses hindsight in LGD and the adverse path | Partly fixed (ab76eef); rerun open |
 | V-07 | Medium | Some intervals treat repeated loan observations as independent | Open |
-| V-08 | Medium | The ECL interval method is described two ways, and the interval is far too narrow | Open |
+| V-08 | Medium | The ECL interval method is described two ways, and the interval is far too narrow | Fixed (205285c); the interval stays narrow, the scenario range is shown beside it |
 | V-09 | Medium | Channel code `T` marks the crisis era and stays in the scorecard | Open (next release) |
 | V-10 | Low | An unsupported "2020 vintage is all retail" claim | Closed |
-| V-11 | Low | Three different R3 figures | Open |
+| V-11 | Low | Three different R3 figures | Fixed (205285c) |
 | V-12 | Low | The 2017-2019 out-of-time window is mostly 2017-18 | Open |
 | V-13 | Low | Cured-loan PD is extrapolated; the D8a LGD effect is not carried into ECL | Open |
 | V-14 | High | S4b FAIL: the PD is not calibrated out of time | Open (by design, no recalibration on out-of-time data) |
@@ -36,7 +36,7 @@ presentation, bookkeeping, or a disclosed limit with small effect.
 | V-16 | Low | S4a FAIL: one grade misses in time | Open (disclosed) |
 | V-17 | Low | C1 FAIL: the challenger is not promoted | Closed (the rule worked as intended) |
 | V-18 | Low | R1 FAIL: five loans short in the mart loan count | Open (explained) |
-| V-19 | Low | LOSS_AND_ECL.md rounds two scenario interval bounds wrongly | Open |
+| V-19 | Low | LOSS_AND_ECL.md rounds two scenario interval bounds wrongly | Fixed (205285c) |
 | V-20 | Low | The E3 evidence string in the artefact omits the over-prediction count | Open |
 
 No loss-engine pass rule failed: E3, E4a, E4b, E4c (`ecl.json`), R5, R6 and G2 (`lgd_ead.json`)
@@ -113,7 +113,7 @@ all pass. The weaknesses on the loss side are in V-03, V-05, V-06, V-08 and V-13
 - **Remediation.** Loan-cluster bootstrap, or label these intervals "treats transitions as
   independent; too narrow".
 
-### V-08 · Medium · Open
+### V-08 · Medium · Fixed (205285c)
 - **Finding.** LOSS_AND_ECL.md "Intervals" says the draws include the LTV-band LGD means; its
   Results section says LGD is not drawn because G2 passed. The interval also leaves out scenario,
   staging, model and LGD uncertainty: $272.4m [269.6, 275.0] at 2026-03 is about ±1%, while the
@@ -139,7 +139,7 @@ all pass. The weaknesses on the loss side are in V-03, V-05, V-06, V-08 and V-13
   the claim.
 - **Remediation.** None needed; nothing published carries it.
 
-### V-11 · Low · Open
+### V-11 · Low · Fixed (205285c)
 - **Finding.** FINDINGS.md section 6 and RECONCILIATION.md quote different R3 balance
   differences, and neither matches the artefact's largest per-month difference ($0.064). All pass.
 - **Evidence.** `portfolio.json` `pass_rules` R3.
@@ -205,7 +205,7 @@ all pass. The weaknesses on the loss side are in V-03, V-05, V-06, V-08 and V-13
 - **Evidence.** `portfolio.json` `pass_rules` R1, `reconciliation`.
 - **Remediation.** Add a data-lineage control that reports excluded loans by reason at each join.
 
-### V-19 · Low · Open
+### V-19 · Low · Fixed (205285c)
 - **Finding.** LOSS_AND_ECL.md "Headline, 2026-03" rounds the upper bound of the base scenario and
   the lower bound of the upside scenario 0.1 too high. The artefact values are base $261.5m
   [259.0, 263.9] and upside $235.7m [233.2, 238.1].
