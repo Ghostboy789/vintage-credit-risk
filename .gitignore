@@ -20,7 +20,6 @@ __pycache__/
 logs/
 
 # Never in the repo.
-.claude/
 .env
 
 # Service-account / API key files should never be saved in the repo at all -- the real
