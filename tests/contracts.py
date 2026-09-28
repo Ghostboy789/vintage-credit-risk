@@ -765,6 +765,21 @@ ARTEFACTS: dict[str, dict] = {
         "totals": {"ead": "metric?", "rwa": "metric?", "capital": "metric?", "ecl": "metric?"},
         "limits": ["str"],
     },
+    "stage2_sensitivity": {
+        **ENVELOPE,
+        "variants": [
+            {
+                "reporting_date": "date",
+                "variant": "enum:published|forward_mean_ref|no_house_price",
+                "n_loans": "int",
+                "stage2_n_loans": "int",
+                "stage2_pd_rule_only": "int",
+                "stage2_share": "metric",
+                "stage2_ecl": "metric",
+                "total_ecl": "metric",
+            }
+        ],
+    },
 }
 
 METRIC_KEYS = {"value", "ci_low", "ci_high", "n", "ci_method"}

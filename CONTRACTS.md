@@ -617,6 +617,24 @@ null, `by_grade` empty, `totals` values null.
  "limits": ["Illustrative only; not a regulatory capital calculation."]}
 ```
 
+
+### `artefacts/stage2_sensitivity.json`
+How much of stage 2 the house-price covariate in the PD rule drives (issue V-05). Point estimates
+at two reporting dates, no parameter draws; `ci_method` is `none: point estimate`. Written by
+`models/loss/stage2_sensitivity.py`.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `variants` | list | One row per reporting date and variant |
+| `reporting_date` | date | 2023-03-01 or 2026-03-01 |
+| `variant` | string | `published` (the rule as run), `forward_mean_ref` (PD12_ref on the same forward-mean house-price definition as PD12_now), `no_house_price` (the term removed from both sides) |
+| `n_loans` | int | Loans staged at the date |
+| `stage2_n_loans` | int | Loans in stage 2 |
+| `stage2_pd_rule_only` | int | Stage 2 loans put there by the PD rule alone (dbt stage floor below 2) |
+| `stage2_share` | metric | `stage2_n_loans / n_loans` |
+| `stage2_ecl` | metric | ECL of stage 2 loans, final scenario weighting |
+| `total_ecl` | metric | ECL of all loans, final scenario weighting |
+
 ---
 
 ## Synthetic fixtures

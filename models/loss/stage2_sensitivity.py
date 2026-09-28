@@ -31,21 +31,7 @@ from . import run as R
 VARIANTS = ["published", "forward_mean_ref", "no_house_price"]
 DATES = [pd.Timestamp("2023-03-01"), pd.Timestamp("2026-03-01")]
 POINT = "none: point estimate"
-SPEC = {
-    **C.ENVELOPE,
-    "variants": [
-        {
-            "reporting_date": "date",
-            "variant": "enum:" + "|".join(VARIANTS),
-            "n_loans": "int",
-            "stage2_n_loans": "int",
-            "stage2_pd_rule_only": "int",
-            "stage2_share": "metric",
-            "stage2_ecl": "metric",
-            "total_ecl": "metric",
-        }
-    ],
-}
+SPEC = C.ARTEFACTS["stage2_sensitivity"]
 
 
 def measure(eng, macro, dim_loan, si, dates) -> list[dict]:
@@ -104,7 +90,7 @@ def main():
     ctx = R.prepare(marts, mo, n_draws=0, hpi=os.environ["VINTAGE_HPI_CSV"])
     rows = measure(ctx["eng"], ctx["macro"], ctx["d"]["dim_loan"], ctx["si"], DATES)
     obj = artefact(rows, ctx["synthetic"])
-    problems = C._check(SPEC, obj, "stage2_sensitivity")
+    problems = C.check_artefact("stage2_sensitivity", obj)
     if problems:
         raise SystemExit(f"stage2_sensitivity.json breaks the conventions: {problems[:5]}")
     path = R.ROOT / "artefacts" / "stage2_sensitivity.json"

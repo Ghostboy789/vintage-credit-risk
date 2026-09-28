@@ -1,0 +1,95 @@
+{
+ "schema_version": "1.0",
+ "artefact": "stage2_sensitivity",
+ "synthetic": true,
+ "generated_at": "2026-09-28T21:19:06Z",
+ "data_cutoff": "2026-03-01",
+ "code_version": "0a6018f",
+ "suppressed_cells": 0,
+ "variants": [
+  {
+   "reporting_date": "2008-12-01",
+   "variant": "published",
+   "n_loans": 532,
+   "stage2_n_loans": 48,
+   "stage2_pd_rule_only": 17,
+   "stage2_share": {
+    "value": 0.09022556390977443,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 352634.4014176842,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 48,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 2183992.2859724686,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2008-12-01",
+   "variant": "forward_mean_ref",
+   "n_loans": 532,
+   "stage2_n_loans": 41,
+   "stage2_pd_rule_only": 10,
+   "stage2_share": {
+    "value": 0.07706766917293233,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 317559.9423289958,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 41,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 2169182.131991399,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   }
+  },
+  {
+   "reporting_date": "2008-12-01",
+   "variant": "no_house_price",
+   "n_loans": 532,
+   "stage2_n_loans": 31,
+   "stage2_pd_rule_only": 0,
+   "stage2_share": {
+    "value": 0.05827067669172932,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   },
+   "stage2_ecl": {
+    "value": 262286.79362325417,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 31,
+    "ci_method": "none: point estimate"
+   },
+   "total_ecl": {
+    "value": 2144655.7984211426,
+    "ci_low": null,
+    "ci_high": null,
+    "n": 532,
+    "ci_method": "none: point estimate"
+   }
+  }
+ ]
+}
