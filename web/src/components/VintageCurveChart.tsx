@@ -193,14 +193,14 @@ export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMob
             {PRESETS.map((p) => {
               const on = p.years.length === focus.length && p.years.every((yr) => focusSet.has(yr));
               return (
-                <button key={p.name} type="button" aria-pressed={on} onClick={() => setPreset(p.years)} className="min-h-[36px] rounded-full border px-3 text-xs transition-colors" style={chip(on)}>
+                <button key={p.name} type="button" aria-pressed={on} onClick={() => setPreset(p.years)} className="min-h-[44px] rounded-full border px-3 text-sm transition-colors" style={chip(on)}>
                   {p.name}
                 </button>
               );
             })}
           </div>
         )}
-        <button type="button" aria-pressed={table} onClick={() => setTable((v) => !v)} className="ml-auto min-h-[36px] rounded-full border px-3 text-xs" style={{ borderColor: table ? "var(--accent)" : "var(--border)", color: table ? "var(--ink)" : "var(--ink-2)" }}>
+        <button type="button" aria-pressed={table} onClick={() => setTable((v) => !v)} className="ml-auto min-h-[44px] rounded-full border px-4 text-sm" style={{ borderColor: table ? "var(--accent)" : "var(--border)", color: table ? "var(--ink)" : "var(--ink-2)" }}>
           {table ? "Chart" : "Table"}
         </button>
       </div>

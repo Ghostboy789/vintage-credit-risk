@@ -4,6 +4,12 @@ import { m } from "framer-motion";
 import { useReducedMotion } from "../lib/theme";
 import { fmtPct, fmtInt } from "../lib/format";
 import type { Estimate } from "../lib/types";
+import { codeLabel } from "../lib/labels";
+
+// A reader's name for a segment code; states keep their two-letter code.
+const segLabel = (dim: string, seg: string) => (seg === "missing" ? "Unknown" : dim === "property_state" ? seg : codeLabel(seg));
+const dimLabel = (dim: string) => (dim === "ltv_band" ? "Loan-to-value band" : dim === "property_state" ? "State" : codeLabel(dim));
+const TOP = 10;
 
 interface Row {
   dimension: string;
@@ -15,6 +21,7 @@ interface Row {
 export function LossDrivers({ rows }: { rows: Row[] }) {
   const reduced = useReducedMotion();
   const [showTable, setShowTable] = useState(false);
+  const [allOf, setAllOf] = useState<Record<string, boolean>>({});
 
   const dimensions = useMemo(() => [...new Set(rows.map((r) => r.dimension))], [rows]);
   // Every dimension splits the same loans, so n is one dimension's total, not the sum over all of them.
@@ -27,17 +34,18 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
       <div className="relative">
         <button
           onClick={() => setShowTable(false)}
-          className="absolute right-0 top-0 rounded border px-3 py-1 text-xs"
+          className="absolute right-0 top-0 rounded border px-4 py-1 text-sm"
           style={{
             borderColor: "var(--border)",
             color: "var(--ink)",
             background: "var(--surface)",
-            minHeight: 32,
+            minHeight: 44,
           }}
         >
           Chart
         </button>
-        <table className="w-full border-collapse" role="table">
+        <div className="overflow-x-auto pt-10">
+        <table className="w-full min-w-[520px] border-collapse" role="table">
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)" }}>
               <th className="text-left font-mono py-2 px-2">Dimension</th>
@@ -55,8 +63,8 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
           if (!/band/.test(dim)) dimRows.sort((a, b) => (b.default_rate.value ?? -1) - (a.default_rate.value ?? -1));
               return dimRows.map((r, i) => (
                 <tr key={`${r.dimension}-${r.segment}`} style={{ borderBottom: "1px solid var(--border)" }}>
-                  <td className="font-mono py-2 px-2">{i === 0 ? dim.replace(/_/g, " ") : ""}</td>
-                  <td className="font-mono py-2 px-2">{r.segment.replace(/_/g, "–")}</td>
+                  <td className="font-mono py-2 px-2">{i === 0 ? dimLabel(dim) : ""}</td>
+                  <td className="font-mono py-2 px-2">{segLabel(r.dimension, r.segment)}</td>
                   <td className="tabular py-2 px-2 text-right">
                     {r.default_rate.value === null ? "—" : fmtPct(r.default_rate.value)}
                   </td>
@@ -74,6 +82,7 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
             })}
           </tbody>
         </table>
+        </div>
         <p className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
           n = {fmtInt(totalN)} loans · {ciMethod} intervals
         </p>
@@ -85,56 +94,58 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
     <div className="relative">
       <button
         onClick={() => setShowTable(true)}
-        className="absolute right-0 top-0 rounded border px-3 py-1 text-xs"
+        className="absolute right-0 top-0 rounded border px-4 py-1 text-sm"
         style={{
           borderColor: "var(--border)",
           color: "var(--ink)",
           background: "var(--surface)",
-          minHeight: 32,
+          minHeight: 44,
         }}
       >
         Table
       </button>
       <div
-        className="grid gap-8"
+        className="grid gap-8 pt-14"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))" }}
       >
         {dimensions.map((dim) => {
           // Ordered bands keep their order; unordered segments (states) are ranked by default rate.
-          const dimRows = rows.filter((r) => r.dimension === dim);
-          if (!/band/.test(dim)) dimRows.sort((a, b) => (b.default_rate.value ?? -1) - (a.default_rate.value ?? -1));
+          const allRows = rows.filter((r) => r.dimension === dim);
+          if (!/band/.test(dim)) allRows.sort((a, b) => (b.default_rate.value ?? -1) - (a.default_rate.value ?? -1));
+          // Long lists (50+ states) show the highest ten until asked; the scale still covers every row.
+          const long = allRows.length > TOP + 2;
+          const dimRows = long && !allOf[dim] ? allRows.slice(0, TOP) : allRows;
           const maxCiHigh = Math.max(
             0.01,
-            ...dimRows.map((r) => r.default_rate.ci_high ?? r.default_rate.value ?? 0)
+            ...allRows.map((r) => r.default_rate.ci_high ?? r.default_rate.value ?? 0)
           );
-          const panelWidth = 460;
+          const panelWidth = 480;
           const rowHeight = 28;
-          const panelHeight = Math.max(180, dimRows.length * rowHeight + 60);
-          const margin = { top: 36, right: 200, bottom: 20, left: 64 };
+          const panelHeight = dimRows.length * rowHeight + 44;
+          const margin = { top: 12, right: 190, bottom: 20, left: 92 };
           const innerWidth = panelWidth - margin.left - margin.right;
 
           const x = scaleLinear().domain([0, maxCiHigh]).range([0, innerWidth]);
 
           return (
             <div key={dim} className="overflow-x-auto">
+              <h4 className="text-sm font-medium">
+                {dimLabel(dim)}
+                {long && (
+                  <span className="font-normal" style={{ color: "var(--ink-3)" }}>
+                    {" "}
+                    · {allOf[dim] ? `all ${allRows.length}` : `highest ${TOP} of ${allRows.length}`}, ranked by default rate
+                  </span>
+                )}
+              </h4>
               <svg
                 viewBox={`0 0 ${panelWidth} ${panelHeight}`}
-                className="h-auto w-full min-w-[460px] max-w-[560px]"
+                className="h-auto w-full min-w-[480px] max-w-[580px]"
                 role="img"
-                aria-label={`Lifetime default rate by ${dim.replace(/_/g, " ")}, with 95% intervals: ${dimRows
-                  .map((r) => `${r.segment.replace(/_/g, "–")} ${r.default_rate.value === null ? "suppressed" : fmtPct(r.default_rate.value, 1)}`)
+                aria-label={`Lifetime default rate by ${dimLabel(dim).toLowerCase()}, with 95% intervals: ${dimRows
+                  .map((r) => `${segLabel(dim, r.segment)} ${r.default_rate.value === null ? "suppressed" : fmtPct(r.default_rate.value, 1)}`)
                   .join(", ")}.`}
               >
-                <text
-                  x={margin.left}
-                  y={margin.top - 10}
-                  className="font-mono"
-                  fontSize={10}
-                  fill="var(--ink-3)"
-                  style={{ textTransform: "uppercase" }}
-                >
-                  {dim.replace(/_/g, " ")}
-                </text>
                 {x.ticks(4).map((t) => (
                   <g key={t}>
                     <text
@@ -157,8 +168,8 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
 
                   return (
                     <g key={r.segment}>
-                      <text x={4} y={y + 4} className="font-mono" fontSize={11} fill="var(--ink-3)">
-                        {r.segment.replace(/_/g, "–")}
+                      <text x={4} y={y + 4} fontSize={12} fill="var(--ink)">
+                        {segLabel(dim, r.segment)}
                       </text>
                         <m.rect
                           x={margin.left}
@@ -231,6 +242,17 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
                   );
                 })}
               </svg>
+              {long && (
+                <button
+                  type="button"
+                  aria-expanded={!!allOf[dim]}
+                  onClick={() => setAllOf((o) => ({ ...o, [dim]: !o[dim] }))}
+                  className="mt-1 min-h-[44px] rounded-full border px-4 text-sm"
+                  style={{ borderColor: "var(--border)", color: "var(--ink)" }}
+                >
+                  {allOf[dim] ? `Show top ${TOP} only` : `Show all ${allRows.length}`}
+                </button>
+              )}
             </div>
           );
         })}

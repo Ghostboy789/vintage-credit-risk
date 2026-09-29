@@ -18,7 +18,7 @@ export function ResultIsland({ result, gradeIndex = 0, gradeCount = 1 }: { resul
   useEffect(() => {
     const seen = new Set<Element>();
     const io = new IntersectionObserver((es) => {
-      for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target);
+      for (const e of es) if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target);
       setCovering(seen.size > 0);
     });
     for (const sel of ["#calc-result", "#page-end"]) {
