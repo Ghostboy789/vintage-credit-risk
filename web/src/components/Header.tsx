@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 // The palette loads on first open, keeping it out of the initial bundle.
 const CommandPalette = lazy(() => import("./CommandPalette").then((mod) => ({ default: mod.CommandPalette })));
@@ -24,10 +24,11 @@ function NavItem({ to, label }: { to: string; label: string }) {
     <NavLink
       to={to}
       end={to === "/"}
-      className="nav-roll relative py-1 text-sm"
+      className="nav-roll relative -mx-2 rounded-md px-2 py-1.5 text-sm"
       style={({ isActive }: { isActive: boolean }) => ({
         color: isActive ? "var(--ink)" : "var(--ink-2)",
-        borderBottom: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+        background: isActive ? "color-mix(in srgb, var(--accent) 12%, transparent)" : "transparent",
+        boxShadow: isActive ? "inset 0 -2px 0 var(--accent)" : "none",
       })}
     >
       <span className="sr-only">{label}</span>
@@ -51,6 +52,15 @@ export function Header() {
   const [paletteLoaded, setPaletteLoaded] = useState(false);
   const { pathname } = useLocation();
   useEffect(() => setMenuOpen(false), [pathname]);
+  // Give the page's <main> an id so the skip link has a target.
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (main) {
+      main.id = "main";
+      main.tabIndex = -1;
+      main.style.outline = "none";
+    }
+  }, []);
 
   // Lock page scroll and close on Escape while the mobile menu is open.
   useEffect(() => {
@@ -80,6 +90,10 @@ export function Header() {
   }, []);
 
   return (
+    <>
+    <a href="#main" className="skip-link">
+      Skip to content
+    </a>
     <header
       className="sticky top-0 z-40 flex h-14 items-center justify-between px-4 md:h-16 md:px-8"
       style={{
@@ -88,16 +102,16 @@ export function Header() {
         backdropFilter: "blur(12px)",
       }}
     >
-      <a href="/" className="leading-tight">
+      <Link to="/" className="leading-tight">
         <div className="font-display text-lg md:text-[22px]" style={{ color: "var(--ink)" }}>
           Vintage
         </div>
         <div className="text-[11px] md:text-[12px]" style={{ color: "var(--ink-3)" }}>
           Medhansh Shekhawat
         </div>
-      </a>
+      </Link>
 
-      <nav className="hidden items-center gap-6 lg:flex">
+      <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
         {NAV.map((n) => (
           <NavItem key={n.to} {...n} />
         ))}
@@ -210,5 +224,6 @@ export function Header() {
           document.body,
         )}
     </header>
+    </>
   );
 }

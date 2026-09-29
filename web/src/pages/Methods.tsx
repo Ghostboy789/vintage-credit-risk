@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import type { Artefacts } from "../lib/artefacts";
-import { ResultBadge } from "../components/ResultBadge";
+import { RuleCard } from "../components/Scoreboard";
+import { sortRules } from "../lib/rules";
 import { ScrollProgress } from "../components/ScrollProgress";
-import { Prose } from "../components/Prose";
+import { Term } from "../components/Term";
 
 interface Rule {
   rule_id?: string;
@@ -37,20 +38,25 @@ export function Methods({ data }: { data: Artefacts }) {
 
   const [filter, setFilter] = useState<string | null>(null);
   const filtered = filter ? allRules.filter((r) => r.result === filter) : allRules;
-  const sorted = [...filtered].sort((a, b) => (a.result === "FAIL" ? -1 : b.result === "FAIL" ? 1 : 0));
+  const sorted = sortRules(filtered.map((r) => ({ ...r, rule_id: String(r.rule_id ?? r.id ?? "?") }))).map((r) => ({ ...r, id: r.rule_id }));
   const results = [...new Set(allRules.map((r) => r.result))];
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <ScrollProgress />
       <h1 className="font-display text-4xl">Methods & limits</h1>
+      <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+        Every test was written down before the results were seen (<Term k="pre-registered">pre-registered</Term>), and none was re-tuned to
+        pass. Failures come first, and what the work cannot show is listed below the table.
+      </p>
 
       <section className="mt-10">
         <h2 className="font-display text-2xl">Master rules table</h2>
         <div className="mt-3 flex flex-wrap gap-2">
           <button
+            aria-pressed={filter === null}
             onClick={() => setFilter(null)}
-            className="rounded-full border px-3 py-1 text-xs"
+            className="min-h-[44px] rounded-full border px-4 text-xs lg:min-h-[32px]"
             style={{ borderColor: "var(--border)", background: filter === null ? "var(--accent)" : "transparent", color: filter === null ? "var(--bg)" : "var(--ink-2)" }}
           >
             All
@@ -58,52 +64,52 @@ export function Methods({ data }: { data: Artefacts }) {
           {results.map((r) => (
             <button
               key={r}
+              aria-pressed={filter === r}
               onClick={() => setFilter(r)}
-              className="rounded-full border px-3 py-1 text-xs"
+              className="min-h-[44px] rounded-full border px-4 text-xs lg:min-h-[32px]"
               style={{ borderColor: "var(--border)", background: filter === r ? "var(--accent)" : "transparent", color: filter === r ? "var(--bg)" : "var(--ink-2)" }}
             >
               {r}
             </button>
           ))}
         </div>
-        <table className="mt-4 w-full text-sm">
-          <thead>
-            <tr style={{ color: "var(--ink-3)" }}>
-              <th className="text-left">Rule</th>
-              <th className="text-left">Artefact</th>
-              <th className="text-left">Result</th>
-              <th className="text-left">Evidence</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((r) => (
-              <tr id={(r.rule_id ?? r.id) as string} key={`${r.artefact}-${r.rule_id ?? r.id}`} className="border-t" style={{ borderColor: "var(--border)" }}>
-                <td className="font-mono py-1">{r.rule_id ?? r.id}</td>
-                <td className="py-1">{r.artefact}</td>
-                <td className="py-1">
-                  <ResultBadge result={r.result} />
-                </td>
-                <td className="py-1" style={{ color: "var(--ink-2)" }}>
-                  {r.evidence}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="mt-4 grid grid-cols-1 items-start gap-2 lg:grid-cols-2">
+          {sorted.map((r) => {
+            const id = String(r.rule_id ?? r.id ?? "?");
+            return (
+              <li id={id} key={`${r.artefact}-${id}`} className="scroll-mt-24">
+                <RuleCard rule={{ rule_id: id, result: r.result, evidence: r.evidence, artefact: r.artefact }} showEvidence showArtefact />
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
-      <Prose>
-        <section className="mt-16">
-          <h2 className="font-display text-2xl">What these results do not establish</h2>
-          <ol className="mt-4 list-decimal space-y-2 pl-5">
-            {NOT_ESTABLISHED.map((item) => (
-              <li key={item} style={{ color: "var(--ink-2)" }}>
+      <section
+        className="mt-16 rounded-2xl border p-5 md:p-8"
+        style={{ borderColor: "color-mix(in srgb, var(--amber) 55%, var(--border))", background: "color-mix(in srgb, var(--amber) 7%, var(--surface))" }}
+      >
+        <h2 className="font-display text-2xl md:text-3xl">What these results do not establish</h2>
+        <p className="mt-2 max-w-[68ch] text-sm" style={{ color: "var(--ink-2)" }}>
+          The honest limits of this work. Read these before relying on any number above.
+        </p>
+        <ol className="mt-6 grid grid-cols-1 gap-3">
+          {NOT_ESTABLISHED.map((item, i) => (
+            <li key={item} className="flex gap-4 rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+              <span
+                aria-hidden
+                className="font-mono flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs"
+                style={{ background: "color-mix(in srgb, var(--amber) 18%, transparent)", color: "var(--amber)" }}
+              >
+                {i + 1}
+              </span>
+              <span className="max-w-[80ch] text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
                 {item}
-              </li>
-            ))}
-          </ol>
-        </section>
-      </Prose>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <section className="mt-16">
         <a href="https://github.com/Ghostboy789/vintage-credit-risk/blob/main/VALIDATION_PLAN.md" style={{ color: "var(--accent)" }}>

@@ -1,3 +1,4 @@
+import { useId, useState } from "react";
 import { m } from "framer-motion";
 import { ResultBadge } from "./ResultBadge";
 import { RULE_NAMES, sortRules, type Rule } from "../lib/rules";
@@ -9,8 +10,75 @@ const TONE: Record<string, string> = {
   AMBER: "var(--amber)",
 };
 
-// Compact scoreboard of pre-registered rules: plain name, rule id, result badge (icon + text, so
-// colour is never the only signal). FAIL rows sort first and are never collapsed.
+const ARTEFACT_TAG: Record<string, string> = {
+  portfolio: "Portfolio",
+  pd_models: "PD model",
+  lgd_ead: "LGD and EAD",
+  ecl: "ECL",
+  capital: "Capital",
+  monitoring: "Monitoring",
+};
+
+// One rule: plain name, verdict badge, rule id (and optionally artefact) as small tags, and the raw
+// evidence string behind an expand button so it never crowds the card.
+export function RuleCard({ rule: r, showEvidence = false, showArtefact = false }: { rule: Rule; showEvidence?: boolean; showArtefact?: boolean }) {
+  const [open, setOpen] = useState(false);
+  const panel = useId();
+  const tag = "font-mono rounded border px-1.5 text-[11px] leading-[18px]";
+  return (
+    <div
+      className="rule-card rounded-lg border p-3"
+      style={{
+        borderColor: "var(--border)",
+        background: "var(--surface)",
+        boxShadow: `inset 3px 0 0 ${TONE[r.result] ?? "var(--neutral)"}`,
+      }}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-sm leading-snug" style={{ color: "var(--ink)" }}>
+            {RULE_NAMES[r.rule_id] ?? r.rule_id}
+          </div>
+          <div className="mt-1.5 flex flex-wrap gap-1.5" style={{ color: "var(--ink-3)" }}>
+            <span className={tag} style={{ borderColor: "var(--border)" }}>
+              {r.rule_id}
+            </span>
+            {showArtefact && (
+              <span className={tag} style={{ borderColor: "var(--border)" }}>
+                {ARTEFACT_TAG[r.artefact] ?? r.artefact}
+              </span>
+            )}
+          </div>
+        </div>
+        <ResultBadge result={r.result} />
+      </div>
+      {showEvidence && r.evidence && (
+        <>
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls={panel}
+            onClick={() => setOpen((o) => !o)}
+            className="evidence-btn -mb-1 mt-1 inline-flex items-center gap-1 text-xs"
+            style={{ color: "var(--accent)" }}
+          >
+            <span aria-hidden className="inline-block w-3 transition-transform" style={{ transform: open ? "rotate(90deg)" : "none" }}>
+              ›
+            </span>
+            {open ? "Hide evidence" : "Show evidence"}
+          </button>
+          {open && (
+            <p id={panel} className="font-mono mt-1 break-words text-xs leading-relaxed" style={{ color: "var(--ink-2)" }}>
+              {r.evidence}
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// Compact scoreboard of pre-registered rules. FAIL rows sort first and are never collapsed.
 export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; showEvidence?: boolean }) {
   const reduced = useReducedMotion();
   const sorted = sortRules(rules);
@@ -26,7 +94,7 @@ export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; sho
           </span>
         ))}
       </div>
-      <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-4 grid grid-cols-1 items-start gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {sorted.map((r, i) => (
           <m.li
             key={`${r.artefact}-${r.rule_id}`}
@@ -34,23 +102,8 @@ export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; sho
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.32, delay: Math.min(i, 12) * 0.03, ease: [0.16, 1, 0.3, 1] }}
-            className="flex min-h-[64px] items-start justify-between gap-3 rounded-lg border p-3"
-            style={{
-              borderColor: "var(--border)",
-              background: "var(--surface)",
-              boxShadow: `inset 3px 0 0 ${TONE[r.result] ?? "var(--neutral)"}`,
-            }}
           >
-            <div className="min-w-0">
-              <div className="text-sm leading-snug" style={{ color: "var(--ink)" }}>
-                {RULE_NAMES[r.rule_id] ?? r.rule_id}
-              </div>
-              <div className="font-mono mt-0.5 text-xs" style={{ color: "var(--ink-3)" }}>
-                {r.rule_id}
-                {showEvidence && r.evidence ? ` · ${r.evidence}` : ""}
-              </div>
-            </div>
-            <ResultBadge result={r.result} />
+            <RuleCard rule={r} showEvidence={showEvidence} />
           </m.li>
         ))}
       </ul>

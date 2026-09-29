@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { m, useInView } from "framer-motion";
 import { useReducedMotion } from "../lib/theme";
 import type { Estimate } from "../lib/types";
+import { spotlightMove } from "./spotlight";
 import { ciMethodLabel, fmtInt, fmtPct } from "../lib/format";
 
 // Skiper37 "animated number" adapted: counts from ci_low to value (never from 0), so the estimate
@@ -67,14 +68,15 @@ export function KpiTile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-lg border p-4"
+      className="spot rounded-xl border p-5"
+      onPointerMove={spotlightMove}
       style={{ borderColor: "var(--border)", background: "var(--surface)" }}
     >
-      <div className="flex items-center justify-between gap-2 text-[13px]" style={{ color: "var(--ink-2)" }}>
+      <div className="flex items-center justify-between gap-2 text-xs font-medium uppercase tracking-wide" style={{ color: "var(--ink-2)" }}>
         <span>{label}</span>
         {badge}
       </div>
-      <div className="tabular font-semibold" style={{ fontSize: "clamp(28px,4vw,48px)", color: "var(--ink)" }}>
+      <div className="tabular mt-2 font-semibold leading-none" style={{ fontSize: "clamp(28px,4vw,48px)", color: "var(--ink)" }}>
         {estimate.value === null ? "—" : fmt(display)}
       </div>
       {noEstimate ? (
@@ -83,7 +85,7 @@ export function KpiTile({
         </div>
       ) : (
         <>
-          <div className="mt-1 text-sm" style={{ color: "var(--ink-2)" }}>
+          <div className="mt-3 text-sm" style={{ color: "var(--ink-2)" }}>
             95% CI {fmt(estimate.ci_low ?? 0)} – {fmt(estimate.ci_high ?? 0)}
           </div>
           <div className="relative mt-2 h-1.5 w-[120px] rounded-full" style={{ background: "var(--ink-muted)" }}>

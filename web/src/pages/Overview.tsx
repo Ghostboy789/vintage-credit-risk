@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Artefacts } from "../lib/artefacts";
 import type { Estimate } from "../lib/types";
@@ -5,6 +6,8 @@ import { Ridge } from "../components/Ridge";
 import { LoanField } from "../components/LoanField";
 import { KpiTile } from "../components/KpiTile";
 import { Prose } from "../components/Prose";
+import { Term } from "../components/Term";
+import { spotlightMove } from "../components/spotlight";
 import { Scoreboard } from "../components/Scoreboard";
 import { collectRules } from "../lib/rules";
 import { ciMethodLabel, fmtInt, fmtMoney, fmtPct } from "../lib/format";
@@ -16,6 +19,7 @@ interface Finding {
   text: string;
   est: Estimate;
   fmt: (v: number) => string;
+  year?: number;
 }
 
 // A 120 px interval bar: the finding's estimate inside its 95% interval.
@@ -33,6 +37,10 @@ function IntervalBar({ est }: { est: Estimate }) {
   );
 }
 
+const ci = (f: Finding) =>
+  f.est.ci_low !== null && f.est.ci_high !== null ? ` (95% CI ${f.fmt(f.est.ci_low)} – ${f.fmt(f.est.ci_high)})` : "";
+const val = (f: Finding) => (f.est.value === null ? "—" : f.fmt(f.est.value));
+
 function findings(data: Artefacts): Finding[] {
   const out: Finding[] = [];
   const { portfolio, pd_models } = data;
@@ -43,6 +51,7 @@ function findings(data: Artefacts): Finding[] {
       to: "/vintages",
       page: "Vintages",
       text: `At month ${COMPARE_MOB}, the ${top.vintage_year} vintage has the highest cumulative default rate of the ${compared.length} vintages observed that long`,
+      year: top.vintage_year,
       est: top.cum_default_rate,
       fmt: (v) => fmtPct(v, 1),
     });
@@ -90,6 +99,56 @@ export function Overview({ data }: { data: Artefacts }) {
   const nVintages = new Set(years).size;
   const perVintage = new Set(portfolio.vintage_curves_annual.filter((r) => r.months_on_book === 1).map((r) => r.cum_default_rate.n));
 
+  const fs = findings(data);
+  const byPage = (page: string) => fs.find((f) => f.page === page);
+  const worst = byPage("Vintages");
+  const cure = byPage("Roll rates");
+  const gini = byPage("Scorecard");
+  const ecl = byPage("IFRS 9 ECL");
+  const s4b = collectRules(data, ["pd_models"]).find((r) => r.rule_id === "S4b");
+  const plain: { key: string; body: ReactNode }[] = [];
+  if (worst)
+    plain.push({
+      key: "v",
+      body: (
+        <>
+          Loans made in <b>{worst.year}</b> defaulted most of any vintage: <b>{val(worst)}</b>
+          {ci(worst)} had defaulted by month {COMPARE_MOB}.
+        </>
+      ),
+    });
+  if (cure)
+    plain.push({
+      key: "c",
+      body: (
+        <>
+          In the crisis, only <b>{val(cure)}</b>
+          {ci(cure)} of loans 30 days late were back to current a month later.
+        </>
+      ),
+    });
+  if (gini)
+    plain.push({
+      key: "g",
+      body: (
+        <>
+          The risk score ranks borrowers well on later loans (<Term k="Gini">Gini</Term> <b>{val(gini)}</b>
+          {ci(gini)})
+          {s4b?.result === "FAIL" ? ", but the default rates it predicts are not calibrated out of time." : "."}
+        </>
+      ),
+    });
+  if (ecl)
+    plain.push({
+      key: "e",
+      body: (
+        <>
+          The <Term k="ECL">expected credit loss</Term> is <b>{val(ecl)}</b>
+          {ci(ecl)}; that range covers parameter uncertainty only, so treat it as too narrow.
+        </>
+      ),
+    });
+
   return (
     <>
       <section className="hero relative overflow-hidden">
@@ -98,13 +157,19 @@ export function Overview({ data }: { data: Artefacts }) {
             className="font-display max-w-[17ch]"
             style={{ fontSize: "clamp(36px,6vw,88px)", lineHeight: 0.95, letterSpacing: "-0.02em" }}
           >
-            {countWord(nVintages)} vintages of US mortgages. Watch 2006 and 2007.
+            {`${countWord(nVintages)} vintages of US mortgages. Watch 2006 and 2007.`.split(" ").map((w, i) => (
+              <span key={i}>
+                <span className="hero-word" style={{ animationDelay: `${i * 45}ms` }}>
+                  {w}
+                </span>{" "}
+              </span>
+            ))}
           </h1>
           <p className="mt-5 max-w-[52ch] text-base md:mt-6 md:text-lg" style={{ color: "var(--ink-2)" }}>
             {fmtInt(portfolio.summary.n_loans.value ?? 0)} loans and {fmtInt(portfolio.summary.n_loan_months.value ?? 0)}{" "}
             loan-months, originated {y0}–{y1}
-            {perVintage.size === 1 ? ` (a sample of ${fmtInt([...perVintage][0])} per year)` : ""}. Each ridge is one vintage's
-            cumulative default rate over its first ten years on book.
+            {perVintage.size === 1 ? ` (a sample of ${fmtInt([...perVintage][0])} per year)` : ""}. Each ridge is one <Term k="vintage">vintage</Term>'s{" "}
+            <Term k="cumulative default rate">cumulative default rate</Term> over its first ten years on book.
           </p>
         </div>
         <div className="relative z-0 mx-auto mt-6 max-w-[1600px] px-2 md:px-4 lg:-mt-24">
@@ -117,7 +182,21 @@ export function Overview({ data }: { data: Artefacts }) {
       </section>
 
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <section className="grid grid-cols-1 gap-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <section aria-labelledby="plain-h" className="rounded-xl border p-5 md:p-7" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+          <h2 id="plain-h" className="font-mono text-xs uppercase tracking-wide" style={{ color: "var(--accent)" }}>
+            In plain English
+          </h2>
+          <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+            {plain.map((p) => (
+              <li key={p.key} className="flex gap-3 text-base leading-snug" style={{ color: "var(--ink-2)" }}>
+                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent)" }} />
+                <span className="[&_b]:font-semibold [&_b]:text-[var(--ink)]">{p.body}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="grid grid-cols-1 gap-4 pb-4 pt-8 sm:grid-cols-2 lg:grid-cols-4">
           <KpiTile label="Loans" estimate={portfolio.summary.n_loans} isPct={false} />
           <KpiTile label="Loan-months" estimate={portfolio.summary.n_loan_months} format={(v) => `${(v / 1e6).toFixed(1)}M`} />
           <KpiTile label="Primary defaults" estimate={portfolio.summary.n_defaults_primary} isPct={false} />
@@ -145,23 +224,24 @@ export function Overview({ data }: { data: Artefacts }) {
             </p>
           </Prose>
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {findings(data).map((f) => (
+            {fs.map((f) => (
               <Link
                 key={f.to}
                 to={f.to}
-                className="finding-card group flex flex-col rounded-xl border p-6 transition-colors"
+                className="finding-card spot group flex flex-col rounded-2xl border p-6 md:p-7 transition-colors"
                 style={{ borderColor: "var(--border)", background: "var(--surface)", textDecoration: "none" }}
+                onPointerMove={spotlightMove}
               >
-                <span className="font-mono text-xs uppercase" style={{ color: "var(--ink-3)" }}>
+                <span className="font-mono self-start rounded-full border px-2.5 text-[11px] uppercase leading-5" style={{ color: "var(--ink-2)", borderColor: "var(--border)" }}>
                   {f.page}
                 </span>
-                <span className="mt-3 text-base" style={{ color: "var(--ink-2)" }}>
+                <span className="mt-4 text-base leading-snug" style={{ color: "var(--ink-2)" }}>
                   {f.text}
                 </span>
-                <span className="tabular mt-2 text-4xl font-semibold" style={{ color: "var(--ink)" }}>
+                <span className="tabular mt-4 text-5xl font-semibold leading-none" style={{ color: "var(--ink)" }}>
                   {f.est.value === null ? "—" : f.fmt(f.est.value)}
                 </span>
-                <span className="mt-1 text-sm" style={{ color: "var(--ink-2)" }}>
+                <span className="mt-2 text-sm" style={{ color: "var(--ink-2)" }}>
                   {f.est.ci_low !== null && f.est.ci_high !== null
                     ? `95% CI ${f.fmt(f.est.ci_low)} – ${f.fmt(f.est.ci_high)}`
                     : f.est.ci_method.replace(/^none:\s*/, "")}
@@ -170,7 +250,7 @@ export function Overview({ data }: { data: Artefacts }) {
                 <span className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
                   n = {fmtInt(f.est.n)} · {ciMethodLabel(f.est.ci_method)}
                 </span>
-                <span className="mt-5 text-sm" style={{ color: "var(--accent)" }}>
+                <span className="mt-auto pt-5 text-sm font-medium" style={{ color: "var(--accent)" }}>
                   See the evidence <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                 </span>
               </Link>

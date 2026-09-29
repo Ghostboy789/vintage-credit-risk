@@ -253,3 +253,60 @@ p {
   .next-card:hover .next-arrow { transform: translateX(4px); }
   .term-tip { animation: menu-fade 160ms ease-out; }
 }
+
+/* Card spotlight: a soft glow and accent border that follow the cursor. Pointer devices only. */
+.spot { position: relative; }
+.spot::before,
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+.spot::before {
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+}
+.spot::after {
+  padding: 1px;
+  background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), var(--accent), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .spot::before,
+  .spot::after { transition: opacity 200ms ease-out; }
+  .spot:hover::before,
+  .spot:hover::after { opacity: 1; }
+}
+
+/* Hero headline: words rise in, staggered. Fully visible when motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word { display: inline-block; animation: word-rise 520ms var(--ease-out) both; }
+}
+@keyframes word-rise { from { opacity: 0; transform: translateY(0.35em); } }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 14px;
+  text-decoration: none;
+}
+.skip-link:focus { top: 8px; }
+
+/* Rule cards */
+.rule-card { transition: border-color 160ms ease-out; }
+.rule-card:hover { border-color: color-mix(in srgb, var(--ink-3) 60%, var(--border)) !important; }
+.evidence-btn { min-height: 44px; }
+@media (min-width: 1024px) { .evidence-btn { min-height: 32px; } }
+.footer-link { text-decoration: none; }
+.footer-link:hover { text-decoration: underline; }
