@@ -96,11 +96,11 @@ export function Overview({ data }: { data: Artefacts }) {
         <div className="relative z-10 mx-auto max-w-[1200px] px-4 pt-12 md:px-8 md:pt-20">
           <h1
             className="font-display max-w-[17ch]"
-            style={{ fontSize: "clamp(44px,6vw,88px)", lineHeight: 0.95, letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(36px,6vw,88px)", lineHeight: 0.95, letterSpacing: "-0.02em" }}
           >
             {countWord(nVintages)} vintages of US mortgages. Watch 2006 and 2007.
           </h1>
-          <p className="mt-6 max-w-[52ch] text-lg" style={{ color: "var(--ink-2)" }}>
+          <p className="mt-5 max-w-[52ch] text-base md:mt-6 md:text-lg" style={{ color: "var(--ink-2)" }}>
             {fmtInt(portfolio.summary.n_loans.value ?? 0)} loans and {fmtInt(portfolio.summary.n_loan_months.value ?? 0)}{" "}
             loan-months, originated {y0}–{y1}
             {perVintage.size === 1 ? ` (a sample of ${fmtInt([...perVintage][0])} per year)` : ""}. Each ridge is one vintage's

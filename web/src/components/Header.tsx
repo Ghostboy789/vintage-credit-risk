@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { createPortal } from "react-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 // The palette loads on first open, keeping it out of the initial bundle.
 const CommandPalette = lazy(() => import("./CommandPalette").then((mod) => ({ default: mod.CommandPalette })));
@@ -48,6 +49,21 @@ export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [paletteLoaded, setPaletteLoaded] = useState(false);
+  const { pathname } = useLocation();
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  // Lock page scroll and close on Escape while the mobile menu is open.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
   useEffect(() => {
     if (paletteOpen) setPaletteLoaded(true);
   }, [paletteOpen]);
@@ -143,31 +159,56 @@ export function Header() {
         </Suspense>
       )}
 
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col p-6"
-          style={{ background: "var(--bg)" }}
-          role="dialog"
-          aria-label="Menu"
-        >
-          <button aria-label="Close menu" className="self-end p-2" onClick={() => setMenuOpen(false)}>
-            ✕
-          </button>
-          <nav className="mt-8 flex flex-col gap-1">
-            {NAV.map((n) => (
-              <a
-                key={n.to}
-                href={n.to}
-                onClick={() => setMenuOpen(false)}
-                className="min-h-[44px] border-b py-3 text-lg"
+      {/* Portalled to <body>: the header's backdrop-filter would otherwise trap this fixed overlay
+          inside the 56px header bar. */}
+      {menuOpen &&
+        createPortal(
+          <div
+            className="menu-sheet fixed inset-0 z-50 flex flex-col overflow-y-auto px-4 pb-8"
+            style={{ background: "var(--bg)", paddingTop: "env(safe-area-inset-top)" }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+          >
+            <div className="flex h-14 shrink-0 items-center justify-between">
+              <span className="font-display text-lg" style={{ color: "var(--ink)" }}>Vintage</span>
+              <button
+                type="button"
+                aria-label="Close menu"
+                autoFocus
+                className="flex h-10 w-10 items-center justify-center rounded-md border"
                 style={{ borderColor: "var(--border)" }}
+                onClick={() => setMenuOpen(false)}
               >
-                {n.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 6l12 12M18 6 6 18" /></svg>
+              </button>
+            </div>
+            <nav className="mt-4 flex flex-col">
+              {NAV.map((n, i) => (
+                <NavLink
+                  key={n.to}
+                  to={n.to}
+                  end={n.to === "/"}
+                  onClick={() => setMenuOpen(false)}
+                  className="menu-item flex min-h-[52px] items-center justify-between border-b text-lg"
+                  style={({ isActive }: { isActive: boolean }) => ({
+                    borderColor: "var(--border)",
+                    color: isActive ? "var(--accent)" : "var(--ink)",
+                    animationDelay: `${i * 30}ms`,
+                  })}
+                >
+                  {n.label}
+                  <span aria-hidden style={{ color: "var(--ink-3)" }}>→</span>
+                </NavLink>
+              ))}
+            </nav>
+            <div className="mt-8 flex gap-3 text-sm" style={{ color: "var(--ink-2)" }}>
+              <a href="https://github.com/Ghostboy789" target="_blank" rel="noreferrer" className="underline">GitHub</a>
+              <a href="https://linkedin.com/in/medhansh-shekhawat" target="_blank" rel="noreferrer" className="underline">LinkedIn</a>
+            </div>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }

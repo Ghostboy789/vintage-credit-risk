@@ -116,10 +116,10 @@ export function LossDrivers({ rows }: { rows: Row[] }) {
           const x = scaleLinear().domain([0, maxCiHigh]).range([0, innerWidth]);
 
           return (
-            <div key={dim}>
+            <div key={dim} className="overflow-x-auto">
               <svg
                 viewBox={`0 0 ${panelWidth} ${panelHeight}`}
-                className="h-auto w-full max-w-[560px]"
+                className="h-auto w-full min-w-[460px] max-w-[560px]"
                 role="img"
                 aria-label={`Lifetime default rate by ${dim.replace(/_/g, " ")}, with 95% intervals: ${dimRows
                   .map((r) => `${r.segment.replace(/_/g, "–")} ${r.default_rate.value === null ? "suppressed" : fmtPct(r.default_rate.value, 1)}`)

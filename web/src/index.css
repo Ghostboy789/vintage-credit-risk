@@ -216,3 +216,24 @@ p {
   :root:not([data-theme="dark"]) .pbi-light { display: block; }
   :root:not([data-theme="dark"]) .pbi-dark { display: none; }
 }
+
+/* Mobile menu: fade the sheet in, then stagger the links. */
+@media (prefers-reduced-motion: no-preference) {
+  .menu-sheet { animation: menu-fade 160ms ease-out; }
+  .menu-item { animation: menu-rise 220ms ease-out both; }
+}
+@keyframes menu-fade { from { opacity: 0; } }
+@keyframes menu-rise { from { opacity: 0; transform: translateY(6px); } }
+
+/* Phones: charts drawn on a wide viewBox shrink their text below reading size, so lift SVG text
+   (CSS beats the fontSize attribute) and keep table cells on one line inside their scroll box. */
+@media (max-width: 640px) {
+  .chart-x svg text {
+    font-size: 13px;
+  }
+  table th,
+  table td {
+    white-space: nowrap;
+    padding-inline: 0.5rem;
+  }
+}
