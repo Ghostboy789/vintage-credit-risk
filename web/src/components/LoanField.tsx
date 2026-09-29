@@ -128,12 +128,30 @@ export function LoanField({ rows }: { rows: VintageCurveRow[] }) {
         // Year labels under the columns: every fifth year, the crisis years and the hovered one.
         ctx.font = "11px 'IBM Plex Mono', monospace";
         ctx.textAlign = "center";
-        years.forEach((year, i) => {
-          const show = hoverCol === null ? year % 5 === 0 || year === 2006 || year === 2007 : i === hoverCol;
-          if (!show || (hoverCol !== null && i !== hoverCol)) return;
-          ctx.fillStyle = year === 2006 || year === 2007 ? crisis : css.getPropertyValue("--ink-3").trim();
-          ctx.fillText(String(year), i * colWidth + colWidth / 2, cssHeight - 4);
-        });
+        // Crisis labels are placed first, then the rest only where they don't collide (narrow screens).
+        const cx = (i: number) => i * colWidth + colWidth / 2;
+        const isCrisis = (y: number) => y === 2006 || y === 2007;
+        let cands: { text: string; x: number; crisis: boolean }[];
+        if (hoverCol !== null) {
+          cands = [{ text: String(years[hoverCol]), x: cx(hoverCol), crisis: isCrisis(years[hoverCol]) }];
+        } else {
+          cands = [];
+          const i6 = years.indexOf(2006), i7 = years.indexOf(2007);
+          if (i6 >= 0 && i7 >= 0 && ctx.measureText("2006").width + 4 > cx(i7) - cx(i6)) {
+            cands.push({ text: "2006–07", x: (cx(i6) + cx(i7)) / 2, crisis: true });
+          } else {
+            years.forEach((y, i) => isCrisis(y) && cands.push({ text: String(y), x: cx(i), crisis: true }));
+          }
+          years.forEach((y, i) => y % 5 === 0 && !isCrisis(y) && cands.push({ text: String(y), x: cx(i), crisis: false }));
+        }
+        const placed: [number, number][] = [];
+        for (const c of cands) {
+          const half = ctx.measureText(c.text).width / 2 + 3;
+          if (placed.some(([a, b]) => c.x - half < b && c.x + half > a)) continue;
+          placed.push([c.x - half, c.x + half]);
+          ctx.fillStyle = c.crisis ? crisis : css.getPropertyValue("--ink-3").trim();
+          ctx.fillText(c.text, c.x, cssHeight - 4);
+        }
       }
       if (globalT < 1 && visible) raf = requestAnimationFrame(draw);
     };

@@ -120,8 +120,14 @@ export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMob
       prev = ly;
       out.push({ year: s.year, x: p.x, ly });
     }
+    // Keep the stack above the "compared at" note on the x-axis: push it back up from the bottom.
+    let floor = H - MB - fs * 2;
+    for (let i = out.length - 1; i >= 0; i--) {
+      out[i].ly = Math.min(out[i].ly, floor);
+      floor = out[i].ly - fs - 1;
+    }
     return out;
-  }, [series, focusSet, fs]);
+  }, [series, focusSet, fs, H, MB]);
 
   const ns = series.map((s) => s.rows[0]?.cum_default_rate.n ?? 0);
   const nText = ns.length === 0 ? "—" : Math.min(...ns) === Math.max(...ns) ? fmtInt(ns[0]) : `${fmtInt(Math.min(...ns))}–${fmtInt(Math.max(...ns))}`;
