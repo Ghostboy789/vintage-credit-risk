@@ -133,7 +133,7 @@ export function Overview({ data }: { data: Artefacts }) {
       body: (
         <>
           The risk score ranks borrowers well on later loans (<Term k="Gini">Gini</Term> <b>{val(gini)}</b>
-          {ci(gini)})
+          {ci(gini).replace(" (", ", ").replace(/\)$/, "")})
           {s4b?.result === "FAIL" ? ", but the default rates it predicts are not calibrated out of time." : "."}
         </>
       ),

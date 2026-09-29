@@ -52,15 +52,6 @@ export function Header() {
   const [paletteLoaded, setPaletteLoaded] = useState(false);
   const { pathname } = useLocation();
   useEffect(() => setMenuOpen(false), [pathname]);
-  // Give the page's <main> an id so the skip link has a target.
-  useEffect(() => {
-    const main = document.querySelector("main");
-    if (main) {
-      main.id = "main";
-      main.tabIndex = -1;
-      main.style.outline = "none";
-    }
-  }, []);
 
   // Lock page scroll and close on Escape while the mobile menu is open.
   useEffect(() => {

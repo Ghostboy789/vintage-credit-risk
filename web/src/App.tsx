@@ -29,7 +29,7 @@ function Shell() {
     <>
       <Header />
       {state.status === "ready" && <SyntheticBanner data={state.data} />}
-      <main>
+      <main id="main" tabIndex={-1} style={{ outline: "none" }}>
         {state.status === "loading" && (
           <div className="px-8 py-24 text-center" style={{ color: "var(--ink-2)" }}>
             Loading…
