@@ -31,3 +31,16 @@ export const categoryLabel = (f: string, c: string) => CATEGORIES[f]?.[c] ?? c;
 /** A bin as a reader sees it: "Unknown", the plain category names, or the numeric range. */
 export const binText = (f: string, b: { is_missing_bin: boolean; categories: string[]; bin: string }) =>
   b.is_missing_bin ? "Unknown" : b.categories.length ? b.categories.map((c) => categoryLabel(f, c)).join(", ") : b.bin;
+
+/** Segment and driver codes as a reader sees them: "60_80" -> "60–80%", "gt_95" -> "Over 95%",
+ *  "le_60" -> "60% or less", "pd_deterioration" -> "PD deterioration". Unknown codes get spaces. */
+export function codeLabel(code: string): string {
+  const range = /^(\d+)_(\d+)$/.exec(code);
+  if (range) return `${range[1]}–${range[2]}%`;
+  const gt = /^gt_(\d+)$/.exec(code);
+  if (gt) return `Over ${gt[1]}%`;
+  const le = /^le_(\d+)$/.exec(code);
+  if (le) return `${le[1]}% or less`;
+  const s = code.replace(/_/g, " ").replace(/\b(pd|lgd|ead|ecl|dpd|ltv|mi|irb|rwa)\b/gi, (w) => w.toUpperCase());
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}

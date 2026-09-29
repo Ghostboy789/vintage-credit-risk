@@ -237,3 +237,19 @@ p {
     padding-inline: 0.5rem;
   }
 }
+
+/* Glossary terms and the next-page card. */
+.term {
+  font: inherit;
+  color: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--ink-3);
+  text-underline-offset: 3px;
+}
+.next-card { transition: border-color 160ms ease-out; }
+.next-card:hover { border-color: var(--accent) !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .next-arrow { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .next-card:hover .next-arrow { transform: translateX(4px); }
+  .term-tip { animation: menu-fade 160ms ease-out; }
+}

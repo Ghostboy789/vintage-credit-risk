@@ -5,6 +5,7 @@ import { ArtefactsProvider, useArtefacts } from "./lib/artefacts";
 import { ThemeProvider } from "./lib/theme";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { NextPage } from "./components/NextPage";
 import { SyntheticBanner } from "./components/SyntheticBanner";
 import { NotReady } from "./pages/NotReady";
 import { Overview } from "./pages/Overview";
@@ -51,6 +52,7 @@ function Shell() {
           </Suspense>
         )}
       </main>
+      {state.status === "ready" && <NextPage />}
       <Footer />
     </>
   );
