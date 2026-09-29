@@ -6,6 +6,8 @@ import { calculate, featureList, type CalcInput, type CalcResult } from "../lib/
 import { fmtPct } from "../lib/format";
 import { useReducedMotion } from "../lib/theme";
 import { ResultIsland } from "./ResultIsland";
+import { GradeChip, SpringNumber, gradeColor } from "./GradeChip";
+import { Term } from "./Term";
 
 // Illustrative profiles, not real loans. Every selected feature is set so a preset is complete.
 const PRESETS: Record<string, CalcInput> = {
@@ -65,7 +67,6 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
   const [input, setInput] = useState<CalcInput>(() => ({ ...Object.fromEntries(features.map((f) => [f, "unknown"])), ...PRESETS[first] }));
   const [preset, setPreset] = useState<string | null>(first);
   const result = useMemo(() => calculate(model, input), [model, input]);
-  const score = useTween(result.score, reduced);
   const pdShown = useTween(result.pd12m, reduced);
   // The last change in points, shown briefly beside the score.
   const prevScore = useRef(result.score);
@@ -78,7 +79,6 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
     const t = setTimeout(() => setDelta(null), 1600);
     return () => clearTimeout(t);
   }, [result.score]);
-  const prevGrade = useRef(result.grade);
   useEffect(() => onResult?.(result), [result, onResult]);
 
   const set = (feature: string, value: string | number) => {
@@ -87,11 +87,6 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
   };
   const gradeNames = [...new Set(model.grades.map((g) => g.merged_into ?? g.grade))];
   const gradeIdx = Math.max(0, gradeNames.indexOf(result.grade));
-  // New grade slides in from below when risk rises, from above when it falls.
-  const gradeDir = gradeIdx >= gradeNames.indexOf(prevGrade.current) ? 1 : -1;
-  useEffect(() => {
-    prevGrade.current = result.grade;
-  }, [result.grade]);
   const spring = reduced ? { duration: 0 } : { type: "spring" as const, stiffness: 420, damping: 32 };
 
   return (
@@ -181,7 +176,7 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
       </div>
 
       <div className="lg:sticky lg:top-[88px] lg:col-span-7 lg:self-start">
-        <div className="rounded-xl border p-6 md:p-8" style={{ borderColor: "var(--border)", background: "var(--surface)" }} aria-live="polite">
+        <div id="calc-result" className="rounded-xl border p-6 md:p-8" style={{ borderColor: "var(--border)", background: "var(--surface)" }} aria-live="polite">
           <div className="flex flex-wrap items-end gap-x-6 gap-y-2">
             <div>
               <div className="flex h-5 items-center gap-2 text-[13px]" style={{ color: "var(--ink-2)" }}>
@@ -207,32 +202,17 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
                   )}
                 </AnimatePresence>
               </div>
-              <span className="tabular block font-semibold leading-none" style={{ fontSize: "clamp(48px,6vw,64px)" }}>
-                {Math.round(score)}
-              </span>
+              <SpringNumber value={result.score} className="tabular block font-semibold leading-none" style={{ fontSize: "clamp(56px,7vw,76px)" }} />
+            </div>
+            <div>
+              <div className="mb-1 text-[13px]" style={{ color: "var(--ink-2)" }}>
+                <Term k="grade">Grade</Term>
+              </div>
+              <GradeChip grade={result.grade} index={gradeIdx} count={gradeNames.length} size={56} />
             </div>
             <div>
               <div className="text-[13px]" style={{ color: "var(--ink-2)" }}>
-                Grade
-              </div>
-              <div className="font-display relative h-9 w-8 overflow-hidden text-4xl leading-none">
-                <AnimatePresence initial={false}>
-                  <m.span
-                    key={result.grade}
-                    className="absolute inset-0"
-                    initial={reduced ? false : { y: `${gradeDir * 100}%`, opacity: 0 }}
-                    animate={{ y: "0%", opacity: 1 }}
-                    exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { y: `${-gradeDir * 100}%`, opacity: 0 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {result.grade}
-                  </m.span>
-                </AnimatePresence>
-              </div>
-            </div>
-            <div>
-              <div className="text-[13px]" style={{ color: "var(--ink-2)" }}>
-                12-month PD
+                12-month <Term k="PD">PD</Term>
               </div>
               <div className="tabular text-3xl font-semibold leading-none">{fmtPct(pdShown)}</div>
             </div>
@@ -244,27 +224,30 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
             {result.pdLabel}
           </p>
 
-          <div className="relative mt-6 flex gap-1" aria-hidden>
+          <div className="relative mt-6 flex gap-1" role="img" aria-label={`Grade ${result.grade} of ${gradeNames.join(", ")}; A is lowest risk`}>
             {gradeNames.map((g, i) => (
               <div
                 key={g}
-                className="font-mono relative z-10 flex h-8 flex-1 items-center justify-center rounded text-xs"
-                style={{ background: "var(--surface-2)", color: i === gradeIdx ? "var(--ink)" : "var(--ink-3)" }}
+                className="font-mono relative z-10 flex h-10 flex-1 items-center justify-center rounded text-sm font-medium"
+                style={{
+                  background: `color-mix(in srgb, ${gradeColor(i, gradeNames.length)} ${i === gradeIdx ? 42 : 18}%, var(--surface))`,
+                  color: i === gradeIdx ? "var(--ink)" : "var(--ink-2)",
+                }}
               >
                 {g}
               </div>
             ))}
             <m.div
-              className="pointer-events-none absolute inset-y-0 z-20 rounded"
-              style={{ width: `calc(${100 / gradeNames.length}% - 4px)`, border: "2px solid var(--accent)" }}
+              className="pointer-events-none absolute -inset-y-[3px] z-20 rounded-md"
+              style={{ width: `calc(${100 / gradeNames.length}% - ${(4 * (gradeNames.length - 1)) / gradeNames.length}px + 6px)`, marginLeft: -3, border: "2.5px solid var(--ink)" }}
               initial={false}
-              animate={{ left: `${(gradeIdx * 100) / gradeNames.length}%` }}
+              animate={{ left: `calc(${(gradeIdx * 100) / gradeNames.length}% + ${(gradeIdx * 4) / gradeNames.length}px)` }}
               transition={spring}
             />
           </div>
-          <div className="font-mono mt-1 flex justify-between text-[11px]" style={{ color: "var(--ink-3)" }}>
-            <span>lower risk</span>
-            <span>higher risk</span>
+          <div className="font-mono mt-1.5 flex justify-between text-[11px]" style={{ color: "var(--ink-2)" }}>
+            <span>A · lower risk</span>
+            <span>higher risk · {gradeNames.at(-1)}</span>
           </div>
 
           <h3 className="mt-6 text-sm font-medium" style={{ color: "var(--ink-2)" }}>
@@ -294,7 +277,7 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
           </div>
 
           <h3 className="mt-6 text-sm font-medium" style={{ color: "var(--ink-2)" }}>
-            Reason codes
+            <Term k="reason codes">Reason codes</Term>
           </h3>
           <ol className="mt-2 space-y-1 text-sm">
             {result.reasonCodes.length === 0 && <li style={{ color: "var(--ink-3)" }}>No shortfall: every feature is in its best bin.</li>}
@@ -316,7 +299,7 @@ export function Calculator({ model, onResult }: { model: PdModelsArtefact; onRes
           </p>
         </div>
       </div>
-      <ResultIsland result={result} />
+      <ResultIsland result={result} gradeIndex={gradeIdx} gradeCount={gradeNames.length} />
     </div>
   );
 }

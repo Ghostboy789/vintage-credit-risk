@@ -10,6 +10,30 @@ interface RollRow {
   rate: Estimate;
 }
 
+// Plain names for the delinquency buckets, exit states and economic periods (no numbers involved).
+const STATE_LABEL: Record<string, string> = {
+  current: "Current",
+  dpd_30: "30 days late",
+  dpd_60: "60 days late",
+  dpd_90p: "90+ days late",
+  reo: "Repossessed (REO)",
+  prepaid: "Paid off early",
+  matured: "Reached full term",
+  credit_event: "Credit loss event",
+  other_exit: "Other exit",
+  missing: "Unknown",
+};
+const PERIOD_LABEL: Record<string, string> = {
+  all: "All periods",
+  pre_crisis: "Pre-crisis",
+  crisis: "Crisis",
+  recovery: "Recovery",
+  recent: "Recent",
+  covid: "COVID",
+};
+export const stateLabel = (c: string) => STATE_LABEL[c] ?? c.replace(/_/g, " ");
+export const periodLabel = (c: string) => PERIOD_LABEL[c] ?? c.replace(/_/g, " ");
+
 const FROM_ORDER = ["current", "dpd_30", "dpd_60", "dpd_90p", "reo"];
 const TO_ORDER = ["current", "dpd_30", "dpd_60", "dpd_90p", "reo", "prepaid", "matured", "credit_event", "other_exit", "missing"];
 
@@ -29,19 +53,20 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
 
   return (
     <div>
-      <div className="mb-3 flex flex-wrap gap-2">
+      <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Economic period">
         {periods.map((p) => (
           <button
             key={p}
+            aria-pressed={p === period}
             onClick={() => setPeriod(p)}
-            className="rounded-full border px-3 py-1 text-xs capitalize"
+            className="min-h-[44px] rounded-full border px-4 text-sm"
             style={{
               borderColor: "var(--border)",
               background: p === period ? "var(--accent)" : "transparent",
               color: p === period ? "var(--bg)" : "var(--ink-2)",
             }}
           >
-            {p.replace(/_/g, " ")}
+            {periodLabel(p)}
           </button>
         ))}
       </div>
@@ -49,12 +74,12 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
         <table className="border-collapse text-xs">
           <thead>
             <tr>
-              <th className="p-1 text-left" style={{ color: "var(--ink-3)" }}>
-                from \ to
+              <th className="sticky left-0 p-1 text-left align-bottom font-normal" style={{ color: "var(--ink-3)", background: "var(--bg)" }}>
+                From ↓ · to →
               </th>
               {toStates.map((t) => (
-                <th key={t} className="font-mono p-1 text-center" style={{ color: "var(--ink-3)", minWidth: cell }}>
-                  {t}
+                <th key={t} className="p-1 text-center align-bottom font-normal leading-tight" style={{ color: "var(--ink-2)", minWidth: cell }}>
+                  {stateLabel(t)}
                 </th>
               ))}
             </tr>
@@ -64,8 +89,8 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
               const rowSum = toStates.reduce((s, t) => s + (cells.get(`${from}|${t}`)?.rate.value ?? 0), 0);
               return (
                 <tr key={from}>
-                  <td className="font-mono p-1" style={{ color: "var(--ink-2)" }}>
-                    {from}
+                  <td className="sticky left-0 whitespace-nowrap p-1 pr-2" style={{ color: "var(--ink)", background: "var(--bg)" }}>
+                    {stateLabel(from)}
                   </td>
                   {toStates.map((to) => {
                     const c = cells.get(`${from}|${to}`);
@@ -104,7 +129,7 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
           <ChartTooltip
             x={hover.x}
             y={hover.y - 300}
-            label={`${hover.row.from_bucket} → ${hover.row.to_state}`}
+            label={`${stateLabel(hover.row.from_bucket)} → ${stateLabel(hover.row.to_state)}`}
             estimate={hover.row.rate}
             fmt={fmtPct}
             visible
@@ -112,7 +137,7 @@ export function RollRateHeatmap({ rows }: { rows: RollRow[] }) {
         )}
       </div>
       <p className="mt-2 text-sm font-mono" style={{ color: "var(--ink-3)" }}>
-        Row-sum column checks 100%. n ={" "}
+        The last column adds each row up to check it totals 100%. n ={" "}
         {fmtInt(
           // each from-bucket's denominator once, not once per destination cell
           [...new Map(rows.filter((r) => r.period_group === period).map((r) => [r.from_bucket, r.rate.n])).values()].reduce((s, n) => s + n, 0)

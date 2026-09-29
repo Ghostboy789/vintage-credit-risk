@@ -4,13 +4,29 @@ import { m } from "framer-motion";
 import type { CalcResult } from "../lib/calculator";
 import { fmtPct } from "../lib/format";
 import { useReducedMotion } from "../lib/theme";
+import { GradeChip, SpringNumber } from "./GradeChip";
 
 // Calculator result pill for phones and tablets, sticky at the bottom (the "Dynamic Island"
 // pattern from skiper-ui.com, skiper2). One element morphs between the collapsed pill and the
 // full result card with a spring; reduced motion swaps the content with no morph.
-export function ResultIsland({ result }: { result: CalcResult }) {
+export function ResultIsland({ result, gradeIndex = 0, gradeCount = 1 }: { result: CalcResult; gradeIndex?: number; gradeCount?: number }) {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
+  // The pill would sit on top of content it is redundant beside: hide it while the inline result
+  // card is on screen and once the page's last section (#page-end) has been reached.
+  const [covering, setCovering] = useState(false);
+  useEffect(() => {
+    const seen = new Set<Element>();
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target);
+      setCovering(seen.size > 0);
+    });
+    for (const sel of ["#calc-result", "#page-end"]) {
+      const el = document.querySelector(sel);
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
+  }, []);
   const id = useId();
   const pill = useRef<HTMLButtonElement>(null);
   const close = useRef<HTMLButtonElement>(null);
@@ -29,7 +45,7 @@ export function ResultIsland({ result }: { result: CalcResult }) {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 lg:hidden">
+    <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 lg:hidden" hidden={covering && !open}>
       <m.div
         layout={!reduced}
         transition={{ type: "spring", stiffness: 420, damping: 32 }}
@@ -58,11 +74,11 @@ export function ResultIsland({ result }: { result: CalcResult }) {
             <div className="flex items-end gap-5">
               <div>
                 <div className="text-xs opacity-70">Score</div>
-                <div className="tabular text-4xl font-semibold leading-none">{result.score}</div>
+                <SpringNumber value={result.score} className="tabular block text-4xl font-semibold leading-none" />
               </div>
               <div>
                 <div className="text-xs opacity-70">Grade</div>
-                <div className="font-display text-3xl leading-none">{result.grade}</div>
+                <GradeChip grade={result.grade} index={gradeIndex} count={gradeCount} size={40} />
               </div>
               <div>
                 <div className="text-xs opacity-70">12-month PD</div>

@@ -1,5 +1,6 @@
 import type { Artefacts } from "../lib/artefacts";
 import { RollRateHeatmap } from "../components/RollRateHeatmap";
+import { Term } from "../components/Term";
 
 export function RollRates({ data }: { data: Artefacts }) {
   const rows = (data.portfolio.roll_rates ?? []) as {
@@ -12,11 +13,17 @@ export function RollRates({ data }: { data: Artefacts }) {
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <h1 className="font-display text-4xl">Roll rates</h1>
-      <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
-        Monthly transitions between delinquency buckets, by economic period. The diagonal is loans
-        staying in the same bucket; the row-sum column checks every row totals 100%.
+      <p className="mt-3 max-w-[68ch] text-lg" style={{ color: "var(--ink-2)" }}>
+        A <Term k="roll rate">roll rate</Term> is the share of loans that move from one stage of lateness to another in a month. It shows how
+        quickly a slip into arrears turns into a default, and how that changed through the crisis.
       </p>
-      <div className="mt-8">
+      <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+        How to read it: each row is where loans started the month, each column is where they ended up. The darker the cell, the larger the
+        share. The outlined cell on the diagonal is loans staying put. The last column checks every row totals 100%. Pick an economic period
+        above the grid to compare. Hover a cell for its 95% <Term k="Wilson interval">interval</Term>; <Term k="REO">REO</Term> means
+        the lender has repossessed the home.
+      </p>
+      <div className="mt-6">
         <RollRateHeatmap rows={rows} />
       </div>
 
