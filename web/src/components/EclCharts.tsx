@@ -5,6 +5,7 @@ import { m } from "framer-motion";
 import type { Estimate } from "../lib/types";
 import { useReducedMotion } from "../lib/theme";
 import { fmtInt, fmtMoney } from "../lib/format";
+import { codeLabel } from "../lib/labels";
 import { ResultBadge } from "./ResultBadge";
 
 export interface StageMigRow {
@@ -68,7 +69,7 @@ function ChartCaption({ n, method, extra }: { n?: number; method?: string; extra
   return <p className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>{parts.join(" · ")}</p>;
 }
 
-function Toggle({ view, onToggle }: { view: "chart" | "table"; onToggle: (v: "chart" | "table") => void }) {
+export function Toggle({ view, onToggle }: { view: "chart" | "table"; onToggle: (v: "chart" | "table") => void }) {
   return (
     <div className="mb-2 flex justify-end">
       <button
@@ -184,9 +185,10 @@ export function ScenarioTotals({
   const weightOf = Object.fromEntries((scenarios.weights ?? []).map((w) => [w.scenario, w.weight]));
   const eclOf = (s: string) => byDate.find((r) => r.scenario === s)?.ecl;
 
-  const w = 640;
-  const slot = 52;
-  const margin = { top: 8, right: 104, bottom: 8, left: 178 };
+  // Label and value sit on a line above each bar so nothing clips on a phone.
+  const w = 420;
+  const slot = 62;
+  const margin = { top: 4, right: 8, bottom: 4, left: 8 };
   const h = margin.top + margin.bottom + ordered.length * slot;
   const x = scaleLinear()
     .domain([0, Math.max(1, ...byDate.map((r) => Math.max(r.ecl.value ?? 0, r.ecl.ci_high ?? 0)))])
@@ -198,31 +200,24 @@ export function ScenarioTotals({
     <div>
       <Toggle view={view} onToggle={setView} />
       {view === "chart" ? (
-        <div className="chart-x"><svg viewBox={`0 0 ${w} ${h}`} role="img" aria-labelledby={`${id}-t ${id}-d`} className="h-auto w-full">
+        <div className="chart-x"><svg viewBox={`0 0 ${w} ${h}`} role="img" aria-labelledby={`${id}-t ${id}-d`} className="h-auto w-full" style={{ minWidth: 0, maxWidth: 560 }}>
           <title id={`${id}-t`}>Scenario-weighted ECL on {date}</title>
           <desc id={`${id}-d`}>
             Horizontal bars for base, upside, adverse and probability-weighted scenarios, each with its confidence
             interval whisker and the money value printed next to the bar.
           </desc>
-          <line x1={margin.left} x2={margin.left} y1={margin.top} y2={h - margin.bottom} stroke="var(--border)" />
           {ordered.map((s, i) => {
             const est = eclOf(s);
             const v = est?.value ?? null;
-            const cy = margin.top + i * slot + slot / 2;
+            const top = margin.top + i * slot;
+            const cy = top + 40;
             const isFinal = s === "final";
             const wt = weightOf[s];
             return (
               <g key={s}>
-                <text
-                  x={margin.left - 8}
-                  y={cy + 4}
-                  textAnchor="end"
-                  className="font-mono"
-                  fontSize={11}
-                  fill="var(--ink)"
-                >
+                <text x={margin.left} y={top + 16} fontSize={12} fontWeight={isFinal ? 600 : 400} fill="var(--ink)">
                   {SCEN_LABEL[s] ?? s}
-                  {wt !== undefined && ` · ${(wt * 100).toFixed(0)}%`}
+                  {wt !== undefined && ` · ${(wt * 100).toFixed(0)}% weight`}
                 </text>
                 {v === null ? (
                   <text x={margin.left} y={cy + 4} fontSize={11} fill="var(--ink-3)">
@@ -230,23 +225,24 @@ export function ScenarioTotals({
                   </text>
                 ) : (
                   <>
+                    <text x={w - margin.right} y={top + 16} textAnchor="end" className="font-mono tabular" fontSize={12} fill="var(--ink)">
+                      {fmtMoney(v)}
+                    </text>
                     <rect
                       x={margin.left}
-                      y={cy - 12}
+                      y={cy - 10}
                       width={Math.max(2, x(v) - margin.left)}
-                      height={24}
+                      height={20}
+                      rx={3}
                       fill={isFinal ? "var(--accent)" : "var(--ink-2)"}
                     />
                     {est!.ci_low !== null && est!.ci_high !== null && est!.ci_low <= est!.ci_high && (
-                      <g stroke="var(--ink)">
+                      <g stroke="var(--ink)" strokeWidth={2}>
                         <line x1={x(est!.ci_low)} x2={x(est!.ci_high)} y1={cy} y2={cy} />
-                        <line x1={x(est!.ci_low)} x2={x(est!.ci_low)} y1={cy - 5} y2={cy + 5} />
-                        <line x1={x(est!.ci_high)} x2={x(est!.ci_high)} y1={cy - 5} y2={cy + 5} />
+                        <line x1={x(est!.ci_low)} x2={x(est!.ci_low)} y1={cy - 6} y2={cy + 6} />
+                        <line x1={x(est!.ci_high)} x2={x(est!.ci_high)} y1={cy - 6} y2={cy + 6} />
                       </g>
                     )}
-                    <text x={x(Math.max(v, est!.ci_high ?? v)) + 8} y={cy + 4} className="font-mono tabular" fontSize={11} fill="var(--ink-2)">
-                      {fmtMoney(v)}
-                    </text>
                   </>
                 )}
               </g>
@@ -569,9 +565,9 @@ export function Stage2Drivers({ rows, date }: { rows: Stage2DriverRow[]; date: s
   if (!cur.length) return null;
   const ordered = [...cur].sort((a, b) => (b.share_of_stage2.value ?? 0) - (a.share_of_stage2.value ?? 0));
 
-  const w = 640;
-  const slot = 56;
-  const margin = { top: 8, right: 150, bottom: 8, left: 170 };
+  const w = 420;
+  const slot = 62;
+  const margin = { top: 4, right: 8, bottom: 4, left: 8 };
   const h = margin.top + margin.bottom + ordered.length * slot;
   const x = scaleLinear()
     .domain([
@@ -589,31 +585,22 @@ export function Stage2Drivers({ rows, date }: { rows: Stage2DriverRow[]; date: s
       </p>
       <Toggle view={view} onToggle={setView} />
       {view === "chart" ? (
-        <div className="chart-x"><svg viewBox={`0 0 ${w} ${h}`} role="img" aria-labelledby={`${id}-t ${id}-d`} className="h-auto w-full">
+        <div className="chart-x"><svg viewBox={`0 0 ${w} ${h}`} role="img" aria-labelledby={`${id}-t ${id}-d`} className="h-auto w-full" style={{ minWidth: 0, maxWidth: 560 }}>
           <title id={`${id}-t`}>Stage 2 entry drivers on {shown}</title>
           <desc id={`${id}-d`}>
             Horizontal bars ranked by share of the stage 2 population, each with its confidence interval whisker and
             the share range printed next to the bar.
           </desc>
-          <line x1={margin.left} x2={margin.left} y1={margin.top} y2={h - margin.bottom} stroke="var(--border)" />
           {ordered.map((r, i) => {
             const v = r.share_of_stage2.value;
-            const cy = margin.top + i * slot + slot / 2;
-            const label = r.reason.replace(/_/g, " ");
+            const top = margin.top + i * slot;
+            const cy = top + 40;
+            const ci = r.share_of_stage2;
             return (
               <g key={r.reason}>
-                <text x={margin.left - 8} y={cy - 2} textAnchor="end" fontSize={11} fill="var(--ink)">
-                  {label}
-                </text>
-                <text
-                  x={margin.left - 8}
-                  y={cy + 12}
-                  textAnchor="end"
-                  className="font-mono"
-                  fontSize={10}
-                  fill="var(--ink-3)"
-                >
-                  n = {fmtInt(r.n_loans)}
+                <text x={margin.left} y={top + 16} fontSize={12} fill="var(--ink)">
+                  {codeLabel(r.reason)}
+                  <tspan fill="var(--ink-3)" className="font-mono"> · n = {fmtInt(r.n_loans)}</tspan>
                 </text>
                 {v === null ? (
                   <text x={margin.left} y={cy + 4} fontSize={11} fill="var(--ink-3)">
@@ -621,32 +608,20 @@ export function Stage2Drivers({ rows, date }: { rows: Stage2DriverRow[]; date: s
                   </text>
                 ) : (
                   <>
-                    <rect
-                      x={margin.left}
-                      y={cy - 8}
-                      width={Math.max(2, x(v) - margin.left)}
-                      height={16}
-                      fill="var(--ink-2)"
-                    />
-                    {r.share_of_stage2.ci_low !== null && r.share_of_stage2.ci_high !== null && (
-                      <g stroke="var(--ink)">
-                        <line x1={x(r.share_of_stage2.ci_low)} x2={x(r.share_of_stage2.ci_high)} y1={cy} y2={cy} />
-                        <line x1={x(r.share_of_stage2.ci_low)} x2={x(r.share_of_stage2.ci_low)} y1={cy - 4} y2={cy + 4} />
-                        <line x1={x(r.share_of_stage2.ci_high)} x2={x(r.share_of_stage2.ci_high)} y1={cy - 4} y2={cy + 4} />
-                      </g>
-                    )}
-                    <text
-                      x={x(Math.max(v, r.share_of_stage2.ci_high ?? v)) + 8}
-                      y={cy + 4}
-                      className="font-mono tabular"
-                      fontSize={11}
-                      fill="var(--ink-2)"
-                    >
+                    <text x={w - margin.right} y={top + 16} textAnchor="end" className="font-mono tabular" fontSize={12} fill="var(--ink)">
                       {`${(v * 100).toFixed(1)}%`}
-                      {r.share_of_stage2.ci_low !== null && r.share_of_stage2.ci_high !== null
-                        ? ` [${(r.share_of_stage2.ci_low * 100).toFixed(1)}–${(r.share_of_stage2.ci_high * 100).toFixed(1)}]`
+                      {ci.ci_low !== null && ci.ci_high !== null
+                        ? ` [${(ci.ci_low * 100).toFixed(1)}–${(ci.ci_high * 100).toFixed(1)}]`
                         : ""}
                     </text>
+                    <rect x={margin.left} y={cy - 8} width={Math.max(2, x(v) - margin.left)} height={16} rx={3} fill="var(--ink-2)" />
+                    {ci.ci_low !== null && ci.ci_high !== null && (
+                      <g stroke="var(--ink)" strokeWidth={2}>
+                        <line x1={x(ci.ci_low)} x2={x(ci.ci_high)} y1={cy} y2={cy} />
+                        <line x1={x(ci.ci_low)} x2={x(ci.ci_low)} y1={cy - 5} y2={cy + 5} />
+                        <line x1={x(ci.ci_high)} x2={x(ci.ci_high)} y1={cy - 5} y2={cy + 5} />
+                      </g>
+                    )}
                   </>
                 )}
               </g>
@@ -667,7 +642,7 @@ export function Stage2Drivers({ rows, date }: { rows: Stage2DriverRow[]; date: s
             <tbody>
               {ordered.map((r) => (
                 <tr key={r.reason} className="border-t" style={{ borderColor: "var(--border)" }}>
-                  <td className="py-1">{r.reason.replace(/_/g, " ")}</td>
+                  <td className="py-1">{codeLabel(r.reason)}</td>
                   <td className="tabular text-right">{fmtInt(r.n_loans)}</td>
                   <td className="tabular text-right">
                     {r.share_of_stage2.value !== null ? `${(r.share_of_stage2.value * 100).toFixed(1)}%` : "—"}

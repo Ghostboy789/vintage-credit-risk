@@ -20,7 +20,10 @@ import type {
   Stage2DriverRow,
   StageMigRow,
 } from "../components/EclCharts";
-import { fmtMoney, fmtInt, fmtPct, fmtDate } from "../lib/format";
+import { StageGradeHeatmap, StageMixBar } from "../components/EclSummary";
+import { Term } from "../components/Term";
+import { codeLabel } from "../lib/labels";
+import { fmtMoney, fmtMoneyCompact, fmtInt, fmtPct, fmtDate } from "../lib/format";
 
 export function Ecl({ data }: { data: Artefacts }) {
   const ecl = data.ecl as unknown as {
@@ -40,52 +43,94 @@ export function Ecl({ data }: { data: Artefacts }) {
   const rows = ecl.by_date.filter((r) => r.reporting_date === date);
   const stageTotals = computeStageTotals(ecl.by_date, date);
   const totalN = stageTotals.reduce((s, t) => s + t.n, 0) || 1;
+  const share = (i: number) => stageTotals[i].n / totalN;
+  const dateIdx = dates.indexOf(date);
+  const totalEcl = (ecl.scenario_totals ?? []).find((r) => r.reporting_date === date && r.scenario === "final")?.ecl;
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <h1 className="font-display text-4xl">IFRS 9 ECL</h1>
+      <p className="mt-3 max-w-[68ch] text-lg" style={{ color: "var(--ink-2)" }}>
+        Under <Term k="IFRS 9">IFRS 9</Term> a lender sets money aside for the losses it expects
+        (<Term k="ECL">ECL</Term>), not just the ones that have happened. This page shows how much, at
+        each month-end, and what it is made of.
+      </p>
 
-      <label className="mt-6 flex max-w-xs flex-col gap-1 text-sm" style={{ color: "var(--ink-2)" }}>
-        Reporting date ({dates.length} available)
+      <div className="mt-6 max-w-xl rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <div className="flex items-center justify-between gap-3">
+          <label htmlFor="ecl-date" className="text-sm font-medium" style={{ color: "var(--ink-2)" }}>
+            Reporting date
+          </label>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Previous reporting date"
+              disabled={dateIdx <= 0}
+              onClick={() => setDate(dates[dateIdx - 1])}
+              className="rounded border px-3 text-lg disabled:opacity-40"
+              style={{ borderColor: "var(--border)", color: "var(--ink)", minHeight: 44, minWidth: 44 }}
+            >
+              ‹
+            </button>
+            <select
+              id="ecl-date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="rounded border px-3 text-base font-semibold"
+              style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)", minHeight: 44 }}
+            >
+              {dates.map((d) => (
+                <option key={d} value={d}>
+                  {fmtDate(d)}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              aria-label="Next reporting date"
+              disabled={dateIdx >= dates.length - 1}
+              onClick={() => setDate(dates[dateIdx + 1])}
+              className="rounded border px-3 text-lg disabled:opacity-40"
+              style={{ borderColor: "var(--border)", color: "var(--ink)", minHeight: 44, minWidth: 44 }}
+            >
+              ›
+            </button>
+          </div>
+        </div>
         <input
           type="range"
           min={0}
           max={dates.length - 1}
-          value={dates.indexOf(date)}
+          value={dateIdx}
           onChange={(e) => setDate(dates[Number(e.target.value)])}
-          aria-label="Reporting date scrubber"
+          aria-label="Reporting date slider"
+          className="mt-3 h-6 w-full"
+          style={{ accentColor: "var(--accent)" }}
         />
-        <select
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="font-mono rounded border px-3 py-2 text-sm"
-          style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)" }}
-        >
-          {dates.map((d) => (
-            <option key={d} value={d}>
-              {fmtDate(d)}
-            </option>
-          ))}
-        </select>
-      </label>
+        <div className="flex justify-between text-xs" style={{ color: "var(--ink-3)" }}>
+          <span>{fmtDate(dates[0])}</span>
+          <span>{dates.length} month-ends</span>
+          <span>{fmtDate(dates[dates.length - 1])}</span>
+        </div>
+      </div>
+
+      <section className="mt-8">
+        <h2 className="font-display text-2xl">At a glance</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,320px)_1fr]">
+          {totalEcl && <KpiTile label={`Total ECL, ${fmtDate(date)}`} estimate={totalEcl} isPct={false} format={fmtMoneyCompact} />}
+          <p className="self-center max-w-[60ch]" style={{ color: "var(--ink-2)" }}>
+            Loans sit in three <Term k="stage">stages</Term>: {fmtPct(share(0), 1)} are performing (stage 1),{" "}
+            {fmtPct(share(1), 1)} have become riskier (stage 2) and {fmtPct(share(2), 1)} have defaulted
+            (stage 3). Riskier stages are provisioned for their whole remaining life, so they carry far
+            more ECL per loan.
+          </p>
+        </div>
+      </section>
 
       <section className="mt-8">
         <h2 className="font-display text-2xl">Stage mix</h2>
-        <div className="mt-3 flex h-8 w-full overflow-hidden rounded" style={{ background: "var(--surface-2)" }}>
-          {stageTotals.map((t, i) => (
-            <div
-              key={t.stage}
-              style={{ width: `${(t.n / totalN) * 100}%`, background: ["var(--stage-1)", "var(--stage-2)", "var(--stage-3)"][i] }}
-              title={`Stage ${t.stage}`}
-            />
-          ))}
-        </div>
-        <div className="mt-2 flex gap-6 text-sm">
-          {stageTotals.map((t) => (
-            <div key={t.stage}>
-              Stage {t.stage}: {fmtInt(t.n)} loans, {fmtMoney(t.ecl)} ECL
-            </div>
-          ))}
+        <div className="mt-3">
+          <StageMixBar totals={stageTotals} />
         </div>
       </section>
 
@@ -93,31 +138,11 @@ export function Ecl({ data }: { data: Artefacts }) {
 
       <section className="mt-10">
         <h2 className="font-display text-2xl">ECL by stage × grade</h2>
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr style={{ color: "var(--ink-3)" }}>
-                <th className="text-left">Stage</th>
-                <th className="text-left">Grade</th>
-                <th className="text-right">n</th>
-                <th className="text-right">EAD</th>
-                <th className="text-right">ECL</th>
-                <th className="text-right">Coverage</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={`${r.stage}-${r.grade}`} className="border-t" style={{ borderColor: "var(--border)" }}>
-                  <td className="py-1">{r.stage}</td>
-                  <td className="font-mono py-1">{r.grade}</td>
-                  <td className="tabular text-right">{fmtInt(r.n_loans)}</td>
-                  <td className="tabular text-right">{r.ead.value !== null ? fmtMoney(r.ead.value) : "—"}</td>
-                  <td className="tabular text-right">{r.ecl.value !== null ? fmtMoney(r.ecl.value) : "—"}</td>
-                  <td className="tabular text-right">{r.ead.value ? fmtPct((r.ecl.value ?? 0) / r.ead.value) : "—"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+          Where the provision sits: each row is a risk grade (A safest), each column a stage.
+        </p>
+        <div className="mt-4">
+          <StageGradeHeatmap rows={rows} />
         </div>
       </section>
 
@@ -220,7 +245,7 @@ function LgdEadSection({ lgdEad }: { lgdEad: ReturnType<typeof selectLgdEad> }) 
     <section className="mt-16">
       <h2 className="font-display text-2xl">LGD &amp; EAD</h2>
       <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
-        Realised loss given default and exposure at default, the inputs to the ECL above.
+        Realised <Term k="LGD">loss given default</Term> and <Term k="EAD">exposure at default</Term>, the inputs to the ECL above.
         {lgdEad.modelUsed ? " An LGD model is used, having beaten the segment means out of sample." : ""}
       </p>
 
@@ -236,12 +261,12 @@ function LgdEadSection({ lgdEad }: { lgdEad: ReturnType<typeof selectLgdEad> }) 
             <select
               value={dim}
               onChange={(e) => setDim(e.target.value)}
-              className="font-mono rounded border px-3 py-2 text-sm"
-              style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)" }}
+              className="rounded border px-3 text-sm"
+              style={{ borderColor: "var(--border)", background: "var(--surface-2)", color: "var(--ink)", minHeight: 44 }}
             >
               {lgdEad.dimensions.map((d) => (
                 <option key={d} value={d}>
-                  {d}
+                  {codeLabel(d)}
                 </option>
               ))}
             </select>
@@ -259,7 +284,7 @@ function LgdEadSection({ lgdEad }: { lgdEad: ReturnType<typeof selectLgdEad> }) 
               <tbody>
                 {rows.map((r) => (
                   <tr key={r.segment} className="border-t" style={{ borderColor: "var(--border)" }}>
-                    <td className="font-mono py-1">{r.segment}</td>
+                    <td className="py-1">{codeLabel(r.segment)}</td>
                     <td className="tabular text-right">
                       {r.lgd_economic.value !== null ? fmtPct(r.lgd_economic.value) : "—"}
                     </td>
@@ -295,7 +320,7 @@ function LgdEadSection({ lgdEad }: { lgdEad: ReturnType<typeof selectLgdEad> }) 
               <tbody>
                 {lgdEad.downturn.map((r) => (
                   <tr key={r.ltv_band} className="border-t" style={{ borderColor: "var(--border)" }}>
-                    <td className="font-mono py-1">{r.ltv_band}</td>
+                    <td className="py-1">{codeLabel(r.ltv_band)}</td>
                     <td className="tabular text-right">
                       {r.lgd_gross_of_mi.value !== null ? fmtPct(r.lgd_gross_of_mi.value) : "—"}
                     </td>
