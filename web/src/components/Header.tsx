@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { AUDIENCE_LABEL, setPickerRequested, useAudience } from "../lib/audience";
 import { ThemeToggle } from "./ThemeToggle";
 // The palette loads on first open, keeping it out of the initial bundle.
 const CommandPalette = lazy(() => import("./CommandPalette").then((mod) => ({ default: mod.CommandPalette })));
@@ -47,6 +48,12 @@ function NavItem({ to, label }: { to: string; label: string }) {
 }
 
 export function Header() {
+  const [audience] = useAudience();
+  const navigate = useNavigate();
+  const changeAudience = () => {
+    setPickerRequested(true);
+    navigate("/");
+  };
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [paletteLoaded, setPaletteLoaded] = useState(false);
@@ -109,6 +116,17 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-2">
+        {audience && (
+          <button
+            type="button"
+            onClick={changeAudience}
+            className="hidden h-10 items-center gap-1.5 whitespace-nowrap rounded-md px-2 text-xs xl:flex"
+            style={{ color: "var(--ink-2)" }}
+          >
+            Viewing as: <b style={{ color: "var(--ink)", fontWeight: 500 }}>{AUDIENCE_LABEL[audience]}</b> ·{" "}
+            <span className="underline">change</span>
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
@@ -207,6 +225,22 @@ export function Header() {
                 </NavLink>
               ))}
             </nav>
+            {audience && (
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  changeAudience();
+                }}
+                className="mt-4 flex min-h-[52px] items-center justify-between rounded-lg border px-4 text-left text-base"
+                style={{ borderColor: "var(--border)", color: "var(--ink-2)" }}
+              >
+                <span>
+                  Viewing as: <b style={{ color: "var(--ink)", fontWeight: 500 }}>{AUDIENCE_LABEL[audience]}</b>
+                </span>
+                <span className="underline">change</span>
+              </button>
+            )}
             <div className="mt-8 flex gap-3 text-sm" style={{ color: "var(--ink-2)" }}>
               <a href="https://github.com/Ghostboy789" target="_blank" rel="noreferrer" className="underline">GitHub</a>
               <a href="https://linkedin.com/in/medhansh-shekhawat" target="_blank" rel="noreferrer" className="underline">LinkedIn</a>

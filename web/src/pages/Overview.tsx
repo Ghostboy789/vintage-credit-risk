@@ -4,13 +4,15 @@ import type { Artefacts } from "../lib/artefacts";
 import type { Estimate } from "../lib/types";
 import { Ridge } from "../components/Ridge";
 import { LoanField } from "../components/LoanField";
-import { KpiTile } from "../components/KpiTile";
+import { AudiencePicker } from "../components/AudiencePicker";
+import { LoanJourney } from "../components/LoanJourney";
+import { RiskDesk } from "../components/RiskDesk";
+import { useAudience } from "../lib/audience";
 import { Prose } from "../components/Prose";
 import { Term } from "../components/Term";
-import { spotlightMove } from "../components/spotlight";
 import { Scoreboard } from "../components/Scoreboard";
 import { collectRules } from "../lib/rules";
-import { ciMethodLabel, fmtInt, fmtMoney, fmtPct } from "../lib/format";
+import { fmtInt, fmtMoney, fmtPct } from "../lib/format";
 import { COMPARE_MOB, countWord, rowsAt } from "../lib/vintage";
 
 interface Finding {
@@ -20,21 +22,6 @@ interface Finding {
   est: Estimate;
   fmt: (v: number) => string;
   year?: number;
-}
-
-// A 120 px interval bar: the finding's estimate inside its 95% interval.
-function IntervalBar({ est }: { est: Estimate }) {
-  const { value, ci_low, ci_high } = est;
-  if (value === null || ci_low === null || ci_high === null || ci_high <= ci_low) return null;
-  const lo = ci_low - (ci_high - ci_low) * 0.5;
-  const hi = ci_high + (ci_high - ci_low) * 0.5;
-  const p = (v: number) => `${((v - lo) / (hi - lo)) * 100}%`;
-  return (
-    <div className="relative mt-4 h-1.5 w-[120px] rounded-full" style={{ background: "var(--ink-muted)" }} aria-hidden>
-      <div className="absolute inset-y-0 rounded-full" style={{ left: p(ci_low), right: `calc(100% - ${p(ci_high)})`, background: "var(--ink-2)" }} />
-      <div className="absolute top-1/2 h-3 w-0.5 -translate-y-1/2" style={{ left: p(value), background: "var(--ink)" }} />
-    </div>
-  );
 }
 
 const ci = (f: Finding) =>
@@ -149,6 +136,82 @@ export function Overview({ data }: { data: Artefacts }) {
       ),
     });
 
+  const [audience] = useAudience();
+
+  const sections: Record<string, ReactNode> = {
+    plain: (
+      <div key="plain" className="pt-2">
+        <section aria-labelledby="plain-h" className="rounded-xl border p-5 md:p-7" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+          <h2 id="plain-h" className="font-mono text-xs uppercase tracking-wide" style={{ color: "var(--accent)" }}>
+            In plain English
+          </h2>
+          <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+            {plain.map((p) => (
+              <li key={p.key} className="flex gap-3 text-base leading-snug" style={{ color: "var(--ink-2)" }}>
+                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent)" }} />
+                <span className="[&_b]:font-semibold [&_b]:text-[var(--ink)]">{p.body}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </div>
+    ),
+    journey: <LoanJourney key="journey" data={data} />,
+    desk: <RiskDesk key="desk" data={data} />,
+    pro: (
+      <section key="pro" aria-labelledby="pro-h" className="rounded-xl border p-5 md:p-7" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <h2 id="pro-h" className="font-mono text-xs uppercase tracking-wide" style={{ color: "var(--accent)" }}>
+          For risk and model people
+        </h2>
+        <Link to="/vintages#crisis-story" className="font-display mt-3 block text-2xl underline-offset-4 hover:underline md:text-3xl" style={{ color: "var(--ink)" }}>
+          Start with the crisis story →
+        </Link>
+        <p className="mt-2 max-w-[62ch]" style={{ color: "var(--ink-2)" }}>
+          How the 2006 and 2007 vintages diverged, with intervals. The rules, limits and every failed check are on{" "}
+          <Link to="/methods" style={{ color: "var(--accent)" }}>Methods and limits</Link>.
+        </p>
+      </section>
+    ),
+    field: (
+        <section key="field" className="py-16 md:py-24">
+          <Prose>
+            <h2 className="font-display text-3xl md:text-4xl">The Loan Field</h2>
+            <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+              Scale, and where the defaults concentrate. The dots sort into one column per vintage; the defaulted
+              share of each column rises to the top.
+            </p>
+          </Prose>
+          <div className="mt-8">
+            <LoanField rows={portfolio.vintage_curves_annual} />
+          </div>
+        </section>
+
+    ),
+    score: (
+        <section key="score" className="py-16 md:py-24">
+          <Prose>
+            <h2 className="font-display text-3xl md:text-4xl">Validation scoreboard</h2>
+            <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
+              Every pre-registered rule, failures first. None was re-tuned to pass.
+            </p>
+          </Prose>
+          <div className="mt-8">
+            <Scoreboard rules={collectRules(data)} showEvidence />
+          </div>
+          <Link to="/methods" className="mt-6 inline-block text-sm" style={{ color: "var(--accent)" }}>
+            See every rule with its evidence on Methods & limits →
+          </Link>
+        </section>
+    ),
+  };
+  const order =
+    audience === "hiring"
+      ? ["desk", "plain", "journey", "field", "score"]
+      : audience === "pro"
+        ? ["pro", "desk", "plain", "journey", "field", "score"]
+        : ["plain", "journey", "desk", "field", "score"];
+
   return (
     <>
       <section className="hero relative overflow-hidden">
@@ -171,6 +234,7 @@ export function Overview({ data }: { data: Artefacts }) {
             {perVintage.size === 1 ? ` (a sample of ${fmtInt([...perVintage][0])} per year)` : ""}. Each ridge is one <Term k="vintage">vintage</Term>'s{" "}
             <Term k="cumulative default rate">cumulative default rate</Term> over its first ten years on book.
           </p>
+          <AudiencePicker />
         </div>
         <div className="relative z-0 mx-auto mt-6 max-w-[1600px] px-2 md:px-4 lg:-mt-24">
           <Ridge rows={portfolio.vintage_curves_annual} />
@@ -182,96 +246,7 @@ export function Overview({ data }: { data: Artefacts }) {
       </section>
 
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <section aria-labelledby="plain-h" className="rounded-xl border p-5 md:p-7" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-          <h2 id="plain-h" className="font-mono text-xs uppercase tracking-wide" style={{ color: "var(--accent)" }}>
-            In plain English
-          </h2>
-          <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
-            {plain.map((p) => (
-              <li key={p.key} className="flex gap-3 text-base leading-snug" style={{ color: "var(--ink-2)" }}>
-                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent)" }} />
-                <span className="[&_b]:font-semibold [&_b]:text-[var(--ink)]">{p.body}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="grid grid-cols-1 gap-4 pb-4 pt-8 sm:grid-cols-2 lg:grid-cols-4">
-          <KpiTile label="Loans" estimate={portfolio.summary.n_loans} isPct={false} />
-          <KpiTile label="Loan-months" estimate={portfolio.summary.n_loan_months} format={(v) => `${(v / 1e6).toFixed(1)}M`} />
-          <KpiTile label="Primary defaults" estimate={portfolio.summary.n_defaults_primary} isPct={false} />
-          <KpiTile label="Net loss" estimate={portfolio.summary.net_loss_total} format={(v) => `$${(v / 1e9).toFixed(2)}B`} />
-        </section>
-
-        <section className="py-16 md:py-24">
-          <Prose>
-            <h2 className="font-display text-3xl md:text-4xl">The Loan Field</h2>
-            <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
-              Scale, and where the defaults concentrate. The dots sort into one column per vintage; the defaulted
-              share of each column rises to the top.
-            </p>
-          </Prose>
-          <div className="mt-8">
-            <LoanField rows={portfolio.vintage_curves_annual} />
-          </div>
-        </section>
-
-        <section className="py-16 md:py-24">
-          <Prose>
-            <h2 className="font-display text-3xl md:text-4xl">Findings</h2>
-            <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
-              One number from each part of the work, with its interval. Each links to the evidence.
-            </p>
-          </Prose>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {fs.map((f) => (
-              <Link
-                key={f.to}
-                to={f.to}
-                className="finding-card spot group flex flex-col rounded-2xl border p-6 md:p-7 transition-colors"
-                style={{ borderColor: "var(--border)", background: "var(--surface)", textDecoration: "none" }}
-                onPointerMove={spotlightMove}
-              >
-                <span className="font-mono self-start rounded-full border px-2.5 text-[11px] uppercase leading-5" style={{ color: "var(--ink-2)", borderColor: "var(--border)" }}>
-                  {f.page}
-                </span>
-                <span className="mt-4 text-base leading-snug" style={{ color: "var(--ink-2)" }}>
-                  {f.text}
-                </span>
-                <span className="tabular mt-4 text-5xl font-semibold leading-none" style={{ color: "var(--ink)" }}>
-                  {f.est.value === null ? "—" : f.fmt(f.est.value)}
-                </span>
-                <span className="mt-2 text-sm" style={{ color: "var(--ink-2)" }}>
-                  {f.est.ci_low !== null && f.est.ci_high !== null
-                    ? `95% CI ${f.fmt(f.est.ci_low)} – ${f.fmt(f.est.ci_high)}`
-                    : f.est.ci_method.replace(/^none:\s*/, "")}
-                </span>
-                <IntervalBar est={f.est} />
-                <span className="font-mono mt-2 text-xs" style={{ color: "var(--ink-3)" }}>
-                  n = {fmtInt(f.est.n)} · {ciMethodLabel(f.est.ci_method)}
-                </span>
-                <span className="mt-auto pt-5 text-sm font-medium" style={{ color: "var(--accent)" }}>
-                  See the evidence <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 md:py-24">
-          <Prose>
-            <h2 className="font-display text-3xl md:text-4xl">Validation scoreboard</h2>
-            <p className="mt-3 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
-              Every pre-registered rule, failures first. None was re-tuned to pass.
-            </p>
-          </Prose>
-          <div className="mt-8">
-            <Scoreboard rules={collectRules(data)} showEvidence />
-          </div>
-          <Link to="/methods" className="mt-6 inline-block text-sm" style={{ color: "var(--accent)" }}>
-            See every rule with its evidence on Methods & limits →
-          </Link>
-        </section>
+        {order.map((k) => sections[k])}
       </div>
     </>
   );

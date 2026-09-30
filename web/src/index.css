@@ -355,3 +355,47 @@ p {
 }
 @keyframes tour-fade { from { opacity: 0; } }
 @keyframes tour-in { from { opacity: 0; transform: translateY(10px); } }
+
+/* Audience picker, loan journey and risk desk. */
+.audience-choice { transition: border-color 160ms ease-out; cursor: pointer; }
+.audience-choice:hover { border-color: var(--accent) !important; }
+.audience-choice:focus-visible, .journey-card:focus-visible, .eq-tile:focus-visible, .desk-cell:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.journey { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; position: relative; }
+.journey-stop { position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; }
+.journey-stop:not(:last-child)::before {
+  content: ""; position: absolute; left: 16px; top: 34px; bottom: 0; width: 2px; background: var(--border);
+}
+.journey-dot {
+  width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ink-3); background: var(--bg);
+  display: grid; place-items: center; font-size: 12px; color: var(--ink-2); z-index: 1;
+}
+.journey-stop.hot .journey-dot { border-color: var(--crisis); color: var(--crisis); }
+.journey-card, .eq-tile, .desk-cell {
+  display: flex; flex-direction: column; gap: 6px; text-decoration: none; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--surface); transition: border-color 160ms ease-out;
+}
+.journey-card { padding: 14px; min-width: 0; }
+.eq-tile { padding: 12px 14px; min-width: 130px; }
+.journey-card:hover, .eq-tile:hover, .desk-cell:hover { border-color: var(--accent); }
+@media (min-width: 768px) {
+  .journey { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .journey::before {
+    content: ""; position: absolute; left: 10%; right: 10%; top: 16px; height: 2px;
+    background: linear-gradient(90deg, var(--ink-3), var(--crisis));
+  }
+  .journey-stop { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 12px; padding-bottom: 0; }
+  .journey-stop:not(:last-child)::before { display: none; }
+  .journey-card { width: 100%; height: 100%; }
+}
+
+.desk-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.desk-cell { padding: 16px; min-width: 0; align-content: start; }
+@media (min-width: 640px) { .desk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .desk-span2 { grid-column: span 2; } }
+@media (min-width: 1024px) {
+  .desk-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .desk-tall { grid-row: span 2; }
+}
