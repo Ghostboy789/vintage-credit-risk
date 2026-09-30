@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { m } from "framer-motion";
+import { useReducedMotion } from "../lib/theme";
 import type { Artefacts } from "../lib/artefacts";
 import type { Estimate } from "../lib/types";
 import { Ridge } from "../components/Ridge";
@@ -137,6 +139,7 @@ export function Overview({ data }: { data: Artefacts }) {
     });
 
   const [audience] = useAudience();
+  const reduced = useReducedMotion();
 
   const sections: Record<string, ReactNode> = {
     plain: (
@@ -246,7 +249,12 @@ export function Overview({ data }: { data: Artefacts }) {
       </section>
 
       <div id="overview-content" tabIndex={-1} className="mx-auto max-w-[1200px] scroll-mt-20 px-4 outline-none md:px-8">
-        {order.map((k) => sections[k])}
+        {order.map((k) => (
+          // Choosing a view reorders these; the layout prop makes each section glide to its new slot.
+          <m.div key={k} layout={reduced ? false : "position"} transition={{ type: "spring", stiffness: 260, damping: 32 }}>
+            {sections[k]}
+          </m.div>
+        ))}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { m } from "framer-motion";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AUDIENCE_LABEL, setPickerRequested, useAudience } from "../lib/audience";
 import { ThemeToggle } from "./ThemeToggle";
@@ -120,11 +121,14 @@ export function Header() {
           <button
             type="button"
             onClick={changeAudience}
-            className="hidden h-10 items-center gap-1.5 whitespace-nowrap rounded-md px-2 text-xs xl:flex"
+            className="relative hidden h-10 items-center gap-1.5 whitespace-nowrap rounded-md px-2 text-xs xl:flex"
             style={{ color: "var(--ink-2)" }}
           >
-            Viewing as: <b style={{ color: "var(--ink)", fontWeight: 500 }}>{AUDIENCE_LABEL[audience]}</b> ·{" "}
-            <span className="underline">change</span>
+            <m.span layoutId="audience-shell" className="absolute inset-0 border" style={{ borderRadius: 6, borderColor: "var(--border)", background: "var(--surface)" }} />
+            <span className="relative">
+              Viewing as: <b style={{ color: "var(--ink)", fontWeight: 500 }}>{AUDIENCE_LABEL[audience]}</b> ·{" "}
+              <span className="underline">change</span>
+            </span>
           </button>
         )}
         <button

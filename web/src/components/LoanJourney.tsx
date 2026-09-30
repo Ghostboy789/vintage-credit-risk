@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { m } from "framer-motion";
 import type { Artefacts } from "../lib/artefacts";
 import type { Estimate } from "../lib/types";
 import { overviewFigures } from "../lib/overview-figures";
@@ -51,6 +50,11 @@ function EqTile({ to, label, big, sub, accent }: { to: string; label: string; bi
 /** Concept A: one illustrative 2006 loan walked through the pipeline, each stop quoting its real statistic. */
 export function LoanJourney({ data }: { data: Artefacts }) {
   const reduced = useReducedMotion();
+  const wrap = useRef<HTMLDivElement>(null);
+  const runner = useRef<HTMLSpanElement>(null);
+  // -2: not armed (final state), -1: armed and waiting to enter view, n: stops 0..n have been reached.
+  const [reached, setReached] = useState(-2);
+  const armed = reached > -2;
   const f = overviewFigures(data);
   const start = data.portfolio.vintage_curves_annual.find((r) => r.vintage_year === 2006 && r.months_on_book === 1);
 
@@ -102,6 +106,47 @@ export function LoanJourney({ data }: { data: Artefacts }) {
   ];
   if (f.lgd?.value != null) eq.push({ key: "lgd", term: "LGD", big: fmtPct(f.lgd.value), sub: ci(f.lgd, fmtPct), to: "/ecl" });
   if (f.ead?.value != null) eq.push({ key: "ead", term: "EAD", big: fmtMoney(f.ead.value), sub: `mean, ${ci(f.ead, fmtMoney)}`, to: "/ecl" });
+  const count = stops.length;
+
+  useLayoutEffect(() => {
+    setReached(reduced || count < 2 ? -2 : -1);
+  }, [reduced, count]);
+
+  // Once, when the list scrolls into view: the dot hops from stop to stop and each figure pops as it lands.
+  useEffect(() => {
+    const list = wrap.current;
+    if (!armed || !list) return;
+    const timers: number[] = [];
+    let anim: Animation | undefined;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        const box = list.getBoundingClientRect();
+        const pts = [...list.querySelectorAll<HTMLElement>(".journey-dot")].map((d) => {
+          const r = d.getBoundingClientRect();
+          return `translate(${r.left - box.left + r.width / 2 - 7}px, ${r.top - box.top + r.height / 2 - 7}px)`;
+        });
+        const HOP = 520;
+        pts.forEach((_, i) => timers.push(window.setTimeout(() => setReached(i), i * HOP)));
+        anim = runner.current?.animate(
+          [
+            ...pts.map((transform, i) => ({ transform, opacity: 1, offset: i / (pts.length - 1), easing: "cubic-bezier(0.65,0,0.35,1)" })),
+          ],
+          { duration: HOP * (pts.length - 1), fill: "both" },
+        );
+        timers.push(window.setTimeout(() => runner.current?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: "forwards" }), HOP * (pts.length - 1) + 200));
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(list);
+    return () => {
+      io.disconnect();
+      timers.forEach(clearTimeout);
+      anim?.cancel();
+    };
+  }, [armed]);
+
   if (stops.length < 2) return null;
 
   return (
@@ -117,16 +162,11 @@ export function LoanJourney({ data }: { data: Artefacts }) {
         like hers.
       </p>
 
-      <ol className="journey mt-8 list-none p-0">
+      <div ref={wrap} className={`relative mt-8${reached > -2 ? " journey-armed" : ""}`}>
+      <span ref={runner} className="journey-runner" aria-hidden />
+      <ol className="journey list-none p-0">
         {stops.map((s, i) => (
-          <m.li
-            key={s.title}
-            className={`journey-stop${s.hot ? " hot" : ""}`}
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.4, delay: reduced ? 0 : (i % 5) * 0.12, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <li key={s.title} className={`journey-stop${s.hot ? " hot" : ""}${reached >= i ? " arrived" : ""}`}>
             <span className="journey-dot font-mono" aria-hidden>
               {i + 1}
             </span>
@@ -134,7 +174,7 @@ export function LoanJourney({ data }: { data: Artefacts }) {
               <span className="text-sm font-semibold" style={{ color: "var(--ink)" }}>
                 {s.title}
               </span>
-              <span className="tabular text-2xl font-semibold leading-none" style={{ color: s.hot ? "var(--crisis)" : "var(--ink)" }}>
+              <span className="journey-fig tabular text-2xl font-semibold leading-none" style={{ color: s.hot ? "var(--crisis)" : "var(--ink)" }}>
                 {s.big}
               </span>
               <span className="text-sm leading-snug" style={{ color: "var(--ink-2)" }}>
@@ -149,9 +189,10 @@ export function LoanJourney({ data }: { data: Artefacts }) {
                 See the evidence →
               </span>
             </Link>
-          </m.li>
+          </li>
         ))}
       </ol>
+      </div>
 
       <div className="mt-8 rounded-xl border p-4 md:p-5" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
         <div className="text-sm" style={{ color: "var(--ink-2)" }}>
