@@ -30,7 +30,7 @@ export function AudiencePicker() {
   };
 
   return (
-    <section id="audience-picker" ref={root} aria-labelledby="audience-h" className="audience-picker mt-6 scroll-mt-24 md:mt-8">
+    <section id="audience-picker" ref={root} aria-labelledby="audience-h" className="audience-picker mt-6 scroll-mt-24 md:mt-8 lg:mb-28">
       <h2 id="audience-h" className="font-mono text-xs uppercase tracking-wide" style={{ color: "var(--accent)" }}>
         Who's reading?
       </h2>
