@@ -298,7 +298,7 @@ export function PdTermStructure({ rows }: { rows: PdTsRow[] }) {
 
   const w = 640;
   const h = 320;
-  const margin = { top: 10, right: 30, bottom: 26, left: 46 };
+  const margin = { top: 10, right: 44, bottom: 26, left: 46 };
   const y = scaleLinear()
     .domain([0, Math.max(0.01, ...valid.map((r) => r.cumulative_pd.value as number))])
     .nice()
@@ -525,7 +525,7 @@ export function Backtest({ rows }: { rows: BacktestRow[] }) {
         })}
       </svg></div>
       <div className="mt-3 overflow-x-auto">
-        <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${grades.length}, minmax(0, 1fr))` }}>
+        <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${grades.length}, minmax(76px, 1fr))` }}>
           {grades.map((g) => {
             const r = cur.find((row) => row.grade === g)!;
             return (

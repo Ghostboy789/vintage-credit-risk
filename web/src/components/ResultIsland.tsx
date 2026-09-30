@@ -12,16 +12,16 @@ import { GradeChip, SpringNumber } from "./GradeChip";
 export function ResultIsland({ result, gradeIndex = 0, gradeCount = 1 }: { result: CalcResult; gradeIndex?: number; gradeCount?: number }) {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
-  // The pill would sit on top of content it is redundant beside: hide it while the inline result
-  // card is on screen and once the page's last section (#page-end) has been reached.
-  const [covering, setCovering] = useState(false);
+  // The pill is only useful while the calculator inputs are on screen: hide it above the
+  // calculator (where it would cover the KPI tiles), beside the inline result card, and at the page end.
+  const [covering, setCovering] = useState(true);
   useEffect(() => {
-    const seen = new Set<Element>();
+    const seen = new Set<string>();
     const io = new IntersectionObserver((es) => {
-      for (const e of es) if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target);
-      setCovering(seen.size > 0);
+      for (const e of es) if (e.isIntersecting) seen.add(e.target.id); else seen.delete(e.target.id);
+      setCovering(!seen.has("calculator") || seen.has("calc-result") || seen.has("page-end"));
     });
-    for (const sel of ["#calc-result", "#page-end"]) {
+    for (const sel of ["#calculator", "#calc-result", "#page-end"]) {
       const el = document.querySelector(sel);
       if (el) io.observe(el);
     }
