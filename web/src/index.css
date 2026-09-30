@@ -76,9 +76,12 @@
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
+}
+/* min-height, not height: a fixed-height root would end the sticky header after one screen. */
+#root {
+  min-height: 100%;
 }
 
 body {
