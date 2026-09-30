@@ -245,7 +245,7 @@ export function Overview({ data }: { data: Artefacts }) {
         </p>
       </section>
 
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+      <div id="overview-content" tabIndex={-1} className="mx-auto max-w-[1200px] scroll-mt-20 px-4 outline-none md:px-8">
         {order.map((k) => sections[k])}
       </div>
     </>

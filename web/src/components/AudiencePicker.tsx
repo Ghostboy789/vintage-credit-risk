@@ -27,6 +27,12 @@ export function AudiencePicker() {
     setAudience(a);
     setPickerRequested(false);
     if (a === "tour") window.dispatchEvent(new CustomEvent("vintage:tour"));
+    // The picker unmounts on choice: move focus (and the reader) to the reordered content.
+    else requestAnimationFrame(() => {
+      const el = document.getElementById("overview-content");
+      el?.focus({ preventScroll: true });
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   return (
