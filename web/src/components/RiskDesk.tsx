@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Artefacts } from "../lib/artefacts";
 import type { Estimate } from "../lib/types";
@@ -8,6 +8,8 @@ import { fmtInt, fmtMoneyCompact, fmtPct } from "../lib/format";
 import { COMPARE_MOB } from "../lib/vintage";
 import { spotlightMove } from "./spotlight";
 import { Term } from "./Term";
+import { CountUp } from "./CountUp";
+import { useReducedMotion } from "../lib/theme";
 
 const CRISIS = new Set([2006, 2007]);
 const STAGE_VAR = ["var(--stage-1)", "var(--stage-2)", "var(--stage-3)"];
@@ -28,7 +30,7 @@ function Cell({ to, label, span = 1, tall, children }: { to: string; label: Reac
 }
 
 const Big = ({ children, color = "var(--ink)" }: { children: ReactNode; color?: string }) => (
-  <span className="tabular text-3xl font-semibold leading-none" style={{ color }}>
+  <span className="tabular desk-big text-3xl font-semibold leading-none" style={{ color }}>
     {children}
   </span>
 );
@@ -52,6 +54,10 @@ function CrisisBars({ rows }: { rows: { year: number; rate: number }[] }) {
   const max = Math.max(...rows.map((r) => r.rate));
   const slot = W / rows.length;
   const peak = rows.reduce((a, b) => (b.rate > a.rate ? b : a));
+  // Bars grow left to right; the crisis vintages come last, the peak label after them.
+  const calm = rows.filter((r) => !CRISIS.has(r.year)).map((r) => r.year);
+  const delay = (y: number) => (CRISIS.has(y) ? calm.length * 40 + 200 + (y - 2006) * 140 : calm.indexOf(y) * 40);
+  const peakDelay = calm.length * 40 + 200 + 2 * 140 + 100;
   const label = rows.map((r) => `${r.year} ${fmtPct(r.rate, 1)}`).join(", ");
   const mono = "var(--font-mono, ui-monospace, monospace)";
   return (
@@ -61,12 +67,12 @@ function CrisisBars({ rows }: { rows: { year: number; rate: number }[] }) {
         const h = (r.rate / max) * (base - top);
         const hot = CRISIS.has(r.year);
         return (
-          <rect key={r.year} x={i * slot + slot * 0.15} y={base - h} width={slot * 0.7} height={h} rx="1.5" fill={hot ? "var(--crisis)" : "var(--ink-3)"} fillOpacity={hot ? 1 : 0.5}>
+          <rect key={r.year} className="desk-bar" style={{ "--d": `${delay(r.year)}ms` } as CSSProperties} x={i * slot + slot * 0.15} y={base - h} width={slot * 0.7} height={h} rx="1.5" fill={hot ? "var(--crisis)" : "var(--ink-3)"} fillOpacity={hot ? 1 : 0.5}>
             <title>{`${r.year}: ${fmtPct(r.rate, 1)}`}</title>
           </rect>
         );
       })}
-      <text x={Math.min(Math.max(rows.indexOf(peak) * slot + slot / 2, 42), W - 42)} y={top - 9} textAnchor="middle" fontSize="11" fill="var(--crisis)" fontFamily={mono}>
+      <text className="desk-peak" style={{ "--d": `${peakDelay}ms` } as CSSProperties} x={Math.min(Math.max(rows.indexOf(peak) * slot + slot / 2, 42), W - 42)} y={top - 9} textAnchor="middle" fontSize="11" fill="var(--crisis)" fontFamily={mono}>
         {`${peak.year} · ${fmtPct(peak.rate, 1)}`}
       </text>
       <text x="0" y={H - 4} fontSize="10" fill="var(--ink-3)" fontFamily={mono}>{rows[0].year}</text>
@@ -89,6 +95,17 @@ export function RiskDesk({ data }: { data: Artefacts }) {
   const stageText = f.stages.map((t, i) => `${fmtPct(t.n / stageTotal, 1)} ${STAGE_NAME[i]}`).join(" · ");
   const peak = rows.length ? rows.reduce((a, b) => (b.rate > a.rate ? b : a)) : undefined;
   const y2003 = rows.find((r) => r.year === 2003);
+  const reduced = useReducedMotion();
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return setSeen(true);
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && (setSeen(true), io.disconnect()), { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const num = (e: Estimate, fmt: (v: number) => string) => <CountUp estimate={e} fmt={fmt} run={seen} reduced={reduced} />;
 
   return (
     <section aria-labelledby="desk-h" className="py-12 md:py-16">
@@ -102,7 +119,7 @@ export function RiskDesk({ data }: { data: Artefacts }) {
         The whole book on one screen: portfolio, crisis, model, provision, capital and validation. Each tile opens its evidence.
       </p>
 
-      <div className="desk-grid mt-8">
+      <div ref={gridRef} className={`desk-grid mt-8${seen ? " desk-live" : ""}`}>
         {rows.length > 0 && peak && (
           <Cell to="/vintages" label={`Crisis · default rate by month ${COMPARE_MOB}`} span={2} tall>
             <CrisisBars rows={rows} />
@@ -113,16 +130,16 @@ export function RiskDesk({ data }: { data: Artefacts }) {
           </Cell>
         )}
         <Cell to="/vintages" label="Loans">
-          <Big>{`${((n.n_loans.value ?? 0) / 1e6).toFixed(1)}M`}</Big>
+          <Big>{num(n.n_loans, (v) => `${(v / 1e6).toFixed(1)}M`)}</Big>
           <Sub>{((n.n_loan_months.value ?? 0) / 1e6).toFixed(1)}M loan-months</Sub>
         </Cell>
         <Cell to="/vintages" label="Net loss">
-          <Big>{`$${((n.net_loss_total.value ?? 0) / 1e9).toFixed(2)}B`}</Big>
+          <Big>{num(n.net_loss_total, (v) => `$${(v / 1e9).toFixed(2)}B`)}</Big>
           <Sub>{fmtInt(n.n_defaults_primary.value ?? 0)} defaulted loans</Sub>
         </Cell>
         {f.gini?.value != null && (
           <Cell to="/scorecard" label={<><Term k="Gini">Gini</Term> · out of time</>}>
-            <Big>{f.gini.value.toFixed(2)}</Big>
+            <Big>{num(f.gini, (v) => v.toFixed(2))}</Big>
             <Sub>{ci(f.gini, (v) => v.toFixed(2))}</Sub>
           </Cell>
         )}
@@ -136,11 +153,11 @@ export function RiskDesk({ data }: { data: Artefacts }) {
         </Cell>
         {f.ecl?.value != null && (
           <Cell to="/ecl" label={<>IFRS 9 <Term k="ECL">ECL</Term> · probability-weighted</>} span={2}>
-            <Big color="var(--accent)">{fmtMoneyCompact(f.ecl.value)}</Big>
+            <Big color="var(--accent)">{num(f.ecl, fmtMoneyCompact)}</Big>
             <Sub>{ci(f.ecl, fmtMoneyCompact)} · parameter uncertainty only, too narrow</Sub>
             {f.stages.length > 0 && (
               <>
-                <span className="flex h-3 gap-[2px] overflow-hidden rounded" role="img" aria-label={stageText}>
+                <span className="desk-stages flex h-3 gap-[2px] overflow-hidden rounded" role="img" aria-label={stageText}>
                   {f.stages.map((t, i) => (
                     <i key={t.stage} style={{ width: `${(t.n / stageTotal) * 100}%`, minWidth: t.n > 0 ? 3 : 0, background: STAGE_VAR[i] }} />
                   ))}
@@ -152,13 +169,13 @@ export function RiskDesk({ data }: { data: Artefacts }) {
         )}
         {f.cure30?.value != null && (
           <Cell to="/roll-rates" label="Crisis · 30 days late, cured">
-            <Big>{fmtPct(f.cure30.value, 1)}</Big>
+            <Big>{num(f.cure30, (v) => fmtPct(v, 1))}</Big>
             <Sub>{ci(f.cure30, (v) => fmtPct(v, 1))}</Sub>
           </Cell>
         )}
         {f.capital?.value != null && (
           <Cell to="/capital" label="Capital · illustrative IRB">
-            <Big>{fmtMoneyCompact(f.capital.value)}</Big>
+            <Big>{num(f.capital, fmtMoneyCompact)}</Big>
             {f.rwa?.value != null && <Sub>on {fmtMoneyCompact(f.rwa.value)} RWA</Sub>}
           </Cell>
         )}

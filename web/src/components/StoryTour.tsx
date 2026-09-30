@@ -120,6 +120,8 @@ export function StoryTour({ data, openOnMount = false }: { data: Artefacts; open
   const [held, setHeld] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [reduced, setReduced] = useState(false);
+  const [swipe, setSwipe] = useState<{ from: number; dir: 1 | -1 } | null>(null);
+  const dir = useRef<1 | -1>(1);
   const navigate = useNavigate();
   const cards = useMemo(() => buildCards(data), [data]);
   const last = cards.length - 1;
@@ -136,9 +138,13 @@ export function StoryTour({ data, openOnMount = false }: { data: Artefacts; open
   const go = useCallback(
     (i: number) => {
       elapsed.current = 0;
-      setIdx(Math.max(0, Math.min(last, i)));
+      const to = Math.max(0, Math.min(last, i));
+      if (to === idx) return;
+      dir.current = to > idx ? 1 : -1;
+      setSwipe({ from: idx, dir: dir.current });
+      setIdx(to);
     },
-    [last]
+    [last, idx]
   );
 
   // Open triggers: custom event and #tour.
@@ -146,6 +152,7 @@ export function StoryTour({ data, openOnMount = false }: { data: Artefacts; open
     const show = () => {
       opener.current = document.activeElement;
       elapsed.current = 0;
+      setSwipe(null);
       setIdx(0);
       setOpen(true);
     };
@@ -275,7 +282,14 @@ export function StoryTour({ data, openOnMount = false }: { data: Artefacts; open
             down.current = null;
           }}
         >
-          <div key={idx} className="tour-body" aria-live="polite">
+          {swipe && !reduced && (
+            <div key={`out${swipe.from}`} className={`tour-body tour-out tour-out-${swipe.dir > 0 ? "next" : "prev"}`} aria-hidden onAnimationEnd={() => setSwipe(null)}>
+              <h2 className="font-display tour-title">{cards[swipe.from].title}</h2>
+              {cards[swipe.from].stat && <p className="tabular tour-stat">{cards[swipe.from].stat}</p>}
+              {cards[swipe.from].body && <p className="tour-text">{cards[swipe.from].body}</p>}
+            </div>
+          )}
+          <div key={idx} className={`tour-body ${swipe ? (dir.current > 0 ? "tour-in-next" : "tour-in-prev") : ""}`} aria-live="polite">
             <h2 id="tour-title" className="font-display tour-title">{c.title}</h2>
             {c.stat && <p className="tabular tour-stat">{c.stat}</p>}
             {c.body && <p className="tour-text">{c.body}</p>}
