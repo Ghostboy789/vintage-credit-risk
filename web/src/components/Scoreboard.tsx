@@ -79,8 +79,10 @@ export function RuleCard({ rule: r, showEvidence = false, showArtefact = false }
 }
 
 // Compact scoreboard of pre-registered rules. FAIL rows sort first and are never collapsed.
-export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; showEvidence?: boolean }) {
+// With `collapseOnPhone`, phones show only FAIL and AMBER rows until the reader asks for the rest.
+export function Scoreboard({ rules, showEvidence = false, collapseOnPhone = false }: { rules: Rule[]; showEvidence?: boolean; collapseOnPhone?: boolean }) {
   const reduced = useReducedMotion();
+  const [all, setAll] = useState(false);
   const sorted = sortRules(rules);
   const counts = sorted.reduce<Record<string, number>>((acc, r) => ({ ...acc, [r.result]: (acc[r.result] ?? 0) + 1 }), {});
 
@@ -98,6 +100,7 @@ export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; sho
         {sorted.map((r, i) => (
           <m.li
             key={`${r.artefact}-${r.rule_id}`}
+            className={collapseOnPhone && !all && r.result === "PASS" ? "hidden sm:block" : undefined}
             initial={reduced ? false : { opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -107,6 +110,16 @@ export function Scoreboard({ rules, showEvidence = false }: { rules: Rule[]; sho
           </m.li>
         ))}
       </ul>
+      {collapseOnPhone && !all && counts.PASS > 0 && (
+        <button
+          type="button"
+          onClick={() => setAll(true)}
+          className="mt-3 min-h-[44px] w-full rounded-lg border px-4 text-sm sm:hidden"
+          style={{ borderColor: "var(--border)", color: "var(--ink)", background: "var(--surface)" }}
+        >
+          Show all {sorted.length} rules ({counts.PASS} passed)
+        </button>
+      )}
     </div>
   );
 }

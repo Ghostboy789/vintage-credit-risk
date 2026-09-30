@@ -197,7 +197,7 @@ export function Overview({ data }: { data: Artefacts }) {
             </p>
           </Prose>
           <div className="mt-8">
-            <Scoreboard rules={collectRules(data)} showEvidence />
+            <Scoreboard rules={collectRules(data)} showEvidence collapseOnPhone />
           </div>
           <Link to="/methods" className="mt-6 inline-block text-sm" style={{ color: "var(--accent)" }}>
             See every rule with its evidence on Methods & limits →
