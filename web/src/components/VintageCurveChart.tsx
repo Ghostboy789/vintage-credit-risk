@@ -27,9 +27,9 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(v, Ma
 
 type Pt = { x: number; y: number; mob: number; row: VintageCurveRow };
 type Series = { year: number; rows: VintageCurveRow[]; pts: Pt[]; solid: string | null; dash: string | null };
-type Props = { rows: VintageCurveRow[]; highlight?: number[]; showPresets?: boolean; maxMob?: number; annotate?: number; caption?: boolean };
+type Props = { rows: VintageCurveRow[]; highlight?: number[]; showPresets?: boolean; maxMob?: number; annotate?: number; caption?: boolean; tableToggle?: boolean };
 
-export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMobProp, annotate, caption }: Props) {
+export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMobProp, annotate, caption, tableToggle }: Props) {
   const reduced = useReducedMotion();
   const uid = useId();
   const [preset, setPreset] = useState<number[]>([2006, 2007]);
@@ -200,9 +200,9 @@ export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMob
             })}
           </div>
         )}
-        <button type="button" aria-pressed={table} onClick={() => setTable((v) => !v)} className="ml-auto min-h-[44px] rounded-full border px-4 text-sm" style={{ borderColor: table ? "var(--accent)" : "var(--border)", color: table ? "var(--ink)" : "var(--ink-2)" }}>
+        {tableToggle !== false && <button type="button" aria-pressed={table} onClick={() => setTable((v) => !v)} className="ml-auto min-h-[44px] rounded-full border px-4 text-sm" style={{ borderColor: table ? "var(--accent)" : "var(--border)", color: table ? "var(--ink)" : "var(--ink-2)" }}>
           {table ? "Chart" : "Table"}
-        </button>
+        </button>}
       </div>
 
       <div className="relative">
@@ -280,7 +280,7 @@ export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMob
               const common = { fill: "none", stroke: isH ? "var(--accent)" : isF ? "var(--crisis)" : "var(--ink-3)", strokeWidth: isH ? 2.5 : isF ? 2.25 : 1, strokeOpacity: op, strokeLinejoin: "round" as const, pointerEvents: "none" as const };
               return (
                 <g key={s.year}>
-                  {s.solid && <m.path d={s.solid} {...common} style={reduced ? undefined : { transition: "stroke-opacity 160ms, stroke 160ms" }} initial={reduced ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.03 * i }} />}
+                  {s.solid && <m.path d={s.solid} {...common} style={reduced ? undefined : { transition: "stroke-opacity 400ms, stroke 300ms, stroke-width 300ms" }} initial={reduced ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.03 * i }} />}
                   {s.dash && <m.path d={s.dash} {...common} strokeDasharray="3 3" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 1.0 }} />}
                 </g>
               );
@@ -296,13 +296,13 @@ export function VintageCurveChart({ rows, highlight, showPresets, maxMob: maxMob
               const py = y(e.value ?? 0);
               const halo = { stroke: "var(--bg)", strokeWidth: 4, paintOrder: "stroke" as const };
               return (
-                <g pointerEvents="none">
+                <m.g key={annotate} pointerEvents="none" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.15 }}>
                   <circle cx={px} cy={py} r={3.5} fill="var(--crisis)" />
                   <text x={px - 8} y={py - 8 - fs} textAnchor="end" className="font-mono tabular" fontSize={fs} fill="var(--crisis)" {...halo}>{fmtPct(e.value ?? 0, 1)}</text>
                   <text x={px - 8} y={py - 6} textAnchor="end" className="font-mono tabular" fontSize={fs} fill="var(--crisis)" {...halo}>
                     {e.ci_low !== null && e.ci_high !== null ? `95% CI ${fmtPct(e.ci_low, 1)}–${fmtPct(e.ci_high, 1)}` : "95% CI —"}
                   </text>
-                </g>
+                </m.g>
               );
             })()}
 

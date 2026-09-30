@@ -2,7 +2,7 @@ import type { Artefacts } from "../lib/artefacts";
 import { VintageCurveChart } from "../components/VintageCurveChart";
 import { DefinitionDumbbell } from "../components/DefinitionDumbbell";
 import { LossDrivers } from "../components/LossDrivers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fmtInt, fmtPct } from "../lib/format";
 import { COMPARE_MOB, rowsAt } from "../lib/vintage";
 import { CrisisStory } from "../components/CrisisStory";
@@ -17,6 +17,12 @@ export function Vintages({ data }: { data: Artefacts }) {
   const nRange = Math.min(...ns) === Math.max(...ns) ? fmtInt(ns[0] ?? 0) : `${fmtInt(Math.min(...ns))}–${fmtInt(Math.max(...ns))}`;
   const [brush, setBrush] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (window.location.hash !== "#crisis-story") return;
+    const t = window.setTimeout(() => document.getElementById("crisis-story")?.scrollIntoView(), 150);
+    return () => window.clearTimeout(t);
+  }, []);
+
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
       <h1 className="font-display text-4xl">Vintages</h1>
@@ -30,14 +36,14 @@ export function Vintages({ data }: { data: Artefacts }) {
         not every loan in that vintage has been on book that long yet.
       </p>
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl">Through the crisis, one step at a time</h2>
+      <section id="crisis-story" className="mt-12 scroll-mt-20">
+        <h2 className="font-display text-2xl">Through the crisis, one chapter at a time</h2>
         <div className="mt-4">
           <CrisisStory rows={rows} />
         </div>
       </section>
 
-      <section className="mt-16">
+      <section id="every-vintage" tabIndex={-1} className="mt-16 scroll-mt-20 outline-none">
         <h2 className="font-display text-2xl">Every vintage</h2>
         <p className="mt-2 max-w-[68ch]" style={{ color: "var(--ink-2)" }}>
           Every origination year on one chart. Pick a period to highlight it, hover or use the arrow keys to read any line, or pick a year in the ranking to light up its line.
