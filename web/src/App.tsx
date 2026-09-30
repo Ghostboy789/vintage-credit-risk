@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LazyMotion } from "framer-motion";
 import { ArtefactsProvider, useArtefacts } from "./lib/artefacts";
@@ -6,7 +6,6 @@ import { ThemeProvider } from "./lib/theme";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { NextPage } from "./components/NextPage";
-import { StoryTour } from "./components/StoryTour";
 import { SyntheticBanner } from "./components/SyntheticBanner";
 import { NotReady } from "./pages/NotReady";
 import { Overview } from "./pages/Overview";
@@ -21,7 +20,30 @@ const Ecl = lazy(() => import("./pages/Ecl").then((m) => ({ default: m.Ecl })));
 const Capital = lazy(() => import("./pages/Capital").then((m) => ({ default: m.Capital })));
 const Methods = lazy(() => import("./pages/Methods").then((m) => ({ default: m.Methods })));
 const PowerBi = lazy(() => import("./pages/PowerBi").then((m) => ({ default: m.PowerBi })));
+// The tour is its own chunk, fetched the first time someone opens it.
+const StoryTour = lazy(() => import("./components/StoryTour").then((m) => ({ default: m.StoryTour })));
 const Credits = lazy(() => import("./pages/Credits").then((m) => ({ default: m.Credits })));
+
+function TourGate({ data }: { data: Parameters<typeof Overview>[0]["data"] }) {
+  const [wanted, setWanted] = useState(() => window.location.hash === "#tour");
+  useEffect(() => {
+    if (wanted) return;
+    const want = () => setWanted(true);
+    const onHash = () => window.location.hash === "#tour" && want();
+    window.addEventListener("vintage:tour", want);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("vintage:tour", want);
+      window.removeEventListener("hashchange", onHash);
+    };
+  }, [wanted]);
+  if (!wanted) return null;
+  return (
+    <Suspense fallback={null}>
+      <StoryTour data={data} openOnMount />
+    </Suspense>
+  );
+}
 
 function Shell() {
   const state = useArtefacts();
@@ -54,7 +76,7 @@ function Shell() {
         )}
       </main>
       {state.status === "ready" && <NextPage />}
-      {state.status === "ready" && <StoryTour data={state.data} />}
+      {state.status === "ready" && <TourGate data={state.data} />}
       <Footer />
     </>
   );

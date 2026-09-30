@@ -114,7 +114,7 @@ const LINKS = [
   { to: "/methods", label: "Methods" },
 ];
 
-export function StoryTour({ data }: { data: Artefacts }) {
+export function StoryTour({ data, openOnMount = false }: { data: Artefacts; openOnMount?: boolean }) {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
   const [held, setHeld] = useState(false);
@@ -150,14 +150,15 @@ export function StoryTour({ data }: { data: Artefacts }) {
       setOpen(true);
     };
     const onHash = () => window.location.hash === "#tour" && show();
-    onHash();
+    if (openOnMount) show();
+    else onHash();
     window.addEventListener("vintage:tour", show);
     window.addEventListener("hashchange", onHash);
     return () => {
       window.removeEventListener("vintage:tour", show);
       window.removeEventListener("hashchange", onHash);
     };
-  }, []);
+  }, [openOnMount]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
