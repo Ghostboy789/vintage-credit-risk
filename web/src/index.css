@@ -313,3 +313,45 @@ p {
 @media (min-width: 1024px) { .evidence-btn { min-height: 32px; } }
 .footer-link { text-decoration: none; }
 .footer-link:hover { text-decoration: underline; }
+
+/* 60-second tour: story cards over a dimmed backdrop */
+.tour-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(6, 8, 11, 0.72); }
+.tour-card {
+  position: relative; display: grid; grid-template-rows: auto auto 1fr auto; width: 100%; height: 100dvh;
+  background: var(--surface); color: var(--ink); outline: none; overflow: hidden;
+}
+@media (min-width: 640px) {
+  .tour-card { height: min(760px, calc(100dvh - 32px)); width: auto; aspect-ratio: 9 / 16; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5); }
+}
+.tour-prog { display: flex; gap: 4px; padding: 14px 16px 6px; }
+.tour-seg { flex: 1; height: 3px; border-radius: 2px; background: var(--border); overflow: hidden; }
+.tour-seg i { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(0); }
+.tour-top { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px 0 20px; }
+.tour-label { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+.tour-x, .tour-nav, .tour-link {
+  min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: none; border: 0; color: var(--ink); cursor: pointer; font: 500 15px "IBM Plex Sans", sans-serif; border-radius: 10px;
+}
+.tour-x:focus-visible, .tour-nav:focus-visible, .tour-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tour-nav { padding: 0 14px; color: var(--ink-2); }
+.tour-nav:disabled { opacity: 0.3; cursor: default; }
+.tour-stage { display: grid; align-content: center; padding: 8px 24px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.tour-body { display: grid; gap: 16px; }
+.tour-title { font-size: clamp(30px, 8.5vw, 40px); line-height: 1.05; letter-spacing: -0.015em; text-wrap: balance; margin: 0; }
+.tour-stat { font-size: 22px; font-weight: 600; margin: 0; color: var(--crisis); }
+.tour-text { margin: 0; font-size: 17px; line-height: 1.45; color: var(--ink-2); }
+.tour-small { margin: 8px 0 0; font-size: 13px; color: var(--ink-3); }
+.tour-foot { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 14px; }
+.tour-stagebar { display: flex; gap: 2px; height: 16px; border-radius: 6px; overflow: hidden; }
+.tour-stagebar i { display: block; flex-basis: 0; }
+.tour-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.tour-pill { font: 500 14px "IBM Plex Mono", monospace; padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); }
+.tour-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tour-link { justify-content: space-between; padding: 0 16px; min-height: 52px; border: 1px solid var(--border); background: var(--surface-2); font-size: 16px; }
+.tour-link:hover { border-color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .tour-backdrop { animation: tour-fade 200ms ease-out; }
+  .tour-body { animation: tour-in 320ms var(--ease-out); }
+}
+@keyframes tour-fade { from { opacity: 0; } }
+@keyframes tour-in { from { opacity: 0; transform: translateY(10px); } }

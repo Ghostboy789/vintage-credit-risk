@@ -6,6 +6,7 @@ import { ThemeProvider } from "./lib/theme";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { NextPage } from "./components/NextPage";
+import { StoryTour } from "./components/StoryTour";
 import { SyntheticBanner } from "./components/SyntheticBanner";
 import { NotReady } from "./pages/NotReady";
 import { Overview } from "./pages/Overview";
@@ -53,6 +54,7 @@ function Shell() {
         )}
       </main>
       {state.status === "ready" && <NextPage />}
+      {state.status === "ready" && <StoryTour data={state.data} />}
       <Footer />
     </>
   );
